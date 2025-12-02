@@ -12,8 +12,6 @@ keywords = [
     "cdp",
     "chrome",
     "devtools",
-    "protocol",
-    "rust",
     "browser",
     "automation",
 ]
