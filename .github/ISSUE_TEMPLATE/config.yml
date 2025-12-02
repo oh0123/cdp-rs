@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or Discussion
+    url: https://github.com/wbrikor/cdp-rs/discussions
+    about: Please ask questions and discuss ideas in GitHub Discussions
+  - name: Documentation
+    url: https://github.com/wbrikor/cdp-rs/tree/main/docs
+    about: Check out our documentation for guides and API references

@@ -1,0 +1,121 @@
+name: Bug Report
+description: Report a bug or issue with cdp-rs
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+      
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Create a browser with '...'
+        2. Navigate to '...'
+        3. Call method '...'
+        4. See error
+    validations:
+      required: true
+      
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: code
+    attributes:
+      label: Code Sample
+      description: Please provide a minimal code sample that reproduces the issue
+      render: rust
+      placeholder: |
+        use cdp_core::Browser;
+        
+        #[tokio::main]
+        async fn main() -> anyhow::Result<()> {
+            // Your code here
+            Ok(())
+        }
+    validations:
+      required: false
+      
+  - type: input
+    id: version
+    attributes:
+      label: cdp-rs Version
+      description: What version of cdp-rs are you using?
+      placeholder: e.g., 0.1.0
+    validations:
+      required: true
+      
+  - type: input
+    id: rust-version
+    attributes:
+      label: Rust Version
+      description: What version of Rust are you using? (run `rustc --version`)
+      placeholder: e.g., 1.85.0
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you using?
+      options:
+        - Linux
+        - macOS
+        - Windows
+        - Other
+    validations:
+      required: true
+      
+  - type: input
+    id: browser-version
+    attributes:
+      label: Chrome/Chromium Version
+      description: What version of Chrome/Chromium are you using?
+      placeholder: e.g., 120.0.6099.109
+    validations:
+      required: false
+      
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+    validations:
+      required: false
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here.
+    validations:
+      required: false
