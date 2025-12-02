@@ -506,12 +506,14 @@ fn build_launch_args(
         push_unique(&mut args, "--incognito".to_string());
     }
     if let Some(profile_directory) = options.profile_directory.as_ref()
-        && !profile_directory.trim().is_empty() && !options.has_override("--profile-directory") {
-            push_unique(
-                &mut args,
-                format!("--profile-directory={}", profile_directory.trim()),
-            );
-        }
+        && !profile_directory.trim().is_empty()
+        && !options.has_override("--profile-directory")
+    {
+        push_unique(
+            &mut args,
+            format!("--profile-directory={}", profile_directory.trim()),
+        );
+    }
     if !options.extension_paths.is_empty() && !options.has_override("--load-extension") {
         let joined = options
             .extension_paths

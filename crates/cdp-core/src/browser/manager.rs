@@ -79,8 +79,7 @@ impl DownloadOptions {
 }
 
 /// Supported Chrome download behaviors.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum DownloadBehavior {
     Deny,
     #[default]
@@ -88,7 +87,6 @@ pub enum DownloadBehavior {
     AllowAndName,
     Default,
 }
-
 
 impl DownloadBehavior {
     fn as_cdp_behavior(self) -> SetDownloadBehaviorBehaviorOption {
@@ -154,7 +152,6 @@ struct BrowserContextState {
     emulation_config: Option<EmulationConfig>,
     pages: Vec<Weak<Page>>,
 }
-
 
 /// Builder used to launch or connect to a Chromium-based browser instance.
 ///
@@ -503,9 +500,10 @@ impl Browser {
     pub async fn get_context(&self, id: &str) -> Option<Arc<BrowserContext>> {
         let mut guard = self.browser_contexts.lock().await;
         if let Some(weak) = guard.get(id)
-            && let Some(context) = weak.upgrade() {
-                return Some(context);
-            }
+            && let Some(context) = weak.upgrade()
+        {
+            return Some(context);
+        }
         guard.remove(id);
         None
     }

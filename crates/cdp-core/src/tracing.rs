@@ -21,15 +21,13 @@ const DEFAULT_TRACE_CATEGORIES: &[&str] = &[
 ];
 
 /// Tracing lifecycle status.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub(crate) enum TracingStatus {
     #[default]
     Idle,
     Active,
     Stopping,
 }
-
 
 /// Page-scoped cache that records tracing state transitions.
 #[derive(Debug, Default)]
@@ -214,9 +212,10 @@ impl TracingController {
 
         let saved_path = if let Some(path) = save_path {
             if let Some(parent) = path.parent()
-                && !parent.as_os_str().is_empty() {
-                    fs::create_dir_all(parent).await?;
-                }
+                && !parent.as_os_str().is_empty()
+            {
+                fs::create_dir_all(parent).await?;
+            }
             fs::write(&path, &data).await?;
             Some(path)
         } else {
