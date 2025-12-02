@@ -146,7 +146,7 @@ pub fn get_executable_version(path: &Path) -> io::Result<String> {
             s = String::from_utf8_lossy(&output.stderr).trim().to_string();
         }
         if s.is_empty() {
-            Err(io::Error::new(io::ErrorKind::Other, "empty version output"))
+            Err(io::Error::other("empty version output"))
         } else {
             Ok(s)
         }
@@ -269,10 +269,10 @@ fn try_find_remote_debug_port_impl(
                 if !matches_expected_exec(&cmd, expected_exec_paths) {
                     continue;
                 }
-                if let Some(port_str) = extract_port_from_cmd(&cmd) {
-                    if let Ok(port) = port_str.parse::<u16>() {
-                        return Ok(Some(port));
-                    }
+                if let Some(port_str) = extract_port_from_cmd(&cmd)
+                    && let Ok(port) = port_str.parse::<u16>()
+                {
+                    return Ok(Some(port));
                 }
             }
         }
@@ -321,10 +321,10 @@ fn try_find_remote_debug_port_impl(
             if !matches_expected_exec(&cmd, expected_exec_paths) {
                 continue;
             }
-            if let Some(port_str) = extract_port_from_cmd(&cmd) {
-                if let Ok(port) = port_str.parse::<u16>() {
-                    return Ok(Some(port));
-                }
+            if let Some(port_str) = extract_port_from_cmd(&cmd)
+                && let Ok(port) = port_str.parse::<u16>()
+            {
+                return Ok(Some(port));
             }
         }
     }
