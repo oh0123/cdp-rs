@@ -9,7 +9,7 @@ repository = "https://github.com/oh0123/cdp-rs"
 homepage = "https://github.com/oh0123/cdp-rs"
 description = "A Rust implementation of the Chrome DevTools Protocol"
 keywords = ["cdp", "devtools", "protocol", "rust", "browser"]
-categories = ["chrome devtools protocol"]
+categories = ["web-programming", "api-bindings"]
 
 [lib]
 name = "cdp_protocol"

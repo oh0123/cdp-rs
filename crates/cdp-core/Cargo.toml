@@ -17,7 +17,7 @@ keywords = [
     "browser",
     "automation",
 ]
-categories = ["browser", "automation"]
+categories = ["web-programming", "api-bindings"]
 
 [lib]
 name = "cdp_core"
