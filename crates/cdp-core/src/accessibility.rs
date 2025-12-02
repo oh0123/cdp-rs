@@ -158,9 +158,9 @@ impl AccessibilitySnapshot {
             && let Some(root) = map
                 .values()
                 .find(|node| node.backend_dom_node_id == Some(backend_id))
-            {
-                candidate_roots.push(root.node_id.clone());
-            }
+        {
+            candidate_roots.push(root.node_id.clone());
+        }
 
         if candidate_roots.is_empty() {
             for node in map.values() {
@@ -172,9 +172,10 @@ impl AccessibilitySnapshot {
         }
 
         if candidate_roots.is_empty()
-            && let Some(first) = map.keys().next() {
-                candidate_roots.push(first.clone());
-            }
+            && let Some(first) = map.keys().next()
+        {
+            candidate_roots.push(first.clone());
+        }
 
         let mut visited: HashSet<String> = HashSet::new();
         let mut roots: Vec<AccessibilityNode> = Vec::new();

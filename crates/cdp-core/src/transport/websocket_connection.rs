@@ -72,9 +72,10 @@ impl ConnectionInternals {
             CdpError::connection(format!("Failed to serialize command payload: {err}"))
         })?;
         if let Some(session_id) = session_id
-            && let Some(obj) = v.as_object_mut() {
-                obj.insert("sessionId".to_string(), Value::String(session_id));
-            }
+            && let Some(obj) = v.as_object_mut()
+        {
+            obj.insert("sessionId".to_string(), Value::String(session_id));
+        }
 
         let (response_sender, response_receiver) = oneshot::channel();
         self.pending_commands
@@ -137,15 +138,17 @@ pub(crate) async fn central_message_dispatcher(
     tracing::debug!("Central event dispatcher started.");
     while let Some(Ok(Message::Text(text))) = reader.next().await {
         if let Some((cdp_event, session_id)) = handle_incoming_text(&text, &internals).await
-            && let Some(session_id) = session_id {
-                if let Some(page) = active_pages.lock().await.get(&session_id) {
-                    update_page_meta(page, cdp_event.clone()).await;
-                }
-                if let Some(event_sender) = session_event_senders.lock().await.get(&session_id)
-                    && event_sender.send(cdp_event).await.is_err() {
-                        break;
-                    }
+            && let Some(session_id) = session_id
+        {
+            if let Some(page) = active_pages.lock().await.get(&session_id) {
+                update_page_meta(page, cdp_event.clone()).await;
             }
+            if let Some(event_sender) = session_event_senders.lock().await.get(&session_id)
+                && event_sender.send(cdp_event).await.is_err()
+            {
+                break;
+            }
+        }
     }
     tracing::debug!("Central event dispatcher stopped.");
 }
@@ -207,184 +210,184 @@ async fn handle_incoming_text(
 
 /// Keeps [`Page`] bookkeeping in sync with incoming CDP events.
 async fn update_page_meta(page: &Arc<Page>, cdp_event: CdpEvent) {
-    if let CdpEvent::Event(boxed_event) = cdp_event { match *boxed_event {
-        cdp_protocol::types::Event::RuntimeExecutionContextCreated(event) => {
-            if let Some(aux_data) = event.params.context.aux_data
-                && let Some(frame_id) = aux_data.get("frameId").and_then(|v| v.as_str()) {
-                    page.register_execution_context(
-                        frame_id.to_string(),
-                        event.params.context.id,
-                    )
-                    .await;
-                }
-        }
-        cdp_protocol::types::Event::RuntimeExecutionContextDestroyed(event) => {
-            page.remove_execution_context(event.params.execution_context_id)
-                .await;
-        }
-        cdp_protocol::types::Event::RuntimeExecutionContextsCleared(_) => {
-            page.clear_execution_contexts().await;
-        }
-        cdp_protocol::types::Event::PageFrameAttached(event) => {
-            page.handle_frame_attached(
-                event.params.frame_id,
-                Some(event.params.parent_frame_id),
-            )
-            .await;
-        }
-        cdp_protocol::types::Event::PageFrameDetached(event) => {
-            page.handle_frame_detached(event.params.frame_id).await;
-        }
-        cdp_protocol::types::Event::PageFrameNavigated(event) => {
-            page.handle_frame_navigated(event.params.frame.id, event.params.frame.url)
-                .await;
-        }
-        cdp_protocol::types::Event::DOMChildNodeInserted(event) => {
-            if let Ok(node_value) = serde_json::to_value(&event.params.node) {
-                page.handle_child_node_inserted(
-                    event.params.parent_node_id,
-                    event.params.previous_node_id,
-                    node_value,
-                )
-                .await;
-            } else {
-                tracing::error!("Failed to serialize node for DOM.childNodeInserted");
-            }
-        }
-        cdp_protocol::types::Event::DOMChildNodeRemoved(event) => {
-            page.handle_child_node_removed(event.params.parent_node_id, event.params.node_id)
-                .await;
-        }
-        cdp_protocol::types::Event::DOMAttributeModified(event) => {
-            page.handle_attribute_modified(
-                event.params.node_id,
-                event.params.name,
-                event.params.value,
-            )
-            .await;
-        }
-        cdp_protocol::types::Event::DOMAttributeRemoved(event) => {
-            page.handle_attribute_removed(event.params.node_id, event.params.name)
-                .await;
-        }
-        cdp_protocol::types::Event::DOMCharacterDataModified(event) => {
-            page.handle_character_data_modified(
-                event.params.node_id,
-                event.params.character_data,
-            )
-            .await;
-        }
-        cdp_protocol::types::Event::NetworkResponseReceived(event) => {
-            let page_clone = Arc::clone(page);
-            // Avoid blocking the dispatcher while fetching the response body.
-            tokio::spawn(async move {
-                if let Err(err) = handle_network_response_received(page_clone, event).await {
-                    tracing::debug!("Failed to handle network response event: {:?}", err);
-                }
-            });
-        }
-        cdp_protocol::types::Event::NetworkRequestWillBeSent(event) => {
-            // Notify the network monitor about request lifecycle events.
-            use network_intercept::NetworkEvent;
-
-            page.network_monitor
-                .request_started(&event.params.request_id)
-                .await;
-            page.network_monitor
-                .trigger_event(NetworkEvent::RequestWillBeSent {
-                    request_id: event.params.request_id.clone(),
-                    url: event.params.request.url.clone(),
-                    method: event.params.request.method.clone(),
-                    headers: serde_json::to_value(&event.params.request.headers)
-                        .unwrap_or_default(),
-                })
-                .await;
-        }
-        cdp_protocol::types::Event::NetworkLoadingFinished(event) => {
-            // Notify the network monitor about the completed request.
-            use network_intercept::NetworkEvent;
-
-            page.network_monitor
-                .request_finished(&event.params.request_id)
-                .await;
-            page.network_monitor
-                .trigger_event(NetworkEvent::LoadingFinished {
-                    request_id: event.params.request_id.clone(),
-                })
-                .await;
-
-            // Fetch response body if monitored
-            let page_clone = Arc::clone(page);
-            let request_id = event.params.request_id.clone();
-            tokio::spawn(async move {
-                if let Some(mut response) = page_clone
-                    .response_monitor_manager
-                    .retrieve_pending_response(&request_id)
-                    .await
+    if let CdpEvent::Event(boxed_event) = cdp_event {
+        match *boxed_event {
+            cdp_protocol::types::Event::RuntimeExecutionContextCreated(event) => {
+                if let Some(aux_data) = event.params.context.aux_data
+                    && let Some(frame_id) = aux_data.get("frameId").and_then(|v| v.as_str())
                 {
-                    let get_body_cmd = cdp_protocol::network::GetResponseBody {
-                        request_id: request_id.clone(),
-                    };
-
-                    match page_clone
-                        .session
-                        .send_command::<_, cdp_protocol::network::GetResponseBodyReturnObject>(
-                            get_body_cmd,
-                            None,
-                        )
-                        .await
-                    {
-                        Ok(body_result) => {
-                            response.body = Some(body_result.body);
-                            response.base_64_encoded = body_result.base_64_encoded;
-                        }
-                        Err(e) => {
-                            tracing::debug!(
-                                "Failed to get response body for {}: {}",
-                                request_id,
-                                e
-                            );
-                        }
-                    };
-
-                    page_clone
-                        .response_monitor_manager
-                        .handle_response(&response)
+                    page.register_execution_context(frame_id.to_string(), event.params.context.id)
                         .await;
                 }
-            });
-        }
-        cdp_protocol::types::Event::NetworkLoadingFailed(event) => {
-            // Notify the network monitor about failures.
-            use network_intercept::NetworkEvent;
+            }
+            cdp_protocol::types::Event::RuntimeExecutionContextDestroyed(event) => {
+                page.remove_execution_context(event.params.execution_context_id)
+                    .await;
+            }
+            cdp_protocol::types::Event::RuntimeExecutionContextsCleared(_) => {
+                page.clear_execution_contexts().await;
+            }
+            cdp_protocol::types::Event::PageFrameAttached(event) => {
+                page.handle_frame_attached(
+                    event.params.frame_id,
+                    Some(event.params.parent_frame_id),
+                )
+                .await;
+            }
+            cdp_protocol::types::Event::PageFrameDetached(event) => {
+                page.handle_frame_detached(event.params.frame_id).await;
+            }
+            cdp_protocol::types::Event::PageFrameNavigated(event) => {
+                page.handle_frame_navigated(event.params.frame.id, event.params.frame.url)
+                    .await;
+            }
+            cdp_protocol::types::Event::DOMChildNodeInserted(event) => {
+                if let Ok(node_value) = serde_json::to_value(&event.params.node) {
+                    page.handle_child_node_inserted(
+                        event.params.parent_node_id,
+                        event.params.previous_node_id,
+                        node_value,
+                    )
+                    .await;
+                } else {
+                    tracing::error!("Failed to serialize node for DOM.childNodeInserted");
+                }
+            }
+            cdp_protocol::types::Event::DOMChildNodeRemoved(event) => {
+                page.handle_child_node_removed(event.params.parent_node_id, event.params.node_id)
+                    .await;
+            }
+            cdp_protocol::types::Event::DOMAttributeModified(event) => {
+                page.handle_attribute_modified(
+                    event.params.node_id,
+                    event.params.name,
+                    event.params.value,
+                )
+                .await;
+            }
+            cdp_protocol::types::Event::DOMAttributeRemoved(event) => {
+                page.handle_attribute_removed(event.params.node_id, event.params.name)
+                    .await;
+            }
+            cdp_protocol::types::Event::DOMCharacterDataModified(event) => {
+                page.handle_character_data_modified(
+                    event.params.node_id,
+                    event.params.character_data,
+                )
+                .await;
+            }
+            cdp_protocol::types::Event::NetworkResponseReceived(event) => {
+                let page_clone = Arc::clone(page);
+                // Avoid blocking the dispatcher while fetching the response body.
+                tokio::spawn(async move {
+                    if let Err(err) = handle_network_response_received(page_clone, event).await {
+                        tracing::debug!("Failed to handle network response event: {:?}", err);
+                    }
+                });
+            }
+            cdp_protocol::types::Event::NetworkRequestWillBeSent(event) => {
+                // Notify the network monitor about request lifecycle events.
+                use network_intercept::NetworkEvent;
 
-            page.network_monitor
-                .request_finished(&event.params.request_id)
-                .await;
-            page.network_monitor
-                .trigger_event(NetworkEvent::LoadingFailed {
-                    request_id: event.params.request_id.clone(),
-                    error_text: event.params.error_text.clone(),
-                })
-                .await;
+                page.network_monitor
+                    .request_started(&event.params.request_id)
+                    .await;
+                page.network_monitor
+                    .trigger_event(NetworkEvent::RequestWillBeSent {
+                        request_id: event.params.request_id.clone(),
+                        url: event.params.request.url.clone(),
+                        method: event.params.request.method.clone(),
+                        headers: serde_json::to_value(&event.params.request.headers)
+                            .unwrap_or_default(),
+                    })
+                    .await;
+            }
+            cdp_protocol::types::Event::NetworkLoadingFinished(event) => {
+                // Notify the network monitor about the completed request.
+                use network_intercept::NetworkEvent;
 
-            // Remove pending response if any
-            page.response_monitor_manager
-                .retrieve_pending_response(&event.params.request_id)
-                .await;
-        }
-        cdp_protocol::types::Event::NetworkRequestServedFromCache(event) => {
-            // Notify the network monitor about cached responses.
-            use network_intercept::NetworkEvent;
+                page.network_monitor
+                    .request_finished(&event.params.request_id)
+                    .await;
+                page.network_monitor
+                    .trigger_event(NetworkEvent::LoadingFinished {
+                        request_id: event.params.request_id.clone(),
+                    })
+                    .await;
 
-            page.network_monitor
-                .trigger_event(NetworkEvent::RequestServedFromCache {
-                    request_id: event.params.request_id.clone(),
-                })
-                .await;
+                // Fetch response body if monitored
+                let page_clone = Arc::clone(page);
+                let request_id = event.params.request_id.clone();
+                tokio::spawn(async move {
+                    if let Some(mut response) = page_clone
+                        .response_monitor_manager
+                        .retrieve_pending_response(&request_id)
+                        .await
+                    {
+                        let get_body_cmd = cdp_protocol::network::GetResponseBody {
+                            request_id: request_id.clone(),
+                        };
+
+                        match page_clone
+                            .session
+                            .send_command::<_, cdp_protocol::network::GetResponseBodyReturnObject>(
+                                get_body_cmd,
+                                None,
+                            )
+                            .await
+                        {
+                            Ok(body_result) => {
+                                response.body = Some(body_result.body);
+                                response.base_64_encoded = body_result.base_64_encoded;
+                            }
+                            Err(e) => {
+                                tracing::debug!(
+                                    "Failed to get response body for {}: {}",
+                                    request_id,
+                                    e
+                                );
+                            }
+                        };
+
+                        page_clone
+                            .response_monitor_manager
+                            .handle_response(&response)
+                            .await;
+                    }
+                });
+            }
+            cdp_protocol::types::Event::NetworkLoadingFailed(event) => {
+                // Notify the network monitor about failures.
+                use network_intercept::NetworkEvent;
+
+                page.network_monitor
+                    .request_finished(&event.params.request_id)
+                    .await;
+                page.network_monitor
+                    .trigger_event(NetworkEvent::LoadingFailed {
+                        request_id: event.params.request_id.clone(),
+                        error_text: event.params.error_text.clone(),
+                    })
+                    .await;
+
+                // Remove pending response if any
+                page.response_monitor_manager
+                    .retrieve_pending_response(&event.params.request_id)
+                    .await;
+            }
+            cdp_protocol::types::Event::NetworkRequestServedFromCache(event) => {
+                // Notify the network monitor about cached responses.
+                use network_intercept::NetworkEvent;
+
+                page.network_monitor
+                    .trigger_event(NetworkEvent::RequestServedFromCache {
+                        request_id: event.params.request_id.clone(),
+                    })
+                    .await;
+            }
+            _ => {}
         }
-        _ => {}
-    } }
+    }
 }
 
 /// Fetches response metadata and body snippets for the network monitor.

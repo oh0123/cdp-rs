@@ -45,27 +45,27 @@ fn parse_runtime_event(event_msg: &CdpEventMessage) -> Result<CdpEvent> {
                 serde_json::from_value(event_msg.params.clone())?;
             let event = runtime::events::ExecutionContextCreatedEvent { params };
             tracing::debug!("Parsed Runtime.executionContextCreated event");
-            Ok(CdpEvent::Event(Box::new(Event::RuntimeExecutionContextCreated(
-                event,
-            ))))
+            Ok(CdpEvent::Event(Box::new(
+                Event::RuntimeExecutionContextCreated(event),
+            )))
         }
         "Runtime.executionContextDestroyed" => {
             let params: runtime::events::ExecutionContextDestroyedEventParams =
                 serde_json::from_value(event_msg.params.clone())?;
             let event = runtime::events::ExecutionContextDestroyedEvent { params };
             tracing::debug!("Parsed Runtime.executionContextDestroyed event");
-            Ok(CdpEvent::Event(Box::new(Event::RuntimeExecutionContextDestroyed(
-                event,
-            ))))
+            Ok(CdpEvent::Event(Box::new(
+                Event::RuntimeExecutionContextDestroyed(event),
+            )))
         }
         "Runtime.executionContextsCleared" => {
             let params: Option<serde_json::Value> =
                 serde_json::from_value(event_msg.params.clone())?;
             let event = runtime::events::ExecutionContextsClearedEvent(params);
             tracing::debug!("Parsed Runtime.executionContextsCleared event");
-            Ok(CdpEvent::Event(Box::new(Event::RuntimeExecutionContextsCleared(
-                event,
-            ))))
+            Ok(CdpEvent::Event(Box::new(
+                Event::RuntimeExecutionContextsCleared(event),
+            )))
         }
         _ => unreachable!("Runtime event mismatch"),
     }
@@ -112,7 +112,9 @@ fn parse_dom_event(event_msg: &CdpEventMessage) -> Result<CdpEvent> {
                 serde_json::from_value(event_msg.params.clone())?;
             let event = dom::events::ChildNodeInsertedEvent { params };
             tracing::debug!("Parsed DOM.childNodeInserted event");
-            Ok(CdpEvent::Event(Box::new(Event::DOMChildNodeInserted(event))))
+            Ok(CdpEvent::Event(Box::new(Event::DOMChildNodeInserted(
+                event,
+            ))))
         }
         "DOM.childNodeRemoved" => {
             let params: dom::events::ChildNodeRemovedEventParams =
@@ -126,7 +128,9 @@ fn parse_dom_event(event_msg: &CdpEventMessage) -> Result<CdpEvent> {
                 serde_json::from_value(event_msg.params.clone())?;
             let event = dom::events::AttributeModifiedEvent { params };
             tracing::debug!("Parsed DOM.attributeModified event");
-            Ok(CdpEvent::Event(Box::new(Event::DOMAttributeModified(event))))
+            Ok(CdpEvent::Event(Box::new(Event::DOMAttributeModified(
+                event,
+            ))))
         }
         "DOM.attributeRemoved" => {
             let params: dom::events::AttributeRemovedEventParams =
@@ -140,7 +144,9 @@ fn parse_dom_event(event_msg: &CdpEventMessage) -> Result<CdpEvent> {
                 serde_json::from_value(event_msg.params.clone())?;
             let event = dom::events::CharacterDataModifiedEvent { params };
             tracing::debug!("Parsed DOM.characterDataModified event");
-            Ok(CdpEvent::Event(Box::new(Event::DOMCharacterDataModified(event))))
+            Ok(CdpEvent::Event(Box::new(Event::DOMCharacterDataModified(
+                event,
+            ))))
         }
         _ => unreachable!("DOM event mismatch"),
     }
@@ -153,35 +159,45 @@ fn parse_network_event(event_msg: &CdpEventMessage) -> Result<CdpEvent> {
                 serde_json::from_value(event_msg.params.clone())?;
             let event = network::events::RequestWillBeSentEvent { params };
             tracing::debug!("Parsed Network.requestWillBeSent event");
-            Ok(CdpEvent::Event(Box::new(Event::NetworkRequestWillBeSent(event))))
+            Ok(CdpEvent::Event(Box::new(Event::NetworkRequestWillBeSent(
+                event,
+            ))))
         }
         "Network.responseReceived" => {
             let params: network::events::ResponseReceivedEventParams =
                 serde_json::from_value(event_msg.params.clone())?;
             let event = network::events::ResponseReceivedEvent { params };
             tracing::debug!("Parsed Network.responseReceived event");
-            Ok(CdpEvent::Event(Box::new(Event::NetworkResponseReceived(event))))
+            Ok(CdpEvent::Event(Box::new(Event::NetworkResponseReceived(
+                event,
+            ))))
         }
         "Network.loadingFinished" => {
             let params: network::events::LoadingFinishedEventParams =
                 serde_json::from_value(event_msg.params.clone())?;
             let event = network::events::LoadingFinishedEvent { params };
             tracing::debug!("Parsed Network.loadingFinished event");
-            Ok(CdpEvent::Event(Box::new(Event::NetworkLoadingFinished(event))))
+            Ok(CdpEvent::Event(Box::new(Event::NetworkLoadingFinished(
+                event,
+            ))))
         }
         "Network.loadingFailed" => {
             let params: network::events::LoadingFailedEventParams =
                 serde_json::from_value(event_msg.params.clone())?;
             let event = network::events::LoadingFailedEvent { params };
             tracing::debug!("Parsed Network.loadingFailed event");
-            Ok(CdpEvent::Event(Box::new(Event::NetworkLoadingFailed(event))))
+            Ok(CdpEvent::Event(Box::new(Event::NetworkLoadingFailed(
+                event,
+            ))))
         }
         "Network.requestServedFromCache" => {
             let params: network::events::RequestServedFromCacheEventParams =
                 serde_json::from_value(event_msg.params.clone())?;
             let event = network::events::RequestServedFromCacheEvent { params };
             tracing::debug!("Parsed Network.requestServedFromCache event");
-            Ok(CdpEvent::Event(Box::new(Event::NetworkRequestServedFromCache(event))))
+            Ok(CdpEvent::Event(Box::new(
+                Event::NetworkRequestServedFromCache(event),
+            )))
         }
         "Network.dataReceived" => {
             let params: network::events::DataReceivedEventParams =
@@ -195,18 +211,18 @@ fn parse_network_event(event_msg: &CdpEventMessage) -> Result<CdpEvent> {
                 serde_json::from_value(event_msg.params.clone())?;
             let event = network::events::RequestWillBeSentExtraInfoEvent { params };
             tracing::debug!("Parsed Network.requestWillBeSentExtraInfo event");
-            Ok(CdpEvent::Event(Box::new(Event::NetworkRequestWillBeSentExtraInfo(
-                event,
-            ))))
+            Ok(CdpEvent::Event(Box::new(
+                Event::NetworkRequestWillBeSentExtraInfo(event),
+            )))
         }
         "Network.responseReceivedExtraInfo" => {
             let params: network::events::ResponseReceivedExtraInfoEventParams =
                 serde_json::from_value(event_msg.params.clone())?;
             let event = network::events::ResponseReceivedExtraInfoEvent { params };
             tracing::debug!("Parsed Network.responseReceivedExtraInfo event");
-            Ok(CdpEvent::Event(Box::new(Event::NetworkResponseReceivedExtraInfo(
-                event,
-            ))))
+            Ok(CdpEvent::Event(Box::new(
+                Event::NetworkResponseReceivedExtraInfo(event),
+            )))
         }
         _ => unreachable!("Network event mismatch"),
     }
