@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Accessibility
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Accessibility
 use super::dom;
 use super::page;
 use super::runtime;
@@ -168,6 +168,40 @@ pub enum AxPropertyName {
     Owns,
     #[serde(rename = "url")]
     Url,
+    #[serde(rename = "activeFullscreenElement")]
+    ActiveFullscreenElement,
+    #[serde(rename = "activeModalDialog")]
+    ActiveModalDialog,
+    #[serde(rename = "activeAriaModalDialog")]
+    ActiveAriaModalDialog,
+    #[serde(rename = "ariaHiddenElement")]
+    AriaHiddenElement,
+    #[serde(rename = "ariaHiddenSubtree")]
+    AriaHiddenSubtree,
+    #[serde(rename = "emptyAlt")]
+    EmptyAlt,
+    #[serde(rename = "emptyText")]
+    EmptyText,
+    #[serde(rename = "inertElement")]
+    InertElement,
+    #[serde(rename = "inertSubtree")]
+    InertSubtree,
+    #[serde(rename = "labelContainer")]
+    LabelContainer,
+    #[serde(rename = "labelFor")]
+    LabelFor,
+    #[serde(rename = "notRendered")]
+    NotRendered,
+    #[serde(rename = "notVisible")]
+    NotVisible,
+    #[serde(rename = "presentationalRole")]
+    PresentationalRole,
+    #[serde(rename = "probablyPresentational")]
+    ProbablyPresentational,
+    #[serde(rename = "inactiveCarouselTabContent")]
+    InactiveCarouselTabContent,
+    #[serde(rename = "uninteresting")]
+    Uninteresting,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct AxValueSource {

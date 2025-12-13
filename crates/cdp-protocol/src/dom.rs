@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: DOM
+// Auto-generated from Chrome at version 143.0.7499.110 domain: DOM
 use super::dom;
 use super::page;
 use super::runtime;
@@ -25,6 +25,8 @@ pub enum PseudoType {
     After,
     #[serde(rename = "picker-icon")]
     PickerIcon,
+    #[serde(rename = "interest-hint")]
+    InterestHint,
     #[serde(rename = "marker")]
     Marker,
     #[serde(rename = "backdrop")]
@@ -269,6 +271,10 @@ pub struct Node {
     #[serde(default)]
     #[serde(rename = "isScrollable")]
     pub is_scrollable: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "affectedByStartingStyles")]
+    pub affected_by_starting_styles: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DetachedElementInfo {
@@ -1374,6 +1380,18 @@ pub mod events {
         #[serde(default)]
         #[serde(rename = "isScrollable")]
         pub is_scrollable: bool,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    pub struct AffectedByStartingStylesFlagUpdatedEvent {
+        pub params: AffectedByStartingStylesFlagUpdatedEventParams,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    pub struct AffectedByStartingStylesFlagUpdatedEventParams {
+        #[serde(rename = "nodeId")]
+        pub node_id: super::super::dom::NodeId,
+        #[serde(default)]
+        #[serde(rename = "affectedByStartingStyles")]
+        pub affected_by_starting_styles: bool,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PseudoElementRemovedEvent {

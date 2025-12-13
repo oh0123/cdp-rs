@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: HeapProfiler
+// Auto-generated from Chrome at version 143.0.7499.110 domain: HeapProfiler
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
@@ -76,6 +76,10 @@ pub struct StartSampling {
     #[serde(default)]
     #[serde(rename = "samplingInterval")]
     pub sampling_interval: Option<JsFloat>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "stackDepth")]
+    pub stack_depth: Option<JsFloat>,
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
     #[serde(rename = "includeObjectsCollectedByMajorGC")]

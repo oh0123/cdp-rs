@@ -129,6 +129,7 @@ pub struct PermissionOverride {
     pub descriptor: PermissionDescriptor,
     pub setting: PermissionSetting,
     pub origin: Option<String>,
+    pub embedded_origin: Option<String>,
 }
 
 impl PermissionOverride {
@@ -137,6 +138,7 @@ impl PermissionOverride {
             descriptor,
             setting,
             origin: None,
+            embedded_origin: None,
         }
     }
 
@@ -691,6 +693,7 @@ impl BrowserContext {
             permission: permission.descriptor.clone(),
             setting: permission.setting.clone(),
             origin: permission.origin.clone(),
+            embedded_origin: permission.embedded_origin.clone(),
             browser_context_id: Some(self.id.clone()),
         };
         let _: SetPermissionReturnObject = self.browser.send_command(method, None).await?;

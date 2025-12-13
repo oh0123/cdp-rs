@@ -1,4 +1,5 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Media
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Media
+use super::dom;
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -64,6 +65,14 @@ pub struct PlayerError {
     pub stack: Vec<PlayerErrorSourceLocation>,
     #[serde(rename = "cause")]
     pub cause: Vec<PlayerError>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Player {
+    #[serde(rename = "playerId")]
+    pub player_id: PlayerId,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "domNodeId")]
+    pub dom_node_id: Option<dom::BackendNodeId>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -135,12 +144,12 @@ pub mod events {
         pub errors: Vec<super::PlayerError>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct PlayersCreatedEvent {
-        pub params: PlayersCreatedEventParams,
+    pub struct PlayerCreatedEvent {
+        pub params: PlayerCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct PlayersCreatedEventParams {
-        #[serde(rename = "players")]
-        pub players: Vec<super::PlayerId>,
+    pub struct PlayerCreatedEventParams {
+        #[serde(rename = "player")]
+        pub player: super::Player,
     }
 }

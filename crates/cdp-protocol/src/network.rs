@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Network
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Network
 use super::debugger;
 use super::emulation;
 use super::io;
@@ -215,6 +215,23 @@ pub enum BlockedReason {
     SriMessageSignatureMismatch,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum IpProxyStatus {
+    #[serde(rename = "Available")]
+    Available,
+    #[serde(rename = "FeatureNotEnabled")]
+    FeatureNotEnabled,
+    #[serde(rename = "MaskedDomainListNotEnabled")]
+    MaskedDomainListNotEnabled,
+    #[serde(rename = "MaskedDomainListNotPopulated")]
+    MaskedDomainListNotPopulated,
+    #[serde(rename = "AuthTokensUnavailable")]
+    AuthTokensUnavailable,
+    #[serde(rename = "Unavailable")]
+    Unavailable,
+    #[serde(rename = "BypassedByDevTools")]
+    BypassedByDevTools,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CorsError {
     #[serde(rename = "DisallowedByMode")]
     DisallowedByMode,
@@ -358,6 +375,8 @@ pub enum InitiatorType {
     SignedExchange,
     #[serde(rename = "preflight")]
     Preflight,
+    #[serde(rename = "FedCM")]
+    FedCm,
     #[serde(rename = "other")]
     Other,
 }
@@ -705,9 +724,8 @@ pub struct ResourceTiming {
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct PostDataEntry {
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     #[serde(rename = "bytes")]
-    pub bytes: Option<String>,
+    pub bytes: Option<Vec<u8>>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Request {
@@ -752,6 +770,10 @@ pub struct Request {
     #[serde(default)]
     #[serde(rename = "isSameSite")]
     pub is_same_site: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "isAdRelated")]
+    pub is_ad_related: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SignedCertificateTimestamp {
@@ -1293,6 +1315,45 @@ pub struct SignedExchangeInfo {
     pub errors: Option<Vec<SignedExchangeError>>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct NetworkConditions {
+    #[serde(default)]
+    #[serde(rename = "urlPattern")]
+    pub url_pattern: String,
+    #[serde(default)]
+    #[serde(rename = "latency")]
+    pub latency: JsFloat,
+    #[serde(default)]
+    #[serde(rename = "downloadThroughput")]
+    pub download_throughput: JsFloat,
+    #[serde(default)]
+    #[serde(rename = "uploadThroughput")]
+    pub upload_throughput: JsFloat,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "connectionType")]
+    pub connection_type: Option<ConnectionType>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "packetLoss")]
+    pub packet_loss: Option<JsFloat>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "packetQueueLength")]
+    pub packet_queue_length: Option<JsUInt>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "packetReordering")]
+    pub packet_reordering: Option<bool>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct BlockPattern {
+    #[serde(default)]
+    #[serde(rename = "urlPattern")]
+    pub url_pattern: String,
+    #[serde(default)]
+    #[serde(rename = "block")]
+    pub block: bool,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DirectTcpSocketOptions {
     #[serde(default)]
     #[serde(rename = "noDelay")]
@@ -1492,6 +1553,15 @@ pub struct LoadNetworkResourceOptions {
     pub include_credentials: bool,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct GetIPProtectionProxyStatus(pub Option<serde_json::Value>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct SetIPProtectionProxyBypassEnabled {
+    #[serde(default)]
+    #[serde(rename = "enabled")]
+    pub enabled: bool,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetAcceptedEncodings {
     #[serde(rename = "encodings")]
     pub encodings: Vec<ContentEncoding>,
@@ -1598,6 +1668,32 @@ pub struct EmulateNetworkConditions {
     pub packet_reordering: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct EmulateNetworkConditionsByRule {
+    #[serde(default)]
+    #[serde(rename = "offline")]
+    pub offline: bool,
+    #[serde(rename = "matchedNetworkConditions")]
+    pub matched_network_conditions: Vec<NetworkConditions>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct OverrideNetworkState {
+    #[serde(default)]
+    #[serde(rename = "offline")]
+    pub offline: bool,
+    #[serde(default)]
+    #[serde(rename = "latency")]
+    pub latency: JsFloat,
+    #[serde(default)]
+    #[serde(rename = "downloadThroughput")]
+    pub download_throughput: JsFloat,
+    #[serde(default)]
+    #[serde(rename = "uploadThroughput")]
+    pub upload_throughput: JsFloat,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "connectionType")]
+    pub connection_type: Option<ConnectionType>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
@@ -1615,6 +1711,10 @@ pub struct Enable {
     #[serde(default)]
     #[serde(rename = "reportDirectSocketTraffic")]
     pub report_direct_socket_traffic: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "enableDurableMessages")]
+    pub enable_durable_messages: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -1675,9 +1775,13 @@ pub struct SearchInResponseBody {
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetBlockedURLs {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "urlPatterns")]
+    pub url_patterns: Option<Vec<BlockPattern>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
     #[serde(rename = "urls")]
-    pub urls: Vec<String>,
+    pub urls: Option<Vec<String>>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetBypassServiceWorker {
@@ -1822,6 +1926,14 @@ pub struct SetCookieControls {
     pub disable_third_party_cookie_heuristics: bool,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetIPProtectionProxyStatusReturnObject {
+    #[serde(rename = "status")]
+    pub status: IpProxyStatus,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct SetIPProtectionProxyBypassEnabledReturnObject {}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct SetAcceptedEncodingsReturnObject {}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
@@ -1863,6 +1975,14 @@ pub struct DisableReturnObject {}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct EmulateNetworkConditionsReturnObject {}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct EmulateNetworkConditionsByRuleReturnObject {
+    #[serde(rename = "ruleIds")]
+    pub rule_ids: Vec<String>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct OverrideNetworkStateReturnObject {}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct EnableReturnObject {}
@@ -1969,6 +2089,14 @@ pub struct LoadNetworkResourceReturnObject {
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct SetCookieControlsReturnObject {}
+impl Method for GetIPProtectionProxyStatus {
+    const NAME: &'static str = "Network.getIPProtectionProxyStatus";
+    type ReturnObject = GetIPProtectionProxyStatusReturnObject;
+}
+impl Method for SetIPProtectionProxyBypassEnabled {
+    const NAME: &'static str = "Network.setIPProtectionProxyBypassEnabled";
+    type ReturnObject = SetIPProtectionProxyBypassEnabledReturnObject;
+}
 impl Method for SetAcceptedEncodings {
     const NAME: &'static str = "Network.setAcceptedEncodings";
     type ReturnObject = SetAcceptedEncodingsReturnObject;
@@ -2012,6 +2140,14 @@ impl Method for Disable {
 impl Method for EmulateNetworkConditions {
     const NAME: &'static str = "Network.emulateNetworkConditions";
     type ReturnObject = EmulateNetworkConditionsReturnObject;
+}
+impl Method for EmulateNetworkConditionsByRule {
+    const NAME: &'static str = "Network.emulateNetworkConditionsByRule";
+    type ReturnObject = EmulateNetworkConditionsByRuleReturnObject;
+}
+impl Method for OverrideNetworkState {
+    const NAME: &'static str = "Network.overrideNetworkState";
+    type ReturnObject = OverrideNetworkStateReturnObject;
 }
 impl Method for Enable {
     const NAME: &'static str = "Network.enable";
@@ -2677,6 +2813,10 @@ pub mod events {
         #[serde(default)]
         #[serde(rename = "siteHasCookieInOtherPartition")]
         pub site_has_cookie_in_other_partition: Option<bool>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        #[serde(default)]
+        #[serde(rename = "appliedNetworkConditionsId")]
+        pub applied_network_conditions_id: Option<String>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResponseReceivedExtraInfoEvent {
@@ -2749,63 +2889,6 @@ pub mod events {
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     #[serde(rename_all = "camelCase")]
     pub struct PolicyUpdatedEvent(pub Option<serde_json::Value>);
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct SubresourceWebBundleMetadataReceivedEvent {
-        pub params: SubresourceWebBundleMetadataReceivedEventParams,
-    }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct SubresourceWebBundleMetadataReceivedEventParams {
-        #[serde(rename = "requestId")]
-        pub request_id: super::RequestId,
-        #[serde(default)]
-        #[serde(rename = "urls")]
-        pub urls: Vec<String>,
-    }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct SubresourceWebBundleMetadataErrorEvent {
-        pub params: SubresourceWebBundleMetadataErrorEventParams,
-    }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct SubresourceWebBundleMetadataErrorEventParams {
-        #[serde(rename = "requestId")]
-        pub request_id: super::RequestId,
-        #[serde(default)]
-        #[serde(rename = "errorMessage")]
-        pub error_message: String,
-    }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct SubresourceWebBundleInnerResponseParsedEvent {
-        pub params: SubresourceWebBundleInnerResponseParsedEventParams,
-    }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct SubresourceWebBundleInnerResponseParsedEventParams {
-        #[serde(rename = "innerRequestId")]
-        pub inner_request_id: super::RequestId,
-        #[serde(default)]
-        #[serde(rename = "innerRequestURL")]
-        pub inner_request_url: String,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "bundleRequestId")]
-        pub bundle_request_id: Option<super::RequestId>,
-    }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct SubresourceWebBundleInnerResponseErrorEvent {
-        pub params: SubresourceWebBundleInnerResponseErrorEventParams,
-    }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    pub struct SubresourceWebBundleInnerResponseErrorEventParams {
-        #[serde(rename = "innerRequestId")]
-        pub inner_request_id: super::RequestId,
-        #[serde(default)]
-        #[serde(rename = "innerRequestURL")]
-        pub inner_request_url: String,
-        #[serde(default)]
-        #[serde(rename = "errorMessage")]
-        pub error_message: String,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "bundleRequestId")]
-        pub bundle_request_id: Option<super::RequestId>,
-    }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReportingApiReportAddedEvent {
         pub params: ReportingApiReportAddedEventParams,

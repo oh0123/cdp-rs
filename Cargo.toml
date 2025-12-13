@@ -17,7 +17,7 @@ futures-util = "0.3"
 async-stream = "0.3"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-reqwest = { version = "0.12", features = ["json"] }
+reqwest = { version = "0.12.25", features = ["json"] }
 url = "2.3"
 regex = "1.11"
 rand = "0.9"
@@ -26,5 +26,5 @@ tracing = "0.1.43"
 async-trait = "0.1.89"
 tempfile = "3.23.0"
 thiserror = "2.0.17"
-tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
+tracing-subscriber = { version = "0.3.22", features = ["fmt", "env-filter"] }
 anyhow = "1.0"

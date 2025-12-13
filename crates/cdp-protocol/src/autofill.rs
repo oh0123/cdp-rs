@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Autofill
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Autofill
 use super::dom;
 use super::page;
 #[allow(unused_imports)]
@@ -87,8 +87,12 @@ pub struct Trigger {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "frameId")]
     pub frame_id: Option<page::FrameId>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "card")]
-    pub card: CreditCard,
+    pub card: Option<CreditCard>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "address")]
+    pub address: Option<Address>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetAddresses {

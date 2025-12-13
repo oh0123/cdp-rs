@@ -1,7 +1,7 @@
 [package]
 authors = ["Edison Wong <wbrikor@outlook.com>"]
 name = "cdp-core"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 license = "MIT"
 readme = "README.md"
@@ -22,7 +22,7 @@ name = "cdp_core"
 path = "src/lib.rs"
 
 [dependencies]
-cdp-protocol = { version = "0.1.0", path = "../cdp-protocol" }
+cdp-protocol = { version = "0.2.0", path = "../cdp-protocol" }
 tokio = { workspace = true }
 tokio-tungstenite = { workspace = true }
 tokio-stream = { workspace = true }

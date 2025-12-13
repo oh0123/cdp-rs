@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Preload
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Preload
 use super::dom;
 use super::network;
 #[allow(unused_imports)]
@@ -24,6 +24,8 @@ pub enum SpeculationAction {
     Prefetch,
     #[serde(rename = "Prerender")]
     Prerender,
+    #[serde(rename = "PrerenderUntilScript")]
+    PrerenderUntilScript,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SpeculationTargetHint {
@@ -295,6 +297,10 @@ pub struct RuleSet {
     #[serde(default)]
     #[serde(rename = "errorMessage")]
     pub error_message: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "tag")]
+    pub tag: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct PreloadingAttemptKey {

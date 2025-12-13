@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Storage
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Storage
 use super::browser;
 use super::network;
 use super::page;
@@ -711,6 +711,12 @@ pub struct GetStorageKeyForFrame {
     pub frame_id: page::FrameId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetStorageKey {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "frameId")]
+    pub frame_id: Option<page::FrameId>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearDataForOrigin {
     #[serde(default)]
     #[serde(rename = "origin")]
@@ -959,6 +965,11 @@ pub struct GetStorageKeyForFrameReturnObject {
     pub storage_key: SerializedStorageKey,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetStorageKeyReturnObject {
+    #[serde(rename = "storageKey")]
+    pub storage_key: SerializedStorageKey,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct ClearDataForOriginReturnObject {}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
@@ -1099,6 +1110,10 @@ pub struct SetProtectedAudienceKAnonymityReturnObject {}
 impl Method for GetStorageKeyForFrame {
     const NAME: &'static str = "Storage.getStorageKeyForFrame";
     type ReturnObject = GetStorageKeyForFrameReturnObject;
+}
+impl Method for GetStorageKey {
+    const NAME: &'static str = "Storage.getStorageKey";
+    type ReturnObject = GetStorageKeyReturnObject;
 }
 impl Method for ClearDataForOrigin {
     const NAME: &'static str = "Storage.clearDataForOrigin";

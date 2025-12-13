@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Inspector
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Inspector
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -46,4 +46,7 @@ pub mod events {
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     #[serde(rename_all = "camelCase")]
     pub struct TargetReloadedAfterCrashEvent(pub Option<serde_json::Value>);
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[serde(rename_all = "camelCase")]
+    pub struct WorkerScriptLoadedEvent(pub Option<serde_json::Value>);
 }
