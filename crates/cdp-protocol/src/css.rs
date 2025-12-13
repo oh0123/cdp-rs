@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: CSS
+// Auto-generated from Chrome at version 143.0.7499.110 domain: CSS
 use super::dom;
 use super::page;
 #[allow(unused_imports)]
@@ -202,6 +202,9 @@ pub struct CssRule {
     #[serde(rename = "style")]
     pub style: CssStyle,
     #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "originTreeScopeNodeId")]
+    pub origin_tree_scope_node_id: Option<dom::BackendNodeId>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "media")]
     pub media: Option<Vec<CssMedia>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -273,6 +276,12 @@ pub struct CssComputedStyleProperty {
     #[serde(default)]
     #[serde(rename = "value")]
     pub value: String,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ComputedStyleExtraFields {
+    #[serde(default)]
+    #[serde(rename = "isAppearanceBase")]
+    pub is_appearance_base: bool,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CssStyle {
@@ -974,6 +983,8 @@ pub struct GetBackgroundColorsReturnObject {
 pub struct GetComputedStyleForNodeReturnObject {
     #[serde(rename = "computedStyle")]
     pub computed_style: Vec<CssComputedStyleProperty>,
+    #[serde(rename = "extraFields")]
+    pub extra_fields: ComputedStyleExtraFields,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ResolveValuesReturnObject {

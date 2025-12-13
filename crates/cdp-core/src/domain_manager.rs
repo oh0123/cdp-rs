@@ -278,6 +278,7 @@ impl DomainManager {
                 max_resource_buffer_size: config.network_max_resource_buffer_size,
                 max_post_data_size: config.network_max_post_data_size,
                 report_direct_socket_traffic: None,
+                enable_durable_messages: None,
             },
         )
         .await

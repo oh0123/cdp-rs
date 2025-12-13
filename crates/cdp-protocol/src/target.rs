@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Target
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Target
 use super::browser;
 use super::page;
 #[allow(unused_imports)]
@@ -46,6 +46,9 @@ pub struct TargetInfo {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "openerFrameId")]
     pub opener_frame_id: Option<page::FrameId>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "parentFrameId")]
+    pub parent_frame_id: Option<page::FrameId>,
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "browserContextId")]
     pub browser_context_id: Option<browser::BrowserContextId>,

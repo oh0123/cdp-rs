@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: HeadlessExperimental
+// Auto-generated from Chrome at version 143.0.7499.110 domain: HeadlessExperimental
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -58,9 +58,8 @@ pub struct BeginFrameReturnObject {
     #[serde(rename = "hasDamage")]
     pub has_damage: bool,
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     #[serde(rename = "screenshotData")]
-    pub screenshot_data: Option<String>,
+    pub screenshot_data: Option<Vec<u8>>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]

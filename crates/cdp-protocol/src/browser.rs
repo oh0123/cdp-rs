@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Browser
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Browser
 use super::target;
 #[allow(unused_imports)]
 use super::types::*;
@@ -225,6 +225,10 @@ pub struct SetPermission {
     #[serde(default)]
     #[serde(rename = "origin")]
     pub origin: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "embeddedOrigin")]
+    pub embedded_origin: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "browserContextId")]
     pub browser_context_id: Option<BrowserContextId>,

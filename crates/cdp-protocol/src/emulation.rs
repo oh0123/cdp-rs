@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Emulation
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Emulation
 use super::dom;
 use super::network;
 use super::page;
@@ -8,6 +8,7 @@ use super::types::*;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+pub type ScreenId = String;
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ScreenOrientationType {
     #[serde(rename = "portraitPrimary")]
@@ -291,6 +292,74 @@ pub struct PressureMetadata {
     #[serde(default)]
     #[serde(rename = "available")]
     pub available: Option<bool>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct WorkAreaInsets {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "top")]
+    pub top: Option<JsUInt>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "left")]
+    pub left: Option<JsUInt>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "bottom")]
+    pub bottom: Option<JsUInt>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "right")]
+    pub right: Option<JsUInt>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ScreenInfo {
+    #[serde(default)]
+    #[serde(rename = "left")]
+    pub left: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "top")]
+    pub top: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "width")]
+    pub width: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "height")]
+    pub height: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "availLeft")]
+    pub avail_left: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "availTop")]
+    pub avail_top: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "availWidth")]
+    pub avail_width: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "availHeight")]
+    pub avail_height: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "devicePixelRatio")]
+    pub device_pixel_ratio: JsFloat,
+    #[serde(rename = "orientation")]
+    pub orientation: ScreenOrientation,
+    #[serde(default)]
+    #[serde(rename = "colorDepth")]
+    pub color_depth: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "isExtended")]
+    pub is_extended: bool,
+    #[serde(default)]
+    #[serde(rename = "isInternal")]
+    pub is_internal: bool,
+    #[serde(default)]
+    #[serde(rename = "isPrimary")]
+    pub is_primary: bool,
+    #[serde(default)]
+    #[serde(rename = "label")]
+    pub label: String,
+    #[serde(rename = "id")]
+    pub id: ScreenId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -653,6 +722,52 @@ pub struct SetSmallViewportHeightDifferenceOverride {
     pub difference: JsUInt,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct GetScreenInfos(pub Option<serde_json::Value>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct AddScreen {
+    #[serde(default)]
+    #[serde(rename = "left")]
+    pub left: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "top")]
+    pub top: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "width")]
+    pub width: JsUInt,
+    #[serde(default)]
+    #[serde(rename = "height")]
+    pub height: JsUInt,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "workAreaInsets")]
+    pub work_area_insets: Option<WorkAreaInsets>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "devicePixelRatio")]
+    pub device_pixel_ratio: Option<JsFloat>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "rotation")]
+    pub rotation: Option<JsUInt>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "colorDepth")]
+    pub color_depth: Option<JsUInt>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "label")]
+    pub label: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[serde(rename = "isInternal")]
+    pub is_internal: Option<bool>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct RemoveScreen {
+    #[serde(rename = "screenId")]
+    pub screen_id: ScreenId,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CanEmulateReturnObject {
     #[serde(default)]
     #[serde(rename = "result")]
@@ -790,6 +905,19 @@ pub struct SetAutomationOverrideReturnObject {}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct SetSmallViewportHeightDifferenceOverrideReturnObject {}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetScreenInfosReturnObject {
+    #[serde(rename = "screenInfos")]
+    pub screen_infos: Vec<ScreenInfo>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct AddScreenReturnObject {
+    #[serde(rename = "screenInfo")]
+    pub screen_info: ScreenInfo,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct RemoveScreenReturnObject {}
 impl Method for CanEmulate {
     const NAME: &'static str = "Emulation.canEmulate";
     type ReturnObject = CanEmulateReturnObject;
@@ -961,6 +1089,18 @@ impl Method for SetAutomationOverride {
 impl Method for SetSmallViewportHeightDifferenceOverride {
     const NAME: &'static str = "Emulation.setSmallViewportHeightDifferenceOverride";
     type ReturnObject = SetSmallViewportHeightDifferenceOverrideReturnObject;
+}
+impl Method for GetScreenInfos {
+    const NAME: &'static str = "Emulation.getScreenInfos";
+    type ReturnObject = GetScreenInfosReturnObject;
+}
+impl Method for AddScreen {
+    const NAME: &'static str = "Emulation.addScreen";
+    type ReturnObject = AddScreenReturnObject;
+}
+impl Method for RemoveScreen {
+    const NAME: &'static str = "Emulation.removeScreen";
+    type ReturnObject = RemoveScreenReturnObject;
 }
 pub mod events {
     #[allow(unused_imports)]

@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: CacheStorage
+// Auto-generated from Chrome at version 143.0.7499.110 domain: CacheStorage
 use super::storage;
 #[allow(unused_imports)]
 use super::types::*;

@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Page
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Page
 use super::debugger;
 use super::dom;
 use super::emulation;
@@ -148,10 +148,14 @@ pub enum PermissionsPolicyFeature {
     DeferredFetchMinimal,
     #[serde(rename = "device-attributes")]
     DeviceAttributes,
+    #[serde(rename = "digital-credentials-create")]
+    DigitalCredentialsCreate,
     #[serde(rename = "digital-credentials-get")]
     DigitalCredentialsGet,
     #[serde(rename = "direct-sockets")]
     DirectSockets,
+    #[serde(rename = "direct-sockets-multicast")]
+    DirectSocketsMulticast,
     #[serde(rename = "direct-sockets-private")]
     DirectSocketsPrivate,
     #[serde(rename = "display-capture")]
@@ -597,10 +601,14 @@ pub enum BackForwardCacheNotRestoredReason {
     SharedWorker,
     #[serde(rename = "SharedWorkerMessage")]
     SharedWorkerMessage,
+    #[serde(rename = "SharedWorkerWithNoActiveClient")]
+    SharedWorkerWithNoActiveClient,
     #[serde(rename = "WebLocks")]
     WebLocks,
     #[serde(rename = "WebHID")]
     WebHid,
+    #[serde(rename = "WebBluetooth")]
+    WebBluetooth,
     #[serde(rename = "WebShare")]
     WebShare,
     #[serde(rename = "RequestedStorageAccessGrant")]
@@ -645,12 +653,12 @@ pub enum BackForwardCacheNotRestoredReason {
     Dummy,
     #[serde(rename = "JsNetworkRequestReceivedCacheControlNoStoreResource")]
     JsNetworkRequestReceivedCacheControlNoStoreResource,
-    #[serde(rename = "WebRTCSticky")]
-    WebRtcSticky,
-    #[serde(rename = "WebTransportSticky")]
-    WebTransportSticky,
-    #[serde(rename = "WebSocketSticky")]
-    WebSocketSticky,
+    #[serde(rename = "WebRTCUsedWithCCNS")]
+    WebRtcUsedWithCcns,
+    #[serde(rename = "WebTransportUsedWithCCNS")]
+    WebTransportUsedWithCcns,
+    #[serde(rename = "WebSocketUsedWithCCNS")]
+    WebSocketUsedWithCcns,
     #[serde(rename = "SmartCard")]
     SmartCard,
     #[serde(rename = "LiveMediaStreamTrack")]
@@ -2030,9 +2038,8 @@ pub struct AddScriptToEvaluateOnNewDocumentReturnObject {
 pub struct BringToFrontReturnObject {}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CaptureScreenshotReturnObject {
-    #[serde(default)]
     #[serde(rename = "data")]
-    pub data: String,
+    pub data: Vec<u8>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CaptureSnapshotReturnObject {

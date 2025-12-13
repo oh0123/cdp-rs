@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Audits
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Audits
 use super::dom;
 use super::network;
 use super::page;
@@ -280,10 +280,14 @@ pub enum SharedDictionaryError {
     WriteErrorInvalidMatchField,
     #[serde(rename = "WriteErrorInvalidStructuredHeader")]
     WriteErrorInvalidStructuredHeader,
+    #[serde(rename = "WriteErrorInvalidTTLField")]
+    WriteErrorInvalidTtlField,
     #[serde(rename = "WriteErrorNavigationRequest")]
     WriteErrorNavigationRequest,
     #[serde(rename = "WriteErrorNoMatchField")]
     WriteErrorNoMatchField,
+    #[serde(rename = "WriteErrorNonIntegerTTLField")]
+    WriteErrorNonIntegerTtlField,
     #[serde(rename = "WriteErrorNonListMatchDestField")]
     WriteErrorNonListMatchDestField,
     #[serde(rename = "WriteErrorNonSecureContext")]
@@ -559,6 +563,8 @@ pub enum UserReidentificationIssueType {
     BlockedFrameNavigation,
     #[serde(rename = "BlockedSubresource")]
     BlockedSubresource,
+    #[serde(rename = "NoisedCanvasReadback")]
+    NoisedCanvasReadback,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InspectorIssueCode {
@@ -1016,6 +1022,9 @@ pub struct UserReidentificationIssueDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "request")]
     pub request: Option<AffectedRequest>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "sourceCodeLocation")]
+    pub source_code_location: Option<SourceCodeLocation>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct InspectorIssueDetails {

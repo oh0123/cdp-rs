@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: IndexedDB
+// Auto-generated from Chrome at version 143.0.7499.110 domain: IndexedDB
 use super::runtime;
 use super::storage;
 #[allow(unused_imports)]
@@ -206,9 +206,10 @@ pub struct RequestData {
     #[serde(default)]
     #[serde(rename = "objectStoreName")]
     pub object_store_name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
     #[serde(rename = "indexName")]
-    pub index_name: String,
+    pub index_name: Option<String>,
     #[serde(default)]
     #[serde(rename = "skipCount")]
     pub skip_count: JsUInt,

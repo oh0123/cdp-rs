@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186 domain: Runtime
+// Auto-generated from Chrome at version 143.0.7499.110 domain: Runtime
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -131,6 +131,8 @@ pub enum RemoteObjectSubtype {
     Webassemblymemory,
     #[serde(rename = "wasmvalue")]
     Wasmvalue,
+    #[serde(rename = "trustedtype")]
+    Trustedtype,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ObjectPreviewType {
@@ -191,6 +193,8 @@ pub enum ObjectPreviewSubtype {
     Webassemblymemory,
     #[serde(rename = "wasmvalue")]
     Wasmvalue,
+    #[serde(rename = "trustedtype")]
+    Trustedtype,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PropertyPreviewType {
@@ -253,6 +257,8 @@ pub enum PropertyPreviewSubtype {
     Webassemblymemory,
     #[serde(rename = "wasmvalue")]
     Wasmvalue,
+    #[serde(rename = "trustedtype")]
+    Trustedtype,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ConsoleApiCalledTypeOption {

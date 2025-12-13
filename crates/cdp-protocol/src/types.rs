@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 140.0.7339.186
+// Auto-generated from Chrome at version 143.0.7499.110
 #[allow(unused)]
 use serde::{Deserialize, Serialize};
 use std::fmt::Debug;
@@ -66,6 +66,18 @@ pub enum Event {
     BackgroundServiceEventReceived(
         super::background_service::events::BackgroundServiceEventReceivedEvent,
     ),
+    #[serde(rename = "BluetoothEmulation.gattOperationReceived")]
+    BluetoothEmulationGattOperationReceived(
+        super::bluetooth_emulation::events::GattOperationReceivedEvent,
+    ),
+    #[serde(rename = "BluetoothEmulation.characteristicOperationReceived")]
+    BluetoothEmulationCharacteristicOperationReceived(
+        super::bluetooth_emulation::events::CharacteristicOperationReceivedEvent,
+    ),
+    #[serde(rename = "BluetoothEmulation.descriptorOperationReceived")]
+    BluetoothEmulationDescriptorOperationReceived(
+        super::bluetooth_emulation::events::DescriptorOperationReceivedEvent,
+    ),
     #[serde(rename = "Browser.downloadWillBegin")]
     BrowserDownloadWillBegin(super::browser::events::DownloadWillBeginEvent),
     #[serde(rename = "Browser.downloadProgress")]
@@ -110,6 +122,10 @@ pub enum Event {
     DOMTopLayerElementsUpdated(super::dom::events::TopLayerElementsUpdatedEvent),
     #[serde(rename = "DOM.scrollableFlagUpdated")]
     DOMScrollableFlagUpdated(super::dom::events::ScrollableFlagUpdatedEvent),
+    #[serde(rename = "DOM.affectedByStartingStylesFlagUpdated")]
+    DOMAffectedByStartingStylesFlagUpdated(
+        super::dom::events::AffectedByStartingStylesFlagUpdatedEvent,
+    ),
     #[serde(rename = "DOM.pseudoElementRemoved")]
     DOMPseudoElementRemoved(super::dom::events::PseudoElementRemovedEvent),
     #[serde(rename = "DOM.setChildNodes")]
@@ -126,8 +142,18 @@ pub enum Event {
     DOMStorageDomStorageItemUpdated(super::dom_storage::events::DomStorageItemUpdatedEvent),
     #[serde(rename = "DOMStorage.domStorageItemsCleared")]
     DOMStorageDomStorageItemsCleared(super::dom_storage::events::DomStorageItemsClearedEvent),
+    #[serde(rename = "DeviceAccess.deviceRequestPrompted")]
+    DeviceAccessDeviceRequestPrompted(super::device_access::events::DeviceRequestPromptedEvent),
     #[serde(rename = "Emulation.virtualTimeBudgetExpired")]
     EmulationVirtualTimeBudgetExpired(super::emulation::events::VirtualTimeBudgetExpiredEvent),
+    #[serde(rename = "FedCm.dialogShown")]
+    FedCmDialogShown(super::fed_cm::events::DialogShownEvent),
+    #[serde(rename = "FedCm.dialogClosed")]
+    FedCmDialogClosed(super::fed_cm::events::DialogClosedEvent),
+    #[serde(rename = "Fetch.requestPaused")]
+    FetchRequestPaused(super::fetch::events::RequestPausedEvent),
+    #[serde(rename = "Fetch.authRequired")]
+    FetchAuthRequired(super::fetch::events::AuthRequiredEvent),
     #[serde(rename = "Input.dragIntercepted")]
     InputDragIntercepted(super::input::events::DragInterceptedEvent),
     #[serde(rename = "Inspector.detached")]
@@ -136,12 +162,24 @@ pub enum Event {
     InspectorTargetCrashed(super::inspector::events::TargetCrashedEvent),
     #[serde(rename = "Inspector.targetReloadedAfterCrash")]
     InspectorTargetReloadedAfterCrash(super::inspector::events::TargetReloadedAfterCrashEvent),
+    #[serde(rename = "Inspector.workerScriptLoaded")]
+    InspectorWorkerScriptLoaded(super::inspector::events::WorkerScriptLoadedEvent),
     #[serde(rename = "LayerTree.layerPainted")]
     LayerTreeLayerPainted(super::layer_tree::events::LayerPaintedEvent),
     #[serde(rename = "LayerTree.layerTreeDidChange")]
     LayerTreeDidChange(super::layer_tree::events::LayerTreeDidChangeEvent),
     #[serde(rename = "Log.entryAdded")]
     LogEntryAdded(super::log::events::EntryAddedEvent),
+    #[serde(rename = "Media.playerPropertiesChanged")]
+    MediaPlayerPropertiesChanged(super::media::events::PlayerPropertiesChangedEvent),
+    #[serde(rename = "Media.playerEventsAdded")]
+    MediaPlayerEventsAdded(super::media::events::PlayerEventsAddedEvent),
+    #[serde(rename = "Media.playerMessagesLogged")]
+    MediaPlayerMessagesLogged(super::media::events::PlayerMessagesLoggedEvent),
+    #[serde(rename = "Media.playerErrorsRaised")]
+    MediaPlayerErrorsRaised(super::media::events::PlayerErrorsRaisedEvent),
+    #[serde(rename = "Media.playerCreated")]
+    MediaPlayerCreated(super::media::events::PlayerCreatedEvent),
     #[serde(rename = "Network.dataReceived")]
     NetworkDataReceived(super::network::events::DataReceivedEvent),
     #[serde(rename = "Network.eventSourceMessageReceived")]
@@ -222,22 +260,6 @@ pub enum Event {
     NetworkTrustTokenOperationDone(super::network::events::TrustTokenOperationDoneEvent),
     #[serde(rename = "Network.policyUpdated")]
     NetworkPolicyUpdated(super::network::events::PolicyUpdatedEvent),
-    #[serde(rename = "Network.subresourceWebBundleMetadataReceived")]
-    NetworkSubresourceWebBundleMetadataReceived(
-        super::network::events::SubresourceWebBundleMetadataReceivedEvent,
-    ),
-    #[serde(rename = "Network.subresourceWebBundleMetadataError")]
-    NetworkSubresourceWebBundleMetadataError(
-        super::network::events::SubresourceWebBundleMetadataErrorEvent,
-    ),
-    #[serde(rename = "Network.subresourceWebBundleInnerResponseParsed")]
-    NetworkSubresourceWebBundleInnerResponseParsed(
-        super::network::events::SubresourceWebBundleInnerResponseParsedEvent,
-    ),
-    #[serde(rename = "Network.subresourceWebBundleInnerResponseError")]
-    NetworkSubresourceWebBundleInnerResponseError(
-        super::network::events::SubresourceWebBundleInnerResponseErrorEvent,
-    ),
     #[serde(rename = "Network.reportingApiReportAdded")]
     NetworkReportingApiReportAdded(super::network::events::ReportingApiReportAddedEvent),
     #[serde(rename = "Network.reportingApiReportUpdated")]
@@ -316,6 +338,18 @@ pub enum Event {
     PerformanceTimelineTimelineEventAdded(
         super::performance_timeline::events::TimelineEventAddedEvent,
     ),
+    #[serde(rename = "Preload.ruleSetUpdated")]
+    PreloadRuleSetUpdated(super::preload::events::RuleSetUpdatedEvent),
+    #[serde(rename = "Preload.ruleSetRemoved")]
+    PreloadRuleSetRemoved(super::preload::events::RuleSetRemovedEvent),
+    #[serde(rename = "Preload.preloadEnabledStateUpdated")]
+    PreloadEnabledStateUpdated(super::preload::events::PreloadEnabledStateUpdatedEvent),
+    #[serde(rename = "Preload.prefetchStatusUpdated")]
+    PreloadPrefetchStatusUpdated(super::preload::events::PrefetchStatusUpdatedEvent),
+    #[serde(rename = "Preload.prerenderStatusUpdated")]
+    PreloadPrerenderStatusUpdated(super::preload::events::PrerenderStatusUpdatedEvent),
+    #[serde(rename = "Preload.preloadingAttemptSourcesUpdated")]
+    PreloadingAttemptSourcesUpdated(super::preload::events::PreloadingAttemptSourcesUpdatedEvent),
     #[serde(rename = "Security.certificateError")]
     SecurityCertificateError(super::security::events::CertificateErrorEvent),
     #[serde(rename = "Security.visibleSecurityStateChanged")]
@@ -396,10 +430,6 @@ pub enum Event {
     TracingDataCollected(super::tracing::events::DataCollectedEvent),
     #[serde(rename = "Tracing.tracingComplete")]
     TracingComplete(super::tracing::events::TracingCompleteEvent),
-    #[serde(rename = "Fetch.requestPaused")]
-    FetchRequestPaused(super::fetch::events::RequestPausedEvent),
-    #[serde(rename = "Fetch.authRequired")]
-    FetchAuthRequired(super::fetch::events::AuthRequiredEvent),
     #[serde(rename = "WebAudio.contextCreated")]
     WebAudioContextCreated(super::web_audio::events::ContextCreatedEvent),
     #[serde(rename = "WebAudio.contextWillBeDestroyed")]
@@ -436,46 +466,6 @@ pub enum Event {
     WebAuthnCredentialUpdated(super::web_authn::events::CredentialUpdatedEvent),
     #[serde(rename = "WebAuthn.credentialAsserted")]
     WebAuthnCredentialAsserted(super::web_authn::events::CredentialAssertedEvent),
-    #[serde(rename = "Media.playerPropertiesChanged")]
-    MediaPlayerPropertiesChanged(super::media::events::PlayerPropertiesChangedEvent),
-    #[serde(rename = "Media.playerEventsAdded")]
-    MediaPlayerEventsAdded(super::media::events::PlayerEventsAddedEvent),
-    #[serde(rename = "Media.playerMessagesLogged")]
-    MediaPlayerMessagesLogged(super::media::events::PlayerMessagesLoggedEvent),
-    #[serde(rename = "Media.playerErrorsRaised")]
-    MediaPlayerErrorsRaised(super::media::events::PlayerErrorsRaisedEvent),
-    #[serde(rename = "Media.playersCreated")]
-    MediaPlayersCreated(super::media::events::PlayersCreatedEvent),
-    #[serde(rename = "DeviceAccess.deviceRequestPrompted")]
-    DeviceAccessDeviceRequestPrompted(super::device_access::events::DeviceRequestPromptedEvent),
-    #[serde(rename = "Preload.ruleSetUpdated")]
-    PreloadRuleSetUpdated(super::preload::events::RuleSetUpdatedEvent),
-    #[serde(rename = "Preload.ruleSetRemoved")]
-    PreloadRuleSetRemoved(super::preload::events::RuleSetRemovedEvent),
-    #[serde(rename = "Preload.preloadEnabledStateUpdated")]
-    PreloadEnabledStateUpdated(super::preload::events::PreloadEnabledStateUpdatedEvent),
-    #[serde(rename = "Preload.prefetchStatusUpdated")]
-    PreloadPrefetchStatusUpdated(super::preload::events::PrefetchStatusUpdatedEvent),
-    #[serde(rename = "Preload.prerenderStatusUpdated")]
-    PreloadPrerenderStatusUpdated(super::preload::events::PrerenderStatusUpdatedEvent),
-    #[serde(rename = "Preload.preloadingAttemptSourcesUpdated")]
-    PreloadingAttemptSourcesUpdated(super::preload::events::PreloadingAttemptSourcesUpdatedEvent),
-    #[serde(rename = "FedCm.dialogShown")]
-    FedCmDialogShown(super::fed_cm::events::DialogShownEvent),
-    #[serde(rename = "FedCm.dialogClosed")]
-    FedCmDialogClosed(super::fed_cm::events::DialogClosedEvent),
-    #[serde(rename = "BluetoothEmulation.gattOperationReceived")]
-    BluetoothEmulationGattOperationReceived(
-        super::bluetooth_emulation::events::GattOperationReceivedEvent,
-    ),
-    #[serde(rename = "BluetoothEmulation.characteristicOperationReceived")]
-    BluetoothEmulationCharacteristicOperationReceived(
-        super::bluetooth_emulation::events::CharacteristicOperationReceivedEvent,
-    ),
-    #[serde(rename = "BluetoothEmulation.descriptorOperationReceived")]
-    BluetoothEmulationDescriptorOperationReceived(
-        super::bluetooth_emulation::events::DescriptorOperationReceivedEvent,
-    ),
     #[serde(rename = "Console.messageAdded")]
     ConsoleMessageAdded(super::console::events::MessageAddedEvent),
     #[serde(rename = "Debugger.breakpointResolved")]
