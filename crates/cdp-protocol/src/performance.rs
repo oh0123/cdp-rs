@@ -1,6 +1,8 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Performance
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Performance
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -19,44 +21,56 @@ pub enum SetTimeDomainTimeDomainOption {
     #[serde(rename = "threadTicks")]
     ThreadTicks,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Run-time execution metric."]
 pub struct Metric {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Metric name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "Metric value."]
     pub value: JsFloat,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enable collecting and reporting metrics."]
 pub struct Enable {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "timeDomain")]
+    #[doc = "Time domain to use for collecting and reporting duration metrics."]
     pub time_domain: Option<EnableTimeDomainOption>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets time domain to use for collecting and reporting duration metrics.\n Note that this must be called before enabling metrics collection. Calling\n this method while metrics collection is enabled returns an error."]
+#[deprecated]
 pub struct SetTimeDomain {
-    #[serde(rename = "timeDomain")]
+    #[doc = "Time domain"]
     pub time_domain: SetTimeDomainTimeDomainOption,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetMetrics(pub Option<serde_json::Value>);
+pub struct GetMetrics(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disable collecting and reporting metrics."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enable collecting and reporting metrics."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Sets time domain to use for collecting and reporting duration metrics.\n Note that this must be called before enabling metrics collection. Calling\n this method while metrics collection is enabled returns an error."]
+#[deprecated]
+pub struct SetTimeDomainReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetTimeDomainReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Retrieve current values of run-time metrics."]
 pub struct GetMetricsReturnObject {
-    #[serde(rename = "metrics")]
+    #[doc = "Current values for run-time metrics."]
     pub metrics: Vec<Metric>,
 }
 impl Method for Disable {
@@ -79,17 +93,21 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct MetricsEvent {
         pub params: MetricsEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct MetricsEventParams {
-        #[serde(rename = "metrics")]
+        #[doc = "Current values of the metrics."]
         pub metrics: Vec<super::Metric>,
         #[serde(default)]
-        #[serde(rename = "title")]
+        #[doc = "Timestamp title."]
         pub title: String,
     }
 }

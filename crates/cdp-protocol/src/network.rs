@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Network
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Network
 use super::debugger;
 use super::emulation;
 use super::io;
@@ -9,6 +9,8 @@ use super::security;
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
+use derive_builder::Builder;
+#[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
@@ -18,6 +20,7 @@ pub type InterceptionId = String;
 pub type TimeSinceEpoch = JsFloat;
 pub type MonotonicTime = JsFloat;
 pub type ReportId = String;
+pub type DeviceBoundSessionEventId = String;
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ResourceType {
     #[serde(rename = "Document")]
@@ -152,6 +155,19 @@ pub enum ResourcePriority {
     VeryHigh,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum RenderBlockingBehavior {
+    #[serde(rename = "Blocking")]
+    Blocking,
+    #[serde(rename = "InBodyParserBlocking")]
+    InBodyParserBlocking,
+    #[serde(rename = "NonBlocking")]
+    NonBlocking,
+    #[serde(rename = "NonBlockingDynamic")]
+    NonBlockingDynamic,
+    #[serde(rename = "PotentiallyBlocking")]
+    PotentiallyBlocking,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum RequestReferrerPolicy {
     #[serde(rename = "unsafe-url")]
     UnsafeUrl,
@@ -215,23 +231,6 @@ pub enum BlockedReason {
     SriMessageSignatureMismatch,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub enum IpProxyStatus {
-    #[serde(rename = "Available")]
-    Available,
-    #[serde(rename = "FeatureNotEnabled")]
-    FeatureNotEnabled,
-    #[serde(rename = "MaskedDomainListNotEnabled")]
-    MaskedDomainListNotEnabled,
-    #[serde(rename = "MaskedDomainListNotPopulated")]
-    MaskedDomainListNotPopulated,
-    #[serde(rename = "AuthTokensUnavailable")]
-    AuthTokensUnavailable,
-    #[serde(rename = "Unavailable")]
-    Unavailable,
-    #[serde(rename = "BypassedByDevTools")]
-    BypassedByDevTools,
-}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CorsError {
     #[serde(rename = "DisallowedByMode")]
     DisallowedByMode,
@@ -271,10 +270,6 @@ pub enum CorsError {
     PreflightMissingAllowExternal,
     #[serde(rename = "PreflightInvalidAllowExternal")]
     PreflightInvalidAllowExternal,
-    #[serde(rename = "PreflightMissingAllowPrivateNetwork")]
-    PreflightMissingAllowPrivateNetwork,
-    #[serde(rename = "PreflightInvalidAllowPrivateNetwork")]
-    PreflightInvalidAllowPrivateNetwork,
     #[serde(rename = "InvalidAllowMethodsPreflightResponse")]
     InvalidAllowMethodsPreflightResponse,
     #[serde(rename = "InvalidAllowHeadersPreflightResponse")]
@@ -285,22 +280,12 @@ pub enum CorsError {
     HeaderDisallowedByPreflightResponse,
     #[serde(rename = "RedirectContainsCredentials")]
     RedirectContainsCredentials,
-    #[serde(rename = "InsecurePrivateNetwork")]
-    InsecurePrivateNetwork,
-    #[serde(rename = "InvalidPrivateNetworkAccess")]
-    InvalidPrivateNetworkAccess,
-    #[serde(rename = "UnexpectedPrivateNetworkAccess")]
-    UnexpectedPrivateNetworkAccess,
+    #[serde(rename = "InsecureLocalNetwork")]
+    InsecureLocalNetwork,
+    #[serde(rename = "InvalidLocalNetworkAccess")]
+    InvalidLocalNetworkAccess,
     #[serde(rename = "NoCorsRedirectModeNotFollow")]
     NoCorsRedirectModeNotFollow,
-    #[serde(rename = "PreflightMissingPrivateNetworkAccessId")]
-    PreflightMissingPrivateNetworkAccessId,
-    #[serde(rename = "PreflightMissingPrivateNetworkAccessName")]
-    PreflightMissingPrivateNetworkAccessName,
-    #[serde(rename = "PrivateNetworkAccessPermissionUnavailable")]
-    PrivateNetworkAccessPermissionUnavailable,
-    #[serde(rename = "PrivateNetworkAccessPermissionDenied")]
-    PrivateNetworkAccessPermissionDenied,
     #[serde(rename = "LocalNetworkAccessPermissionDenied")]
     LocalNetworkAccessPermissionDenied,
 }
@@ -416,10 +401,6 @@ pub enum SetCookieBlockedReason {
     SchemefulSameSiteLax,
     #[serde(rename = "SchemefulSameSiteUnspecifiedTreatedAsLax")]
     SchemefulSameSiteUnspecifiedTreatedAsLax,
-    #[serde(rename = "SamePartyFromCrossPartyContext")]
-    SamePartyFromCrossPartyContext,
-    #[serde(rename = "SamePartyConflictsWithOtherAttributes")]
-    SamePartyConflictsWithOtherAttributes,
     #[serde(rename = "NameValuePairExceedsMaxSize")]
     NameValuePairExceedsMaxSize,
     #[serde(rename = "DisallowedCharacter")]
@@ -457,8 +438,6 @@ pub enum CookieBlockedReason {
     SchemefulSameSiteLax,
     #[serde(rename = "SchemefulSameSiteUnspecifiedTreatedAsLax")]
     SchemefulSameSiteUnspecifiedTreatedAsLax,
-    #[serde(rename = "SamePartyFromCrossPartyContext")]
-    SamePartyFromCrossPartyContext,
     #[serde(rename = "NameValuePairExceedsMaxSize")]
     NameValuePairExceedsMaxSize,
     #[serde(rename = "PortMismatch")]
@@ -550,17 +529,13 @@ pub enum DirectSocketDnsQueryType {
     Ipv6,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub enum PrivateNetworkRequestPolicy {
+pub enum LocalNetworkAccessRequestPolicy {
     #[serde(rename = "Allow")]
     Allow,
     #[serde(rename = "BlockFromInsecureToMorePrivate")]
     BlockFromInsecureToMorePrivate,
     #[serde(rename = "WarnFromInsecureToMorePrivate")]
     WarnFromInsecureToMorePrivate,
-    #[serde(rename = "PreflightBlock")]
-    PreflightBlock,
-    #[serde(rename = "PreflightWarn")]
-    PreflightWarn,
     #[serde(rename = "PermissionBlock")]
     PermissionBlock,
     #[serde(rename = "PermissionWarn")]
@@ -622,6 +597,214 @@ pub enum ReportStatus {
     Success,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum DeviceBoundSessionWithUsageUsage {
+    #[serde(rename = "NotInScope")]
+    NotInScope,
+    #[serde(rename = "InScopeRefreshNotYetNeeded")]
+    InScopeRefreshNotYetNeeded,
+    #[serde(rename = "InScopeRefreshNotAllowed")]
+    InScopeRefreshNotAllowed,
+    #[serde(rename = "ProactiveRefreshNotPossible")]
+    ProactiveRefreshNotPossible,
+    #[serde(rename = "ProactiveRefreshAttempted")]
+    ProactiveRefreshAttempted,
+    #[serde(rename = "Deferred")]
+    Deferred,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum DeviceBoundSessionUrlRuleRuleType {
+    #[serde(rename = "Exclude")]
+    Exclude,
+    #[serde(rename = "Include")]
+    Include,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum DeviceBoundSessionFetchResult {
+    #[serde(rename = "Success")]
+    Success,
+    #[serde(rename = "KeyError")]
+    KeyError,
+    #[serde(rename = "SigningError")]
+    SigningError,
+    #[serde(rename = "ServerRequestedTermination")]
+    ServerRequestedTermination,
+    #[serde(rename = "InvalidSessionId")]
+    InvalidSessionId,
+    #[serde(rename = "InvalidChallenge")]
+    InvalidChallenge,
+    #[serde(rename = "TooManyChallenges")]
+    TooManyChallenges,
+    #[serde(rename = "InvalidFetcherUrl")]
+    InvalidFetcherUrl,
+    #[serde(rename = "InvalidRefreshUrl")]
+    InvalidRefreshUrl,
+    #[serde(rename = "TransientHttpError")]
+    TransientHttpError,
+    #[serde(rename = "ScopeOriginSameSiteMismatch")]
+    ScopeOriginSameSiteMismatch,
+    #[serde(rename = "RefreshUrlSameSiteMismatch")]
+    RefreshUrlSameSiteMismatch,
+    #[serde(rename = "MismatchedSessionId")]
+    MismatchedSessionId,
+    #[serde(rename = "MissingScope")]
+    MissingScope,
+    #[serde(rename = "NoCredentials")]
+    NoCredentials,
+    #[serde(rename = "SubdomainRegistrationWellKnownUnavailable")]
+    SubdomainRegistrationWellKnownUnavailable,
+    #[serde(rename = "SubdomainRegistrationUnauthorized")]
+    SubdomainRegistrationUnauthorized,
+    #[serde(rename = "SubdomainRegistrationWellKnownMalformed")]
+    SubdomainRegistrationWellKnownMalformed,
+    #[serde(rename = "SessionProviderWellKnownUnavailable")]
+    SessionProviderWellKnownUnavailable,
+    #[serde(rename = "RelyingPartyWellKnownUnavailable")]
+    RelyingPartyWellKnownUnavailable,
+    #[serde(rename = "FederatedKeyThumbprintMismatch")]
+    FederatedKeyThumbprintMismatch,
+    #[serde(rename = "InvalidFederatedSessionUrl")]
+    InvalidFederatedSessionUrl,
+    #[serde(rename = "InvalidFederatedKey")]
+    InvalidFederatedKey,
+    #[serde(rename = "TooManyRelyingOriginLabels")]
+    TooManyRelyingOriginLabels,
+    #[serde(rename = "BoundCookieSetForbidden")]
+    BoundCookieSetForbidden,
+    #[serde(rename = "NetError")]
+    NetError,
+    #[serde(rename = "ProxyError")]
+    ProxyError,
+    #[serde(rename = "EmptySessionConfig")]
+    EmptySessionConfig,
+    #[serde(rename = "InvalidCredentialsConfig")]
+    InvalidCredentialsConfig,
+    #[serde(rename = "InvalidCredentialsType")]
+    InvalidCredentialsType,
+    #[serde(rename = "InvalidCredentialsEmptyName")]
+    InvalidCredentialsEmptyName,
+    #[serde(rename = "InvalidCredentialsCookie")]
+    InvalidCredentialsCookie,
+    #[serde(rename = "PersistentHttpError")]
+    PersistentHttpError,
+    #[serde(rename = "RegistrationAttemptedChallenge")]
+    RegistrationAttemptedChallenge,
+    #[serde(rename = "InvalidScopeOrigin")]
+    InvalidScopeOrigin,
+    #[serde(rename = "ScopeOriginContainsPath")]
+    ScopeOriginContainsPath,
+    #[serde(rename = "RefreshInitiatorNotString")]
+    RefreshInitiatorNotString,
+    #[serde(rename = "RefreshInitiatorInvalidHostPattern")]
+    RefreshInitiatorInvalidHostPattern,
+    #[serde(rename = "InvalidScopeSpecification")]
+    InvalidScopeSpecification,
+    #[serde(rename = "MissingScopeSpecificationType")]
+    MissingScopeSpecificationType,
+    #[serde(rename = "EmptyScopeSpecificationDomain")]
+    EmptyScopeSpecificationDomain,
+    #[serde(rename = "EmptyScopeSpecificationPath")]
+    EmptyScopeSpecificationPath,
+    #[serde(rename = "InvalidScopeSpecificationType")]
+    InvalidScopeSpecificationType,
+    #[serde(rename = "InvalidScopeIncludeSite")]
+    InvalidScopeIncludeSite,
+    #[serde(rename = "MissingScopeIncludeSite")]
+    MissingScopeIncludeSite,
+    #[serde(rename = "FederatedNotAuthorizedByProvider")]
+    FederatedNotAuthorizedByProvider,
+    #[serde(rename = "FederatedNotAuthorizedByRelyingParty")]
+    FederatedNotAuthorizedByRelyingParty,
+    #[serde(rename = "SessionProviderWellKnownMalformed")]
+    SessionProviderWellKnownMalformed,
+    #[serde(rename = "SessionProviderWellKnownHasProviderOrigin")]
+    SessionProviderWellKnownHasProviderOrigin,
+    #[serde(rename = "RelyingPartyWellKnownMalformed")]
+    RelyingPartyWellKnownMalformed,
+    #[serde(rename = "RelyingPartyWellKnownHasRelyingOrigins")]
+    RelyingPartyWellKnownHasRelyingOrigins,
+    #[serde(rename = "InvalidFederatedSessionProviderSessionMissing")]
+    InvalidFederatedSessionProviderSessionMissing,
+    #[serde(rename = "InvalidFederatedSessionWrongProviderOrigin")]
+    InvalidFederatedSessionWrongProviderOrigin,
+    #[serde(rename = "InvalidCredentialsCookieCreationTime")]
+    InvalidCredentialsCookieCreationTime,
+    #[serde(rename = "InvalidCredentialsCookieName")]
+    InvalidCredentialsCookieName,
+    #[serde(rename = "InvalidCredentialsCookieParsing")]
+    InvalidCredentialsCookieParsing,
+    #[serde(rename = "InvalidCredentialsCookieUnpermittedAttribute")]
+    InvalidCredentialsCookieUnpermittedAttribute,
+    #[serde(rename = "InvalidCredentialsCookieInvalidDomain")]
+    InvalidCredentialsCookieInvalidDomain,
+    #[serde(rename = "InvalidCredentialsCookiePrefix")]
+    InvalidCredentialsCookiePrefix,
+    #[serde(rename = "InvalidScopeRulePath")]
+    InvalidScopeRulePath,
+    #[serde(rename = "InvalidScopeRuleHostPattern")]
+    InvalidScopeRuleHostPattern,
+    #[serde(rename = "ScopeRuleOriginScopedHostPatternMismatch")]
+    ScopeRuleOriginScopedHostPatternMismatch,
+    #[serde(rename = "ScopeRuleSiteScopedHostPatternMismatch")]
+    ScopeRuleSiteScopedHostPatternMismatch,
+    #[serde(rename = "SigningQuotaExceeded")]
+    SigningQuotaExceeded,
+    #[serde(rename = "InvalidConfigJson")]
+    InvalidConfigJson,
+    #[serde(rename = "InvalidFederatedSessionProviderFailedToRestoreKey")]
+    InvalidFederatedSessionProviderFailedToRestoreKey,
+    #[serde(rename = "FailedToUnwrapKey")]
+    FailedToUnwrapKey,
+    #[serde(rename = "SessionDeletedDuringRefresh")]
+    SessionDeletedDuringRefresh,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum RefreshEventDetailsRefreshResult {
+    #[serde(rename = "Refreshed")]
+    Refreshed,
+    #[serde(rename = "InitializedService")]
+    InitializedService,
+    #[serde(rename = "Unreachable")]
+    Unreachable,
+    #[serde(rename = "ServerError")]
+    ServerError,
+    #[serde(rename = "RefreshQuotaExceeded")]
+    RefreshQuotaExceeded,
+    #[serde(rename = "FatalError")]
+    FatalError,
+    #[serde(rename = "SigningQuotaExceeded")]
+    SigningQuotaExceeded,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum TerminationEventDetailsDeletionReason {
+    #[serde(rename = "Expired")]
+    Expired,
+    #[serde(rename = "FailedToRestoreKey")]
+    FailedToRestoreKey,
+    #[serde(rename = "FailedToUnwrapKey")]
+    FailedToUnwrapKey,
+    #[serde(rename = "StoragePartitionCleared")]
+    StoragePartitionCleared,
+    #[serde(rename = "ClearBrowsingData")]
+    ClearBrowsingData,
+    #[serde(rename = "ServerRequested")]
+    ServerRequested,
+    #[serde(rename = "InvalidSessionParams")]
+    InvalidSessionParams,
+    #[serde(rename = "RefreshFatalError")]
+    RefreshFatalError,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum ChallengeEventDetailsChallengeResult {
+    #[serde(rename = "Success")]
+    Success,
+    #[serde(rename = "NoSessionId")]
+    NoSessionId,
+    #[serde(rename = "NoSessionMatch")]
+    NoSessionMatch,
+    #[serde(rename = "CantSetBoundCookie")]
+    CantSetBoundCookie,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum TrustTokenOperationDoneStatusOption {
     #[serde(rename = "Ok")]
     Ok,
@@ -651,1452 +834,1974 @@ pub enum TrustTokenOperationDoneStatusOption {
     SiteIssuerLimit,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Headers(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Headers(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Timing information for the request."]
 pub struct ResourceTiming {
     #[serde(default)]
-    #[serde(rename = "requestTime")]
+    #[doc = "Timing's requestTime is a baseline in seconds, while the other numbers are ticks in\n milliseconds relatively to this requestTime."]
     pub request_time: JsFloat,
     #[serde(default)]
-    #[serde(rename = "proxyStart")]
+    #[doc = "Started resolving proxy."]
     pub proxy_start: JsFloat,
     #[serde(default)]
-    #[serde(rename = "proxyEnd")]
+    #[doc = "Finished resolving proxy."]
     pub proxy_end: JsFloat,
     #[serde(default)]
-    #[serde(rename = "dnsStart")]
+    #[doc = "Started DNS address resolve."]
     pub dns_start: JsFloat,
     #[serde(default)]
-    #[serde(rename = "dnsEnd")]
+    #[doc = "Finished DNS address resolve."]
     pub dns_end: JsFloat,
     #[serde(default)]
-    #[serde(rename = "connectStart")]
+    #[doc = "Started connecting to the remote host."]
     pub connect_start: JsFloat,
     #[serde(default)]
-    #[serde(rename = "connectEnd")]
+    #[doc = "Connected to the remote host."]
     pub connect_end: JsFloat,
     #[serde(default)]
-    #[serde(rename = "sslStart")]
+    #[doc = "Started SSL handshake."]
     pub ssl_start: JsFloat,
     #[serde(default)]
-    #[serde(rename = "sslEnd")]
+    #[doc = "Finished SSL handshake."]
     pub ssl_end: JsFloat,
     #[serde(default)]
-    #[serde(rename = "workerStart")]
+    #[doc = "Started running ServiceWorker."]
     pub worker_start: JsFloat,
     #[serde(default)]
-    #[serde(rename = "workerReady")]
+    #[doc = "Finished Starting ServiceWorker."]
     pub worker_ready: JsFloat,
     #[serde(default)]
-    #[serde(rename = "workerFetchStart")]
+    #[doc = "Started fetch event."]
     pub worker_fetch_start: JsFloat,
     #[serde(default)]
-    #[serde(rename = "workerRespondWithSettled")]
+    #[doc = "Settled fetch event respondWith promise."]
     pub worker_respond_with_settled: JsFloat,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "workerRouterEvaluationStart")]
+    #[doc = "Started ServiceWorker static routing source evaluation."]
     pub worker_router_evaluation_start: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "workerCacheLookupStart")]
+    #[doc = "Started cache lookup when the source was evaluated to `cache`."]
     pub worker_cache_lookup_start: Option<JsFloat>,
     #[serde(default)]
-    #[serde(rename = "sendStart")]
+    #[doc = "Started sending request."]
     pub send_start: JsFloat,
     #[serde(default)]
-    #[serde(rename = "sendEnd")]
+    #[doc = "Finished sending request."]
     pub send_end: JsFloat,
     #[serde(default)]
-    #[serde(rename = "pushStart")]
+    #[doc = "Time the server started pushing request."]
     pub push_start: JsFloat,
     #[serde(default)]
-    #[serde(rename = "pushEnd")]
+    #[doc = "Time the server finished pushing request."]
     pub push_end: JsFloat,
     #[serde(default)]
-    #[serde(rename = "receiveHeadersStart")]
+    #[doc = "Started receiving response headers."]
     pub receive_headers_start: JsFloat,
     #[serde(default)]
-    #[serde(rename = "receiveHeadersEnd")]
+    #[doc = "Finished receiving response headers."]
     pub receive_headers_end: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Post data entry for HTTP request"]
 pub struct PostDataEntry {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "bytes")]
     pub bytes: Option<Vec<u8>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "HTTP request data."]
 pub struct Request {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "Request URL (without fragment)."]
     pub url: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "urlFragment")]
+    #[doc = "Fragment of the requested URL starting with hash, if present."]
     pub url_fragment: Option<String>,
     #[serde(default)]
-    #[serde(rename = "method")]
+    #[doc = "HTTP request method."]
     pub method: String,
-    #[serde(rename = "headers")]
+    #[doc = "HTTP request headers."]
     pub headers: Headers,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "postData")]
+    #[doc = "HTTP POST request data.\n Use postDataEntries instead."]
+    #[deprecated]
     pub post_data: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "hasPostData")]
+    #[doc = "True when the request has POST data. Note that postData might still be omitted when this flag is true when the data is too long."]
     pub has_post_data: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "postDataEntries")]
+    #[doc = "Request body elements (post data broken into individual entries)."]
     pub post_data_entries: Option<Vec<PostDataEntry>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "mixedContentType")]
+    #[doc = "The mixed content type of the request."]
     pub mixed_content_type: Option<security::MixedContentType>,
-    #[serde(rename = "initialPriority")]
+    #[doc = "Priority of the resource request at the time request is sent."]
     pub initial_priority: ResourcePriority,
-    #[serde(rename = "referrerPolicy")]
+    #[doc = "The referrer policy of the request, as defined in https://www.w3.org/TR/referrer-policy/"]
     pub referrer_policy: RequestReferrerPolicy,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isLinkPreload")]
+    #[doc = "Whether is loaded via link preload."]
     pub is_link_preload: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "trustTokenParams")]
+    #[doc = "Set for requests when the TrustToken API is used. Contains the parameters\n passed by the developer (e.g. via \"fetch\") as understood by the backend."]
     pub trust_token_params: Option<TrustTokenParams>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isSameSite")]
+    #[doc = "True if this resource request is considered to be the 'same site' as the\n request corresponding to the main frame."]
     pub is_same_site: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isAdRelated")]
+    #[doc = "True when the resource request is ad-related."]
     pub is_ad_related: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Details of a signed certificate timestamp (SCT)."]
 pub struct SignedCertificateTimestamp {
     #[serde(default)]
-    #[serde(rename = "status")]
+    #[doc = "Validation status."]
     pub status: String,
     #[serde(default)]
-    #[serde(rename = "origin")]
+    #[doc = "Origin."]
     pub origin: String,
     #[serde(default)]
-    #[serde(rename = "logDescription")]
+    #[doc = "Log name / description."]
     pub log_description: String,
     #[serde(default)]
-    #[serde(rename = "logId")]
+    #[doc = "Log ID."]
     pub log_id: String,
     #[serde(default)]
-    #[serde(rename = "timestamp")]
+    #[doc = "Issuance date. Unlike TimeSinceEpoch, this contains the number of\n milliseconds since January 1, 1970, UTC, not the number of seconds."]
     pub timestamp: JsFloat,
     #[serde(default)]
-    #[serde(rename = "hashAlgorithm")]
+    #[doc = "Hash algorithm."]
     pub hash_algorithm: String,
     #[serde(default)]
-    #[serde(rename = "signatureAlgorithm")]
+    #[doc = "Signature algorithm."]
     pub signature_algorithm: String,
     #[serde(default)]
-    #[serde(rename = "signatureData")]
+    #[doc = "Signature data."]
     pub signature_data: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Security details about a request."]
 pub struct SecurityDetails {
     #[serde(default)]
-    #[serde(rename = "protocol")]
+    #[doc = "Protocol name (e.g. \"TLS 1.2\" or \"QUIC\")."]
     pub protocol: String,
     #[serde(default)]
-    #[serde(rename = "keyExchange")]
+    #[doc = "Key Exchange used by the connection, or the empty string if not applicable."]
     pub key_exchange: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "keyExchangeGroup")]
+    #[doc = "(EC)DH group used by the connection, if applicable."]
     pub key_exchange_group: Option<String>,
     #[serde(default)]
-    #[serde(rename = "cipher")]
+    #[doc = "Cipher name."]
     pub cipher: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "mac")]
+    #[doc = "TLS MAC. Note that AEAD ciphers do not have separate MACs."]
     pub mac: Option<String>,
-    #[serde(rename = "certificateId")]
+    #[doc = "Certificate ID value."]
     pub certificate_id: security::CertificateId,
     #[serde(default)]
-    #[serde(rename = "subjectName")]
+    #[doc = "Certificate subject name."]
     pub subject_name: String,
     #[serde(default)]
-    #[serde(rename = "sanList")]
+    #[doc = "Subject Alternative Name (SAN) DNS names and IP addresses."]
     pub san_list: Vec<String>,
     #[serde(default)]
-    #[serde(rename = "issuer")]
+    #[doc = "Name of the issuing CA."]
     pub issuer: String,
-    #[serde(rename = "validFrom")]
+    #[doc = "Certificate valid from date."]
     pub valid_from: TimeSinceEpoch,
-    #[serde(rename = "validTo")]
+    #[doc = "Certificate valid to (expiration) date"]
     pub valid_to: TimeSinceEpoch,
-    #[serde(rename = "signedCertificateTimestampList")]
+    #[doc = "List of signed certificate timestamps (SCTs)."]
     pub signed_certificate_timestamp_list: Vec<SignedCertificateTimestamp>,
-    #[serde(rename = "certificateTransparencyCompliance")]
+    #[doc = "Whether the request complied with Certificate Transparency policy"]
     pub certificate_transparency_compliance: CertificateTransparencyCompliance,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "serverSignatureAlgorithm")]
+    #[doc = "The signature algorithm used by the server in the TLS server signature,\n represented as a TLS SignatureScheme code point. Omitted if not\n applicable or not known."]
     pub server_signature_algorithm: Option<JsUInt>,
     #[serde(default)]
-    #[serde(rename = "encryptedClientHello")]
+    #[doc = "Whether the connection used Encrypted ClientHello"]
     pub encrypted_client_hello: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct CorsErrorStatus {
-    #[serde(rename = "corsError")]
     pub cors_error: CorsError,
     #[serde(default)]
-    #[serde(rename = "failedParameter")]
     pub failed_parameter: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Determines what type of Trust Token operation is executed and\n depending on the type, some additional parameters. The values\n are specified in third_party/blink/renderer/core/fetch/trust_token.idl."]
 pub struct TrustTokenParams {
-    #[serde(rename = "operation")]
     pub operation: TrustTokenOperationType,
-    #[serde(rename = "refreshPolicy")]
+    #[doc = "Only set for \"token-redemption\" operation and determine whether\n to request a fresh SRR or use a still valid cached SRR."]
     pub refresh_policy: TrustTokenParamsRefreshPolicy,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "issuers")]
+    #[doc = "Origins of issuers from whom to request tokens or redemption\n records."]
     pub issuers: Option<Vec<String>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ServiceWorkerRouterInfo {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "ruleIdMatched")]
+    #[doc = "ID of the rule matched. If there is a matched rule, this field will\n be set, otherwiser no value will be set."]
     pub rule_id_matched: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "matchedSourceType")]
+    #[doc = "The router source of the matched rule. If there is a matched rule, this\n field will be set, otherwise no value will be set."]
     pub matched_source_type: Option<ServiceWorkerRouterSource>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "actualSourceType")]
+    #[doc = "The actual router source used."]
     pub actual_source_type: Option<ServiceWorkerRouterSource>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "HTTP response data."]
 pub struct Response {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "Response URL. This URL can be different from CachedResource.url in case of redirect."]
     pub url: String,
     #[serde(default)]
-    #[serde(rename = "status")]
+    #[doc = "HTTP response status code."]
     pub status: JsUInt,
     #[serde(default)]
-    #[serde(rename = "statusText")]
+    #[doc = "HTTP response status text."]
     pub status_text: String,
-    #[serde(rename = "headers")]
+    #[doc = "HTTP response headers."]
     pub headers: Headers,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "headersText")]
+    #[doc = "HTTP response headers text. This has been replaced by the headers in Network.responseReceivedExtraInfo."]
+    #[deprecated]
     pub headers_text: Option<String>,
     #[serde(default)]
-    #[serde(rename = "mimeType")]
+    #[doc = "Resource mimeType as determined by the browser."]
     pub mime_type: String,
     #[serde(default)]
-    #[serde(rename = "charset")]
+    #[doc = "Resource charset as determined by the browser (if applicable)."]
     pub charset: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "requestHeaders")]
+    #[doc = "Refined HTTP request headers that were actually transmitted over the network."]
     pub request_headers: Option<Headers>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "requestHeadersText")]
+    #[doc = "HTTP request headers text. This has been replaced by the headers in Network.requestWillBeSentExtraInfo."]
+    #[deprecated]
     pub request_headers_text: Option<String>,
     #[serde(default)]
-    #[serde(rename = "connectionReused")]
+    #[doc = "Specifies whether physical connection was actually reused for this request."]
     pub connection_reused: bool,
     #[serde(default)]
-    #[serde(rename = "connectionId")]
+    #[doc = "Physical connection id that was actually used for this request."]
     pub connection_id: JsFloat,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Remote IP address."]
     #[serde(rename = "remoteIPAddress")]
     pub remote_ip_address: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "remotePort")]
+    #[doc = "Remote port."]
     pub remote_port: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fromDiskCache")]
+    #[doc = "Specifies that the request was served from the disk cache."]
     pub from_disk_cache: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fromServiceWorker")]
+    #[doc = "Specifies that the request was served from the ServiceWorker."]
     pub from_service_worker: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fromPrefetchCache")]
+    #[doc = "Specifies that the request was served from the prefetch cache."]
     pub from_prefetch_cache: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fromEarlyHints")]
+    #[doc = "Specifies that the request was served from the prefetch cache."]
     pub from_early_hints: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "serviceWorkerRouterInfo")]
+    #[doc = "Information about how ServiceWorker Static Router API was used. If this\n field is set with `matchedSourceType` field, a matching rule is found.\n If this field is set without `matchedSource`, no matching rule is found.\n Otherwise, the API is not used."]
     pub service_worker_router_info: Option<ServiceWorkerRouterInfo>,
     #[serde(default)]
-    #[serde(rename = "encodedDataLength")]
+    #[doc = "Total number of bytes received for this request so far."]
     pub encoded_data_length: JsFloat,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "timing")]
+    #[doc = "Timing information for the given request."]
     pub timing: Option<ResourceTiming>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "serviceWorkerResponseSource")]
+    #[doc = "Response source of response from ServiceWorker."]
     pub service_worker_response_source: Option<ServiceWorkerResponseSource>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "responseTime")]
+    #[doc = "The time at which the returned response was generated."]
     pub response_time: Option<TimeSinceEpoch>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "cacheStorageCacheName")]
+    #[doc = "Cache Storage Cache Name."]
     pub cache_storage_cache_name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "protocol")]
+    #[doc = "Protocol used to fetch this request."]
     pub protocol: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "alternateProtocolUsage")]
+    #[doc = "The reason why Chrome uses a specific transport protocol for HTTP semantics."]
     pub alternate_protocol_usage: Option<AlternateProtocolUsage>,
-    #[serde(rename = "securityState")]
+    #[doc = "Security state of the request resource."]
     pub security_state: security::SecurityState,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "securityDetails")]
+    #[doc = "Security details for the request."]
     pub security_details: Option<SecurityDetails>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
-    #[serde(rename = "isIpProtectionUsed")]
-    pub is_ip_protection_used: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "WebSocket request data."]
 pub struct WebSocketRequest {
-    #[serde(rename = "headers")]
+    #[doc = "HTTP request headers."]
     pub headers: Headers,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "WebSocket response data."]
 pub struct WebSocketResponse {
     #[serde(default)]
-    #[serde(rename = "status")]
+    #[doc = "HTTP response status code."]
     pub status: JsUInt,
     #[serde(default)]
-    #[serde(rename = "statusText")]
+    #[doc = "HTTP response status text."]
     pub status_text: String,
-    #[serde(rename = "headers")]
+    #[doc = "HTTP response headers."]
     pub headers: Headers,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "headersText")]
+    #[doc = "HTTP response headers text."]
     pub headers_text: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "requestHeaders")]
+    #[doc = "HTTP request headers."]
     pub request_headers: Option<Headers>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "requestHeadersText")]
+    #[doc = "HTTP request headers text."]
     pub request_headers_text: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "WebSocket message data. This represents an entire WebSocket message, not just a fragmented frame as the name suggests."]
 pub struct WebSocketFrame {
     #[serde(default)]
-    #[serde(rename = "opcode")]
+    #[doc = "WebSocket message opcode."]
     pub opcode: JsFloat,
     #[serde(default)]
-    #[serde(rename = "mask")]
+    #[doc = "WebSocket message mask."]
     pub mask: bool,
     #[serde(default)]
-    #[serde(rename = "payloadData")]
+    #[doc = "WebSocket message payload data.\n If the opcode is 1, this is a text message and payloadData is a UTF-8 string.\n If the opcode isn't 1, then payloadData is a base64 encoded string representing binary data."]
     pub payload_data: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about the cached resource."]
 pub struct CachedResource {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "Resource URL. This is the url of the original network request."]
     pub url: String,
-    #[serde(rename = "type")]
+    #[doc = "Type of this resource."]
     pub r#type: ResourceType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "response")]
+    #[doc = "Cached response data."]
     pub response: Option<Response>,
     #[serde(default)]
-    #[serde(rename = "bodySize")]
+    #[doc = "Cached response body size."]
     pub body_size: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about the request initiator."]
 pub struct Initiator {
-    #[serde(rename = "type")]
+    #[doc = "Type of this initiator."]
     pub r#type: InitiatorType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "stack")]
+    #[doc = "Initiator JavaScript stack trace, set for Script only.\n Requires the Debugger domain to be enabled."]
     pub stack: Option<runtime::StackTrace>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "Initiator URL, set for Parser type or for Script type (when script is importing module) or for SignedExchange type."]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "lineNumber")]
+    #[doc = "Initiator line number, set for Parser type or for Script type (when script is importing\n module) (0-based)."]
     pub line_number: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "columnNumber")]
+    #[doc = "Initiator column number, set for Parser type or for Script type (when script is importing\n module) (0-based)."]
     pub column_number: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "requestId")]
+    #[doc = "Set if another request triggered this request (e.g. preflight)."]
     pub request_id: Option<RequestId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "cookiePartitionKey object\n The representation of the components of the key that are created by the cookiePartitionKey class contained in net/cookies/cookie_partition_key.h."]
 pub struct CookiePartitionKey {
     #[serde(default)]
-    #[serde(rename = "topLevelSite")]
+    #[doc = "The site of the top-level URL the browser was visiting at the start\n of the request to the endpoint that set the cookie."]
     pub top_level_site: String,
     #[serde(default)]
-    #[serde(rename = "hasCrossSiteAncestor")]
+    #[doc = "Indicates if the cookie has any ancestors that are cross-site to the topLevelSite."]
     pub has_cross_site_ancestor: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Cookie object"]
 pub struct Cookie {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Cookie name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "Cookie value."]
     pub value: String,
     #[serde(default)]
-    #[serde(rename = "domain")]
+    #[doc = "Cookie domain."]
     pub domain: String,
     #[serde(default)]
-    #[serde(rename = "path")]
+    #[doc = "Cookie path."]
     pub path: String,
     #[serde(default)]
-    #[serde(rename = "expires")]
+    #[doc = "Cookie expiration date as the number of seconds since the UNIX epoch.\n The value is set to -1 if the expiry date is not set.\n The value can be null for values that cannot be represented in\n JSON (±Inf)."]
     pub expires: JsFloat,
     #[serde(default)]
-    #[serde(rename = "size")]
+    #[doc = "Cookie size."]
     pub size: JsUInt,
     #[serde(default)]
-    #[serde(rename = "httpOnly")]
+    #[doc = "True if cookie is http-only."]
     pub http_only: bool,
     #[serde(default)]
-    #[serde(rename = "secure")]
+    #[doc = "True if cookie is secure."]
     pub secure: bool,
     #[serde(default)]
-    #[serde(rename = "session")]
+    #[doc = "True in case of session cookie."]
     pub session: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sameSite")]
+    #[doc = "Cookie SameSite type."]
     pub same_site: Option<CookieSameSite>,
-    #[serde(rename = "priority")]
+    #[doc = "Cookie Priority"]
     pub priority: CookiePriority,
-    #[serde(default)]
-    #[serde(rename = "sameParty")]
-    pub same_party: bool,
-    #[serde(rename = "sourceScheme")]
+    #[doc = "Cookie source scheme type."]
     pub source_scheme: CookieSourceScheme,
     #[serde(default)]
-    #[serde(rename = "sourcePort")]
+    #[doc = "Cookie source port. Valid values are {-1, [1, 65535]}, -1 indicates an unspecified port.\n An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.\n This is a temporary ability and it will be removed in the future."]
     pub source_port: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "partitionKey")]
+    #[doc = "Cookie partition key."]
     pub partition_key: Option<CookiePartitionKey>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "partitionKeyOpaque")]
+    #[doc = "True if cookie partition key is opaque."]
     pub partition_key_opaque: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A cookie which was not stored from a response with the corresponding reason."]
 pub struct BlockedSetCookieWithReason {
-    #[serde(rename = "blockedReasons")]
+    #[doc = "The reason(s) this cookie was blocked."]
     pub blocked_reasons: Vec<SetCookieBlockedReason>,
     #[serde(default)]
-    #[serde(rename = "cookieLine")]
+    #[doc = "The string representing this individual cookie as it would appear in the header.\n This is not the entire \"cookie\" or \"set-cookie\" header which could have multiple cookies."]
     pub cookie_line: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "cookie")]
+    #[doc = "The cookie object which represents the cookie which was not stored. It is optional because\n sometimes complete cookie information is not available, such as in the case of parsing\n errors."]
     pub cookie: Option<Cookie>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A cookie should have been blocked by 3PCD but is exempted and stored from a response with the\n corresponding reason. A cookie could only have at most one exemption reason."]
 pub struct ExemptedSetCookieWithReason {
-    #[serde(rename = "exemptionReason")]
+    #[doc = "The reason the cookie was exempted."]
     pub exemption_reason: CookieExemptionReason,
     #[serde(default)]
-    #[serde(rename = "cookieLine")]
+    #[doc = "The string representing this individual cookie as it would appear in the header."]
     pub cookie_line: String,
-    #[serde(rename = "cookie")]
+    #[doc = "The cookie object representing the cookie."]
     pub cookie: Cookie,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A cookie associated with the request which may or may not be sent with it.\n Includes the cookies itself and reasons for blocking or exemption."]
 pub struct AssociatedCookie {
-    #[serde(rename = "cookie")]
+    #[doc = "The cookie object representing the cookie which was not sent."]
     pub cookie: Cookie,
-    #[serde(rename = "blockedReasons")]
+    #[doc = "The reason(s) the cookie was blocked. If empty means the cookie is included."]
     pub blocked_reasons: Vec<CookieBlockedReason>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "exemptionReason")]
+    #[doc = "The reason the cookie should have been blocked by 3PCD but is exempted. A cookie could\n only have at most one exemption reason."]
     pub exemption_reason: Option<CookieExemptionReason>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Cookie parameter object"]
 pub struct CookieParam {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Cookie name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "Cookie value."]
     pub value: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "The request-URI to associate with the setting of the cookie. This value can affect the\n default domain, path, source port, and source scheme values of the created cookie."]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "domain")]
+    #[doc = "Cookie domain."]
     pub domain: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "path")]
+    #[doc = "Cookie path."]
     pub path: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "secure")]
+    #[doc = "True if cookie is secure."]
     pub secure: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "httpOnly")]
+    #[doc = "True if cookie is http-only."]
     pub http_only: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sameSite")]
+    #[doc = "Cookie SameSite type."]
     pub same_site: Option<CookieSameSite>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "expires")]
+    #[doc = "Cookie expiration date, session cookie if not set"]
     pub expires: Option<TimeSinceEpoch>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "priority")]
+    #[doc = "Cookie Priority."]
     pub priority: Option<CookiePriority>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
-    #[serde(rename = "sameParty")]
-    pub same_party: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sourceScheme")]
+    #[doc = "Cookie source scheme type."]
     pub source_scheme: Option<CookieSourceScheme>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "sourcePort")]
+    #[doc = "Cookie source port. Valid values are {-1, [1, 65535]}, -1 indicates an unspecified port.\n An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.\n This is a temporary ability and it will be removed in the future."]
     pub source_port: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "partitionKey")]
+    #[doc = "Cookie partition key. If not set, the cookie will be set as not partitioned."]
     pub partition_key: Option<CookiePartitionKey>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Authorization challenge for HTTP status code 401 or 407."]
 pub struct AuthChallenge {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "source")]
+    #[doc = "Source of the authentication challenge."]
     pub source: Option<AuthChallengeSource>,
     #[serde(default)]
-    #[serde(rename = "origin")]
+    #[doc = "Origin of the challenger."]
     pub origin: String,
     #[serde(default)]
-    #[serde(rename = "scheme")]
+    #[doc = "The authentication scheme used, such as basic or digest"]
     pub scheme: String,
     #[serde(default)]
-    #[serde(rename = "realm")]
+    #[doc = "The realm of the challenge. May be empty."]
     pub realm: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Response to an AuthChallenge."]
 pub struct AuthChallengeResponse {
-    #[serde(rename = "response")]
+    #[doc = "The decision on what to do in response to the authorization challenge.  Default means\n deferring to the default behavior of the net stack, which will likely either the Cancel\n authentication or display a popup dialog box."]
     pub response: AuthChallengeResponseResponse,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "username")]
+    #[doc = "The username to provide, possibly empty. Should only be set if response is\n ProvideCredentials."]
     pub username: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "password")]
+    #[doc = "The password to provide, possibly empty. Should only be set if response is\n ProvideCredentials."]
     pub password: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Request pattern for interception."]
 pub struct RequestPattern {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "urlPattern")]
+    #[doc = "Wildcards (`'*'` -> zero or more, `'?'` -> exactly one) are allowed. Escape character is\n backslash. Omitting is equivalent to `\"*\"`."]
     pub url_pattern: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "resourceType")]
+    #[doc = "If set, only requests for matching resource types will be intercepted."]
     pub resource_type: Option<ResourceType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "interceptionStage")]
+    #[doc = "Stage at which to begin intercepting requests. Default is Request."]
     pub interception_stage: Option<InterceptionStage>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about a signed exchange signature.\n https://wicg.github.io/webpackage/draft-yasskin-httpbis-origin-signed-exchanges-impl.html#rfc.section.3.1"]
 pub struct SignedExchangeSignature {
     #[serde(default)]
-    #[serde(rename = "label")]
+    #[doc = "Signed exchange signature label."]
     pub label: String,
     #[serde(default)]
-    #[serde(rename = "signature")]
+    #[doc = "The hex string of signed exchange signature."]
     pub signature: String,
     #[serde(default)]
-    #[serde(rename = "integrity")]
+    #[doc = "Signed exchange signature integrity."]
     pub integrity: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "certUrl")]
+    #[doc = "Signed exchange signature cert Url."]
     pub cert_url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "certSha256")]
+    #[doc = "The hex string of signed exchange signature cert sha256."]
     pub cert_sha_256: Option<String>,
     #[serde(default)]
-    #[serde(rename = "validityUrl")]
+    #[doc = "Signed exchange signature validity Url."]
     pub validity_url: String,
     #[serde(default)]
-    #[serde(rename = "date")]
+    #[doc = "Signed exchange signature date."]
     pub date: JsUInt,
     #[serde(default)]
-    #[serde(rename = "expires")]
+    #[doc = "Signed exchange signature expires."]
     pub expires: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "certificates")]
+    #[doc = "The encoded certificates."]
     pub certificates: Option<Vec<String>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about a signed exchange header.\n https://wicg.github.io/webpackage/draft-yasskin-httpbis-origin-signed-exchanges-impl.html#cbor-representation"]
 pub struct SignedExchangeHeader {
     #[serde(default)]
-    #[serde(rename = "requestUrl")]
+    #[doc = "Signed exchange request URL."]
     pub request_url: String,
     #[serde(default)]
-    #[serde(rename = "responseCode")]
+    #[doc = "Signed exchange response code."]
     pub response_code: JsUInt,
-    #[serde(rename = "responseHeaders")]
+    #[doc = "Signed exchange response headers."]
     pub response_headers: Headers,
-    #[serde(rename = "signatures")]
+    #[doc = "Signed exchange response signature."]
     pub signatures: Vec<SignedExchangeSignature>,
     #[serde(default)]
-    #[serde(rename = "headerIntegrity")]
+    #[doc = "Signed exchange header integrity hash in the form of `sha256-<base64-hash-value>`."]
     pub header_integrity: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about a signed exchange response."]
 pub struct SignedExchangeError {
     #[serde(default)]
-    #[serde(rename = "message")]
+    #[doc = "Error message."]
     pub message: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "signatureIndex")]
+    #[doc = "The index of the signature which caused the error."]
     pub signature_index: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "errorField")]
+    #[doc = "The field which caused the error."]
     pub error_field: Option<SignedExchangeErrorField>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about a signed exchange response."]
 pub struct SignedExchangeInfo {
-    #[serde(rename = "outerResponse")]
+    #[doc = "The outer response of signed HTTP exchange which was received from network."]
     pub outer_response: Response,
     #[serde(default)]
-    #[serde(rename = "hasExtraInfo")]
+    #[doc = "Whether network response for the signed exchange was accompanied by\n extra headers."]
     pub has_extra_info: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "header")]
+    #[doc = "Information about the signed exchange header."]
     pub header: Option<SignedExchangeHeader>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "securityDetails")]
+    #[doc = "Security details for the signed exchange header."]
     pub security_details: Option<SecurityDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "errors")]
+    #[doc = "Errors occurred while handling the signed exchange."]
     pub errors: Option<Vec<SignedExchangeError>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct NetworkConditions {
     #[serde(default)]
-    #[serde(rename = "urlPattern")]
+    #[doc = "Only matching requests will be affected by these conditions. Patterns use the URLPattern constructor string\n syntax (https://urlpattern.spec.whatwg.org/) and must be absolute. If the pattern is empty, all requests are\n matched (including p2p connections)."]
     pub url_pattern: String,
     #[serde(default)]
-    #[serde(rename = "latency")]
+    #[doc = "Minimum latency from request sent to response headers received (ms)."]
     pub latency: JsFloat,
     #[serde(default)]
-    #[serde(rename = "downloadThroughput")]
+    #[doc = "Maximal aggregated download throughput (bytes/sec). -1 disables download throttling."]
     pub download_throughput: JsFloat,
     #[serde(default)]
-    #[serde(rename = "uploadThroughput")]
+    #[doc = "Maximal aggregated upload throughput (bytes/sec).  -1 disables upload throttling."]
     pub upload_throughput: JsFloat,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "connectionType")]
+    #[doc = "Connection type if known."]
     pub connection_type: Option<ConnectionType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "packetLoss")]
+    #[doc = "WebRTC packet loss (percent, 0-100). 0 disables packet loss emulation, 100 drops all the packets."]
     pub packet_loss: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "packetQueueLength")]
+    #[doc = "WebRTC packet queue length (packet). 0 removes any queue length limitations."]
     pub packet_queue_length: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "packetReordering")]
+    #[doc = "WebRTC packetReordering feature."]
     pub packet_reordering: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct BlockPattern {
     #[serde(default)]
-    #[serde(rename = "urlPattern")]
+    #[doc = "URL pattern to match. Patterns use the URLPattern constructor string syntax\n (https://urlpattern.spec.whatwg.org/) and must be absolute. Example: `*://*:*/*.css`."]
     pub url_pattern: String,
     #[serde(default)]
-    #[serde(rename = "block")]
+    #[doc = "Whether or not to block the pattern. If false, a matching request will not be blocked even if it matches a later\n `BlockPattern`."]
     pub block: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct DirectTcpSocketOptions {
     #[serde(default)]
-    #[serde(rename = "noDelay")]
+    #[doc = "TCP_NODELAY option"]
     pub no_delay: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "keepAliveDelay")]
+    #[doc = "Expected to be unsigned integer."]
     pub keep_alive_delay: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "sendBufferSize")]
+    #[doc = "Expected to be unsigned integer."]
     pub send_buffer_size: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "receiveBufferSize")]
+    #[doc = "Expected to be unsigned integer."]
     pub receive_buffer_size: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "dnsQueryType")]
     pub dns_query_type: Option<DirectSocketDnsQueryType>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct DirectUdpSocketOptions {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "remoteAddr")]
     pub remote_addr: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "remotePort")]
+    #[doc = "Unsigned int 16."]
     pub remote_port: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "localAddr")]
     pub local_addr: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "localPort")]
+    #[doc = "Unsigned int 16."]
     pub local_port: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "dnsQueryType")]
     pub dns_query_type: Option<DirectSocketDnsQueryType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "sendBufferSize")]
+    #[doc = "Expected to be unsigned integer."]
     pub send_buffer_size: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "receiveBufferSize")]
+    #[doc = "Expected to be unsigned integer."]
     pub receive_buffer_size: Option<JsFloat>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    pub multicast_loopback: Option<bool>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "Unsigned int 8."]
+    pub multicast_time_to_live: Option<JsUInt>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    pub multicast_allow_address_sharing: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct DirectUdpMessage {
-    #[serde(rename = "data")]
     pub data: Vec<u8>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "remoteAddr")]
+    #[doc = "Null for connected mode."]
     pub remote_addr: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "remotePort")]
+    #[doc = "Null for connected mode.\n Expected to be unsigned integer."]
     pub remote_port: Option<JsUInt>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ConnectTiming {
     #[serde(default)]
-    #[serde(rename = "requestTime")]
+    #[doc = "Timing's requestTime is a baseline in seconds, while the other numbers are ticks in\n milliseconds relatively to this requestTime. Matches ResourceTiming's requestTime for\n the same request (but not for redirected requests)."]
     pub request_time: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ClientSecurityState {
     #[serde(default)]
-    #[serde(rename = "initiatorIsSecureContext")]
     pub initiator_is_secure_context: bool,
     #[serde(rename = "initiatorIPAddressSpace")]
     pub initiator_ip_address_space: IpAddressSpace,
-    #[serde(rename = "privateNetworkRequestPolicy")]
-    pub private_network_request_policy: PrivateNetworkRequestPolicy,
+    pub local_network_access_request_policy: LocalNetworkAccessRequestPolicy,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct CrossOriginOpenerPolicyStatus {
-    #[serde(rename = "value")]
     pub value: CrossOriginOpenerPolicyValue,
-    #[serde(rename = "reportOnlyValue")]
     pub report_only_value: CrossOriginOpenerPolicyValue,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "reportingEndpoint")]
     pub reporting_endpoint: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "reportOnlyReportingEndpoint")]
     pub report_only_reporting_endpoint: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct CrossOriginEmbedderPolicyStatus {
-    #[serde(rename = "value")]
     pub value: CrossOriginEmbedderPolicyValue,
-    #[serde(rename = "reportOnlyValue")]
     pub report_only_value: CrossOriginEmbedderPolicyValue,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "reportingEndpoint")]
     pub reporting_endpoint: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "reportOnlyReportingEndpoint")]
     pub report_only_reporting_endpoint: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ContentSecurityPolicyStatus {
     #[serde(default)]
-    #[serde(rename = "effectiveDirectives")]
     pub effective_directives: String,
     #[serde(default)]
-    #[serde(rename = "isEnforced")]
     pub is_enforced: bool,
-    #[serde(rename = "source")]
     pub source: ContentSecurityPolicySource,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SecurityIsolationStatus {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "coop")]
     pub coop: Option<CrossOriginOpenerPolicyStatus>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "coep")]
     pub coep: Option<CrossOriginEmbedderPolicyStatus>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "csp")]
     pub csp: Option<Vec<ContentSecurityPolicyStatus>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "An object representing a report generated by the Reporting API."]
 pub struct ReportingApiReport {
-    #[serde(rename = "id")]
     pub id: ReportId,
     #[serde(default)]
-    #[serde(rename = "initiatorUrl")]
+    #[doc = "The URL of the document that triggered the report."]
     pub initiator_url: String,
     #[serde(default)]
-    #[serde(rename = "destination")]
+    #[doc = "The name of the endpoint group that should be used to deliver the report."]
     pub destination: String,
     #[serde(default)]
-    #[serde(rename = "type")]
+    #[doc = "The type of the report (specifies the set of data that is contained in the report body)."]
     pub r#type: String,
-    #[serde(rename = "timestamp")]
+    #[doc = "When the report was generated."]
     pub timestamp: network::TimeSinceEpoch,
     #[serde(default)]
-    #[serde(rename = "depth")]
+    #[doc = "How many uploads deep the related request was."]
     pub depth: JsUInt,
     #[serde(default)]
-    #[serde(rename = "completedAttempts")]
+    #[doc = "The number of delivery attempts made so far, not including an active attempt."]
     pub completed_attempts: JsUInt,
-    #[serde(rename = "status")]
+    #[serde(default)]
+    pub body: Json,
     pub status: ReportStatus,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ReportingApiEndpoint {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "The URL of the endpoint to which reports may be delivered."]
     pub url: String,
     #[serde(default)]
-    #[serde(rename = "groupName")]
+    #[doc = "Name of the endpoint group."]
     pub group_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Unique identifier for a device bound session."]
+pub struct DeviceBoundSessionKey {
+    #[serde(default)]
+    #[doc = "The site the session is set up for."]
+    pub site: String,
+    #[serde(default)]
+    #[doc = "The id of the session."]
+    pub id: String,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "How a device bound session was used during a request."]
+pub struct DeviceBoundSessionWithUsage {
+    #[doc = "The key for the session."]
+    pub session_key: DeviceBoundSessionKey,
+    #[doc = "How the session was used (or not used)."]
+    pub usage: DeviceBoundSessionWithUsageUsage,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A device bound session's cookie craving."]
+pub struct DeviceBoundSessionCookieCraving {
+    #[serde(default)]
+    #[doc = "The name of the craving."]
+    pub name: String,
+    #[serde(default)]
+    #[doc = "The domain of the craving."]
+    pub domain: String,
+    #[serde(default)]
+    #[doc = "The path of the craving."]
+    pub path: String,
+    #[serde(default)]
+    #[doc = "The `Secure` attribute of the craving attributes."]
+    pub secure: bool,
+    #[serde(default)]
+    #[doc = "The `HttpOnly` attribute of the craving attributes."]
+    pub http_only: bool,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "The `SameSite` attribute of the craving attributes."]
+    pub same_site: Option<CookieSameSite>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A device bound session's inclusion URL rule."]
+pub struct DeviceBoundSessionUrlRule {
+    #[doc = "See comments on `net::device_bound_sessions::SessionInclusionRules::UrlRule::rule_type`."]
+    pub rule_type: DeviceBoundSessionUrlRuleRuleType,
+    #[serde(default)]
+    #[doc = "See comments on `net::device_bound_sessions::SessionInclusionRules::UrlRule::host_pattern`."]
+    pub host_pattern: String,
+    #[serde(default)]
+    #[doc = "See comments on `net::device_bound_sessions::SessionInclusionRules::UrlRule::path_prefix`."]
+    pub path_prefix: String,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A device bound session's inclusion rules."]
+pub struct DeviceBoundSessionInclusionRules {
+    #[serde(default)]
+    #[doc = "See comments on `net::device_bound_sessions::SessionInclusionRules::origin_`."]
+    pub origin: String,
+    #[serde(default)]
+    #[doc = "Whether the whole site is included. See comments on\n `net::device_bound_sessions::SessionInclusionRules::include_site_` for more\n details; this boolean is true if that value is populated."]
+    pub include_site: bool,
+    #[doc = "See comments on `net::device_bound_sessions::SessionInclusionRules::url_rules_`."]
+    pub url_rules: Vec<DeviceBoundSessionUrlRule>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A device bound session."]
+pub struct DeviceBoundSession {
+    #[doc = "The site and session ID of the session."]
+    pub key: DeviceBoundSessionKey,
+    #[serde(default)]
+    #[doc = "See comments on `net::device_bound_sessions::Session::refresh_url_`."]
+    pub refresh_url: String,
+    #[doc = "See comments on `net::device_bound_sessions::Session::inclusion_rules_`."]
+    pub inclusion_rules: DeviceBoundSessionInclusionRules,
+    #[doc = "See comments on `net::device_bound_sessions::Session::cookie_cravings_`."]
+    pub cookie_cravings: Vec<DeviceBoundSessionCookieCraving>,
+    #[doc = "See comments on `net::device_bound_sessions::Session::expiry_date_`."]
+    pub expiry_date: network::TimeSinceEpoch,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "See comments on `net::device_bound_sessions::Session::cached_challenge__`."]
+    pub cached_challenge: Option<String>,
+    #[serde(default)]
+    #[doc = "See comments on `net::device_bound_sessions::Session::allowed_refresh_initiators_`."]
+    pub allowed_refresh_initiators: Vec<String>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Session event details specific to creation."]
+pub struct CreationEventDetails {
+    #[doc = "The result of the fetch attempt."]
+    pub fetch_result: DeviceBoundSessionFetchResult,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "The session if there was a newly created session. This is populated for\n all successful creation events."]
+    pub new_session: Option<DeviceBoundSession>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Session event details specific to refresh."]
+pub struct RefreshEventDetails {
+    #[doc = "The result of a refresh."]
+    pub refresh_result: RefreshEventDetailsRefreshResult,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "If there was a fetch attempt, the result of that."]
+    pub fetch_result: Option<DeviceBoundSessionFetchResult>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "The session display if there was a newly created session. This is populated\n for any refresh event that modifies the session config."]
+    pub new_session: Option<DeviceBoundSession>,
+    #[serde(default)]
+    #[doc = "See comments on `net::device_bound_sessions::RefreshEventResult::was_fully_proactive_refresh`."]
+    pub was_fully_proactive_refresh: bool,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Session event details specific to termination."]
+pub struct TerminationEventDetails {
+    #[doc = "The reason for a session being deleted."]
+    pub deletion_reason: TerminationEventDetailsDeletionReason,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Session event details specific to challenges."]
+pub struct ChallengeEventDetails {
+    #[doc = "The result of a challenge."]
+    pub challenge_result: ChallengeEventDetailsChallengeResult,
+    #[serde(default)]
+    #[doc = "The challenge set."]
+    pub challenge: String,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "An object providing the result of a network resource load."]
 pub struct LoadNetworkResourcePageResult {
     #[serde(default)]
-    #[serde(rename = "success")]
     pub success: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "netError")]
+    #[doc = "Optional values used for error reporting."]
     pub net_error: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "netErrorName")]
     pub net_error_name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "httpStatusCode")]
     pub http_status_code: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "stream")]
+    #[doc = "If successful, one of the following two fields holds the result."]
     pub stream: Option<io::StreamHandle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "headers")]
+    #[doc = "Response headers."]
     pub headers: Option<network::Headers>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "An options object that may be extended later to better support CORS,\n CORB and streaming."]
 pub struct LoadNetworkResourceOptions {
     #[serde(default)]
-    #[serde(rename = "disableCache")]
     pub disable_cache: bool,
     #[serde(default)]
-    #[serde(rename = "includeCredentials")]
     pub include_credentials: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetIPProtectionProxyStatus(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct SetIPProtectionProxyBypassEnabled {
-    #[serde(default)]
-    #[serde(rename = "enabled")]
-    pub enabled: bool,
-}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Sets a list of content encodings that will be accepted. Empty list means no encoding is accepted."]
 pub struct SetAcceptedEncodings {
-    #[serde(rename = "encodings")]
+    #[doc = "List of accepted content encodings."]
     pub encodings: Vec<ContentEncoding>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearAcceptedEncodingsOverride(pub Option<serde_json::Value>);
+pub struct ClearAcceptedEncodingsOverride(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CanClearBrowserCache(pub Option<serde_json::Value>);
+pub struct CanClearBrowserCache(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CanClearBrowserCookies(pub Option<serde_json::Value>);
+pub struct CanClearBrowserCookies(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CanEmulateNetworkConditions(pub Option<serde_json::Value>);
+pub struct CanEmulateNetworkConditions(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearBrowserCache(pub Option<serde_json::Value>);
+pub struct ClearBrowserCache(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ClearBrowserCookies(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ClearBrowserCookies(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Response to Network.requestIntercepted which either modifies the request to continue with any\n modifications, or blocks it, or completes it with the provided response bytes. If a network\n fetch occurs as a result which encounters a redirect an additional Network.requestIntercepted\n event will be sent with the same InterceptionId.\n Deprecated, use Fetch.continueRequest, Fetch.fulfillRequest and Fetch.failRequest instead."]
+#[deprecated]
 pub struct ContinueInterceptedRequest {
-    #[serde(rename = "interceptionId")]
     pub interception_id: InterceptionId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "errorReason")]
+    #[doc = "If set this causes the request to fail with the given reason. Passing `Aborted` for requests\n marked with `isNavigationRequest` also cancels the navigation. Must not be set in response\n to an authChallenge."]
     pub error_reason: Option<ErrorReason>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "rawResponse")]
+    #[doc = "If set the requests completes using with the provided base64 encoded raw response, including\n HTTP status line and headers etc... Must not be set in response to an authChallenge."]
     pub raw_response: Option<Vec<u8>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "If set the request url will be modified in a way that's not observable by page. Must not be\n set in response to an authChallenge."]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "method")]
+    #[doc = "If set this allows the request method to be overridden. Must not be set in response to an\n authChallenge."]
     pub method: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "postData")]
+    #[doc = "If set this allows postData to be set. Must not be set in response to an authChallenge."]
     pub post_data: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "headers")]
+    #[doc = "If set this allows the request headers to be changed. Must not be set in response to an\n authChallenge."]
     pub headers: Option<Headers>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "authChallengeResponse")]
+    #[doc = "Response to a requestIntercepted with an authChallenge. Must not be set otherwise."]
     pub auth_challenge_response: Option<AuthChallengeResponse>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deletes browser cookies with matching name and url or domain/path/partitionKey pair."]
 pub struct DeleteCookies {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Name of the cookies to remove."]
     pub name: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "If specified, deletes all the cookies with the given name where domain and path match\n provided URL."]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "domain")]
+    #[doc = "If specified, deletes only cookies with the exact domain."]
     pub domain: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "path")]
+    #[doc = "If specified, deletes only cookies with the exact path."]
     pub path: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "partitionKey")]
+    #[doc = "If specified, deletes only cookies with the the given name and partitionKey where\n all partition key attributes match the cookie partition key attribute."]
     pub partition_key: Option<CookiePartitionKey>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Activates emulation of network conditions. This command is deprecated in favor of the emulateNetworkConditionsByRule\n and overrideNetworkState commands, which can be used together to the same effect."]
+#[deprecated]
 pub struct EmulateNetworkConditions {
     #[serde(default)]
-    #[serde(rename = "offline")]
+    #[doc = "True to emulate internet disconnection."]
     pub offline: bool,
     #[serde(default)]
-    #[serde(rename = "latency")]
+    #[doc = "Minimum latency from request sent to response headers received (ms)."]
     pub latency: JsFloat,
     #[serde(default)]
-    #[serde(rename = "downloadThroughput")]
+    #[doc = "Maximal aggregated download throughput (bytes/sec). -1 disables download throttling."]
     pub download_throughput: JsFloat,
     #[serde(default)]
-    #[serde(rename = "uploadThroughput")]
+    #[doc = "Maximal aggregated upload throughput (bytes/sec).  -1 disables upload throttling."]
     pub upload_throughput: JsFloat,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "connectionType")]
+    #[doc = "Connection type if known."]
     pub connection_type: Option<ConnectionType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "packetLoss")]
+    #[doc = "WebRTC packet loss (percent, 0-100). 0 disables packet loss emulation, 100 drops all the packets."]
     pub packet_loss: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "packetQueueLength")]
+    #[doc = "WebRTC packet queue length (packet). 0 removes any queue length limitations."]
     pub packet_queue_length: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "packetReordering")]
+    #[doc = "WebRTC packetReordering feature."]
     pub packet_reordering: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Activates emulation of network conditions for individual requests using URL match patterns. Unlike the deprecated\n Network.emulateNetworkConditions this method does not affect `navigator` state. Use Network.overrideNetworkState to\n explicitly modify `navigator` behavior."]
 pub struct EmulateNetworkConditionsByRule {
     #[serde(default)]
-    #[serde(rename = "offline")]
+    #[doc = "True to emulate internet disconnection."]
     pub offline: bool,
-    #[serde(rename = "matchedNetworkConditions")]
+    #[doc = "Configure conditions for matching requests. If multiple entries match a request, the first entry wins.  Global\n conditions can be configured by leaving the urlPattern for the conditions empty. These global conditions are\n also applied for throttling of p2p connections."]
     pub matched_network_conditions: Vec<NetworkConditions>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Override the state of navigator.onLine and navigator.connection."]
 pub struct OverrideNetworkState {
     #[serde(default)]
-    #[serde(rename = "offline")]
+    #[doc = "True to emulate internet disconnection."]
     pub offline: bool,
     #[serde(default)]
-    #[serde(rename = "latency")]
+    #[doc = "Minimum latency from request sent to response headers received (ms)."]
     pub latency: JsFloat,
     #[serde(default)]
-    #[serde(rename = "downloadThroughput")]
+    #[doc = "Maximal aggregated download throughput (bytes/sec). -1 disables download throttling."]
     pub download_throughput: JsFloat,
     #[serde(default)]
-    #[serde(rename = "uploadThroughput")]
+    #[doc = "Maximal aggregated upload throughput (bytes/sec).  -1 disables upload throttling."]
     pub upload_throughput: JsFloat,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "connectionType")]
+    #[doc = "Connection type if known."]
     pub connection_type: Option<ConnectionType>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enables network tracking, network events will now be delivered to the client."]
 pub struct Enable {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "maxTotalBufferSize")]
+    #[doc = "Buffer size in bytes to use when preserving network payloads (XHRs, etc)."]
     pub max_total_buffer_size: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "maxResourceBufferSize")]
+    #[doc = "Per-resource buffer size in bytes to use when preserving network payloads (XHRs, etc)."]
     pub max_resource_buffer_size: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "maxPostDataSize")]
+    #[doc = "Longest post body size (in bytes) that would be included in requestWillBeSent notification"]
     pub max_post_data_size: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "reportDirectSocketTraffic")]
+    #[doc = "Whether DirectSocket chunk send/receive events should be reported."]
     pub report_direct_socket_traffic: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "enableDurableMessages")]
+    #[doc = "Enable storing response bodies outside of renderer, so that these survive\n a cross-process navigation. Requires maxTotalBufferSize to be set.\n Currently defaults to false. This field is being deprecated in favor of the dedicated\n configureDurableMessages command, due to the possibility of deadlocks when awaiting\n Network.enable before issuing Runtime.runIfWaitingForDebugger."]
     pub enable_durable_messages: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetAllCookies(pub Option<serde_json::Value>);
+#[doc = "Configures storing response bodies outside of renderer, so that these survive\n a cross-process navigation.\n If maxTotalBufferSize is not set, durable messages are disabled."]
+pub struct ConfigureDurableMessages {
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "Buffer size in bytes to use when preserving network payloads (XHRs, etc)."]
+    pub max_total_buffer_size: Option<JsUInt>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "Per-resource buffer size in bytes to use when preserving network payloads (XHRs, etc)."]
+    pub max_resource_buffer_size: Option<JsUInt>,
+}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetAllCookies(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the DER-encoded certificate."]
 pub struct GetCertificate {
     #[serde(default)]
-    #[serde(rename = "origin")]
+    #[doc = "Origin to get certificate for."]
     pub origin: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns all browser cookies for the current URL. Depending on the backend support, will return\n detailed cookie information in the `cookies` field."]
 pub struct GetCookies {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "urls")]
+    #[doc = "The list of URLs for which applicable cookies will be fetched.\n If not specified, it's assumed to be set to the list containing\n the URLs of the page and all of its subframes."]
     pub urls: Option<Vec<String>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns content served for the given request."]
 pub struct GetResponseBody {
-    #[serde(rename = "requestId")]
+    #[doc = "Identifier of the network request to get content for."]
     pub request_id: RequestId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns post data sent with the request. Returns an error when no data was sent with the request."]
 pub struct GetRequestPostData {
-    #[serde(rename = "requestId")]
+    #[doc = "Identifier of the network request to get content for."]
     pub request_id: RequestId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns content served for the given currently intercepted request."]
 pub struct GetResponseBodyForInterception {
-    #[serde(rename = "interceptionId")]
+    #[doc = "Identifier for the intercepted request to get body for."]
     pub interception_id: InterceptionId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns a handle to the stream representing the response body. Note that after this command,\n the intercepted request can't be continued as is -- you either need to cancel it or to provide\n the response body. The stream only supports sequential read, IO.read will fail if the position\n is specified."]
 pub struct TakeResponseBodyForInterceptionAsStream {
-    #[serde(rename = "interceptionId")]
     pub interception_id: InterceptionId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This method sends a new XMLHttpRequest which is identical to the original one. The following\n parameters should be identical: method, url, async, request body, extra headers, withCredentials\n attribute, user, password."]
 pub struct ReplayXHR {
-    #[serde(rename = "requestId")]
+    #[doc = "Identifier of XHR to replay."]
     pub request_id: RequestId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Searches for given string in response content."]
 pub struct SearchInResponseBody {
-    #[serde(rename = "requestId")]
+    #[doc = "Identifier of the network response to search."]
     pub request_id: RequestId,
     #[serde(default)]
-    #[serde(rename = "query")]
+    #[doc = "String to search for."]
     pub query: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "caseSensitive")]
+    #[doc = "If true, search is case sensitive."]
     pub case_sensitive: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isRegex")]
+    #[doc = "If true, treats string parameter as regex."]
     pub is_regex: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Blocks URLs from loading."]
 pub struct SetBlockedURLs {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "urlPatterns")]
+    #[doc = "Patterns to match in the order in which they are given. These patterns\n also take precedence over any wildcard patterns defined in `urls`."]
     pub url_patterns: Option<Vec<BlockPattern>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "urls")]
+    #[doc = "URL patterns to block. Wildcards ('*') are allowed."]
+    #[deprecated]
     pub urls: Option<Vec<String>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Toggles ignoring of service worker for each request."]
 pub struct SetBypassServiceWorker {
     #[serde(default)]
-    #[serde(rename = "bypass")]
+    #[doc = "Bypass service worker and load from network."]
     pub bypass: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Toggles ignoring cache for each request. If `true`, cache will not be used."]
 pub struct SetCacheDisabled {
     #[serde(default)]
-    #[serde(rename = "cacheDisabled")]
+    #[doc = "Cache disabled state."]
     pub cache_disabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist."]
 pub struct SetCookie {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Cookie name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "Cookie value."]
     pub value: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "The request-URI to associate with the setting of the cookie. This value can affect the\n default domain, path, source port, and source scheme values of the created cookie."]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "domain")]
+    #[doc = "Cookie domain."]
     pub domain: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "path")]
+    #[doc = "Cookie path."]
     pub path: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "secure")]
+    #[doc = "True if cookie is secure."]
     pub secure: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "httpOnly")]
+    #[doc = "True if cookie is http-only."]
     pub http_only: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sameSite")]
+    #[doc = "Cookie SameSite type."]
     pub same_site: Option<CookieSameSite>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "expires")]
+    #[doc = "Cookie expiration date, session cookie if not set"]
     pub expires: Option<TimeSinceEpoch>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "priority")]
+    #[doc = "Cookie Priority type."]
     pub priority: Option<CookiePriority>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
-    #[serde(rename = "sameParty")]
-    pub same_party: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sourceScheme")]
+    #[doc = "Cookie source scheme type."]
     pub source_scheme: Option<CookieSourceScheme>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "sourcePort")]
+    #[doc = "Cookie source port. Valid values are {-1, [1, 65535]}, -1 indicates an unspecified port.\n An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.\n This is a temporary ability and it will be removed in the future."]
     pub source_port: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "partitionKey")]
+    #[doc = "Cookie partition key. If not set, the cookie will be set as not partitioned."]
     pub partition_key: Option<CookiePartitionKey>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets given cookies."]
 pub struct SetCookies {
-    #[serde(rename = "cookies")]
+    #[doc = "Cookies to be set."]
     pub cookies: Vec<CookieParam>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Specifies whether to always send extra HTTP headers with the requests from this page."]
 pub struct SetExtraHTTPHeaders {
-    #[serde(rename = "headers")]
+    #[doc = "Map with extra HTTP headers."]
     pub headers: Headers,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Specifies whether to attach a page script stack id in requests"]
 pub struct SetAttachDebugStack {
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "Whether to attach a page script stack for debugging purpose."]
     pub enabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets the requests to intercept that match the provided patterns and optionally resource types.\n Deprecated, please use Fetch.enable instead."]
+#[deprecated]
 pub struct SetRequestInterception {
-    #[serde(rename = "patterns")]
+    #[doc = "Requests matching any of these patterns will be forwarded and wait for the corresponding\n continueInterceptedRequest call."]
     pub patterns: Vec<RequestPattern>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Allows overriding user agent with the given string."]
 pub struct SetUserAgentOverride {
     #[serde(default)]
-    #[serde(rename = "userAgent")]
+    #[doc = "User agent to use."]
     pub user_agent: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "acceptLanguage")]
+    #[doc = "Browser language to emulate."]
     pub accept_language: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "platform")]
+    #[doc = "The platform navigator.platform should return."]
     pub platform: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "userAgentMetadata")]
+    #[doc = "To be sent in Sec-CH-UA-* headers and returned in navigator.userAgentData"]
     pub user_agent_metadata: Option<emulation::UserAgentMetadata>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enables streaming of the response for the given requestId.\n If enabled, the dataReceived event contains the data that was received during streaming."]
 pub struct StreamResourceContent {
-    #[serde(rename = "requestId")]
+    #[doc = "Identifier of the request to stream."]
     pub request_id: RequestId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns information about the COEP/COOP isolation status."]
 pub struct GetSecurityIsolationStatus {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameId")]
+    #[doc = "If no frameId is provided, the status of the target is provided."]
     pub frame_id: Option<page::FrameId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enables tracking for the Reporting API, events generated by the Reporting API will now be delivered to the client.\n Enabling triggers 'reportingApiReportAdded' for all existing reports."]
 pub struct EnableReportingApi {
     #[serde(default)]
-    #[serde(rename = "enable")]
+    #[doc = "Whether to enable or disable events for the Reporting API"]
     pub enable: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets up tracking device bound sessions and fetching of initial set of sessions."]
+pub struct EnableDeviceBoundSessions {
+    #[serde(default)]
+    #[doc = "Whether to enable or disable events."]
+    pub enable: bool,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches the schemeful site for a specific origin."]
+pub struct FetchSchemefulSite {
+    #[serde(default)]
+    #[doc = "The URL origin."]
+    pub origin: String,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches the resource and returns the content."]
 pub struct LoadNetworkResource {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameId")]
+    #[doc = "Frame id to get the resource for. Mandatory for frame targets, and\n should be omitted for worker targets."]
     pub frame_id: Option<page::FrameId>,
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "URL of the resource to get content for."]
     pub url: String,
-    #[serde(rename = "options")]
+    #[doc = "Options for the request."]
     pub options: LoadNetworkResourceOptions,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets Controls for third-party cookie access\n Page reload is required before the new cookie behavior will be observed"]
 pub struct SetCookieControls {
     #[serde(default)]
-    #[serde(rename = "enableThirdPartyCookieRestriction")]
+    #[doc = "Whether 3pc restriction is enabled."]
     pub enable_third_party_cookie_restriction: bool,
     #[serde(default)]
-    #[serde(rename = "disableThirdPartyCookieMetadata")]
+    #[doc = "Whether 3pc grace period exception should be enabled; false by default."]
     pub disable_third_party_cookie_metadata: bool,
     #[serde(default)]
-    #[serde(rename = "disableThirdPartyCookieHeuristics")]
+    #[doc = "Whether 3pc heuristics exceptions should be enabled; false by default."]
     pub disable_third_party_cookie_heuristics: bool,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct GetIPProtectionProxyStatusReturnObject {
-    #[serde(rename = "status")]
-    pub status: IpProxyStatus,
-}
+#[doc = "Sets a list of content encodings that will be accepted. Empty list means no encoding is accepted."]
+pub struct SetAcceptedEncodingsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Clears accepted encodings set by setAcceptedEncodings"]
+pub struct ClearAcceptedEncodingsOverrideReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetIPProtectionProxyBypassEnabledReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetAcceptedEncodingsReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearAcceptedEncodingsOverrideReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Tells whether clearing browser cache is supported."]
+#[deprecated]
 pub struct CanClearBrowserCacheReturnObject {
     #[serde(default)]
-    #[serde(rename = "result")]
+    #[doc = "True if browser cache can be cleared."]
     pub result: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Tells whether clearing browser cookies is supported."]
+#[deprecated]
 pub struct CanClearBrowserCookiesReturnObject {
     #[serde(default)]
-    #[serde(rename = "result")]
+    #[doc = "True if browser cookies can be cleared."]
     pub result: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Tells whether emulation of network conditions is supported."]
+#[deprecated]
 pub struct CanEmulateNetworkConditionsReturnObject {
     #[serde(default)]
-    #[serde(rename = "result")]
+    #[doc = "True if emulation of network conditions is supported."]
     pub result: bool,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearBrowserCacheReturnObject {}
+#[doc = "Clears browser cache."]
+pub struct ClearBrowserCacheReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearBrowserCookiesReturnObject {}
+#[doc = "Clears browser cookies."]
+pub struct ClearBrowserCookiesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ContinueInterceptedRequestReturnObject {}
+#[doc = "Response to Network.requestIntercepted which either modifies the request to continue with any\n modifications, or blocks it, or completes it with the provided response bytes. If a network\n fetch occurs as a result which encounters a redirect an additional Network.requestIntercepted\n event will be sent with the same InterceptionId.\n Deprecated, use Fetch.continueRequest, Fetch.fulfillRequest and Fetch.failRequest instead."]
+#[deprecated]
+pub struct ContinueInterceptedRequestReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DeleteCookiesReturnObject {}
+#[doc = "Deletes browser cookies with matching name and url or domain/path/partitionKey pair."]
+pub struct DeleteCookiesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables network tracking, prevents network events from being sent to the client."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Activates emulation of network conditions. This command is deprecated in favor of the emulateNetworkConditionsByRule\n and overrideNetworkState commands, which can be used together to the same effect."]
+#[deprecated]
+pub struct EmulateNetworkConditionsReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct EmulateNetworkConditionsReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Activates emulation of network conditions for individual requests using URL match patterns. Unlike the deprecated\n Network.emulateNetworkConditions this method does not affect `navigator` state. Use Network.overrideNetworkState to\n explicitly modify `navigator` behavior."]
 pub struct EmulateNetworkConditionsByRuleReturnObject {
-    #[serde(rename = "ruleIds")]
+    #[doc = "An id for each entry in matchedNetworkConditions. The id will be included in the requestWillBeSentExtraInfo for\n requests affected by a rule."]
     pub rule_ids: Vec<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct OverrideNetworkStateReturnObject {}
+#[doc = "Override the state of navigator.onLine and navigator.connection."]
+pub struct OverrideNetworkStateReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enables network tracking, network events will now be delivered to the client."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Configures storing response bodies outside of renderer, so that these survive\n a cross-process navigation.\n If maxTotalBufferSize is not set, durable messages are disabled."]
+pub struct ConfigureDurableMessagesReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns all browser cookies. Depending on the backend support, will return detailed cookie\n information in the `cookies` field.\n Deprecated. Use Storage.getCookies instead."]
+#[deprecated]
 pub struct GetAllCookiesReturnObject {
-    #[serde(rename = "cookies")]
+    #[doc = "Array of cookie objects."]
     pub cookies: Vec<Cookie>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the DER-encoded certificate."]
 pub struct GetCertificateReturnObject {
-    #[serde(rename = "tableNames")]
     pub table_names: Vec<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns all browser cookies for the current URL. Depending on the backend support, will return\n detailed cookie information in the `cookies` field."]
 pub struct GetCookiesReturnObject {
-    #[serde(rename = "cookies")]
+    #[doc = "Array of cookie objects."]
     pub cookies: Vec<Cookie>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns content served for the given request."]
 pub struct GetResponseBodyReturnObject {
     #[serde(default)]
-    #[serde(rename = "body")]
+    #[doc = "Response body."]
     pub body: String,
     #[serde(default)]
-    #[serde(rename = "base64Encoded")]
+    #[doc = "True, if content was sent as base64."]
     pub base_64_encoded: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns post data sent with the request. Returns an error when no data was sent with the request."]
 pub struct GetRequestPostDataReturnObject {
     #[serde(default)]
-    #[serde(rename = "postData")]
+    #[doc = "Request body string, omitting files from multipart requests"]
     pub post_data: String,
-}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct GetResponseBodyForInterceptionReturnObject {
     #[serde(default)]
-    #[serde(rename = "body")]
-    pub body: String,
-    #[serde(default)]
-    #[serde(rename = "base64Encoded")]
+    #[doc = "True, if content was sent as base64."]
     pub base_64_encoded: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns content served for the given currently intercepted request."]
+pub struct GetResponseBodyForInterceptionReturnObject {
+    #[serde(default)]
+    #[doc = "Response body."]
+    pub body: String,
+    #[serde(default)]
+    #[doc = "True, if content was sent as base64."]
+    pub base_64_encoded: bool,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns a handle to the stream representing the response body. Note that after this command,\n the intercepted request can't be continued as is -- you either need to cancel it or to provide\n the response body. The stream only supports sequential read, IO.read will fail if the position\n is specified."]
 pub struct TakeResponseBodyForInterceptionAsStreamReturnObject {
-    #[serde(rename = "stream")]
     pub stream: io::StreamHandle,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "This method sends a new XMLHttpRequest which is identical to the original one. The following\n parameters should be identical: method, url, async, request body, extra headers, withCredentials\n attribute, user, password."]
+pub struct ReplayXHRReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct ReplayXHRReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Searches for given string in response content."]
 pub struct SearchInResponseBodyReturnObject {
-    #[serde(rename = "result")]
+    #[doc = "List of search matches."]
     pub result: debugger::SearchMatch,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetBlockedURLsReturnObject {}
+#[doc = "Blocks URLs from loading."]
+pub struct SetBlockedURLsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetBypassServiceWorkerReturnObject {}
+#[doc = "Toggles ignoring of service worker for each request."]
+pub struct SetBypassServiceWorkerReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Toggles ignoring cache for each request. If `true`, cache will not be used."]
+pub struct SetCacheDisabledReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetCacheDisabledReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist."]
 pub struct SetCookieReturnObject {
     #[serde(default)]
-    #[serde(rename = "success")]
+    #[doc = "Always set to true. If an error occurs, the response indicates protocol error."]
+    #[deprecated]
     pub success: bool,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetCookiesReturnObject {}
+#[doc = "Sets given cookies."]
+pub struct SetCookiesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetExtraHTTPHeadersReturnObject {}
+#[doc = "Specifies whether to always send extra HTTP headers with the requests from this page."]
+pub struct SetExtraHTTPHeadersReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetAttachDebugStackReturnObject {}
+#[doc = "Specifies whether to attach a page script stack id in requests"]
+pub struct SetAttachDebugStackReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetRequestInterceptionReturnObject {}
+#[doc = "Sets the requests to intercept that match the provided patterns and optionally resource types.\n Deprecated, please use Fetch.enable instead."]
+#[deprecated]
+pub struct SetRequestInterceptionReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Allows overriding user agent with the given string."]
+pub struct SetUserAgentOverrideReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetUserAgentOverrideReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables streaming of the response for the given requestId.\n If enabled, the dataReceived event contains the data that was received during streaming."]
 pub struct StreamResourceContentReturnObject {
-    #[serde(rename = "bufferedData")]
+    #[doc = "Data that has been buffered until streaming is enabled."]
     pub buffered_data: Vec<u8>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns information about the COEP/COOP isolation status."]
 pub struct GetSecurityIsolationStatusReturnObject {
-    #[serde(rename = "status")]
     pub status: SecurityIsolationStatus,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReportingApiReturnObject {}
+#[doc = "Enables tracking for the Reporting API, events generated by the Reporting API will now be delivered to the client.\n Enabling triggers 'reportingApiReportAdded' for all existing reports."]
+pub struct EnableReportingApiReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Sets up tracking device bound sessions and fetching of initial set of sessions."]
+pub struct EnableDeviceBoundSessionsReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches the schemeful site for a specific origin."]
+pub struct FetchSchemefulSiteReturnObject {
+    #[serde(default)]
+    #[doc = "The corresponding schemeful site."]
+    pub schemeful_site: String,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches the resource and returns the content."]
 pub struct LoadNetworkResourceReturnObject {
-    #[serde(rename = "resource")]
     pub resource: LoadNetworkResourcePageResult,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetCookieControlsReturnObject {}
-impl Method for GetIPProtectionProxyStatus {
-    const NAME: &'static str = "Network.getIPProtectionProxyStatus";
-    type ReturnObject = GetIPProtectionProxyStatusReturnObject;
-}
-impl Method for SetIPProtectionProxyBypassEnabled {
-    const NAME: &'static str = "Network.setIPProtectionProxyBypassEnabled";
-    type ReturnObject = SetIPProtectionProxyBypassEnabledReturnObject;
-}
+#[doc = "Sets Controls for third-party cookie access\n Page reload is required before the new cookie behavior will be observed"]
+pub struct SetCookieControlsReturnObject(pub Option<Json>);
 impl Method for SetAcceptedEncodings {
     const NAME: &'static str = "Network.setAcceptedEncodings";
     type ReturnObject = SetAcceptedEncodingsReturnObject;
@@ -2152,6 +2857,10 @@ impl Method for OverrideNetworkState {
 impl Method for Enable {
     const NAME: &'static str = "Network.enable";
     type ReturnObject = EnableReturnObject;
+}
+impl Method for ConfigureDurableMessages {
+    const NAME: &'static str = "Network.configureDurableMessages";
+    type ReturnObject = ConfigureDurableMessagesReturnObject;
 }
 impl Method for GetAllCookies {
     const NAME: &'static str = "Network.getAllCookies";
@@ -2237,6 +2946,14 @@ impl Method for EnableReportingApi {
     const NAME: &'static str = "Network.enableReportingApi";
     type ReturnObject = EnableReportingApiReturnObject;
 }
+impl Method for EnableDeviceBoundSessions {
+    const NAME: &'static str = "Network.enableDeviceBoundSessions";
+    type ReturnObject = EnableDeviceBoundSessionsReturnObject;
+}
+impl Method for FetchSchemefulSite {
+    const NAME: &'static str = "Network.fetchSchemefulSite";
+    type ReturnObject = FetchSchemefulSiteReturnObject;
+}
 impl Method for LoadNetworkResource {
     const NAME: &'static str = "Network.loadNetworkResource";
     type ReturnObject = LoadNetworkResourceReturnObject;
@@ -2249,674 +2966,740 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DataReceivedEvent {
         pub params: DataReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DataReceivedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
         #[serde(default)]
-        #[serde(rename = "dataLength")]
+        #[doc = "Data chunk length."]
         pub data_length: JsUInt,
         #[serde(default)]
-        #[serde(rename = "encodedDataLength")]
+        #[doc = "Actual bytes received (might be less than dataLength for compressed encodings)."]
         pub encoded_data_length: JsUInt,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "data")]
+        #[doc = "Data that was received."]
         pub data: Option<u8>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct EventSourceMessageReceivedEvent {
         pub params: EventSourceMessageReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct EventSourceMessageReceivedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
         #[serde(default)]
-        #[serde(rename = "eventName")]
+        #[doc = "Message type."]
         pub event_name: String,
         #[serde(default)]
-        #[serde(rename = "eventId")]
+        #[doc = "Message identifier."]
         pub event_id: String,
         #[serde(default)]
-        #[serde(rename = "data")]
+        #[doc = "Message content."]
         pub data: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LoadingFailedEvent {
         pub params: LoadingFailedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct LoadingFailedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
-        #[serde(rename = "type")]
+        #[doc = "Resource type."]
         pub r#type: super::ResourceType,
         #[serde(default)]
-        #[serde(rename = "errorText")]
+        #[doc = "Error message. List of network errors: https://cs.chromium.org/chromium/src/net/base/net_error_list.h"]
         pub error_text: String,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "canceled")]
+        #[doc = "True if loading was canceled."]
         pub canceled: Option<bool>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "blockedReason")]
+        #[doc = "The reason why loading was blocked, if any."]
         pub blocked_reason: Option<super::BlockedReason>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "corsErrorStatus")]
+        #[doc = "The reason why loading was blocked by CORS, if any."]
         pub cors_error_status: Option<super::CorsErrorStatus>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LoadingFinishedEvent {
         pub params: LoadingFinishedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct LoadingFinishedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
         #[serde(default)]
-        #[serde(rename = "encodedDataLength")]
+        #[doc = "Total number of bytes received for this request."]
         pub encoded_data_length: JsFloat,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestInterceptedEvent {
         pub params: RequestInterceptedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct RequestInterceptedEventParams {
-        #[serde(rename = "interceptionId")]
+        #[doc = "Each request the page makes will have a unique id, however if any redirects are encountered\n while processing that fetch, they will be reported with the same id as the original fetch.\n Likewise if HTTP authentication is needed then the same fetch id will be used."]
         pub interception_id: super::InterceptionId,
-        #[serde(rename = "request")]
         pub request: super::Request,
-        #[serde(rename = "frameId")]
+        #[doc = "The id of the frame that initiated the request."]
         pub frame_id: super::super::page::FrameId,
-        #[serde(rename = "resourceType")]
+        #[doc = "How the requested resource will be used."]
         pub resource_type: super::ResourceType,
         #[serde(default)]
-        #[serde(rename = "isNavigationRequest")]
+        #[doc = "Whether this is a navigation request, which can abort the navigation completely."]
         pub is_navigation_request: bool,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "isDownload")]
+        #[doc = "Set if the request is a navigation that will result in a download.\n Only present after response is received from the server (i.e. HeadersReceived stage)."]
         pub is_download: Option<bool>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "redirectUrl")]
+        #[doc = "Redirect location, only sent if a redirect was intercepted."]
         pub redirect_url: Option<String>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "authChallenge")]
+        #[doc = "Details of the Authorization Challenge encountered. If this is set then\n continueInterceptedRequest must contain an authChallengeResponse."]
         pub auth_challenge: Option<super::AuthChallenge>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "responseErrorReason")]
+        #[doc = "Response error if intercepted at response stage or if redirect occurred while intercepting\n request."]
         pub response_error_reason: Option<super::ErrorReason>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "responseStatusCode")]
+        #[doc = "Response code if intercepted at response stage or if redirect occurred while intercepting\n request or auth retry occurred."]
         pub response_status_code: Option<JsUInt>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "responseHeaders")]
+        #[doc = "Response headers if intercepted at the response stage or if redirect occurred while\n intercepting request or auth retry occurred."]
         pub response_headers: Option<super::Headers>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "requestId")]
+        #[doc = "If the intercepted request had a corresponding requestWillBeSent event fired for it, then\n this requestId will be the same as the requestId present in the requestWillBeSent event."]
         pub request_id: Option<super::RequestId>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestServedFromCacheEvent {
         pub params: RequestServedFromCacheEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct RequestServedFromCacheEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestWillBeSentEvent {
         pub params: RequestWillBeSentEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct RequestWillBeSentEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "loaderId")]
+        #[doc = "Loader identifier. Empty string if the request is fetched from worker."]
         pub loader_id: super::LoaderId,
         #[serde(default)]
+        #[doc = "URL of the document this request is loaded for."]
         #[serde(rename = "documentURL")]
         pub document_url: String,
-        #[serde(rename = "request")]
+        #[doc = "Request data."]
         pub request: super::Request,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
-        #[serde(rename = "wallTime")]
+        #[doc = "Timestamp."]
         pub wall_time: super::TimeSinceEpoch,
-        #[serde(rename = "initiator")]
+        #[doc = "Request initiator."]
         pub initiator: super::Initiator,
         #[serde(default)]
-        #[serde(rename = "redirectHasExtraInfo")]
+        #[doc = "In the case that redirectResponse is populated, this flag indicates whether\n requestWillBeSentExtraInfo and responseReceivedExtraInfo events will be or were emitted\n for the request which was just redirected."]
         pub redirect_has_extra_info: bool,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "redirectResponse")]
+        #[doc = "Redirect response data."]
         pub redirect_response: Option<super::Response>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "type")]
+        #[doc = "Type of this resource."]
         pub r#type: Option<super::ResourceType>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "frameId")]
+        #[doc = "Frame identifier."]
         pub frame_id: Option<super::super::page::FrameId>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "hasUserGesture")]
+        #[doc = "Whether the request is initiated by a user gesture. Defaults to false."]
         pub has_user_gesture: Option<bool>,
+        #[builder(default)]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        #[doc = "The render blocking behavior of the request."]
+        pub render_blocking_behavior: Option<super::RenderBlockingBehavior>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResourceChangedPriorityEvent {
         pub params: ResourceChangedPriorityEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ResourceChangedPriorityEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "newPriority")]
+        #[doc = "New priority"]
         pub new_priority: super::ResourcePriority,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SignedExchangeReceivedEvent {
         pub params: SignedExchangeReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct SignedExchangeReceivedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "info")]
+        #[doc = "Information about the signed exchange response."]
         pub info: super::SignedExchangeInfo,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResponseReceivedEvent {
         pub params: ResponseReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ResponseReceivedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "loaderId")]
+        #[doc = "Loader identifier. Empty string if the request is fetched from worker."]
         pub loader_id: super::LoaderId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
-        #[serde(rename = "type")]
+        #[doc = "Resource type."]
         pub r#type: super::ResourceType,
-        #[serde(rename = "response")]
+        #[doc = "Response data."]
         pub response: super::Response,
         #[serde(default)]
-        #[serde(rename = "hasExtraInfo")]
+        #[doc = "Indicates whether requestWillBeSentExtraInfo and responseReceivedExtraInfo events will be\n or were emitted for this request."]
         pub has_extra_info: bool,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "frameId")]
+        #[doc = "Frame identifier."]
         pub frame_id: Option<super::super::page::FrameId>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketClosedEvent {
         pub params: WebSocketClosedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebSocketClosedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketCreatedEvent {
         pub params: WebSocketCreatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebSocketCreatedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "WebSocket request URL."]
         pub url: String,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "initiator")]
+        #[doc = "Request initiator."]
         pub initiator: Option<super::Initiator>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketFrameErrorEvent {
         pub params: WebSocketFrameErrorEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebSocketFrameErrorEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
         #[serde(default)]
-        #[serde(rename = "errorMessage")]
+        #[doc = "WebSocket error message."]
         pub error_message: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketFrameReceivedEvent {
         pub params: WebSocketFrameReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebSocketFrameReceivedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
-        #[serde(rename = "response")]
+        #[doc = "WebSocket response data."]
         pub response: super::WebSocketFrame,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketFrameSentEvent {
         pub params: WebSocketFrameSentEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebSocketFrameSentEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
-        #[serde(rename = "response")]
+        #[doc = "WebSocket response data."]
         pub response: super::WebSocketFrame,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketHandshakeResponseReceivedEvent {
         pub params: WebSocketHandshakeResponseReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebSocketHandshakeResponseReceivedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
-        #[serde(rename = "response")]
+        #[doc = "WebSocket response data."]
         pub response: super::WebSocketResponse,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketWillSendHandshakeRequestEvent {
         pub params: WebSocketWillSendHandshakeRequestEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebSocketWillSendHandshakeRequestEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier."]
         pub request_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
-        #[serde(rename = "wallTime")]
+        #[doc = "UTC Timestamp."]
         pub wall_time: super::TimeSinceEpoch,
-        #[serde(rename = "request")]
+        #[doc = "WebSocket request data."]
         pub request: super::WebSocketRequest,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebTransportCreatedEvent {
         pub params: WebTransportCreatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebTransportCreatedEventParams {
-        #[serde(rename = "transportId")]
+        #[doc = "WebTransport identifier."]
         pub transport_id: super::RequestId,
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "WebTransport request URL."]
         pub url: String,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "initiator")]
+        #[doc = "Request initiator."]
         pub initiator: Option<super::Initiator>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebTransportConnectionEstablishedEvent {
         pub params: WebTransportConnectionEstablishedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebTransportConnectionEstablishedEventParams {
-        #[serde(rename = "transportId")]
+        #[doc = "WebTransport identifier."]
         pub transport_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebTransportClosedEvent {
         pub params: WebTransportClosedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WebTransportClosedEventParams {
-        #[serde(rename = "transportId")]
+        #[doc = "WebTransport identifier."]
         pub transport_id: super::RequestId,
-        #[serde(rename = "timestamp")]
+        #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketCreatedEvent {
         pub params: DirectTCPSocketCreatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectTCPSocketCreatedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
         #[serde(default)]
-        #[serde(rename = "remoteAddr")]
         pub remote_addr: String,
         #[serde(default)]
-        #[serde(rename = "remotePort")]
+        #[doc = "Unsigned int 16."]
         pub remote_port: JsUInt,
-        #[serde(rename = "options")]
         pub options: super::DirectTcpSocketOptions,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "initiator")]
         pub initiator: Option<super::Initiator>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketOpenedEvent {
         pub params: DirectTCPSocketOpenedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectTCPSocketOpenedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
         #[serde(default)]
-        #[serde(rename = "remoteAddr")]
         pub remote_addr: String,
         #[serde(default)]
-        #[serde(rename = "remotePort")]
+        #[doc = "Expected to be unsigned integer."]
         pub remote_port: JsUInt,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "localAddr")]
         pub local_addr: Option<String>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "localPort")]
+        #[doc = "Expected to be unsigned integer."]
         pub local_port: Option<JsUInt>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketAbortedEvent {
         pub params: DirectTCPSocketAbortedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectTCPSocketAbortedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
         #[serde(default)]
-        #[serde(rename = "errorMessage")]
         pub error_message: String,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketClosedEvent {
         pub params: DirectTCPSocketClosedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectTCPSocketClosedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketChunkSentEvent {
         pub params: DirectTCPSocketChunkSentEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectTCPSocketChunkSentEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
         #[serde(default)]
-        #[serde(rename = "data")]
         pub data: u8,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketChunkReceivedEvent {
         pub params: DirectTCPSocketChunkReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectTCPSocketChunkReceivedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
         #[serde(default)]
-        #[serde(rename = "data")]
         pub data: u8,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    pub struct DirectUDPSocketJoinedMulticastGroupEvent {
+        pub params: DirectUDPSocketJoinedMulticastGroupEventParams,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    pub struct DirectUDPSocketJoinedMulticastGroupEventParams {
+        pub identifier: super::RequestId,
+        #[serde(default)]
+        #[serde(rename = "IPAddress")]
+        pub ip_address: String,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    pub struct DirectUDPSocketLeftMulticastGroupEvent {
+        pub params: DirectUDPSocketLeftMulticastGroupEventParams,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    pub struct DirectUDPSocketLeftMulticastGroupEventParams {
+        pub identifier: super::RequestId,
+        #[serde(default)]
+        #[serde(rename = "IPAddress")]
+        pub ip_address: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketCreatedEvent {
         pub params: DirectUDPSocketCreatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectUDPSocketCreatedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
-        #[serde(rename = "options")]
         pub options: super::DirectUdpSocketOptions,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "initiator")]
         pub initiator: Option<super::Initiator>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketOpenedEvent {
         pub params: DirectUDPSocketOpenedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectUDPSocketOpenedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
         #[serde(default)]
-        #[serde(rename = "localAddr")]
         pub local_addr: String,
         #[serde(default)]
-        #[serde(rename = "localPort")]
+        #[doc = "Expected to be unsigned integer."]
         pub local_port: JsUInt,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "remoteAddr")]
         pub remote_addr: Option<String>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "remotePort")]
+        #[doc = "Expected to be unsigned integer."]
         pub remote_port: Option<JsUInt>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketAbortedEvent {
         pub params: DirectUDPSocketAbortedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectUDPSocketAbortedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
         #[serde(default)]
-        #[serde(rename = "errorMessage")]
         pub error_message: String,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketClosedEvent {
         pub params: DirectUDPSocketClosedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectUDPSocketClosedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketChunkSentEvent {
         pub params: DirectUDPSocketChunkSentEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectUDPSocketChunkSentEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
-        #[serde(rename = "message")]
         pub message: super::DirectUdpMessage,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketChunkReceivedEvent {
         pub params: DirectUDPSocketChunkReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DirectUDPSocketChunkReceivedEventParams {
-        #[serde(rename = "identifier")]
         pub identifier: super::RequestId,
-        #[serde(rename = "message")]
         pub message: super::DirectUdpMessage,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestWillBeSentExtraInfoEvent {
         pub params: RequestWillBeSentExtraInfoEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct RequestWillBeSentExtraInfoEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier. Used to match this information to an existing requestWillBeSent event."]
         pub request_id: super::RequestId,
-        #[serde(rename = "associatedCookies")]
+        #[doc = "A list of cookies potentially associated to the requested URL. This includes both cookies sent with\n the request and the ones not sent; the latter are distinguished by having blockedReasons field set."]
         pub associated_cookies: Vec<super::AssociatedCookie>,
-        #[serde(rename = "headers")]
+        #[doc = "Raw request headers as they will be sent over the wire."]
         pub headers: super::Headers,
-        #[serde(rename = "connectTiming")]
+        #[doc = "Connection timing information for the request."]
         pub connect_timing: super::ConnectTiming,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "clientSecurityState")]
+        #[doc = "How the request site's device bound sessions were used during this request."]
+        pub device_bound_session_usages: Option<Vec<super::DeviceBoundSessionWithUsage>>,
+        #[builder(default)]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        #[doc = "The client security state set for the request."]
         pub client_security_state: Option<super::ClientSecurityState>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "siteHasCookieInOtherPartition")]
+        #[doc = "Whether the site has partitioned cookies stored in a partition different than the current one."]
         pub site_has_cookie_in_other_partition: Option<bool>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "appliedNetworkConditionsId")]
+        #[doc = "The network conditions id if this request was affected by network conditions configured via\n emulateNetworkConditionsByRule."]
         pub applied_network_conditions_id: Option<String>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResponseReceivedExtraInfoEvent {
         pub params: ResponseReceivedExtraInfoEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ResponseReceivedExtraInfoEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier. Used to match this information to another responseReceived event."]
         pub request_id: super::RequestId,
-        #[serde(rename = "blockedCookies")]
+        #[doc = "A list of cookies which were not stored from the response along with the corresponding\n reasons for blocking. The cookies here may not be valid due to syntax errors, which\n are represented by the invalid cookie line string instead of a proper cookie."]
         pub blocked_cookies: Vec<super::BlockedSetCookieWithReason>,
-        #[serde(rename = "headers")]
+        #[doc = "Raw response headers as they were received over the wire.\n Duplicate headers in the response are represented as a single key with their values\n concatentated using `\\n` as the separator.\n See also `headersText` that contains verbatim text for HTTP/1.*."]
         pub headers: super::Headers,
+        #[doc = "The IP address space of the resource. The address space can only be determined once the transport\n established the connection, so we can't send it in `requestWillBeSentExtraInfo`."]
         #[serde(rename = "resourceIPAddressSpace")]
         pub resource_ip_address_space: super::IpAddressSpace,
         #[serde(default)]
-        #[serde(rename = "statusCode")]
+        #[doc = "The status code of the response. This is useful in cases the request failed and no responseReceived\n event is triggered, which is the case for, e.g., CORS errors. This is also the correct status code\n for cached requests, where the status in responseReceived is a 200 and this will be 304."]
         pub status_code: JsUInt,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "headersText")]
+        #[doc = "Raw response header text as it was received over the wire. The raw text may not always be\n available, such as in the case of HTTP/2 or QUIC."]
         pub headers_text: Option<String>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "cookiePartitionKey")]
+        #[doc = "The cookie partition key that will be used to store partitioned cookies set in this response.\n Only sent when partitioned cookies are enabled."]
         pub cookie_partition_key: Option<super::CookiePartitionKey>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "cookiePartitionKeyOpaque")]
+        #[doc = "True if partitioned cookies are enabled, but the partition key is not serializable to string."]
         pub cookie_partition_key_opaque: Option<bool>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "exemptedCookies")]
+        #[doc = "A list of cookies which should have been blocked by 3PCD but are exempted and stored from\n the response with the corresponding reason."]
         pub exempted_cookies: Option<Vec<super::ExemptedSetCookieWithReason>>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResponseReceivedEarlyHintsEvent {
         pub params: ResponseReceivedEarlyHintsEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ResponseReceivedEarlyHintsEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Request identifier. Used to match this information to another responseReceived event."]
         pub request_id: super::RequestId,
-        #[serde(rename = "headers")]
+        #[doc = "Raw response headers as they were received over the wire.\n Duplicate headers in the response are represented as a single key with their values\n concatentated using `\\n` as the separator.\n See also `headersText` that contains verbatim text for HTTP/1.*."]
         pub headers: super::Headers,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TrustTokenOperationDoneEvent {
         pub params: TrustTokenOperationDoneEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct TrustTokenOperationDoneEventParams {
-        #[serde(rename = "status")]
+        #[doc = "Detailed success or error status of the operation.\n 'AlreadyExists' also signifies a successful operation, as the result\n of the operation already exists und thus, the operation was abort\n preemptively (e.g. a cache hit)."]
         pub status: super::TrustTokenOperationDoneStatusOption,
-        #[serde(rename = "type")]
         pub r#type: super::TrustTokenOperationType,
-        #[serde(rename = "requestId")]
         pub request_id: super::RequestId,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "topLevelOrigin")]
+        #[doc = "Top level origin. The context in which the operation was attempted."]
         pub top_level_origin: Option<String>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "issuerOrigin")]
+        #[doc = "Origin of the issuer in case of a \"Issuance\" or \"Redemption\" operation."]
         pub issuer_origin: Option<String>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "issuedTokenCount")]
+        #[doc = "The number of obtained Trust Tokens on a successful \"Issuance\" operation."]
         pub issued_token_count: Option<JsUInt>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    #[serde(rename_all = "camelCase")]
-    pub struct PolicyUpdatedEvent(pub Option<serde_json::Value>);
+    pub struct PolicyUpdatedEvent(pub Option<Json>);
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReportingApiReportAddedEvent {
         pub params: ReportingApiReportAddedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ReportingApiReportAddedEventParams {
-        #[serde(rename = "report")]
         pub report: super::ReportingApiReport,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReportingApiReportUpdatedEvent {
         pub params: ReportingApiReportUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ReportingApiReportUpdatedEventParams {
-        #[serde(rename = "report")]
         pub report: super::ReportingApiReport,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReportingApiEndpointsChangedForOriginEvent {
         pub params: ReportingApiEndpointsChangedForOriginEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ReportingApiEndpointsChangedForOriginEventParams {
         #[serde(default)]
-        #[serde(rename = "origin")]
+        #[doc = "Origin of the document(s) which configured the endpoints."]
         pub origin: String,
-        #[serde(rename = "endpoints")]
         pub endpoints: Vec<super::ReportingApiEndpoint>,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    pub struct DeviceBoundSessionsAddedEvent {
+        pub params: DeviceBoundSessionsAddedEventParams,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    pub struct DeviceBoundSessionsAddedEventParams {
+        #[doc = "The device bound sessions."]
+        pub sessions: Vec<super::DeviceBoundSession>,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    pub struct DeviceBoundSessionEventOccurredEvent {
+        pub params: DeviceBoundSessionEventOccurredEventParams,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    pub struct DeviceBoundSessionEventOccurredEventParams {
+        #[doc = "A unique identifier for this session event."]
+        pub event_id: super::DeviceBoundSessionEventId,
+        #[serde(default)]
+        #[doc = "The site this session event is associated with."]
+        pub site: String,
+        #[serde(default)]
+        #[doc = "Whether this event was considered successful."]
+        pub succeeded: bool,
+        #[builder(default)]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        #[serde(default)]
+        #[doc = "The session ID this event is associated with. May not be populated for\n failed events."]
+        pub session_id: Option<String>,
+        #[builder(default)]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        #[doc = "The below are the different session event type details. Exactly one is populated."]
+        pub creation_event_details: Option<super::CreationEventDetails>,
+        #[builder(default)]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub refresh_event_details: Option<super::RefreshEventDetails>,
+        #[builder(default)]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub termination_event_details: Option<super::TerminationEventDetails>,
+        #[builder(default)]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub challenge_event_details: Option<super::ChallengeEventDetails>,
     }
 }

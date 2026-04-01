@@ -4,7 +4,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-use rand::Rng;
+use rand::RngExt;
 use serde_json::Value;
 
 pub use cdp_protocol::input::MouseButton;

@@ -298,8 +298,6 @@ fn build_start_command(options: &TracingStartOptions) -> tracing_cdp::Start {
     }
 
     tracing_cdp::Start {
-        categories: None,
-        options: Some("record-as-much-as-possible".to_string()),
         buffer_usage_reporting_interval: options.buffer_usage_reporting_interval_ms,
         transfer_mode: Some(StartTransferModeOption::ReturnAsStream),
         stream_format: Some(options.stream_format.clone()),
@@ -321,5 +319,7 @@ fn build_start_command(options: &TracingStartOptions) -> tracing_cdp::Start {
         }),
         perfetto_config: None,
         tracing_backend: options.tracing_backend.clone(),
+        categories: None,
+        options: None,
     }
 }

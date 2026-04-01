@@ -1,8 +1,10 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Animation
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Animation
 use super::dom;
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -16,213 +18,264 @@ pub enum AnimationType {
     #[serde(rename = "WebAnimation")]
     WebAnimation,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Animation instance."]
 pub struct Animation {
     #[serde(default)]
-    #[serde(rename = "id")]
+    #[doc = "`Animation`'s id."]
     pub id: String,
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "`Animation`'s name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "pausedState")]
+    #[doc = "`Animation`'s internal paused state."]
     pub paused_state: bool,
     #[serde(default)]
-    #[serde(rename = "playState")]
+    #[doc = "`Animation`'s play state."]
     pub play_state: String,
     #[serde(default)]
-    #[serde(rename = "playbackRate")]
+    #[doc = "`Animation`'s playback rate."]
     pub playback_rate: JsFloat,
     #[serde(default)]
-    #[serde(rename = "startTime")]
+    #[doc = "`Animation`'s start time.\n Milliseconds for time based animations and\n percentage [0 - 100] for scroll driven animations\n (i.e. when viewOrScrollTimeline exists)."]
     pub start_time: JsFloat,
     #[serde(default)]
-    #[serde(rename = "currentTime")]
+    #[doc = "`Animation`'s current time."]
     pub current_time: JsFloat,
-    #[serde(rename = "type")]
+    #[doc = "Animation type of `Animation`."]
     pub r#type: AnimationType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "source")]
+    #[doc = "`Animation`'s source animation node."]
     pub source: Option<AnimationEffect>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "cssId")]
+    #[doc = "A unique ID for `Animation` representing the sources that triggered this CSS\n animation/transition."]
     pub css_id: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "viewOrScrollTimeline")]
+    #[doc = "View or scroll timeline"]
     pub view_or_scroll_timeline: Option<ViewOrScrollTimeline>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Timeline instance"]
 pub struct ViewOrScrollTimeline {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sourceNodeId")]
+    #[doc = "Scroll container node"]
     pub source_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "startOffset")]
+    #[doc = "Represents the starting scroll position of the timeline\n as a length offset in pixels from scroll origin."]
     pub start_offset: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "endOffset")]
+    #[doc = "Represents the ending scroll position of the timeline\n as a length offset in pixels from scroll origin."]
     pub end_offset: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "subjectNodeId")]
+    #[doc = "The element whose principal box's visibility in the\n scrollport defined the progress of the timeline.\n Does not exist for animations with ScrollTimeline"]
     pub subject_node_id: Option<dom::BackendNodeId>,
-    #[serde(rename = "axis")]
+    #[doc = "Orientation of the scroll"]
     pub axis: dom::ScrollOrientation,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "AnimationEffect instance"]
 pub struct AnimationEffect {
     #[serde(default)]
-    #[serde(rename = "delay")]
+    #[doc = "`AnimationEffect`'s delay."]
     pub delay: JsFloat,
     #[serde(default)]
-    #[serde(rename = "endDelay")]
+    #[doc = "`AnimationEffect`'s end delay."]
     pub end_delay: JsFloat,
     #[serde(default)]
-    #[serde(rename = "iterationStart")]
+    #[doc = "`AnimationEffect`'s iteration start."]
     pub iteration_start: JsFloat,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "iterations")]
-    pub iterations: JsFloat,
+    #[doc = "`AnimationEffect`'s iterations. Omitted if the value is infinite."]
+    pub iterations: Option<JsFloat>,
     #[serde(default)]
-    #[serde(rename = "duration")]
+    #[doc = "`AnimationEffect`'s iteration duration.\n Milliseconds for time based animations and\n percentage [0 - 100] for scroll driven animations\n (i.e. when viewOrScrollTimeline exists)."]
     pub duration: JsFloat,
     #[serde(default)]
-    #[serde(rename = "direction")]
+    #[doc = "`AnimationEffect`'s playback direction."]
     pub direction: String,
     #[serde(default)]
-    #[serde(rename = "fill")]
+    #[doc = "`AnimationEffect`'s fill mode."]
     pub fill: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "`AnimationEffect`'s target node."]
     pub backend_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "keyframesRule")]
+    #[doc = "`AnimationEffect`'s keyframes."]
     pub keyframes_rule: Option<KeyframesRule>,
     #[serde(default)]
-    #[serde(rename = "easing")]
+    #[doc = "`AnimationEffect`'s timing function."]
     pub easing: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Keyframes Rule"]
 pub struct KeyframesRule {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "CSS keyframed animation's name."]
     pub name: Option<String>,
-    #[serde(rename = "keyframes")]
+    #[doc = "List of animation keyframes."]
     pub keyframes: Vec<KeyframeStyle>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Keyframe Style"]
 pub struct KeyframeStyle {
     #[serde(default)]
-    #[serde(rename = "offset")]
+    #[doc = "Keyframe's time offset."]
     pub offset: String,
     #[serde(default)]
-    #[serde(rename = "easing")]
+    #[doc = "`AnimationEffect`'s timing function."]
     pub easing: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct Disable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Enable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns the current time of the an animation."]
 pub struct GetCurrentTime {
     #[serde(default)]
-    #[serde(rename = "id")]
+    #[doc = "Id of animation."]
     pub id: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetPlaybackRate(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetPlaybackRate(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Releases a set of animations to no longer be manipulated."]
 pub struct ReleaseAnimations {
     #[serde(default)]
-    #[serde(rename = "animations")]
+    #[doc = "List of animation ids to seek."]
     pub animations: Vec<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Gets the remote object of the Animation."]
 pub struct ResolveAnimation {
     #[serde(default)]
-    #[serde(rename = "animationId")]
+    #[doc = "Animation id."]
     pub animation_id: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Seek a set of animations to a particular time within each animation."]
 pub struct SeekAnimations {
     #[serde(default)]
-    #[serde(rename = "animations")]
+    #[doc = "List of animation ids to seek."]
     pub animations: Vec<String>,
     #[serde(default)]
-    #[serde(rename = "currentTime")]
+    #[doc = "Set the current time of each animation."]
     pub current_time: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets the paused state of a set of animations."]
 pub struct SetPaused {
     #[serde(default)]
-    #[serde(rename = "animations")]
+    #[doc = "Animations to set the pause state of."]
     pub animations: Vec<String>,
     #[serde(default)]
-    #[serde(rename = "paused")]
+    #[doc = "Paused state to set to."]
     pub paused: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets the playback rate of the document timeline."]
 pub struct SetPlaybackRate {
     #[serde(default)]
-    #[serde(rename = "playbackRate")]
+    #[doc = "Playback rate for animations on page"]
     pub playback_rate: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets the timing of an animation node."]
 pub struct SetTiming {
     #[serde(default)]
-    #[serde(rename = "animationId")]
+    #[doc = "Animation id."]
     pub animation_id: String,
     #[serde(default)]
-    #[serde(rename = "duration")]
+    #[doc = "Duration of the animation."]
     pub duration: JsFloat,
     #[serde(default)]
-    #[serde(rename = "delay")]
+    #[doc = "Delay of the animation."]
     pub delay: JsFloat,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables animation domain notifications."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables animation domain notifications."]
+pub struct EnableReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns the current time of the an animation."]
 pub struct GetCurrentTimeReturnObject {
     #[serde(default)]
-    #[serde(rename = "currentTime")]
+    #[doc = "Current time of the page."]
     pub current_time: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Gets the playback rate of the document timeline."]
 pub struct GetPlaybackRateReturnObject {
     #[serde(default)]
-    #[serde(rename = "playbackRate")]
+    #[doc = "Playback rate for animations on page."]
     pub playback_rate: JsFloat,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Releases a set of animations to no longer be manipulated."]
+pub struct ReleaseAnimationsReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct ReleaseAnimationsReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Gets the remote object of the Animation."]
 pub struct ResolveAnimationReturnObject {
-    #[serde(rename = "remoteObject")]
+    #[doc = "Corresponding remote object."]
     pub remote_object: runtime::RemoteObject,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SeekAnimationsReturnObject {}
+#[doc = "Seek a set of animations to a particular time within each animation."]
+pub struct SeekAnimationsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetPausedReturnObject {}
+#[doc = "Sets the paused state of a set of animations."]
+pub struct SetPausedReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetPlaybackRateReturnObject {}
+#[doc = "Sets the playback rate of the document timeline."]
+pub struct SetPlaybackRateReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetTimingReturnObject {}
+#[doc = "Sets the timing of an animation node."]
+pub struct SetTimingReturnObject(pub Option<Json>);
 impl Method for Disable {
     const NAME: &'static str = "Animation.disable";
     type ReturnObject = DisableReturnObject;
@@ -267,43 +320,47 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AnimationCanceledEvent {
         pub params: AnimationCanceledEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AnimationCanceledEventParams {
         #[serde(default)]
-        #[serde(rename = "id")]
+        #[doc = "Id of the animation that was cancelled."]
         pub id: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AnimationCreatedEvent {
         pub params: AnimationCreatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AnimationCreatedEventParams {
         #[serde(default)]
-        #[serde(rename = "id")]
+        #[doc = "Id of the animation that was created."]
         pub id: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AnimationStartedEvent {
         pub params: AnimationStartedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AnimationStartedEventParams {
-        #[serde(rename = "animation")]
+        #[doc = "Animation that was started."]
         pub animation: super::Animation,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AnimationUpdatedEvent {
         pub params: AnimationUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AnimationUpdatedEventParams {
-        #[serde(rename = "animation")]
+        #[doc = "Animation that was updated."]
         pub animation: super::Animation,
     }
 }

@@ -1,6 +1,8 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: FedCm
+// Auto-generated from Chrome at version 146.0.7680.165 domain: FedCm
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -39,112 +41,103 @@ pub enum AccountUrlType {
     #[serde(rename = "PrivacyPolicy")]
     PrivacyPolicy,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Corresponds to IdentityRequestAccount"]
 pub struct Account {
     #[serde(default)]
-    #[serde(rename = "accountId")]
     pub account_id: String,
     #[serde(default)]
-    #[serde(rename = "email")]
     pub email: String,
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "givenName")]
     pub given_name: String,
     #[serde(default)]
-    #[serde(rename = "pictureUrl")]
     pub picture_url: String,
     #[serde(default)]
-    #[serde(rename = "idpConfigUrl")]
     pub idp_config_url: String,
     #[serde(default)]
-    #[serde(rename = "idpLoginUrl")]
     pub idp_login_url: String,
-    #[serde(rename = "loginState")]
     pub login_state: LoginState,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "termsOfServiceUrl")]
+    #[doc = "These two are only set if the loginState is signUp"]
     pub terms_of_service_url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "privacyPolicyUrl")]
     pub privacy_policy_url: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct Enable {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "disableRejectionDelay")]
+    #[doc = "Allows callers to disable the promise rejection delay that would\n normally happen, if this is unimportant to what's being tested.\n (step 4 of https://fedidcg.github.io/FedCM/#browser-api-rp-sign-in)"]
     pub disable_rejection_delay: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SelectAccount {
     #[serde(default)]
-    #[serde(rename = "dialogId")]
     pub dialog_id: String,
     #[serde(default)]
-    #[serde(rename = "accountIndex")]
     pub account_index: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ClickDialogButton {
     #[serde(default)]
-    #[serde(rename = "dialogId")]
     pub dialog_id: String,
-    #[serde(rename = "dialogButton")]
     pub dialog_button: DialogButton,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct OpenUrl {
     #[serde(default)]
-    #[serde(rename = "dialogId")]
     pub dialog_id: String,
     #[serde(default)]
-    #[serde(rename = "accountIndex")]
     pub account_index: JsUInt,
-    #[serde(rename = "accountUrlType")]
     pub account_url_type: AccountUrlType,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct DismissDialog {
     #[serde(default)]
-    #[serde(rename = "dialogId")]
     pub dialog_id: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "triggerCooldown")]
     pub trigger_cooldown: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ResetCooldown(pub Option<serde_json::Value>);
+pub struct ResetCooldown(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SelectAccountReturnObject {}
+pub struct SelectAccountReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClickDialogButtonReturnObject {}
+pub struct ClickDialogButtonReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct OpenUrlReturnObject {}
+pub struct OpenUrlReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DismissDialogReturnObject {}
+pub struct DismissDialogReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ResetCooldownReturnObject {}
+#[doc = "Resets the cooldown time, if any, to allow the next FedCM call to show\n a dialog even if one was recently dismissed by the user."]
+pub struct ResetCooldownReturnObject(pub Option<Json>);
 impl Method for Enable {
     const NAME: &'static str = "FedCm.enable";
     type ReturnObject = EnableReturnObject;
@@ -177,36 +170,36 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DialogShownEvent {
         pub params: DialogShownEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DialogShownEventParams {
         #[serde(default)]
-        #[serde(rename = "dialogId")]
         pub dialog_id: String,
-        #[serde(rename = "dialogType")]
         pub dialog_type: super::DialogType,
-        #[serde(rename = "accounts")]
         pub accounts: Vec<super::Account>,
         #[serde(default)]
-        #[serde(rename = "title")]
+        #[doc = "These exist primarily so that the caller can verify the\n RP context was used appropriately."]
         pub title: String,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "subtitle")]
         pub subtitle: Option<String>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DialogClosedEvent {
         pub params: DialogClosedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DialogClosedEventParams {
         #[serde(default)]
-        #[serde(rename = "dialogId")]
         pub dialog_id: String,
     }
 }

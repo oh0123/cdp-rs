@@ -1,8 +1,10 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Log
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Log
 use super::network;
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -69,82 +71,93 @@ pub enum ViolationSettingName {
     #[serde(rename = "recurringHandler")]
     RecurringHandler,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Log entry."]
 pub struct LogEntry {
-    #[serde(rename = "source")]
+    #[doc = "Log entry source."]
     pub source: LogEntrySource,
-    #[serde(rename = "level")]
+    #[doc = "Log entry severity."]
     pub level: LogEntryLevel,
     #[serde(default)]
-    #[serde(rename = "text")]
+    #[doc = "Logged text."]
     pub text: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "category")]
     pub category: Option<LogEntryCategory>,
-    #[serde(rename = "timestamp")]
+    #[doc = "Timestamp when this entry was added."]
     pub timestamp: runtime::Timestamp,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "URL of the resource if known."]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "lineNumber")]
+    #[doc = "Line number in the resource."]
     pub line_number: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "stackTrace")]
+    #[doc = "JavaScript stack trace."]
     pub stack_trace: Option<runtime::StackTrace>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "networkRequestId")]
+    #[doc = "Identifier of the network request associated with this entry."]
     pub network_request_id: Option<network::RequestId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "workerId")]
+    #[doc = "Identifier of the worker associated with this entry."]
     pub worker_id: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "args")]
+    #[doc = "Call arguments."]
     pub args: Option<Vec<runtime::RemoteObject>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Violation configuration setting."]
 pub struct ViolationSetting {
-    #[serde(rename = "name")]
+    #[doc = "Violation type."]
     pub name: ViolationSettingName,
     #[serde(default)]
-    #[serde(rename = "threshold")]
+    #[doc = "Time threshold to trigger upon."]
     pub threshold: JsFloat,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Clear(pub Option<serde_json::Value>);
+pub struct Clear(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct Disable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Enable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "start violation reporting."]
 pub struct StartViolationsReport {
-    #[serde(rename = "config")]
+    #[doc = "Configuration for violations."]
     pub config: Vec<ViolationSetting>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopViolationsReport(pub Option<serde_json::Value>);
+pub struct StopViolationsReport(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearReturnObject {}
+#[doc = "Clears the log."]
+pub struct ClearReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables log domain, prevents further log entries from being reported to the client."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enables log domain, sends the entries collected so far to the client by means of the\n `entryAdded` notification."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StartViolationsReportReturnObject {}
+#[doc = "start violation reporting."]
+pub struct StartViolationsReportReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopViolationsReportReturnObject {}
+#[doc = "Stop violation reporting."]
+pub struct StopViolationsReportReturnObject(pub Option<Json>);
 impl Method for Clear {
     const NAME: &'static str = "Log.clear";
     type ReturnObject = ClearReturnObject;
@@ -169,14 +182,18 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct EntryAddedEvent {
         pub params: EntryAddedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct EntryAddedEventParams {
-        #[serde(rename = "entry")]
+        #[doc = "The entry."]
         pub entry: super::LogEntry,
     }
 }

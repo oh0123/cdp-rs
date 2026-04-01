@@ -2,7 +2,7 @@ use crate::{
     browser::launcher::BrowserType,
     error::{CdpError, Result},
 };
-use rand::Rng;
+use rand::RngExt;
 use std::{
     env, io,
     path::{Path, PathBuf},

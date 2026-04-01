@@ -1,7 +1,9 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: CacheStorage
+// Auto-generated from Chrome at version 146.0.7680.165 domain: CacheStorage
 use super::storage;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -22,137 +24,176 @@ pub enum CachedResponseType {
     #[serde(rename = "opaqueRedirect")]
     OpaqueRedirect,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Data entry."]
 pub struct DataEntry {
     #[serde(default)]
+    #[doc = "Request URL."]
     #[serde(rename = "requestURL")]
     pub request_url: String,
     #[serde(default)]
-    #[serde(rename = "requestMethod")]
+    #[doc = "Request method."]
     pub request_method: String,
-    #[serde(rename = "requestHeaders")]
+    #[doc = "Request headers"]
     pub request_headers: Vec<Header>,
     #[serde(default)]
-    #[serde(rename = "responseTime")]
+    #[doc = "Number of seconds since epoch."]
     pub response_time: JsFloat,
     #[serde(default)]
-    #[serde(rename = "responseStatus")]
+    #[doc = "HTTP response status code."]
     pub response_status: JsUInt,
     #[serde(default)]
-    #[serde(rename = "responseStatusText")]
+    #[doc = "HTTP response status text."]
     pub response_status_text: String,
-    #[serde(rename = "responseType")]
+    #[doc = "HTTP response type"]
     pub response_type: CachedResponseType,
-    #[serde(rename = "responseHeaders")]
+    #[doc = "Response headers"]
     pub response_headers: Vec<Header>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Cache identifier."]
 pub struct Cache {
-    #[serde(rename = "cacheId")]
+    #[doc = "An opaque unique id of the cache."]
     pub cache_id: CacheId,
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "Security origin of the cache."]
     pub security_origin: String,
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key of the cache."]
     pub storage_key: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "storageBucket")]
+    #[doc = "Storage bucket of the cache."]
     pub storage_bucket: Option<storage::StorageBucket>,
     #[serde(default)]
-    #[serde(rename = "cacheName")]
+    #[doc = "The name of the cache."]
     pub cache_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct Header {
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Cached response"]
 pub struct CachedResponse {
-    #[serde(rename = "body")]
+    #[doc = "Entry content, base64-encoded."]
     pub body: Vec<u8>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deletes a cache."]
 pub struct DeleteCache {
-    #[serde(rename = "cacheId")]
+    #[doc = "Id of cache for deletion."]
     pub cache_id: CacheId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deletes a cache entry."]
 pub struct DeleteEntry {
-    #[serde(rename = "cacheId")]
+    #[doc = "Id of cache where the entry will be deleted."]
     pub cache_id: CacheId,
     #[serde(default)]
-    #[serde(rename = "request")]
+    #[doc = "URL spec of the request."]
     pub request: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests cache names."]
 pub struct RequestCacheNames {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "At least and at most one of securityOrigin, storageKey, storageBucket must be specified.\n Security origin."]
     pub security_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key."]
     pub storage_key: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "storageBucket")]
+    #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches cache entry."]
 pub struct RequestCachedResponse {
-    #[serde(rename = "cacheId")]
+    #[doc = "Id of cache that contains the entry."]
     pub cache_id: CacheId,
     #[serde(default)]
+    #[doc = "URL spec of the request."]
     #[serde(rename = "requestURL")]
     pub request_url: String,
-    #[serde(rename = "requestHeaders")]
+    #[doc = "headers of the request."]
     pub request_headers: Vec<Header>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests data from cache."]
 pub struct RequestEntries {
-    #[serde(rename = "cacheId")]
+    #[doc = "ID of cache to get entries from."]
     pub cache_id: CacheId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "skipCount")]
+    #[doc = "Number of records to skip."]
     pub skip_count: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "pageSize")]
+    #[doc = "Number of records to fetch."]
     pub page_size: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "pathFilter")]
+    #[doc = "If present, only return the entries containing this substring in the path"]
     pub path_filter: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DeleteCacheReturnObject {}
+#[doc = "Deletes a cache."]
+pub struct DeleteCacheReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Deletes a cache entry."]
+pub struct DeleteEntryReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct DeleteEntryReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Requests cache names."]
 pub struct RequestCacheNamesReturnObject {
-    #[serde(rename = "caches")]
+    #[doc = "Caches for the security origin."]
     pub caches: Vec<Cache>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches cache entry."]
 pub struct RequestCachedResponseReturnObject {
-    #[serde(rename = "response")]
+    #[doc = "Response read from the cache."]
     pub response: CachedResponse,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests data from cache."]
 pub struct RequestEntriesReturnObject {
-    #[serde(rename = "cacheDataEntries")]
+    #[doc = "Array of object store data entries."]
     pub cache_data_entries: Vec<DataEntry>,
     #[serde(default)]
-    #[serde(rename = "returnCount")]
+    #[doc = "Count of returned entries from this storage. If pathFilter is empty, it\n is the count of all entries from this storage."]
     pub return_count: JsFloat,
 }
 impl Method for DeleteCache {
@@ -179,5 +220,9 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
 }

@@ -1,8 +1,10 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Fetch
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Fetch
 use super::io;
 use super::network;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -31,189 +33,244 @@ pub enum AuthChallengeResponseResponse {
     #[serde(rename = "ProvideCredentials")]
     ProvideCredentials,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct RequestPattern {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "urlPattern")]
+    #[doc = "Wildcards (`'*'` -> zero or more, `'?'` -> exactly one) are allowed. Escape character is\n backslash. Omitting is equivalent to `\"*\"`."]
     pub url_pattern: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "resourceType")]
+    #[doc = "If set, only requests for matching resource types will be intercepted."]
     pub resource_type: Option<network::ResourceType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "requestStage")]
+    #[doc = "Stage at which to begin intercepting requests. Default is Request."]
     pub request_stage: Option<RequestStage>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Response HTTP header entry"]
 pub struct HeaderEntry {
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Authorization challenge for HTTP status code 401 or 407."]
 pub struct AuthChallenge {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "source")]
+    #[doc = "Source of the authentication challenge."]
     pub source: Option<AuthChallengeSource>,
     #[serde(default)]
-    #[serde(rename = "origin")]
+    #[doc = "Origin of the challenger."]
     pub origin: String,
     #[serde(default)]
-    #[serde(rename = "scheme")]
+    #[doc = "The authentication scheme used, such as basic or digest"]
     pub scheme: String,
     #[serde(default)]
-    #[serde(rename = "realm")]
+    #[doc = "The realm of the challenge. May be empty."]
     pub realm: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Response to an AuthChallenge."]
 pub struct AuthChallengeResponse {
-    #[serde(rename = "response")]
+    #[doc = "The decision on what to do in response to the authorization challenge.  Default means\n deferring to the default behavior of the net stack, which will likely either the Cancel\n authentication or display a popup dialog box."]
     pub response: AuthChallengeResponseResponse,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "username")]
+    #[doc = "The username to provide, possibly empty. Should only be set if response is\n ProvideCredentials."]
     pub username: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "password")]
+    #[doc = "The password to provide, possibly empty. Should only be set if response is\n ProvideCredentials."]
     pub password: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables issuing of requestPaused events. A request will be paused until client\n calls one of failRequest, fulfillRequest or continueRequest/continueWithAuth."]
 pub struct Enable {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "patterns")]
+    #[doc = "If specified, only requests matching any of these patterns will produce\n fetchRequested event and will be paused until clients response. If not set,\n all requests will be affected."]
     pub patterns: Option<Vec<RequestPattern>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "handleAuthRequests")]
+    #[doc = "If true, authRequired events will be issued and requests will be paused\n expecting a call to continueWithAuth."]
     pub handle_auth_requests: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Causes the request to fail with specified reason."]
 pub struct FailRequest {
-    #[serde(rename = "requestId")]
+    #[doc = "An id the client received in requestPaused event."]
     pub request_id: RequestId,
-    #[serde(rename = "errorReason")]
+    #[doc = "Causes the request to fail with the given reason."]
     pub error_reason: network::ErrorReason,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Provides response to the request."]
 pub struct FulfillRequest {
-    #[serde(rename = "requestId")]
+    #[doc = "An id the client received in requestPaused event."]
     pub request_id: RequestId,
     #[serde(default)]
-    #[serde(rename = "responseCode")]
+    #[doc = "An HTTP response code."]
     pub response_code: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "responseHeaders")]
+    #[doc = "Response headers."]
     pub response_headers: Option<Vec<HeaderEntry>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "binaryResponseHeaders")]
+    #[doc = "Alternative way of specifying response headers as a \\0-separated\n series of name: value pairs. Prefer the above method unless you\n need to represent some non-UTF8 values that can't be transmitted\n over the protocol as text."]
     pub binary_response_headers: Option<Vec<u8>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "body")]
+    #[doc = "A response body. If absent, original response body will be used if\n the request is intercepted at the response stage and empty body\n will be used if the request is intercepted at the request stage."]
     pub body: Option<Vec<u8>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "responsePhrase")]
+    #[doc = "A textual representation of responseCode.\n If absent, a standard phrase matching responseCode is used."]
     pub response_phrase: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Continues the request, optionally modifying some of its parameters."]
 pub struct ContinueRequest {
-    #[serde(rename = "requestId")]
+    #[doc = "An id the client received in requestPaused event."]
     pub request_id: RequestId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "If set, the request url will be modified in a way that's not observable by page."]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "method")]
+    #[doc = "If set, the request method is overridden."]
     pub method: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "postData")]
+    #[doc = "If set, overrides the post data in the request."]
     pub post_data: Option<Vec<u8>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "headers")]
+    #[doc = "If set, overrides the request headers. Note that the overrides do not\n extend to subsequent redirect hops, if a redirect happens. Another override\n may be applied to a different request produced by a redirect."]
     pub headers: Option<Vec<HeaderEntry>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "interceptResponse")]
+    #[doc = "If set, overrides response interception behavior for this request."]
     pub intercept_response: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Continues a request supplying authChallengeResponse following authRequired event."]
 pub struct ContinueWithAuth {
-    #[serde(rename = "requestId")]
+    #[doc = "An id the client received in authRequired event."]
     pub request_id: RequestId,
-    #[serde(rename = "authChallengeResponse")]
+    #[doc = "Response to  with an authChallenge."]
     pub auth_challenge_response: AuthChallengeResponse,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Continues loading of the paused response, optionally modifying the\n response headers. If either responseCode or headers are modified, all of them\n must be present."]
 pub struct ContinueResponse {
-    #[serde(rename = "requestId")]
+    #[doc = "An id the client received in requestPaused event."]
     pub request_id: RequestId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "responseCode")]
+    #[doc = "An HTTP response code. If absent, original response code will be used."]
     pub response_code: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "responsePhrase")]
+    #[doc = "A textual representation of responseCode.\n If absent, a standard phrase matching responseCode is used."]
     pub response_phrase: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "responseHeaders")]
+    #[doc = "Response headers. If absent, original response headers will be used."]
     pub response_headers: Option<Vec<HeaderEntry>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "binaryResponseHeaders")]
+    #[doc = "Alternative way of specifying response headers as a \\0-separated\n series of name: value pairs. Prefer the above method unless you\n need to represent some non-UTF8 values that can't be transmitted\n over the protocol as text."]
     pub binary_response_headers: Option<Vec<u8>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Causes the body of the response to be received from the server and\n returned as a single string. May only be issued for a request that\n is paused in the Response stage and is mutually exclusive with\n takeResponseBodyForInterceptionAsStream. Calling other methods that\n affect the request or disabling fetch domain before body is received\n results in an undefined behavior.\n Note that the response body is not available for redirects. Requests\n paused in the _redirect received_ state may be differentiated by\n `responseCode` and presence of `location` response header, see\n comments to `requestPaused` for details."]
 pub struct GetResponseBody {
-    #[serde(rename = "requestId")]
+    #[doc = "Identifier for the intercepted request to get body for."]
     pub request_id: RequestId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns a handle to the stream representing the response body.\n The request must be paused in the HeadersReceived stage.\n Note that after this command the request can't be continued\n as is -- client either needs to cancel it or to provide the\n response body.\n The stream only supports sequential read, IO.read will fail if the position\n is specified.\n This method is mutually exclusive with getResponseBody.\n Calling other methods that affect the request or disabling fetch\n domain before body is received results in an undefined behavior."]
 pub struct TakeResponseBodyAsStream {
-    #[serde(rename = "requestId")]
     pub request_id: RequestId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables the fetch domain."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enables issuing of requestPaused events. A request will be paused until client\n calls one of failRequest, fulfillRequest or continueRequest/continueWithAuth."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct FailRequestReturnObject {}
+#[doc = "Causes the request to fail with specified reason."]
+pub struct FailRequestReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct FulfillRequestReturnObject {}
+#[doc = "Provides response to the request."]
+pub struct FulfillRequestReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ContinueRequestReturnObject {}
+#[doc = "Continues the request, optionally modifying some of its parameters."]
+pub struct ContinueRequestReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ContinueWithAuthReturnObject {}
+#[doc = "Continues a request supplying authChallengeResponse following authRequired event."]
+pub struct ContinueWithAuthReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Continues loading of the paused response, optionally modifying the\n response headers. If either responseCode or headers are modified, all of them\n must be present."]
+pub struct ContinueResponseReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct ContinueResponseReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Causes the body of the response to be received from the server and\n returned as a single string. May only be issued for a request that\n is paused in the Response stage and is mutually exclusive with\n takeResponseBodyForInterceptionAsStream. Calling other methods that\n affect the request or disabling fetch domain before body is received\n results in an undefined behavior.\n Note that the response body is not available for redirects. Requests\n paused in the _redirect received_ state may be differentiated by\n `responseCode` and presence of `location` response header, see\n comments to `requestPaused` for details."]
 pub struct GetResponseBodyReturnObject {
     #[serde(default)]
-    #[serde(rename = "body")]
+    #[doc = "Response body."]
     pub body: String,
     #[serde(default)]
-    #[serde(rename = "base64Encoded")]
+    #[doc = "True, if content was sent as base64."]
     pub base_64_encoded: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns a handle to the stream representing the response body.\n The request must be paused in the HeadersReceived stage.\n Note that after this command the request can't be continued\n as is -- client either needs to cancel it or to provide the\n response body.\n The stream only supports sequential read, IO.read will fail if the position\n is specified.\n This method is mutually exclusive with getResponseBody.\n Calling other methods that affect the request or disabling fetch\n domain before body is received results in an undefined behavior."]
 pub struct TakeResponseBodyAsStreamReturnObject {
-    #[serde(rename = "stream")]
     pub stream: io::StreamHandle,
 }
 impl Method for Disable {
@@ -256,57 +313,67 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestPausedEvent {
         pub params: RequestPausedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct RequestPausedEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Each request the page makes will have a unique id."]
         pub request_id: super::RequestId,
-        #[serde(rename = "request")]
+        #[doc = "The details of the request."]
         pub request: super::super::network::Request,
-        #[serde(rename = "frameId")]
+        #[doc = "The id of the frame that initiated the request."]
         pub frame_id: super::super::page::FrameId,
-        #[serde(rename = "resourceType")]
+        #[doc = "How the requested resource will be used."]
         pub resource_type: super::super::network::ResourceType,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "responseErrorReason")]
+        #[doc = "Response error if intercepted at response stage."]
         pub response_error_reason: Option<super::super::network::ErrorReason>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "responseStatusCode")]
+        #[doc = "Response code if intercepted at response stage."]
         pub response_status_code: Option<JsUInt>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "responseStatusText")]
+        #[doc = "Response status text if intercepted at response stage."]
         pub response_status_text: Option<String>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "responseHeaders")]
+        #[doc = "Response headers if intercepted at the response stage."]
         pub response_headers: Option<Vec<super::HeaderEntry>>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "networkId")]
+        #[doc = "If the intercepted request had a corresponding Network.requestWillBeSent event fired for it,\n then this networkId will be the same as the requestId present in the requestWillBeSent event."]
         pub network_id: Option<super::super::network::RequestId>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "redirectedRequestId")]
+        #[doc = "If the request is due to a redirect response from the server, the id of the request that\n has caused the redirect."]
         pub redirected_request_id: Option<super::RequestId>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AuthRequiredEvent {
         pub params: AuthRequiredEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AuthRequiredEventParams {
-        #[serde(rename = "requestId")]
+        #[doc = "Each request the page makes will have a unique id."]
         pub request_id: super::RequestId,
-        #[serde(rename = "request")]
+        #[doc = "The details of the request."]
         pub request: super::super::network::Request,
-        #[serde(rename = "frameId")]
+        #[doc = "The id of the frame that initiated the request."]
         pub frame_id: super::super::page::FrameId,
-        #[serde(rename = "resourceType")]
+        #[doc = "How the requested resource will be used."]
         pub resource_type: super::super::network::ResourceType,
-        #[serde(rename = "authChallenge")]
+        #[doc = "Details of the Authorization Challenge encountered.\n If this is set, client should respond with continueRequest that\n contains AuthChallengeResponse."]
         pub auth_challenge: super::AuthChallenge,
     }
 }

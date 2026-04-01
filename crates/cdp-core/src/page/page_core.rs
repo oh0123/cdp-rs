@@ -1397,7 +1397,7 @@ impl Page {
             .session
             .send_command(layout_metrics_params, None)
             .await?;
-        let visual_viewport_scale = layout_metrics.visual_viewport.scale;
+        let visual_viewport_scale = layout_metrics.css_visual_viewport.scale;
         let device_scale_factor = device_scale.max(visual_viewport_scale);
         tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
 

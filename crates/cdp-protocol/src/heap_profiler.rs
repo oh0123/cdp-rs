@@ -1,186 +1,218 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: HeapProfiler
+// Auto-generated from Chrome at version 146.0.7680.165 domain: HeapProfiler
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type HeapSnapshotObjectId = String;
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sampling Heap Profile node. Holds callsite information, allocation statistics and child nodes."]
 pub struct SamplingHeapProfileNode {
-    #[serde(rename = "callFrame")]
+    #[doc = "Function location."]
     pub call_frame: runtime::CallFrame,
     #[serde(default)]
-    #[serde(rename = "selfSize")]
+    #[doc = "Allocations size in bytes for the node excluding children."]
     pub self_size: JsFloat,
     #[serde(default)]
-    #[serde(rename = "id")]
+    #[doc = "Node id. Ids are unique across all profiles collected between startSampling and stopSampling."]
     pub id: JsUInt,
-    #[serde(rename = "children")]
+    #[doc = "Child nodes."]
     pub children: Vec<SamplingHeapProfileNode>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A single sample from a sampling profile."]
 pub struct SamplingHeapProfileSample {
     #[serde(default)]
-    #[serde(rename = "size")]
+    #[doc = "Allocation size in bytes attributed to the sample."]
     pub size: JsFloat,
     #[serde(default)]
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the corresponding profile tree node."]
     pub node_id: JsUInt,
     #[serde(default)]
-    #[serde(rename = "ordinal")]
+    #[doc = "Time-ordered sample ordinal number. It is unique across all profiles retrieved\n between startSampling and stopSampling."]
     pub ordinal: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sampling profile."]
 pub struct SamplingHeapProfile {
-    #[serde(rename = "head")]
     pub head: SamplingHeapProfileNode,
-    #[serde(rename = "samples")]
     pub samples: Vec<SamplingHeapProfileSample>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enables console to refer to the node with given id via $x (see Command Line API for more details\n $x functions)."]
 pub struct AddInspectedHeapObject {
-    #[serde(rename = "heapObjectId")]
+    #[doc = "Heap snapshot object id to be accessible by means of $x command line API."]
     pub heap_object_id: HeapSnapshotObjectId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CollectGarbage(pub Option<serde_json::Value>);
+pub struct CollectGarbage(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct Disable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Enable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetHeapObjectId {
-    #[serde(rename = "objectId")]
+    #[doc = "Identifier of the object to get heap object id for."]
     pub object_id: runtime::RemoteObjectId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct GetObjectByHeapObjectId {
-    #[serde(rename = "objectId")]
     pub object_id: HeapSnapshotObjectId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "objectGroup")]
+    #[doc = "Symbolic group name that can be used to release multiple objects."]
     pub object_group: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetSamplingProfile(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetSamplingProfile(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StartSampling {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "samplingInterval")]
+    #[doc = "Average sample interval in bytes. Poisson distribution is used for the intervals. The\n default value is 32768 bytes."]
     pub sampling_interval: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "stackDepth")]
+    #[doc = "Maximum stack depth. The default value is 128."]
     pub stack_depth: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "By default, the sampling heap profiler reports only objects which are\n still alive when the profile is returned via getSamplingProfile or\n stopSampling, which is useful for determining what functions contribute\n the most to steady-state memory usage. This flag instructs the sampling\n heap profiler to also include information about objects discarded by\n major GC, which will show which functions cause large temporary memory\n usage or long GC pauses."]
     #[serde(rename = "includeObjectsCollectedByMajorGC")]
     pub include_objects_collected_by_major_gc: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "By default, the sampling heap profiler reports only objects which are\n still alive when the profile is returned via getSamplingProfile or\n stopSampling, which is useful for determining what functions contribute\n the most to steady-state memory usage. This flag instructs the sampling\n heap profiler to also include information about objects discarded by\n minor GC, which is useful when tuning a latency-sensitive application\n for minimal GC activity."]
     #[serde(rename = "includeObjectsCollectedByMinorGC")]
     pub include_objects_collected_by_minor_gc: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct StartTrackingHeapObjects {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "trackAllocations")]
     pub track_allocations: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct StopSampling(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct StopSampling(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopTrackingHeapObjects {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "reportProgress")]
+    #[doc = "If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken\n when the tracking is stopped."]
     pub report_progress: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "treatGlobalObjectsAsRoots")]
+    #[doc = "Deprecated in favor of `exposeInternals`."]
+    #[deprecated]
     pub treat_global_objects_as_roots: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "captureNumericValue")]
+    #[doc = "If true, numerical values are included in the snapshot"]
     pub capture_numeric_value: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "exposeInternals")]
+    #[doc = "If true, exposes internals of the snapshot."]
     pub expose_internals: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct TakeHeapSnapshot {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "reportProgress")]
+    #[doc = "If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken."]
     pub report_progress: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "treatGlobalObjectsAsRoots")]
+    #[doc = "If true, a raw snapshot without artificial roots will be generated.\n Deprecated in favor of `exposeInternals`."]
+    #[deprecated]
     pub treat_global_objects_as_roots: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "captureNumericValue")]
+    #[doc = "If true, numerical values are included in the snapshot"]
     pub capture_numeric_value: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "exposeInternals")]
+    #[doc = "If true, exposes internals of the snapshot."]
     pub expose_internals: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct AddInspectedHeapObjectReturnObject {}
+#[doc = "Enables console to refer to the node with given id via $x (see Command Line API for more details\n $x functions)."]
+pub struct AddInspectedHeapObjectReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CollectGarbageReturnObject {}
+pub struct CollectGarbageReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct EnableReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetHeapObjectIdReturnObject {
-    #[serde(rename = "heapSnapshotObjectId")]
+    #[doc = "Id of the heap snapshot object corresponding to the passed remote object id."]
     pub heap_snapshot_object_id: HeapSnapshotObjectId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
 pub struct GetObjectByHeapObjectIdReturnObject {
-    #[serde(rename = "result")]
+    #[doc = "Evaluation result."]
     pub result: runtime::RemoteObject,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
 pub struct GetSamplingProfileReturnObject {
-    #[serde(rename = "profile")]
+    #[doc = "Return the sampling profile being collected."]
     pub profile: SamplingHeapProfile,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StartSamplingReturnObject {}
+pub struct StartSamplingReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct StartTrackingHeapObjectsReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct StartTrackingHeapObjectsReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopSamplingReturnObject {
-    #[serde(rename = "profile")]
+    #[doc = "Recorded sampling heap profile."]
     pub profile: SamplingHeapProfile,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopTrackingHeapObjectsReturnObject {}
+pub struct StopTrackingHeapObjectsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct TakeHeapSnapshotReturnObject {}
+pub struct TakeHeapSnapshotReturnObject(pub Option<Json>);
 impl Method for AddInspectedHeapObject {
     const NAME: &'static str = "HeapProfiler.addInspectedHeapObject";
     type ReturnObject = AddInspectedHeapObjectReturnObject;
@@ -233,58 +265,56 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AddHeapSnapshotChunkEvent {
         pub params: AddHeapSnapshotChunkEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AddHeapSnapshotChunkEventParams {
         #[serde(default)]
-        #[serde(rename = "chunk")]
         pub chunk: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct HeapStatsUpdateEvent {
         pub params: HeapStatsUpdateEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct HeapStatsUpdateEventParams {
         #[serde(default)]
-        #[serde(rename = "statsUpdate")]
+        #[doc = "An array of triplets. Each triplet describes a fragment. The first integer is the fragment\n index, the second integer is a total count of objects for the fragment, the third integer is\n a total size of the objects for the fragment."]
         pub stats_update: Vec<JsUInt>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LastSeenObjectIdEvent {
         pub params: LastSeenObjectIdEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct LastSeenObjectIdEventParams {
         #[serde(default)]
-        #[serde(rename = "lastSeenObjectId")]
         pub last_seen_object_id: JsUInt,
         #[serde(default)]
-        #[serde(rename = "timestamp")]
         pub timestamp: JsFloat,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReportHeapSnapshotProgressEvent {
         pub params: ReportHeapSnapshotProgressEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ReportHeapSnapshotProgressEventParams {
         #[serde(default)]
-        #[serde(rename = "done")]
         pub done: JsUInt,
         #[serde(default)]
-        #[serde(rename = "total")]
         pub total: JsUInt,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "finished")]
         pub finished: Option<bool>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    #[serde(rename_all = "camelCase")]
-    pub struct ResetProfilesEvent(pub Option<serde_json::Value>);
+    pub struct ResetProfilesEvent(pub Option<Json>);
 }

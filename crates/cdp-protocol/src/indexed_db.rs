@@ -1,8 +1,10 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: IndexedDB
+// Auto-generated from Chrome at version 146.0.7680.165 domain: IndexedDB
 use super::runtime;
 use super::storage;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -27,290 +29,367 @@ pub enum KeyPathType {
     #[serde(rename = "array")]
     Array,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Database with an array of object stores."]
 pub struct DatabaseWithObjectStores {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Database name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "version")]
+    #[doc = "Database version (type is not 'integer', as the standard\n requires the version number to be 'unsigned long long')"]
     pub version: JsFloat,
-    #[serde(rename = "objectStores")]
+    #[doc = "Object stores in this database."]
     pub object_stores: Vec<ObjectStore>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Object store."]
 pub struct ObjectStore {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Object store name."]
     pub name: String,
-    #[serde(rename = "keyPath")]
+    #[doc = "Object store key path."]
     pub key_path: KeyPath,
     #[serde(default)]
-    #[serde(rename = "autoIncrement")]
+    #[doc = "If true, object store has auto increment flag set."]
     pub auto_increment: bool,
-    #[serde(rename = "indexes")]
+    #[doc = "Indexes in this object store."]
     pub indexes: Vec<ObjectStoreIndex>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Object store index."]
 pub struct ObjectStoreIndex {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Index name."]
     pub name: String,
-    #[serde(rename = "keyPath")]
+    #[doc = "Index key path."]
     pub key_path: KeyPath,
     #[serde(default)]
-    #[serde(rename = "unique")]
+    #[doc = "If true, index is unique."]
     pub unique: bool,
     #[serde(default)]
-    #[serde(rename = "multiEntry")]
+    #[doc = "If true, index allows multiple entries for a key."]
     pub multi_entry: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Key."]
 pub struct Key {
-    #[serde(rename = "type")]
+    #[doc = "Key type."]
     pub r#type: KeyType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "number")]
+    #[doc = "Number value."]
     pub number: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "string")]
+    #[doc = "String value."]
     pub string: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "date")]
+    #[doc = "Date value."]
     pub date: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "array")]
+    #[doc = "Array value."]
     pub array: Option<Vec<Key>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Key range."]
 pub struct KeyRange {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "lower")]
+    #[doc = "Lower bound."]
     pub lower: Option<Key>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "upper")]
+    #[doc = "Upper bound."]
     pub upper: Option<Key>,
     #[serde(default)]
-    #[serde(rename = "lowerOpen")]
+    #[doc = "If true lower bound is open."]
     pub lower_open: bool,
     #[serde(default)]
-    #[serde(rename = "upperOpen")]
+    #[doc = "If true upper bound is open."]
     pub upper_open: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Data entry."]
 pub struct DataEntry {
-    #[serde(rename = "key")]
+    #[doc = "Key object."]
     pub key: runtime::RemoteObject,
-    #[serde(rename = "primaryKey")]
+    #[doc = "Primary key object."]
     pub primary_key: runtime::RemoteObject,
-    #[serde(rename = "value")]
+    #[doc = "Value object."]
     pub value: runtime::RemoteObject,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Key path."]
 pub struct KeyPath {
-    #[serde(rename = "type")]
+    #[doc = "Key path type."]
     pub r#type: KeyPathType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "string")]
+    #[doc = "String value."]
     pub string: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "array")]
+    #[doc = "Array value."]
     pub array: Option<Vec<String>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Clears all entries from an object store."]
 pub struct ClearObjectStore {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "At least and at most one of securityOrigin, storageKey, or storageBucket must be specified.\n Security origin."]
     pub security_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key."]
     pub storage_key: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "storageBucket")]
+    #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
     #[serde(default)]
-    #[serde(rename = "databaseName")]
+    #[doc = "Database name."]
     pub database_name: String,
     #[serde(default)]
-    #[serde(rename = "objectStoreName")]
+    #[doc = "Object store name."]
     pub object_store_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deletes a database."]
 pub struct DeleteDatabase {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "At least and at most one of securityOrigin, storageKey, or storageBucket must be specified.\n Security origin."]
     pub security_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key."]
     pub storage_key: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "storageBucket")]
+    #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
     #[serde(default)]
-    #[serde(rename = "databaseName")]
+    #[doc = "Database name."]
     pub database_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Delete a range of entries from an object store"]
 pub struct DeleteObjectStoreEntries {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "At least and at most one of securityOrigin, storageKey, or storageBucket must be specified.\n Security origin."]
     pub security_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key."]
     pub storage_key: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "storageBucket")]
+    #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
     #[serde(default)]
-    #[serde(rename = "databaseName")]
     pub database_name: String,
     #[serde(default)]
-    #[serde(rename = "objectStoreName")]
     pub object_store_name: String,
-    #[serde(rename = "keyRange")]
+    #[doc = "Range of entry keys to delete"]
     pub key_range: KeyRange,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct Disable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Enable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Requests data from object store or index."]
 pub struct RequestData {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "At least and at most one of securityOrigin, storageKey, or storageBucket must be specified.\n Security origin."]
     pub security_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key."]
     pub storage_key: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "storageBucket")]
+    #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
     #[serde(default)]
-    #[serde(rename = "databaseName")]
+    #[doc = "Database name."]
     pub database_name: String,
     #[serde(default)]
-    #[serde(rename = "objectStoreName")]
+    #[doc = "Object store name."]
     pub object_store_name: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "indexName")]
+    #[doc = "Index name. If not specified, it performs an object store data request."]
     pub index_name: Option<String>,
     #[serde(default)]
-    #[serde(rename = "skipCount")]
+    #[doc = "Number of records to skip."]
     pub skip_count: JsUInt,
     #[serde(default)]
-    #[serde(rename = "pageSize")]
+    #[doc = "Number of records to fetch."]
     pub page_size: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "keyRange")]
+    #[doc = "Key range."]
     pub key_range: Option<KeyRange>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Gets metadata of an object store."]
 pub struct GetMetadata {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "At least and at most one of securityOrigin, storageKey, or storageBucket must be specified.\n Security origin."]
     pub security_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key."]
     pub storage_key: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "storageBucket")]
+    #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
     #[serde(default)]
-    #[serde(rename = "databaseName")]
+    #[doc = "Database name."]
     pub database_name: String,
     #[serde(default)]
-    #[serde(rename = "objectStoreName")]
+    #[doc = "Object store name."]
     pub object_store_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests database with given name in given frame."]
 pub struct RequestDatabase {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "At least and at most one of securityOrigin, storageKey, or storageBucket must be specified.\n Security origin."]
     pub security_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key."]
     pub storage_key: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "storageBucket")]
+    #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
     #[serde(default)]
-    #[serde(rename = "databaseName")]
+    #[doc = "Database name."]
     pub database_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests database names for given security origin."]
 pub struct RequestDatabaseNames {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "At least and at most one of securityOrigin, storageKey, or storageBucket must be specified.\n Security origin."]
     pub security_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key."]
     pub storage_key: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "storageBucket")]
+    #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearObjectStoreReturnObject {}
+#[doc = "Clears all entries from an object store."]
+pub struct ClearObjectStoreReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DeleteDatabaseReturnObject {}
+#[doc = "Deletes a database."]
+pub struct DeleteDatabaseReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DeleteObjectStoreEntriesReturnObject {}
+#[doc = "Delete a range of entries from an object store"]
+pub struct DeleteObjectStoreEntriesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables events from backend."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables events from backend."]
+pub struct EnableReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Requests data from object store or index."]
 pub struct RequestDataReturnObject {
-    #[serde(rename = "objectStoreDataEntries")]
+    #[doc = "Array of object store data entries."]
     pub object_store_data_entries: Vec<DataEntry>,
     #[serde(default)]
-    #[serde(rename = "hasMore")]
+    #[doc = "If true, there are more entries to fetch in the given range."]
     pub has_more: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Gets metadata of an object store."]
 pub struct GetMetadataReturnObject {
     #[serde(default)]
-    #[serde(rename = "entriesCount")]
+    #[doc = "the entries count"]
     pub entries_count: JsFloat,
     #[serde(default)]
-    #[serde(rename = "keyGeneratorValue")]
+    #[doc = "the current value of key generator, to become the next inserted\n key into the object store. Valid if objectStore.autoIncrement\n is true."]
     pub key_generator_value: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests database with given name in given frame."]
 pub struct RequestDatabaseReturnObject {
-    #[serde(rename = "databaseWithObjectStores")]
+    #[doc = "Database with an array of object stores."]
     pub database_with_object_stores: DatabaseWithObjectStores,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests database names for given security origin."]
 pub struct RequestDatabaseNamesReturnObject {
-    #[serde(rename = "databaseNames")]
+    #[doc = "Database names for origin."]
     pub database_names: Vec<String>,
 }
 impl Method for ClearObjectStore {
@@ -353,5 +432,9 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
 }

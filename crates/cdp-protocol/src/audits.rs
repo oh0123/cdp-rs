@@ -1,10 +1,12 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Audits
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Audits
 use super::dom;
 use super::network;
 use super::page;
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -20,10 +22,6 @@ pub enum CookieExclusionReason {
     ExcludeSameSiteLax,
     #[serde(rename = "ExcludeSameSiteStrict")]
     ExcludeSameSiteStrict,
-    #[serde(rename = "ExcludeInvalidSameParty")]
-    ExcludeInvalidSameParty,
-    #[serde(rename = "ExcludeSamePartyCrossPartyContext")]
-    ExcludeSamePartyCrossPartyContext,
     #[serde(rename = "ExcludeDomainNonASCII")]
     ExcludeDomainNonAscii,
     #[serde(rename = "ExcludeThirdPartyCookieBlockedInFirstPartySet")]
@@ -366,6 +364,21 @@ pub enum UnencodedDigestError {
     IncorrectDigestLength,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum ConnectionAllowlistError {
+    #[serde(rename = "InvalidHeader")]
+    InvalidHeader,
+    #[serde(rename = "MoreThanOneList")]
+    MoreThanOneList,
+    #[serde(rename = "ItemNotInnerList")]
+    ItemNotInnerList,
+    #[serde(rename = "InvalidAllowlistItemType")]
+    InvalidAllowlistItemType,
+    #[serde(rename = "ReportingEndpointNotToken")]
+    ReportingEndpointNotToken,
+    #[serde(rename = "InvalidUrlPattern")]
+    InvalidUrlPattern,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum GenericIssueErrorType {
     #[serde(rename = "FormLabelForNameError")]
     FormLabelForNameError,
@@ -377,18 +390,26 @@ pub enum GenericIssueErrorType {
     FormAutocompleteAttributeEmptyError,
     #[serde(rename = "FormEmptyIdAndNameAttributesForInputError")]
     FormEmptyIdAndNameAttributesForInputError,
-    #[serde(rename = "FormAriaLabelledByToNonExistingId")]
-    FormAriaLabelledByToNonExistingId,
+    #[serde(rename = "FormAriaLabelledByToNonExistingIdError")]
+    FormAriaLabelledByToNonExistingIdError,
     #[serde(rename = "FormInputAssignedAutocompleteValueToIdOrNameAttributeError")]
     FormInputAssignedAutocompleteValueToIdOrNameAttributeError,
-    #[serde(rename = "FormLabelHasNeitherForNorNestedInput")]
-    FormLabelHasNeitherForNorNestedInput,
+    #[serde(rename = "FormLabelHasNeitherForNorNestedInputError")]
+    FormLabelHasNeitherForNorNestedInputError,
     #[serde(rename = "FormLabelForMatchesNonExistingIdError")]
     FormLabelForMatchesNonExistingIdError,
     #[serde(rename = "FormInputHasWrongButWellIntendedAutocompleteValueError")]
     FormInputHasWrongButWellIntendedAutocompleteValueError,
     #[serde(rename = "ResponseWasBlockedByORB")]
     ResponseWasBlockedByOrb,
+    #[serde(rename = "NavigationEntryMarkedSkippable")]
+    NavigationEntryMarkedSkippable,
+    #[serde(rename = "AutofillAndManualTextPolicyControlledFeaturesInfo")]
+    AutofillAndManualTextPolicyControlledFeaturesInfo,
+    #[serde(rename = "AutofillPolicyControlledFeatureInfo")]
+    AutofillPolicyControlledFeatureInfo,
+    #[serde(rename = "ManualTextPolicyControlledFeatureInfo")]
+    ManualTextPolicyControlledFeatureInfo,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ClientHintIssueReason {
@@ -567,6 +588,51 @@ pub enum UserReidentificationIssueType {
     NoisedCanvasReadback,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub enum PermissionElementIssueType {
+    #[serde(rename = "InvalidType")]
+    InvalidType,
+    #[serde(rename = "FencedFrameDisallowed")]
+    FencedFrameDisallowed,
+    #[serde(rename = "CspFrameAncestorsMissing")]
+    CspFrameAncestorsMissing,
+    #[serde(rename = "PermissionsPolicyBlocked")]
+    PermissionsPolicyBlocked,
+    #[serde(rename = "PaddingRightUnsupported")]
+    PaddingRightUnsupported,
+    #[serde(rename = "PaddingBottomUnsupported")]
+    PaddingBottomUnsupported,
+    #[serde(rename = "InsetBoxShadowUnsupported")]
+    InsetBoxShadowUnsupported,
+    #[serde(rename = "RequestInProgress")]
+    RequestInProgress,
+    #[serde(rename = "UntrustedEvent")]
+    UntrustedEvent,
+    #[serde(rename = "RegistrationFailed")]
+    RegistrationFailed,
+    #[serde(rename = "TypeNotSupported")]
+    TypeNotSupported,
+    #[serde(rename = "InvalidTypeActivation")]
+    InvalidTypeActivation,
+    #[serde(rename = "SecurityChecksFailed")]
+    SecurityChecksFailed,
+    #[serde(rename = "ActivationDisabled")]
+    ActivationDisabled,
+    #[serde(rename = "GeolocationDeprecated")]
+    GeolocationDeprecated,
+    #[serde(rename = "InvalidDisplayStyle")]
+    InvalidDisplayStyle,
+    #[serde(rename = "NonOpaqueColor")]
+    NonOpaqueColor,
+    #[serde(rename = "LowContrast")]
+    LowContrast,
+    #[serde(rename = "FontSizeTooSmall")]
+    FontSizeTooSmall,
+    #[serde(rename = "FontSizeTooLarge")]
+    FontSizeTooLarge,
+    #[serde(rename = "InvalidSizeValue")]
+    InvalidSizeValue,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InspectorIssueCode {
     #[serde(rename = "CookieIssue")]
     CookieIssue,
@@ -618,8 +684,12 @@ pub enum InspectorIssueCode {
     SriMessageSignatureIssue,
     #[serde(rename = "UnencodedDigestIssue")]
     UnencodedDigestIssue,
+    #[serde(rename = "ConnectionAllowlistIssue")]
+    ConnectionAllowlistIssue,
     #[serde(rename = "UserReidentificationIssue")]
     UserReidentificationIssue,
+    #[serde(rename = "PermissionElementIssue")]
+    PermissionElementIssue,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum GetEncodedResponseEncodingOption {
@@ -630,171 +700,193 @@ pub enum GetEncodedResponseEncodingOption {
     #[serde(rename = "png")]
     Png,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about a cookie that is affected by an inspector issue."]
 pub struct AffectedCookie {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "The following three properties uniquely identify a cookie"]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "path")]
     pub path: String,
     #[serde(default)]
-    #[serde(rename = "domain")]
     pub domain: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about a request that is affected by an inspector issue."]
 pub struct AffectedRequest {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "requestId")]
+    #[doc = "The unique request id."]
     pub request_id: Option<network::RequestId>,
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about the frame affected by an inspector issue."]
 pub struct AffectedFrame {
-    #[serde(rename = "frameId")]
     pub frame_id: page::FrameId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about the suggested solution to a cookie issue."]
 pub struct CookieIssueInsight {
-    #[serde(rename = "type")]
     pub r#type: InsightType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "tableEntryUrl")]
+    #[doc = "Link to table entry in third-party cookie migration readiness list."]
     pub table_entry_url: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This information is currently necessary, as the front-end has a difficult\n time finding a specific cookie. With this, we can convey specific error\n information without the cookie."]
 pub struct CookieIssueDetails {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "cookie")]
+    #[doc = "If AffectedCookie is not set then rawCookieLine contains the raw\n Set-Cookie header string. This hints at a problem where the\n cookie line is syntactically or semantically malformed in a way\n that no valid cookie could be created."]
     pub cookie: Option<AffectedCookie>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "rawCookieLine")]
     pub raw_cookie_line: Option<String>,
-    #[serde(rename = "cookieWarningReasons")]
     pub cookie_warning_reasons: Vec<CookieWarningReason>,
-    #[serde(rename = "cookieExclusionReasons")]
     pub cookie_exclusion_reasons: Vec<CookieExclusionReason>,
-    #[serde(rename = "operation")]
+    #[doc = "Optionally identifies the site-for-cookies and the cookie url, which\n may be used by the front-end as additional context."]
     pub operation: CookieOperation,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "siteForCookies")]
     pub site_for_cookies: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "cookieUrl")]
     pub cookie_url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "request")]
     pub request: Option<AffectedRequest>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "insight")]
+    #[doc = "The recommended solution to the issue."]
     pub insight: Option<CookieIssueInsight>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct MixedContentIssueDetails {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "resourceType")]
+    #[doc = "The type of resource causing the mixed content issue (css, js, iframe,\n form,...). Marked as optional because it is mapped to from\n blink::mojom::RequestContextType, which will be replaced\n by network::mojom::RequestDestination"]
     pub resource_type: Option<MixedContentResourceType>,
-    #[serde(rename = "resolutionStatus")]
+    #[doc = "The way the mixed content issue is being resolved."]
     pub resolution_status: MixedContentResolutionStatus,
     #[serde(default)]
+    #[doc = "The unsafe http url causing the mixed content issue."]
     #[serde(rename = "insecureURL")]
     pub insecure_url: String,
     #[serde(default)]
+    #[doc = "The url responsible for the call to an unsafe url."]
     #[serde(rename = "mainResourceURL")]
     pub main_resource_url: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "request")]
+    #[doc = "The mixed content request.\n Does not always exist (e.g. for unsafe form submission urls)."]
     pub request: Option<AffectedRequest>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frame")]
+    #[doc = "Optional because not every mixed content issue is necessarily linked to a frame."]
     pub frame: Option<AffectedFrame>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Details for a request that has been blocked with the BLOCKED_BY_RESPONSE\n code. Currently only used for COEP/COOP, but may be extended to include\n some CSP errors in the future."]
 pub struct BlockedByResponseIssueDetails {
-    #[serde(rename = "request")]
     pub request: AffectedRequest,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "parentFrame")]
     pub parent_frame: Option<AffectedFrame>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "blockedFrame")]
     pub blocked_frame: Option<AffectedFrame>,
-    #[serde(rename = "reason")]
     pub reason: BlockedByResponseReason,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct HeavyAdIssueDetails {
-    #[serde(rename = "resolution")]
+    #[doc = "The resolution status, either blocking the content or warning."]
     pub resolution: HeavyAdResolutionStatus,
-    #[serde(rename = "reason")]
+    #[doc = "The reason the ad was blocked, total network or cpu or peak cpu."]
     pub reason: HeavyAdReason,
-    #[serde(rename = "frame")]
+    #[doc = "The frame that was blocked."]
     pub frame: AffectedFrame,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SourceCodeLocation {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "scriptId")]
     pub script_id: Option<runtime::ScriptId>,
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
     #[serde(default)]
-    #[serde(rename = "lineNumber")]
     pub line_number: JsUInt,
     #[serde(default)]
-    #[serde(rename = "columnNumber")]
     pub column_number: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ContentSecurityPolicyIssueDetails {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "The url not included in allowed sources."]
     #[serde(rename = "blockedURL")]
     pub blocked_url: Option<String>,
     #[serde(default)]
-    #[serde(rename = "violatedDirective")]
+    #[doc = "Specific directive that is violated, causing the CSP issue."]
     pub violated_directive: String,
     #[serde(default)]
-    #[serde(rename = "isReportOnly")]
     pub is_report_only: bool,
-    #[serde(rename = "contentSecurityPolicyViolationType")]
     pub content_security_policy_violation_type: ContentSecurityPolicyViolationType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameAncestor")]
     pub frame_ancestor: Option<AffectedFrame>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sourceCodeLocation")]
     pub source_code_location: Option<SourceCodeLocation>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "violatingNodeId")]
     pub violating_node_id: Option<dom::BackendNodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Details for a issue arising from an SAB being instantiated in, or\n transferred to a context that is not cross-origin isolated."]
 pub struct SharedArrayBufferIssueDetails {
-    #[serde(rename = "sourceCodeLocation")]
     pub source_code_location: SourceCodeLocation,
     #[serde(default)]
-    #[serde(rename = "isWarning")]
     pub is_warning: bool,
-    #[serde(rename = "type")]
     pub r#type: SharedArrayBufferIssueType,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct LowTextContrastIssueDetails {
-    #[serde(rename = "violatingNodeId")]
     pub violating_node_id: dom::BackendNodeId,
     #[serde(default)]
-    #[serde(rename = "violatingNodeSelector")]
     pub violating_node_selector: String,
     #[serde(default)]
-    #[serde(rename = "contrastRatio")]
     pub contrast_ratio: JsFloat,
     #[serde(default)]
     #[serde(rename = "thresholdAA")]
@@ -803,376 +895,474 @@ pub struct LowTextContrastIssueDetails {
     #[serde(rename = "thresholdAAA")]
     pub threshold_aaa: JsFloat,
     #[serde(default)]
-    #[serde(rename = "fontSize")]
     pub font_size: String,
     #[serde(default)]
-    #[serde(rename = "fontWeight")]
     pub font_weight: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Details for a CORS related issue, e.g. a warning or error related to\n CORS RFC1918 enforcement."]
 pub struct CorsIssueDetails {
-    #[serde(rename = "corsErrorStatus")]
     pub cors_error_status: network::CorsErrorStatus,
     #[serde(default)]
-    #[serde(rename = "isWarning")]
     pub is_warning: bool,
-    #[serde(rename = "request")]
     pub request: AffectedRequest,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "location")]
     pub location: Option<SourceCodeLocation>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "initiatorOrigin")]
     pub initiator_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "resourceIPAddressSpace")]
     pub resource_ip_address_space: Option<network::IpAddressSpace>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "clientSecurityState")]
     pub client_security_state: Option<network::ClientSecurityState>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Details for issues around \"Attribution Reporting API\" usage.\n Explainer: https://github.com/WICG/attribution-reporting-api"]
 pub struct AttributionReportingIssueDetails {
-    #[serde(rename = "violationType")]
     pub violation_type: AttributionReportingIssueType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "request")]
     pub request: Option<AffectedRequest>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "violatingNodeId")]
     pub violating_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "invalidParameter")]
     pub invalid_parameter: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Details for issues about documents in Quirks Mode\n or Limited Quirks Mode that affects page layouting."]
 pub struct QuirksModeIssueDetails {
     #[serde(default)]
-    #[serde(rename = "isLimitedQuirksMode")]
+    #[doc = "If false, it means the document's mode is \"quirks\"\n instead of \"limited-quirks\"."]
     pub is_limited_quirks_mode: bool,
-    #[serde(rename = "documentNodeId")]
     pub document_node_id: dom::BackendNodeId,
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
-    #[serde(rename = "frameId")]
     pub frame_id: page::FrameId,
-    #[serde(rename = "loaderId")]
     pub loader_id: network::LoaderId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[deprecated]
 pub struct NavigatorUserAgentIssueDetails {
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "location")]
     pub location: Option<SourceCodeLocation>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SharedDictionaryIssueDetails {
-    #[serde(rename = "sharedDictionaryError")]
     pub shared_dictionary_error: SharedDictionaryError,
-    #[serde(rename = "request")]
     pub request: AffectedRequest,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SriMessageSignatureIssueDetails {
-    #[serde(rename = "error")]
     pub error: SriMessageSignatureError,
     #[serde(default)]
-    #[serde(rename = "signatureBase")]
     pub signature_base: String,
     #[serde(default)]
-    #[serde(rename = "integrityAssertions")]
     pub integrity_assertions: Vec<String>,
-    #[serde(rename = "request")]
     pub request: AffectedRequest,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct UnencodedDigestIssueDetails {
-    #[serde(rename = "error")]
     pub error: UnencodedDigestError,
-    #[serde(rename = "request")]
     pub request: AffectedRequest,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+pub struct ConnectionAllowlistIssueDetails {
+    pub error: ConnectionAllowlistError,
+    pub request: AffectedRequest,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Depending on the concrete errorType, different properties are set."]
 pub struct GenericIssueDetails {
-    #[serde(rename = "errorType")]
+    #[doc = "Issues with the same errorType are aggregated in the frontend."]
     pub error_type: GenericIssueErrorType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameId")]
     pub frame_id: Option<page::FrameId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "violatingNodeId")]
     pub violating_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "violatingNodeAttribute")]
     pub violating_node_attribute: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "request")]
     pub request: Option<AffectedRequest>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This issue tracks information needed to print a deprecation message.\n https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/third_party/blink/renderer/core/frame/deprecation/README.md"]
 pub struct DeprecationIssueDetails {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "affectedFrame")]
     pub affected_frame: Option<AffectedFrame>,
-    #[serde(rename = "sourceCodeLocation")]
     pub source_code_location: SourceCodeLocation,
     #[serde(default)]
-    #[serde(rename = "type")]
+    #[doc = "One of the deprecation names from third_party/blink/renderer/core/frame/deprecation/deprecation.json5"]
     pub r#type: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This issue warns about sites in the redirect chain of a finished navigation\n that may be flagged as trackers and have their state cleared if they don't\n receive a user interaction. Note that in this context 'site' means eTLD+1.\n For example, if the URL `https://example.test:80/bounce` was in the\n redirect chain, the site reported would be `example.test`."]
 pub struct BounceTrackingIssueDetails {
     #[serde(default)]
-    #[serde(rename = "trackingSites")]
     pub tracking_sites: Vec<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This issue warns about third-party sites that are accessing cookies on the\n current page, and have been permitted due to having a global metadata grant.\n Note that in this context 'site' means eTLD+1. For example, if the URL\n `https://example.test:80/web_page` was accessing cookies, the site reported\n would be `example.test`."]
 pub struct CookieDeprecationMetadataIssueDetails {
     #[serde(default)]
-    #[serde(rename = "allowedSites")]
     pub allowed_sites: Vec<String>,
     #[serde(default)]
-    #[serde(rename = "optOutPercentage")]
     pub opt_out_percentage: JsFloat,
     #[serde(default)]
-    #[serde(rename = "isOptOutTopLevel")]
     pub is_opt_out_top_level: bool,
-    #[serde(rename = "operation")]
     pub operation: CookieOperation,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct FederatedAuthRequestIssueDetails {
-    #[serde(rename = "federatedAuthRequestIssueReason")]
     pub federated_auth_request_issue_reason: FederatedAuthRequestIssueReason,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct FederatedAuthUserInfoRequestIssueDetails {
-    #[serde(rename = "federatedAuthUserInfoRequestIssueReason")]
     pub federated_auth_user_info_request_issue_reason: FederatedAuthUserInfoRequestIssueReason,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This issue tracks client hints related issues. It's used to deprecate old\n features, encourage the use of new ones, and provide general guidance."]
 pub struct ClientHintIssueDetails {
-    #[serde(rename = "sourceCodeLocation")]
     pub source_code_location: SourceCodeLocation,
-    #[serde(rename = "clientHintIssueReason")]
     pub client_hint_issue_reason: ClientHintIssueReason,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct FailedRequestInfo {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "The URL that failed to load."]
     pub url: String,
     #[serde(default)]
-    #[serde(rename = "failureMessage")]
+    #[doc = "The failure message for the failed request."]
     pub failure_message: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "requestId")]
     pub request_id: Option<network::RequestId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct PartitioningBlobUrlIssueDetails {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "The BlobURL that failed to load."]
     pub url: String,
+    #[doc = "Additional information about the Partitioning Blob URL issue."]
     #[serde(rename = "partitioningBlobURLInfo")]
     pub partitioning_blob_url_info: PartitioningBlobUrlInfo,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This issue warns about errors in the select or summary element content model."]
 pub struct ElementAccessibilityIssueDetails {
-    #[serde(rename = "nodeId")]
     pub node_id: dom::BackendNodeId,
-    #[serde(rename = "elementAccessibilityIssueReason")]
     pub element_accessibility_issue_reason: ElementAccessibilityIssueReason,
     #[serde(default)]
-    #[serde(rename = "hasDisallowedAttributes")]
     pub has_disallowed_attributes: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This issue warns when a referenced stylesheet couldn't be loaded."]
 pub struct StylesheetLoadingIssueDetails {
-    #[serde(rename = "sourceCodeLocation")]
+    #[doc = "Source code position that referenced the failing stylesheet."]
     pub source_code_location: SourceCodeLocation,
-    #[serde(rename = "styleSheetLoadingIssueReason")]
+    #[doc = "Reason why the stylesheet couldn't be loaded."]
     pub style_sheet_loading_issue_reason: StyleSheetLoadingIssueReason,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "failedRequestInfo")]
+    #[doc = "Contains additional info when the failure was due to a request."]
     pub failed_request_info: Option<FailedRequestInfo>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This issue warns about errors in property rules that lead to property\n registrations being ignored."]
 pub struct PropertyRuleIssueDetails {
-    #[serde(rename = "sourceCodeLocation")]
+    #[doc = "Source code position of the property rule."]
     pub source_code_location: SourceCodeLocation,
-    #[serde(rename = "propertyRuleIssueReason")]
+    #[doc = "Reason why the property rule was discarded."]
     pub property_rule_issue_reason: PropertyRuleIssueReason,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "propertyValue")]
+    #[doc = "The value of the property rule property that failed to parse"]
     pub property_value: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This issue warns about uses of APIs that may be considered misuse to\n re-identify users."]
 pub struct UserReidentificationIssueDetails {
-    #[serde(rename = "type")]
     pub r#type: UserReidentificationIssueType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "request")]
+    #[doc = "Applies to BlockedFrameNavigation and BlockedSubresource issue types."]
     pub request: Option<AffectedRequest>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sourceCodeLocation")]
+    #[doc = "Applies to NoisedCanvasReadback issue type."]
     pub source_code_location: Option<SourceCodeLocation>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This issue warns about improper usage of the <permission> element."]
+pub struct PermissionElementIssueDetails {
+    pub issue_type: PermissionElementIssueType,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "The value of the type attribute."]
+    pub r#type: Option<String>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "The node ID of the <permission> element."]
+    pub node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "True if the issue is a warning, false if it is an error."]
+    pub is_warning: Option<bool>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "Fields for message construction:\n Used for messages that reference a specific permission name"]
+    pub permission_name: Option<String>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "Used for messages about occlusion"]
+    pub occluder_node_info: Option<String>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "Used for messages about occluder's parent"]
+    pub occluder_parent_node_info: Option<String>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "Used for messages about activation disabled reason"]
+    pub disable_reason: Option<String>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "This struct holds a list of optional fields with additional information\n specific to the kind of issue. When adding a new issue code, please also\n add a new optional field to this type."]
 pub struct InspectorIssueDetails {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "cookieIssueDetails")]
     pub cookie_issue_details: Option<CookieIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "mixedContentIssueDetails")]
     pub mixed_content_issue_details: Option<MixedContentIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "blockedByResponseIssueDetails")]
     pub blocked_by_response_issue_details: Option<BlockedByResponseIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "heavyAdIssueDetails")]
     pub heavy_ad_issue_details: Option<HeavyAdIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "contentSecurityPolicyIssueDetails")]
     pub content_security_policy_issue_details: Option<ContentSecurityPolicyIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sharedArrayBufferIssueDetails")]
     pub shared_array_buffer_issue_details: Option<SharedArrayBufferIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "lowTextContrastIssueDetails")]
     pub low_text_contrast_issue_details: Option<LowTextContrastIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "corsIssueDetails")]
     pub cors_issue_details: Option<CorsIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "attributionReportingIssueDetails")]
     pub attribution_reporting_issue_details: Option<AttributionReportingIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "quirksModeIssueDetails")]
     pub quirks_mode_issue_details: Option<QuirksModeIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "partitioningBlobURLIssueDetails")]
     pub partitioning_blob_url_issue_details: Option<PartitioningBlobUrlIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "navigatorUserAgentIssueDetails")]
+    #[deprecated]
     pub navigator_user_agent_issue_details: Option<NavigatorUserAgentIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "genericIssueDetails")]
     pub generic_issue_details: Option<GenericIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "deprecationIssueDetails")]
     pub deprecation_issue_details: Option<DeprecationIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "clientHintIssueDetails")]
     pub client_hint_issue_details: Option<ClientHintIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "federatedAuthRequestIssueDetails")]
     pub federated_auth_request_issue_details: Option<FederatedAuthRequestIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "bounceTrackingIssueDetails")]
     pub bounce_tracking_issue_details: Option<BounceTrackingIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "cookieDeprecationMetadataIssueDetails")]
     pub cookie_deprecation_metadata_issue_details: Option<CookieDeprecationMetadataIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "stylesheetLoadingIssueDetails")]
     pub stylesheet_loading_issue_details: Option<StylesheetLoadingIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "propertyRuleIssueDetails")]
     pub property_rule_issue_details: Option<PropertyRuleIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "federatedAuthUserInfoRequestIssueDetails")]
     pub federated_auth_user_info_request_issue_details:
         Option<FederatedAuthUserInfoRequestIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sharedDictionaryIssueDetails")]
     pub shared_dictionary_issue_details: Option<SharedDictionaryIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "elementAccessibilityIssueDetails")]
     pub element_accessibility_issue_details: Option<ElementAccessibilityIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sriMessageSignatureIssueDetails")]
     pub sri_message_signature_issue_details: Option<SriMessageSignatureIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "unencodedDigestIssueDetails")]
     pub unencoded_digest_issue_details: Option<UnencodedDigestIssueDetails>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "userReidentificationIssueDetails")]
+    pub connection_allowlist_issue_details: Option<ConnectionAllowlistIssueDetails>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user_reidentification_issue_details: Option<UserReidentificationIssueDetails>,
-}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct InspectorIssue {
-    #[serde(rename = "code")]
-    pub code: InspectorIssueCode,
-    #[serde(rename = "details")]
-    pub details: InspectorIssueDetails,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "issueId")]
+    pub permission_element_issue_details: Option<PermissionElementIssueDetails>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "An inspector issue reported from the back-end."]
+pub struct InspectorIssue {
+    pub code: InspectorIssueCode,
+    pub details: InspectorIssueDetails,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "A unique id for this issue. May be omitted if no other entity (e.g.\n exception, CDP message, etc.) is referencing this issue."]
     pub issue_id: Option<IssueId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the response body and size if it were re-encoded with the specified settings. Only\n applies to images."]
 pub struct GetEncodedResponse {
-    #[serde(rename = "requestId")]
+    #[doc = "Identifier of the network request to get content for."]
     pub request_id: network::RequestId,
-    #[serde(rename = "encoding")]
+    #[doc = "The encoding to use."]
     pub encoding: GetEncodedResponseEncodingOption,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "quality")]
+    #[doc = "The quality of the encoding (0-1). (defaults to 1)"]
     pub quality: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "sizeOnly")]
+    #[doc = "Whether to only return the size information (defaults to false)."]
     pub size_only: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct Disable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Enable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Runs the contrast check for the target page. Found issues are reported\n using Audits.issueAdded event."]
 pub struct CheckContrast {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Whether to report WCAG AAA level issues. Default is false."]
     #[serde(rename = "reportAAA")]
     pub report_aaa: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct CheckFormsIssues(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct CheckFormsIssues(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns the response body and size if it were re-encoded with the specified settings. Only\n applies to images."]
 pub struct GetEncodedResponseReturnObject {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "body")]
+    #[doc = "The encoded body as a base64 string. Omitted if sizeOnly is true."]
     pub body: Option<Vec<u8>>,
     #[serde(default)]
-    #[serde(rename = "originalSize")]
+    #[doc = "Size before re-encoding."]
     pub original_size: JsUInt,
     #[serde(default)]
-    #[serde(rename = "encodedSize")]
+    #[doc = "Size after re-encoding."]
     pub encoded_size: JsUInt,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables issues domain, prevents further issues from being reported to the client."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enables issues domain, sends the issues collected so far to the client by means of the\n `issueAdded` event."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Runs the contrast check for the target page. Found issues are reported\n using Audits.issueAdded event."]
+pub struct CheckContrastReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct CheckContrastReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Runs the form issues check for the target page. Found issues are reported\n using Audits.issueAdded event."]
 pub struct CheckFormsIssuesReturnObject {
-    #[serde(rename = "formIssues")]
     pub form_issues: Vec<GenericIssueDetails>,
 }
 impl Method for GetEncodedResponse {
@@ -1199,14 +1389,17 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct IssueAddedEvent {
         pub params: IssueAddedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct IssueAddedEventParams {
-        #[serde(rename = "issue")]
         pub issue: super::InspectorIssue,
     }
 }

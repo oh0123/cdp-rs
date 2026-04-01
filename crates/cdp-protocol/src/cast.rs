@@ -1,75 +1,88 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Cast
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Cast
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct Sink {
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "id")]
     pub id: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "session")]
+    #[doc = "Text describing the current session. Present only if there is an active\n session on the sink."]
     pub session: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Starts observing for sinks that can be used for tab mirroring, and if set,\n sinks compatible with |presentationUrl| as well. When sinks are found, a\n |sinksUpdated| event is fired.\n Also starts observing for issue messages. When an issue is added or removed,\n an |issueUpdated| event is fired."]
 pub struct Enable {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "presentationUrl")]
     pub presentation_url: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Sets a sink to be used when the web page requests the browser to choose a\n sink via Presentation API, Remote Playback API, or Cast SDK."]
 pub struct SetSinkToUse {
     #[serde(default)]
-    #[serde(rename = "sinkName")]
     pub sink_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Starts mirroring the desktop to the sink."]
 pub struct StartDesktopMirroring {
     #[serde(default)]
-    #[serde(rename = "sinkName")]
     pub sink_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Starts mirroring the tab to the sink."]
 pub struct StartTabMirroring {
     #[serde(default)]
-    #[serde(rename = "sinkName")]
     pub sink_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Stops the active Cast session on the sink."]
 pub struct StopCasting {
     #[serde(default)]
-    #[serde(rename = "sinkName")]
     pub sink_name: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Starts observing for sinks that can be used for tab mirroring, and if set,\n sinks compatible with |presentationUrl| as well. When sinks are found, a\n |sinksUpdated| event is fired.\n Also starts observing for issue messages. When an issue is added or removed,\n an |issueUpdated| event is fired."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Stops observing for sinks and issues."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetSinkToUseReturnObject {}
+#[doc = "Sets a sink to be used when the web page requests the browser to choose a\n sink via Presentation API, Remote Playback API, or Cast SDK."]
+pub struct SetSinkToUseReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StartDesktopMirroringReturnObject {}
+#[doc = "Starts mirroring the desktop to the sink."]
+pub struct StartDesktopMirroringReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StartTabMirroringReturnObject {}
+#[doc = "Starts mirroring the tab to the sink."]
+pub struct StartTabMirroringReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopCastingReturnObject {}
+#[doc = "Stops the active Cast session on the sink."]
+pub struct StopCastingReturnObject(pub Option<Json>);
 impl Method for Enable {
     const NAME: &'static str = "Cast.enable";
     type ReturnObject = EnableReturnObject;
@@ -98,24 +111,26 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SinksUpdatedEvent {
         pub params: SinksUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct SinksUpdatedEventParams {
-        #[serde(rename = "sinks")]
         pub sinks: Vec<super::Sink>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct IssueUpdatedEvent {
         pub params: IssueUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct IssueUpdatedEventParams {
         #[serde(default)]
-        #[serde(rename = "issueMessage")]
         pub issue_message: String,
     }
 }

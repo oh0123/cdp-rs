@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 143.0.7499.110
+// Auto-generated from Chrome at version 146.0.7680.165
 #[allow(unused)]
 use serde::{Deserialize, Serialize};
 use std::fmt::Debug;
@@ -100,6 +100,8 @@ pub enum Event {
     CastIssueUpdated(super::cast::events::IssueUpdatedEvent),
     #[serde(rename = "DOM.attributeModified")]
     DOMAttributeModified(super::dom::events::AttributeModifiedEvent),
+    #[serde(rename = "DOM.adoptedStyleSheetsModified")]
+    DOMAdoptedStyleSheetsModified(super::dom::events::AdoptedStyleSheetsModifiedEvent),
     #[serde(rename = "DOM.attributeRemoved")]
     DOMAttributeRemoved(super::dom::events::AttributeRemovedEvent),
     #[serde(rename = "DOM.characterDataModified")]
@@ -238,6 +240,14 @@ pub enum Event {
     NetworkDirectTCPSocketChunkSent(super::network::events::DirectTCPSocketChunkSentEvent),
     #[serde(rename = "Network.directTCPSocketChunkReceived")]
     NetworkDirectTCPSocketChunkReceived(super::network::events::DirectTCPSocketChunkReceivedEvent),
+    #[serde(rename = "Network.directUDPSocketJoinedMulticastGroup")]
+    NetworkDirectUDPSocketJoinedMulticastGroup(
+        super::network::events::DirectUDPSocketJoinedMulticastGroupEvent,
+    ),
+    #[serde(rename = "Network.directUDPSocketLeftMulticastGroup")]
+    NetworkDirectUDPSocketLeftMulticastGroup(
+        super::network::events::DirectUDPSocketLeftMulticastGroupEvent,
+    ),
     #[serde(rename = "Network.directUDPSocketCreated")]
     NetworkDirectUDPSocketCreated(super::network::events::DirectUDPSocketCreatedEvent),
     #[serde(rename = "Network.directUDPSocketOpened")]
@@ -268,12 +278,24 @@ pub enum Event {
     NetworkReportingApiEndpointsChangedForOrigin(
         super::network::events::ReportingApiEndpointsChangedForOriginEvent,
     ),
+    #[serde(rename = "Network.deviceBoundSessionsAdded")]
+    NetworkDeviceBoundSessionsAdded(super::network::events::DeviceBoundSessionsAddedEvent),
+    #[serde(rename = "Network.deviceBoundSessionEventOccurred")]
+    NetworkDeviceBoundSessionEventOccurred(
+        super::network::events::DeviceBoundSessionEventOccurredEvent,
+    ),
     #[serde(rename = "Overlay.inspectNodeRequested")]
     OverlayInspectNodeRequested(super::overlay::events::InspectNodeRequestedEvent),
     #[serde(rename = "Overlay.nodeHighlightRequested")]
     OverlayNodeHighlightRequested(super::overlay::events::NodeHighlightRequestedEvent),
     #[serde(rename = "Overlay.screenshotRequested")]
     OverlayScreenshotRequested(super::overlay::events::ScreenshotRequestedEvent),
+    #[serde(rename = "Overlay.inspectPanelShowRequested")]
+    OverlayInspectPanelShowRequested(super::overlay::events::InspectPanelShowRequestedEvent),
+    #[serde(rename = "Overlay.inspectedElementWindowRestored")]
+    OverlayInspectedElementWindowRestored(
+        super::overlay::events::InspectedElementWindowRestoredEvent,
+    ),
     #[serde(rename = "Overlay.inspectModeCanceled")]
     OverlayInspectModeCanceled(super::overlay::events::InspectModeCanceledEvent),
     #[serde(rename = "Page.domContentEventFired")]
@@ -364,6 +386,54 @@ pub enum Event {
     ),
     #[serde(rename = "ServiceWorker.workerVersionUpdated")]
     ServiceWorkerWorkerVersionUpdated(super::service_worker::events::WorkerVersionUpdatedEvent),
+    #[serde(rename = "SmartCardEmulation.establishContextRequested")]
+    SmartCardEmulationEstablishContextRequested(
+        super::smart_card_emulation::events::EstablishContextRequestedEvent,
+    ),
+    #[serde(rename = "SmartCardEmulation.releaseContextRequested")]
+    SmartCardEmulationReleaseContextRequested(
+        super::smart_card_emulation::events::ReleaseContextRequestedEvent,
+    ),
+    #[serde(rename = "SmartCardEmulation.listReadersRequested")]
+    SmartCardEmulationListReadersRequested(
+        super::smart_card_emulation::events::ListReadersRequestedEvent,
+    ),
+    #[serde(rename = "SmartCardEmulation.getStatusChangeRequested")]
+    SmartCardEmulationGetStatusChangeRequested(
+        super::smart_card_emulation::events::GetStatusChangeRequestedEvent,
+    ),
+    #[serde(rename = "SmartCardEmulation.cancelRequested")]
+    SmartCardEmulationCancelRequested(super::smart_card_emulation::events::CancelRequestedEvent),
+    #[serde(rename = "SmartCardEmulation.connectRequested")]
+    SmartCardEmulationConnectRequested(super::smart_card_emulation::events::ConnectRequestedEvent),
+    #[serde(rename = "SmartCardEmulation.disconnectRequested")]
+    SmartCardEmulationDisconnectRequested(
+        super::smart_card_emulation::events::DisconnectRequestedEvent,
+    ),
+    #[serde(rename = "SmartCardEmulation.transmitRequested")]
+    SmartCardEmulationTransmitRequested(
+        super::smart_card_emulation::events::TransmitRequestedEvent,
+    ),
+    #[serde(rename = "SmartCardEmulation.controlRequested")]
+    SmartCardEmulationControlRequested(super::smart_card_emulation::events::ControlRequestedEvent),
+    #[serde(rename = "SmartCardEmulation.getAttribRequested")]
+    SmartCardEmulationGetAttribRequested(
+        super::smart_card_emulation::events::GetAttribRequestedEvent,
+    ),
+    #[serde(rename = "SmartCardEmulation.setAttribRequested")]
+    SmartCardEmulationSetAttribRequested(
+        super::smart_card_emulation::events::SetAttribRequestedEvent,
+    ),
+    #[serde(rename = "SmartCardEmulation.statusRequested")]
+    SmartCardEmulationStatusRequested(super::smart_card_emulation::events::StatusRequestedEvent),
+    #[serde(rename = "SmartCardEmulation.beginTransactionRequested")]
+    SmartCardEmulationBeginTransactionRequested(
+        super::smart_card_emulation::events::BeginTransactionRequestedEvent,
+    ),
+    #[serde(rename = "SmartCardEmulation.endTransactionRequested")]
+    SmartCardEmulationEndTransactionRequested(
+        super::smart_card_emulation::events::EndTransactionRequestedEvent,
+    ),
     #[serde(rename = "Storage.cacheStorageContentUpdated")]
     CacheStorageContentUpdated(super::storage::events::CacheStorageContentUpdatedEvent),
     #[serde(rename = "Storage.cacheStorageListUpdated")]

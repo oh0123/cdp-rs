@@ -1,7 +1,9 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Media
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Media
 use super::dom;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -19,73 +21,82 @@ pub enum PlayerMessageLevel {
     #[serde(rename = "debug")]
     Debug,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Have one type per entry in MediaLogRecord::Type\n Corresponds to kMessage"]
 pub struct PlayerMessage {
-    #[serde(rename = "level")]
+    #[doc = "Keep in sync with MediaLogMessageLevel\n We are currently keeping the message level 'error' separate from the\n PlayerError type because right now they represent different things,\n this one being a DVLOG(ERROR) style log message that gets printed\n based on what log level is selected in the UI, and the other is a\n representation of a media::PipelineStatus object. Soon however we're\n going to be moving away from using PipelineStatus for errors and\n introducing a new error type which should hopefully let us integrate\n the error log level into the PlayerError type."]
     pub level: PlayerMessageLevel,
     #[serde(default)]
-    #[serde(rename = "message")]
     pub message: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Corresponds to kMediaPropertyChange"]
 pub struct PlayerProperty {
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Corresponds to kMediaEventTriggered"]
 pub struct PlayerEvent {
-    #[serde(rename = "timestamp")]
     pub timestamp: Timestamp,
     #[serde(default)]
-    #[serde(rename = "value")]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Represents logged source line numbers reported in an error.\n NOTE: file and line are from chromium c++ implementation code, not js."]
 pub struct PlayerErrorSourceLocation {
     #[serde(default)]
-    #[serde(rename = "file")]
     pub file: String,
     #[serde(default)]
-    #[serde(rename = "line")]
     pub line: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Corresponds to kMediaError"]
 pub struct PlayerError {
     #[serde(default)]
-    #[serde(rename = "errorType")]
     pub error_type: String,
     #[serde(default)]
-    #[serde(rename = "code")]
+    #[doc = "Code is the numeric enum entry for a specific set of error codes, such\n as PipelineStatusCodes in media/base/pipeline_status.h"]
     pub code: JsUInt,
-    #[serde(rename = "stack")]
+    #[doc = "A trace of where this error was caused / where it passed through."]
     pub stack: Vec<PlayerErrorSourceLocation>,
-    #[serde(rename = "cause")]
+    #[doc = "Errors potentially have a root cause error, ie, a DecoderError might be\n caused by an WindowsError"]
     pub cause: Vec<PlayerError>,
+    #[serde(default)]
+    #[doc = "Extra data attached to an error, such as an HRESULT, Video Codec, etc."]
+    pub data: Json,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct Player {
-    #[serde(rename = "playerId")]
     pub player_id: PlayerId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "domNodeId")]
     pub dom_node_id: Option<dom::BackendNodeId>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
+pub struct Enable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct Disable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enables the Media domain"]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables the Media domain."]
+pub struct DisableReturnObject(pub Option<Json>);
 impl Method for Enable {
     const NAME: &'static str = "Media.enable";
     type ReturnObject = EnableReturnObject;
@@ -98,58 +109,53 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PlayerPropertiesChangedEvent {
         pub params: PlayerPropertiesChangedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct PlayerPropertiesChangedEventParams {
-        #[serde(rename = "playerId")]
         pub player_id: super::PlayerId,
-        #[serde(rename = "properties")]
         pub properties: Vec<super::PlayerProperty>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PlayerEventsAddedEvent {
         pub params: PlayerEventsAddedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct PlayerEventsAddedEventParams {
-        #[serde(rename = "playerId")]
         pub player_id: super::PlayerId,
-        #[serde(rename = "events")]
         pub events: Vec<super::PlayerEvent>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PlayerMessagesLoggedEvent {
         pub params: PlayerMessagesLoggedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct PlayerMessagesLoggedEventParams {
-        #[serde(rename = "playerId")]
         pub player_id: super::PlayerId,
-        #[serde(rename = "messages")]
         pub messages: Vec<super::PlayerMessage>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PlayerErrorsRaisedEvent {
         pub params: PlayerErrorsRaisedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct PlayerErrorsRaisedEventParams {
-        #[serde(rename = "playerId")]
         pub player_id: super::PlayerId,
-        #[serde(rename = "errors")]
         pub errors: Vec<super::PlayerError>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PlayerCreatedEvent {
         pub params: PlayerCreatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct PlayerCreatedEventParams {
-        #[serde(rename = "player")]
         pub player: super::Player,
     }
 }

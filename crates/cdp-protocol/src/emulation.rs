@@ -1,9 +1,11 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Emulation
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Emulation
 use super::dom;
 use super::network;
 use super::page;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -109,815 +111,977 @@ pub enum SetEmulatedVisionDeficiencyTypeOption {
     #[serde(rename = "tritanopia")]
     Tritanopia,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SafeAreaInsets {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "top")]
+    #[doc = "Overrides safe-area-inset-top."]
     pub top: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "topMax")]
+    #[doc = "Overrides safe-area-max-inset-top."]
     pub top_max: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "left")]
+    #[doc = "Overrides safe-area-inset-left."]
     pub left: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "leftMax")]
+    #[doc = "Overrides safe-area-max-inset-left."]
     pub left_max: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "bottom")]
+    #[doc = "Overrides safe-area-inset-bottom."]
     pub bottom: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "bottomMax")]
+    #[doc = "Overrides safe-area-max-inset-bottom."]
     pub bottom_max: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "right")]
+    #[doc = "Overrides safe-area-inset-right."]
     pub right: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "rightMax")]
+    #[doc = "Overrides safe-area-max-inset-right."]
     pub right_max: Option<JsUInt>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Screen orientation."]
 pub struct ScreenOrientation {
-    #[serde(rename = "type")]
+    #[doc = "Orientation type."]
     pub r#type: ScreenOrientationType,
     #[serde(default)]
-    #[serde(rename = "angle")]
+    #[doc = "Orientation angle."]
     pub angle: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct DisplayFeature {
-    #[serde(rename = "orientation")]
+    #[doc = "Orientation of a display feature in relation to screen"]
     pub orientation: DisplayFeatureOrientation,
     #[serde(default)]
-    #[serde(rename = "offset")]
+    #[doc = "The offset from the screen origin in either the x (for vertical\n orientation) or y (for horizontal orientation) direction."]
     pub offset: JsUInt,
     #[serde(default)]
-    #[serde(rename = "maskLength")]
+    #[doc = "A display feature may mask content such that it is not physically\n displayed - this length along with the offset describes this area.\n A display feature that only splits content will have a 0 mask_length."]
     pub mask_length: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct DevicePosture {
-    #[serde(rename = "type")]
+    #[doc = "Current posture of the device"]
     pub r#type: DevicePostureType,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct MediaFeature {
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Used to specify User Agent Client Hints to emulate. See https://wicg.github.io/ua-client-hints"]
 pub struct UserAgentBrandVersion {
     #[serde(default)]
-    #[serde(rename = "brand")]
     pub brand: String,
     #[serde(default)]
-    #[serde(rename = "version")]
     pub version: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Used to specify User Agent Client Hints to emulate. See https://wicg.github.io/ua-client-hints\n Missing optional values will be filled in by the target with what it would normally use."]
 pub struct UserAgentMetadata {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "brands")]
+    #[doc = "Brands appearing in Sec-CH-UA."]
     pub brands: Option<Vec<UserAgentBrandVersion>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "fullVersionList")]
+    #[doc = "Brands appearing in Sec-CH-UA-Full-Version-List."]
     pub full_version_list: Option<Vec<UserAgentBrandVersion>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fullVersion")]
+    #[deprecated]
     pub full_version: Option<String>,
     #[serde(default)]
-    #[serde(rename = "platform")]
     pub platform: String,
     #[serde(default)]
-    #[serde(rename = "platformVersion")]
     pub platform_version: String,
     #[serde(default)]
-    #[serde(rename = "architecture")]
     pub architecture: String,
     #[serde(default)]
-    #[serde(rename = "model")]
     pub model: String,
     #[serde(default)]
-    #[serde(rename = "mobile")]
     pub mobile: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "bitness")]
     pub bitness: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "wow64")]
     pub wow_64: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "formFactors")]
+    #[doc = "Used to specify User Agent form-factor values.\n See https://wicg.github.io/ua-client-hints/#sec-ch-ua-form-factors"]
     pub form_factors: Option<Vec<String>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SensorMetadata {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "available")]
     pub available: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "minimumFrequency")]
     pub minimum_frequency: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "maximumFrequency")]
     pub maximum_frequency: Option<JsFloat>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SensorReadingSingle {
     #[serde(default)]
-    #[serde(rename = "value")]
     pub value: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SensorReadingXyz {
     #[serde(default)]
-    #[serde(rename = "x")]
     pub x: JsFloat,
     #[serde(default)]
-    #[serde(rename = "y")]
     pub y: JsFloat,
     #[serde(default)]
-    #[serde(rename = "z")]
     pub z: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SensorReadingQuaternion {
     #[serde(default)]
-    #[serde(rename = "x")]
     pub x: JsFloat,
     #[serde(default)]
-    #[serde(rename = "y")]
     pub y: JsFloat,
     #[serde(default)]
-    #[serde(rename = "z")]
     pub z: JsFloat,
     #[serde(default)]
-    #[serde(rename = "w")]
     pub w: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SensorReading {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "single")]
     pub single: Option<SensorReadingSingle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "xyz")]
     pub xyz: Option<SensorReadingXyz>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "quaternion")]
     pub quaternion: Option<SensorReadingQuaternion>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct PressureMetadata {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "available")]
     pub available: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct WorkAreaInsets {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "top")]
+    #[doc = "Work area top inset in pixels. Default is 0;"]
     pub top: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "left")]
+    #[doc = "Work area left inset in pixels. Default is 0;"]
     pub left: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "bottom")]
+    #[doc = "Work area bottom inset in pixels. Default is 0;"]
     pub bottom: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "right")]
+    #[doc = "Work area right inset in pixels. Default is 0;"]
     pub right: Option<JsUInt>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Screen information similar to the one returned by window.getScreenDetails() method,\n see https://w3c.github.io/window-management/#screendetailed."]
 pub struct ScreenInfo {
     #[serde(default)]
-    #[serde(rename = "left")]
+    #[doc = "Offset of the left edge of the screen."]
     pub left: JsUInt,
     #[serde(default)]
-    #[serde(rename = "top")]
+    #[doc = "Offset of the top edge of the screen."]
     pub top: JsUInt,
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Width of the screen."]
     pub width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Height of the screen."]
     pub height: JsUInt,
     #[serde(default)]
-    #[serde(rename = "availLeft")]
+    #[doc = "Offset of the left edge of the available screen area."]
     pub avail_left: JsUInt,
     #[serde(default)]
-    #[serde(rename = "availTop")]
+    #[doc = "Offset of the top edge of the available screen area."]
     pub avail_top: JsUInt,
     #[serde(default)]
-    #[serde(rename = "availWidth")]
+    #[doc = "Width of the available screen area."]
     pub avail_width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "availHeight")]
+    #[doc = "Height of the available screen area."]
     pub avail_height: JsUInt,
     #[serde(default)]
-    #[serde(rename = "devicePixelRatio")]
+    #[doc = "Specifies the screen's device pixel ratio."]
     pub device_pixel_ratio: JsFloat,
-    #[serde(rename = "orientation")]
+    #[doc = "Specifies the screen's orientation."]
     pub orientation: ScreenOrientation,
     #[serde(default)]
-    #[serde(rename = "colorDepth")]
+    #[doc = "Specifies the screen's color depth in bits."]
     pub color_depth: JsUInt,
     #[serde(default)]
-    #[serde(rename = "isExtended")]
+    #[doc = "Indicates whether the device has multiple screens."]
     pub is_extended: bool,
     #[serde(default)]
-    #[serde(rename = "isInternal")]
+    #[doc = "Indicates whether the screen is internal to the device or external, attached to the device."]
     pub is_internal: bool,
     #[serde(default)]
-    #[serde(rename = "isPrimary")]
+    #[doc = "Indicates whether the screen is set as the the operating system primary screen."]
     pub is_primary: bool,
     #[serde(default)]
-    #[serde(rename = "label")]
+    #[doc = "Specifies the descriptive label for the screen."]
     pub label: String,
-    #[serde(rename = "id")]
+    #[doc = "Specifies the unique identifier of the screen."]
     pub id: ScreenId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CanEmulate(pub Option<serde_json::Value>);
+pub struct CanEmulate(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearDeviceMetricsOverride(pub Option<serde_json::Value>);
+pub struct ClearDeviceMetricsOverride(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearGeolocationOverride(pub Option<serde_json::Value>);
+pub struct ClearGeolocationOverride(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ResetPageScaleFactor(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ResetPageScaleFactor(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables or disables simulating a focused and active page."]
 pub struct SetFocusEmulationEnabled {
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "Whether to enable to disable focus emulation."]
     pub enabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Automatically render all web contents using a dark theme."]
 pub struct SetAutoDarkModeOverride {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "Whether to enable or disable automatic dark mode.\n If not specified, any existing override will be cleared."]
     pub enabled: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enables CPU throttling to emulate slow CPUs."]
 pub struct SetCPUThrottlingRate {
     #[serde(default)]
-    #[serde(rename = "rate")]
+    #[doc = "Throttling rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc)."]
     pub rate: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets or clears an override of the default background color of the frame. This override is used\n if the content does not specify one."]
 pub struct SetDefaultBackgroundColorOverride {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "color")]
+    #[doc = "RGBA of the default background color. If not specified, any existing override will be\n cleared."]
     pub color: Option<dom::Rgba>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides the values for env(safe-area-inset-*) and env(safe-area-max-inset-*). Unset values will cause the\n respective variables to be undefined, even if previously overridden."]
 pub struct SetSafeAreaInsetsOverride {
-    #[serde(rename = "insets")]
     pub insets: SafeAreaInsets,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides the values of device screen dimensions (window.screen.width, window.screen.height,\n window.innerWidth, window.innerHeight, and \"device-width\"/\"device-height\"-related CSS media\n query results)."]
 pub struct SetDeviceMetricsOverride {
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Overriding width value in pixels (minimum 0, maximum 10000000). 0 disables the override."]
     pub width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Overriding height value in pixels (minimum 0, maximum 10000000). 0 disables the override."]
     pub height: JsUInt,
     #[serde(default)]
-    #[serde(rename = "deviceScaleFactor")]
+    #[doc = "Overriding device scale factor value. 0 disables the override."]
     pub device_scale_factor: JsFloat,
     #[serde(default)]
-    #[serde(rename = "mobile")]
+    #[doc = "Whether to emulate mobile device. This includes viewport meta tag, overlay scrollbars, text\n autosizing and more."]
     pub mobile: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "scale")]
+    #[doc = "Scale to apply to resulting view image."]
     pub scale: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "screenWidth")]
+    #[doc = "Overriding screen width value in pixels (minimum 0, maximum 10000000)."]
     pub screen_width: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "screenHeight")]
+    #[doc = "Overriding screen height value in pixels (minimum 0, maximum 10000000)."]
     pub screen_height: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "positionX")]
+    #[doc = "Overriding view X position on screen in pixels (minimum 0, maximum 10000000)."]
     pub position_x: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "positionY")]
+    #[doc = "Overriding view Y position on screen in pixels (minimum 0, maximum 10000000)."]
     pub position_y: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "dontSetVisibleSize")]
+    #[doc = "Do not set visible view size, rely upon explicit setVisibleSize call."]
     pub dont_set_visible_size: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "screenOrientation")]
+    #[doc = "Screen orientation override."]
     pub screen_orientation: Option<ScreenOrientation>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "viewport")]
+    #[doc = "If set, the visible area of the page will be overridden to this viewport. This viewport\n change is not observed by the page, e.g. viewport-relative elements do not change positions."]
     pub viewport: Option<page::Viewport>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "displayFeature")]
+    #[doc = "If set, the display feature of a multi-segment screen. If not set, multi-segment support\n is turned-off.\n Deprecated, use Emulation.setDisplayFeaturesOverride."]
+    #[deprecated]
     pub display_feature: Option<DisplayFeature>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "devicePosture")]
+    #[doc = "If set, the posture of a foldable device. If not set the posture is set\n to continuous.\n Deprecated, use Emulation.setDevicePostureOverride."]
+    #[deprecated]
     pub device_posture: Option<DevicePosture>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Start reporting the given posture value to the Device Posture API.\n This override can also be set in setDeviceMetricsOverride()."]
 pub struct SetDevicePostureOverride {
-    #[serde(rename = "posture")]
     pub posture: DevicePosture,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ClearDevicePostureOverride(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ClearDevicePostureOverride(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Start using the given display features to pupulate the Viewport Segments API.\n This override can also be set in setDeviceMetricsOverride()."]
 pub struct SetDisplayFeaturesOverride {
-    #[serde(rename = "features")]
     pub features: Vec<DisplayFeature>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ClearDisplayFeaturesOverride(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ClearDisplayFeaturesOverride(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetScrollbarsHidden {
     #[serde(default)]
-    #[serde(rename = "hidden")]
+    #[doc = "Whether scrollbars should be always hidden."]
     pub hidden: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SetDocumentCookieDisabled {
     #[serde(default)]
-    #[serde(rename = "disabled")]
+    #[doc = "Whether document.coookie API should be disabled."]
     pub disabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SetEmitTouchEventsForMouse {
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "Whether touch emulation based on mouse input should be enabled."]
     pub enabled: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "configuration")]
+    #[doc = "Touch/gesture events configuration. Default: current platform."]
     pub configuration: Option<SetEmitTouchEventsForMouseConfigurationOption>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Emulates the given media type or media feature for CSS media queries."]
 pub struct SetEmulatedMedia {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "media")]
+    #[doc = "Media type to emulate. Empty string disables the override."]
     pub media: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "features")]
+    #[doc = "Media features to emulate."]
     pub features: Option<Vec<MediaFeature>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Emulates the given vision deficiency."]
 pub struct SetEmulatedVisionDeficiency {
-    #[serde(rename = "type")]
+    #[doc = "Vision deficiency to emulate. Order: best-effort emulations come first, followed by any\n physiologically accurate emulations for medically recognized color vision deficiencies."]
     pub r#type: SetEmulatedVisionDeficiencyTypeOption,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Emulates the given OS text scale."]
 pub struct SetEmulatedOSTextScale {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "scale")]
     pub scale: Option<JsFloat>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides the Geolocation Position or Error. Omitting latitude, longitude or\n accuracy emulates position unavailable."]
 pub struct SetGeolocationOverride {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "latitude")]
+    #[doc = "Mock latitude"]
     pub latitude: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "longitude")]
+    #[doc = "Mock longitude"]
     pub longitude: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "accuracy")]
+    #[doc = "Mock accuracy"]
     pub accuracy: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "altitude")]
+    #[doc = "Mock altitude"]
     pub altitude: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "altitudeAccuracy")]
+    #[doc = "Mock altitudeAccuracy"]
     pub altitude_accuracy: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "heading")]
+    #[doc = "Mock heading"]
     pub heading: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "speed")]
+    #[doc = "Mock speed"]
     pub speed: Option<JsFloat>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct GetOverriddenSensorInformation {
-    #[serde(rename = "type")]
     pub r#type: SensorType,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides a platform sensor of a given type. If |enabled| is true, calls to\n Sensor.start() will use a virtual sensor as backend rather than fetching\n data from a real hardware sensor. Otherwise, existing virtual\n sensor-backend Sensor objects will fire an error event and new calls to\n Sensor.start() will attempt to use a real sensor instead."]
 pub struct SetSensorOverrideEnabled {
     #[serde(default)]
-    #[serde(rename = "enabled")]
     pub enabled: bool,
-    #[serde(rename = "type")]
     pub r#type: SensorType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "metadata")]
     pub metadata: Option<SensorMetadata>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Updates the sensor readings reported by a sensor type previously overridden\n by setSensorOverrideEnabled."]
 pub struct SetSensorOverrideReadings {
-    #[serde(rename = "type")]
     pub r#type: SensorType,
-    #[serde(rename = "reading")]
     pub reading: SensorReading,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides a pressure source of a given type, as used by the Compute\n Pressure API, so that updates to PressureObserver.observe() are provided\n via setPressureStateOverride instead of being retrieved from\n platform-provided telemetry data."]
 pub struct SetPressureSourceOverrideEnabled {
     #[serde(default)]
-    #[serde(rename = "enabled")]
     pub enabled: bool,
-    #[serde(rename = "source")]
     pub source: PressureSource,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "metadata")]
     pub metadata: Option<PressureMetadata>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "TODO: OBSOLETE: To remove when setPressureDataOverride is merged.\n Provides a given pressure state that will be processed and eventually be\n delivered to PressureObserver users. |source| must have been previously\n overridden by setPressureSourceOverrideEnabled."]
 pub struct SetPressureStateOverride {
-    #[serde(rename = "source")]
     pub source: PressureSource,
-    #[serde(rename = "state")]
     pub state: PressureState,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Provides a given pressure data set that will be processed and eventually be\n delivered to PressureObserver users. |source| must have been previously\n overridden by setPressureSourceOverrideEnabled."]
 pub struct SetPressureDataOverride {
-    #[serde(rename = "source")]
     pub source: PressureSource,
-    #[serde(rename = "state")]
     pub state: PressureState,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "ownContributionEstimate")]
     pub own_contribution_estimate: Option<JsFloat>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides the Idle state."]
 pub struct SetIdleOverride {
     #[serde(default)]
-    #[serde(rename = "isUserActive")]
+    #[doc = "Mock isUserActive"]
     pub is_user_active: bool,
     #[serde(default)]
-    #[serde(rename = "isScreenUnlocked")]
+    #[doc = "Mock isScreenUnlocked"]
     pub is_screen_unlocked: bool,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ClearIdleOverride(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ClearIdleOverride(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Overrides value returned by the javascript navigator object."]
+#[deprecated]
 pub struct SetNavigatorOverrides {
     #[serde(default)]
-    #[serde(rename = "platform")]
+    #[doc = "The platform navigator.platform should return."]
     pub platform: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets a specified page scale factor."]
 pub struct SetPageScaleFactor {
     #[serde(default)]
-    #[serde(rename = "pageScaleFactor")]
+    #[doc = "Page scale factor."]
     pub page_scale_factor: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Switches script execution in the page."]
 pub struct SetScriptExecutionDisabled {
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "Whether script execution should be disabled in the page."]
     pub value: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enables touch on platforms which do not support them."]
 pub struct SetTouchEmulationEnabled {
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "Whether the touch event emulation should be enabled."]
     pub enabled: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "maxTouchPoints")]
+    #[doc = "Maximum touch points supported. Defaults to one."]
     pub max_touch_points: Option<JsUInt>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Turns on virtual time for all frames (replacing real-time with a synthetic time source) and sets\n the current virtual time policy.  Note this supersedes any previous time budget."]
 pub struct SetVirtualTimePolicy {
-    #[serde(rename = "policy")]
     pub policy: VirtualTimePolicy,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "budget")]
+    #[doc = "If set, after this many virtual milliseconds have elapsed virtual time will be paused and a\n virtualTimeBudgetExpired event is sent."]
     pub budget: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "maxVirtualTimeTaskStarvationCount")]
+    #[doc = "If set this specifies the maximum number of tasks that can be run before virtual is forced\n forwards to prevent deadlock."]
     pub max_virtual_time_task_starvation_count: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "initialVirtualTime")]
+    #[doc = "If set, base::Time::Now will be overridden to initially return this value."]
     pub initial_virtual_time: Option<network::TimeSinceEpoch>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides default host system locale with the specified one."]
 pub struct SetLocaleOverride {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "locale")]
+    #[doc = "ICU style C locale (e.g. \"en_US\"). If not specified or empty, disables the override and\n restores default host system locale."]
     pub locale: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides default host system timezone with the specified one."]
 pub struct SetTimezoneOverride {
     #[serde(default)]
-    #[serde(rename = "timezoneId")]
+    #[doc = "The timezone identifier. List of supported timezones:\n https://source.chromium.org/chromium/chromium/deps/icu.git/+/faee8bc70570192d82d2978a71e2a615788597d1:source/data/misc/metaZones.txt\n If empty, disables the override and restores default host system timezone."]
     pub timezone_id: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Resizes the frame/viewport of the page. Note that this does not affect the frame's container\n (e.g. browser window). Can be used to produce screenshots of the specified size. Not supported\n on Android."]
+#[deprecated]
 pub struct SetVisibleSize {
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Frame width (DIP)."]
     pub width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Frame height (DIP)."]
     pub height: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SetDisabledImageTypes {
-    #[serde(rename = "imageTypes")]
+    #[doc = "Image types to disable."]
     pub image_types: Vec<DisabledImageType>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Override the value of navigator.connection.saveData"]
 pub struct SetDataSaverOverride {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "dataSaverEnabled")]
+    #[doc = "Override value. Omitting the parameter disables the override."]
     pub data_saver_enabled: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SetHardwareConcurrencyOverride {
     #[serde(default)]
-    #[serde(rename = "hardwareConcurrency")]
+    #[doc = "Hardware concurrency to report"]
     pub hardware_concurrency: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Allows overriding user agent with the given string.\n `userAgentMetadata` must be set for Client Hint headers to be sent."]
 pub struct SetUserAgentOverride {
     #[serde(default)]
-    #[serde(rename = "userAgent")]
+    #[doc = "User agent to use."]
     pub user_agent: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "acceptLanguage")]
+    #[doc = "Browser language to emulate."]
     pub accept_language: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "platform")]
+    #[doc = "The platform navigator.platform should return."]
     pub platform: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "userAgentMetadata")]
+    #[doc = "To be sent in Sec-CH-UA-* headers and returned in navigator.userAgentData"]
     pub user_agent_metadata: Option<UserAgentMetadata>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Allows overriding the automation flag."]
 pub struct SetAutomationOverride {
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "Whether the override should be enabled."]
     pub enabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Allows overriding the difference between the small and large viewport sizes, which determine the\n value of the `svh` and `lvh` unit, respectively. Only supported for top-level frames."]
 pub struct SetSmallViewportHeightDifferenceOverride {
     #[serde(default)]
-    #[serde(rename = "difference")]
+    #[doc = "This will cause an element of size 100svh to be `difference` pixels smaller than an element\n of size 100lvh."]
     pub difference: JsUInt,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetScreenInfos(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetScreenInfos(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Add a new screen to the device. Only supported in headless mode."]
 pub struct AddScreen {
     #[serde(default)]
-    #[serde(rename = "left")]
+    #[doc = "Offset of the left edge of the screen in pixels."]
     pub left: JsUInt,
     #[serde(default)]
-    #[serde(rename = "top")]
+    #[doc = "Offset of the top edge of the screen in pixels."]
     pub top: JsUInt,
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "The width of the screen in pixels."]
     pub width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "The height of the screen in pixels."]
     pub height: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "workAreaInsets")]
+    #[doc = "Specifies the screen's work area. Default is entire screen."]
     pub work_area_insets: Option<WorkAreaInsets>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "devicePixelRatio")]
+    #[doc = "Specifies the screen's device pixel ratio. Default is 1."]
     pub device_pixel_ratio: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "rotation")]
+    #[doc = "Specifies the screen's rotation angle. Available values are 0, 90, 180 and 270. Default is 0."]
     pub rotation: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "colorDepth")]
+    #[doc = "Specifies the screen's color depth in bits. Default is 24."]
     pub color_depth: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "label")]
+    #[doc = "Specifies the descriptive label for the screen. Default is none."]
     pub label: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isInternal")]
+    #[doc = "Indicates whether the screen is internal to the device or external, attached to the device. Default is false."]
     pub is_internal: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Remove screen from the device. Only supported in headless mode."]
 pub struct RemoveScreen {
-    #[serde(rename = "screenId")]
     pub screen_id: ScreenId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Tells whether emulation is supported."]
+#[deprecated]
 pub struct CanEmulateReturnObject {
     #[serde(default)]
-    #[serde(rename = "result")]
+    #[doc = "True if emulation is supported."]
     pub result: bool,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearDeviceMetricsOverrideReturnObject {}
+#[doc = "Clears the overridden device metrics."]
+pub struct ClearDeviceMetricsOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearGeolocationOverrideReturnObject {}
+#[doc = "Clears the overridden Geolocation Position and Error."]
+pub struct ClearGeolocationOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ResetPageScaleFactorReturnObject {}
+#[doc = "Requests that page scale factor is reset to initial values."]
+pub struct ResetPageScaleFactorReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetFocusEmulationEnabledReturnObject {}
+#[doc = "Enables or disables simulating a focused and active page."]
+pub struct SetFocusEmulationEnabledReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetAutoDarkModeOverrideReturnObject {}
+#[doc = "Automatically render all web contents using a dark theme."]
+pub struct SetAutoDarkModeOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetCPUThrottlingRateReturnObject {}
+#[doc = "Enables CPU throttling to emulate slow CPUs."]
+pub struct SetCPUThrottlingRateReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDefaultBackgroundColorOverrideReturnObject {}
+#[doc = "Sets or clears an override of the default background color of the frame. This override is used\n if the content does not specify one."]
+pub struct SetDefaultBackgroundColorOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetSafeAreaInsetsOverrideReturnObject {}
+#[doc = "Overrides the values for env(safe-area-inset-*) and env(safe-area-max-inset-*). Unset values will cause the\n respective variables to be undefined, even if previously overridden."]
+pub struct SetSafeAreaInsetsOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDeviceMetricsOverrideReturnObject {}
+#[doc = "Overrides the values of device screen dimensions (window.screen.width, window.screen.height,\n window.innerWidth, window.innerHeight, and \"device-width\"/\"device-height\"-related CSS media\n query results)."]
+pub struct SetDeviceMetricsOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDevicePostureOverrideReturnObject {}
+#[doc = "Start reporting the given posture value to the Device Posture API.\n This override can also be set in setDeviceMetricsOverride()."]
+pub struct SetDevicePostureOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearDevicePostureOverrideReturnObject {}
+#[doc = "Clears a device posture override set with either setDeviceMetricsOverride()\n or setDevicePostureOverride() and starts using posture information from the\n platform again.\n Does nothing if no override is set."]
+pub struct ClearDevicePostureOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDisplayFeaturesOverrideReturnObject {}
+#[doc = "Start using the given display features to pupulate the Viewport Segments API.\n This override can also be set in setDeviceMetricsOverride()."]
+pub struct SetDisplayFeaturesOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearDisplayFeaturesOverrideReturnObject {}
+#[doc = "Clears the display features override set with either setDeviceMetricsOverride()\n or setDisplayFeaturesOverride() and starts using display features from the\n platform again.\n Does nothing if no override is set."]
+pub struct ClearDisplayFeaturesOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetScrollbarsHiddenReturnObject {}
+pub struct SetScrollbarsHiddenReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDocumentCookieDisabledReturnObject {}
+pub struct SetDocumentCookieDisabledReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetEmitTouchEventsForMouseReturnObject {}
+pub struct SetEmitTouchEventsForMouseReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetEmulatedMediaReturnObject {}
+#[doc = "Emulates the given media type or media feature for CSS media queries."]
+pub struct SetEmulatedMediaReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetEmulatedVisionDeficiencyReturnObject {}
+#[doc = "Emulates the given vision deficiency."]
+pub struct SetEmulatedVisionDeficiencyReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetEmulatedOSTextScaleReturnObject {}
+#[doc = "Emulates the given OS text scale."]
+pub struct SetEmulatedOSTextScaleReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Overrides the Geolocation Position or Error. Omitting latitude, longitude or\n accuracy emulates position unavailable."]
+pub struct SetGeolocationOverrideReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetGeolocationOverrideReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetOverriddenSensorInformationReturnObject {
     #[serde(default)]
-    #[serde(rename = "requestedSamplingFrequency")]
     pub requested_sampling_frequency: JsFloat,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetSensorOverrideEnabledReturnObject {}
+#[doc = "Overrides a platform sensor of a given type. If |enabled| is true, calls to\n Sensor.start() will use a virtual sensor as backend rather than fetching\n data from a real hardware sensor. Otherwise, existing virtual\n sensor-backend Sensor objects will fire an error event and new calls to\n Sensor.start() will attempt to use a real sensor instead."]
+pub struct SetSensorOverrideEnabledReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetSensorOverrideReadingsReturnObject {}
+#[doc = "Updates the sensor readings reported by a sensor type previously overridden\n by setSensorOverrideEnabled."]
+pub struct SetSensorOverrideReadingsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetPressureSourceOverrideEnabledReturnObject {}
+#[doc = "Overrides a pressure source of a given type, as used by the Compute\n Pressure API, so that updates to PressureObserver.observe() are provided\n via setPressureStateOverride instead of being retrieved from\n platform-provided telemetry data."]
+pub struct SetPressureSourceOverrideEnabledReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetPressureStateOverrideReturnObject {}
+#[doc = "TODO: OBSOLETE: To remove when setPressureDataOverride is merged.\n Provides a given pressure state that will be processed and eventually be\n delivered to PressureObserver users. |source| must have been previously\n overridden by setPressureSourceOverrideEnabled."]
+pub struct SetPressureStateOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetPressureDataOverrideReturnObject {}
+#[doc = "Provides a given pressure data set that will be processed and eventually be\n delivered to PressureObserver users. |source| must have been previously\n overridden by setPressureSourceOverrideEnabled."]
+pub struct SetPressureDataOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetIdleOverrideReturnObject {}
+#[doc = "Overrides the Idle state."]
+pub struct SetIdleOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearIdleOverrideReturnObject {}
+#[doc = "Clears Idle state overrides."]
+pub struct ClearIdleOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetNavigatorOverridesReturnObject {}
+#[doc = "Overrides value returned by the javascript navigator object."]
+#[deprecated]
+pub struct SetNavigatorOverridesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetPageScaleFactorReturnObject {}
+#[doc = "Sets a specified page scale factor."]
+pub struct SetPageScaleFactorReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetScriptExecutionDisabledReturnObject {}
+#[doc = "Switches script execution in the page."]
+pub struct SetScriptExecutionDisabledReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables touch on platforms which do not support them."]
+pub struct SetTouchEmulationEnabledReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetTouchEmulationEnabledReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Turns on virtual time for all frames (replacing real-time with a synthetic time source) and sets\n the current virtual time policy.  Note this supersedes any previous time budget."]
 pub struct SetVirtualTimePolicyReturnObject {
     #[serde(default)]
-    #[serde(rename = "virtualTimeTicksBase")]
+    #[doc = "Absolute timestamp at which virtual time was first enabled (up time in milliseconds)."]
     pub virtual_time_ticks_base: JsFloat,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetLocaleOverrideReturnObject {}
+#[doc = "Overrides default host system locale with the specified one."]
+pub struct SetLocaleOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetTimezoneOverrideReturnObject {}
+#[doc = "Overrides default host system timezone with the specified one."]
+pub struct SetTimezoneOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetVisibleSizeReturnObject {}
+#[doc = "Resizes the frame/viewport of the page. Note that this does not affect the frame's container\n (e.g. browser window). Can be used to produce screenshots of the specified size. Not supported\n on Android."]
+#[deprecated]
+pub struct SetVisibleSizeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDisabledImageTypesReturnObject {}
+pub struct SetDisabledImageTypesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDataSaverOverrideReturnObject {}
+#[doc = "Override the value of navigator.connection.saveData"]
+pub struct SetDataSaverOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetHardwareConcurrencyOverrideReturnObject {}
+pub struct SetHardwareConcurrencyOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetUserAgentOverrideReturnObject {}
+#[doc = "Allows overriding user agent with the given string.\n `userAgentMetadata` must be set for Client Hint headers to be sent."]
+pub struct SetUserAgentOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetAutomationOverrideReturnObject {}
+#[doc = "Allows overriding the automation flag."]
+pub struct SetAutomationOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Allows overriding the difference between the small and large viewport sizes, which determine the\n value of the `svh` and `lvh` unit, respectively. Only supported for top-level frames."]
+pub struct SetSmallViewportHeightDifferenceOverrideReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetSmallViewportHeightDifferenceOverrideReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns device's screen configuration."]
 pub struct GetScreenInfosReturnObject {
-    #[serde(rename = "screenInfos")]
     pub screen_infos: Vec<ScreenInfo>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Add a new screen to the device. Only supported in headless mode."]
 pub struct AddScreenReturnObject {
-    #[serde(rename = "screenInfo")]
     pub screen_info: ScreenInfo,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveScreenReturnObject {}
+#[doc = "Remove screen from the device. Only supported in headless mode."]
+pub struct RemoveScreenReturnObject(pub Option<Json>);
 impl Method for CanEmulate {
     const NAME: &'static str = "Emulation.canEmulate";
     type ReturnObject = CanEmulateReturnObject;
@@ -1106,8 +1270,11 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    #[serde(rename_all = "camelCase")]
-    pub struct VirtualTimeBudgetExpiredEvent(pub Option<serde_json::Value>);
+    pub struct VirtualTimeBudgetExpiredEvent(pub Option<Json>);
 }

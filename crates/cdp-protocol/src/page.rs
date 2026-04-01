@@ -1,4 +1,4 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Page
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Page
 use super::debugger;
 use super::dom;
 use super::emulation;
@@ -7,6 +7,8 @@ use super::network;
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -74,6 +76,8 @@ pub enum PermissionsPolicyFeature {
     AriaNotify,
     #[serde(rename = "attribution-reporting")]
     AttributionReporting,
+    #[serde(rename = "autofill")]
+    Autofill,
     #[serde(rename = "autoplay")]
     Autoplay,
     #[serde(rename = "bluetooth")]
@@ -200,10 +204,16 @@ pub enum PermissionsPolicyFeature {
     LanguageModel,
     #[serde(rename = "local-fonts")]
     LocalFonts,
+    #[serde(rename = "local-network")]
+    LocalNetwork,
     #[serde(rename = "local-network-access")]
     LocalNetworkAccess,
+    #[serde(rename = "loopback-network")]
+    LoopbackNetwork,
     #[serde(rename = "magnetometer")]
     Magnetometer,
+    #[serde(rename = "manual-text")]
+    ManualText,
     #[serde(rename = "media-playback-while-not-visible")]
     MediaPlaybackWhileNotVisible,
     #[serde(rename = "microphone")]
@@ -218,8 +228,6 @@ pub enum PermissionsPolicyFeature {
     Payment,
     #[serde(rename = "picture-in-picture")]
     PictureInPicture,
-    #[serde(rename = "popins")]
-    Popins,
     #[serde(rename = "private-aggregation")]
     PrivateAggregation,
     #[serde(rename = "private-state-token-issuance")]
@@ -240,8 +248,6 @@ pub enum PermissionsPolicyFeature {
     ScreenWakeLock,
     #[serde(rename = "serial")]
     Serial,
-    #[serde(rename = "shared-autofill")]
-    SharedAutofill,
     #[serde(rename = "shared-storage")]
     SharedStorage,
     #[serde(rename = "shared-storage-select-url")]
@@ -605,6 +611,8 @@ pub enum BackForwardCacheNotRestoredReason {
     SharedWorkerWithNoActiveClient,
     #[serde(rename = "WebLocks")]
     WebLocks,
+    #[serde(rename = "WebLocksContention")]
+    WebLocksContention,
     #[serde(rename = "WebHID")]
     WebHid,
     #[serde(rename = "WebBluetooth")]
@@ -863,1438 +871,1787 @@ pub enum NavigatedWithinDocumentNavigationTypeOption {
     #[serde(rename = "other")]
     Other,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Indicates whether a frame has been identified as an ad and why."]
 pub struct AdFrameStatus {
-    #[serde(rename = "adFrameType")]
     pub ad_frame_type: AdFrameType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "explanations")]
     pub explanations: Option<Vec<AdFrameExplanation>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Identifies the script which caused a script or frame to be labelled as an\n ad."]
 pub struct AdScriptId {
-    #[serde(rename = "scriptId")]
+    #[doc = "Script Id of the script which caused a script or frame to be labelled as\n an ad."]
     pub script_id: runtime::ScriptId,
-    #[serde(rename = "debuggerId")]
+    #[doc = "Id of scriptId's debugger."]
     pub debugger_id: runtime::UniqueDebuggerId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Encapsulates the script ancestry and the root script filterlist rule that\n caused the frame to be labelled as an ad. Only created when `ancestryChain`\n is not empty."]
 pub struct AdScriptAncestry {
-    #[serde(rename = "ancestryChain")]
+    #[doc = "A chain of `AdScriptId`s representing the ancestry of an ad script that\n led to the creation of a frame. The chain is ordered from the script\n itself (lower level) up to its root ancestor that was flagged by\n filterlist."]
     pub ancestry_chain: Vec<AdScriptId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "rootScriptFilterlistRule")]
+    #[doc = "The filterlist rule that caused the root (last) script in\n `ancestryChain` to be ad-tagged. Only populated if the rule is\n available."]
     pub root_script_filterlist_rule: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct PermissionsPolicyBlockLocator {
-    #[serde(rename = "frameId")]
     pub frame_id: FrameId,
-    #[serde(rename = "blockReason")]
     pub block_reason: PermissionsPolicyBlockReason,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct PermissionsPolicyFeatureState {
-    #[serde(rename = "feature")]
     pub feature: PermissionsPolicyFeature,
     #[serde(default)]
-    #[serde(rename = "allowed")]
     pub allowed: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "locator")]
     pub locator: Option<PermissionsPolicyBlockLocator>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct OriginTrialToken {
     #[serde(default)]
-    #[serde(rename = "origin")]
     pub origin: String,
     #[serde(default)]
-    #[serde(rename = "matchSubDomains")]
     pub match_sub_domains: bool,
     #[serde(default)]
-    #[serde(rename = "trialName")]
     pub trial_name: String,
-    #[serde(rename = "expiryTime")]
     pub expiry_time: network::TimeSinceEpoch,
     #[serde(default)]
-    #[serde(rename = "isThirdParty")]
     pub is_third_party: bool,
-    #[serde(rename = "usageRestriction")]
     pub usage_restriction: OriginTrialUsageRestriction,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct OriginTrialTokenWithStatus {
     #[serde(default)]
-    #[serde(rename = "rawTokenText")]
     pub raw_token_text: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "parsedToken")]
+    #[doc = "`parsedToken` is present only when the token is extractable and\n parsable."]
     pub parsed_token: Option<OriginTrialToken>,
-    #[serde(rename = "status")]
     pub status: OriginTrialTokenStatus,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct OriginTrial {
     #[serde(default)]
-    #[serde(rename = "trialName")]
     pub trial_name: String,
-    #[serde(rename = "status")]
     pub status: OriginTrialStatus,
-    #[serde(rename = "tokensWithStatus")]
     pub tokens_with_status: Vec<OriginTrialTokenWithStatus>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Additional information about the frame document's security origin."]
 pub struct SecurityOriginDetails {
     #[serde(default)]
-    #[serde(rename = "isLocalhost")]
+    #[doc = "Indicates whether the frame document's security origin is one\n of the local hostnames (e.g. \"localhost\") or IP addresses (IPv4\n 127.0.0.0/8 or IPv6 ::1)."]
     pub is_localhost: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about the Frame on the page."]
 pub struct Frame {
-    #[serde(rename = "id")]
+    #[doc = "Frame unique identifier."]
     pub id: FrameId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "parentId")]
+    #[doc = "Parent frame identifier."]
     pub parent_id: Option<FrameId>,
-    #[serde(rename = "loaderId")]
+    #[doc = "Identifier of the loader associated with this frame."]
     pub loader_id: network::LoaderId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Frame's name as specified in the tag."]
     pub name: Option<String>,
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "Frame document's URL without fragment."]
     pub url: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "urlFragment")]
+    #[doc = "Frame document's URL fragment including the '#'."]
     pub url_fragment: Option<String>,
     #[serde(default)]
-    #[serde(rename = "domainAndRegistry")]
+    #[doc = "Frame document's registered domain, taking the public suffixes list into account.\n Extracted from the Frame's url.\n Example URLs: http://www.google.com/file.html -> \"google.com\"\n               http://a.b.co.uk/file.html      -> \"b.co.uk\""]
     pub domain_and_registry: String,
     #[serde(default)]
-    #[serde(rename = "securityOrigin")]
+    #[doc = "Frame document's security origin."]
     pub security_origin: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "securityOriginDetails")]
+    #[doc = "Additional details about the frame document's security origin."]
     pub security_origin_details: Option<SecurityOriginDetails>,
     #[serde(default)]
-    #[serde(rename = "mimeType")]
+    #[doc = "Frame document's mimeType as determined by the browser."]
     pub mime_type: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "unreachableUrl")]
+    #[doc = "If the frame failed to load, this contains the URL that could not be loaded. Note that unlike url above, this URL may contain a fragment."]
     pub unreachable_url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "adFrameStatus")]
+    #[doc = "Indicates whether this frame was tagged as an ad and why."]
     pub ad_frame_status: Option<AdFrameStatus>,
-    #[serde(rename = "secureContextType")]
+    #[doc = "Indicates whether the main document is a secure context and explains why that is the case."]
     pub secure_context_type: SecureContextType,
-    #[serde(rename = "crossOriginIsolatedContextType")]
+    #[doc = "Indicates whether this is a cross origin isolated context."]
     pub cross_origin_isolated_context_type: CrossOriginIsolatedContextType,
+    #[doc = "Indicated which gated APIs / features are available."]
     #[serde(rename = "gatedAPIFeatures")]
     pub gated_api_features: Vec<GatedApiFeatures>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about the Resource on the page."]
 pub struct FrameResource {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "Resource URL."]
     pub url: String,
-    #[serde(rename = "type")]
+    #[doc = "Type of this resource."]
     pub r#type: network::ResourceType,
     #[serde(default)]
-    #[serde(rename = "mimeType")]
+    #[doc = "Resource mimeType as determined by the browser."]
     pub mime_type: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "lastModified")]
+    #[doc = "last-modified timestamp as reported by server."]
     pub last_modified: Option<network::TimeSinceEpoch>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "contentSize")]
+    #[doc = "Resource content size."]
     pub content_size: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "failed")]
+    #[doc = "True if the resource failed to load."]
     pub failed: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "canceled")]
+    #[doc = "True if the resource was canceled during loading."]
     pub canceled: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about the Frame hierarchy along with their cached resources."]
 pub struct FrameResourceTree {
-    #[serde(rename = "frame")]
+    #[doc = "Frame information for this tree item."]
     pub frame: Frame,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "childFrames")]
+    #[doc = "Child frames."]
     pub child_frames: Option<Vec<FrameResourceTree>>,
-    #[serde(rename = "resources")]
+    #[doc = "Information about frame resources."]
     pub resources: Vec<FrameResource>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Information about the Frame hierarchy."]
 pub struct FrameTree {
-    #[serde(rename = "frame")]
+    #[doc = "Frame information for this tree item."]
     pub frame: Frame,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "childFrames")]
+    #[doc = "Child frames."]
     pub child_frames: Option<Vec<FrameTree>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Navigation history entry."]
 pub struct NavigationEntry {
     #[serde(default)]
-    #[serde(rename = "id")]
+    #[doc = "Unique id of the navigation history entry."]
     pub id: JsUInt,
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "URL of the navigation history entry."]
     pub url: String,
     #[serde(default)]
+    #[doc = "URL that the user typed in the url bar."]
     #[serde(rename = "userTypedURL")]
     pub user_typed_url: String,
     #[serde(default)]
-    #[serde(rename = "title")]
+    #[doc = "Title of the navigation history entry."]
     pub title: String,
-    #[serde(rename = "transitionType")]
+    #[doc = "Transition type."]
     pub transition_type: TransitionType,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Screencast frame metadata."]
 pub struct ScreencastFrameMetadata {
     #[serde(default)]
-    #[serde(rename = "offsetTop")]
+    #[doc = "Top offset in DIP."]
     pub offset_top: JsFloat,
     #[serde(default)]
-    #[serde(rename = "pageScaleFactor")]
+    #[doc = "Page scale factor."]
     pub page_scale_factor: JsFloat,
     #[serde(default)]
-    #[serde(rename = "deviceWidth")]
+    #[doc = "Device screen width in DIP."]
     pub device_width: JsFloat,
     #[serde(default)]
-    #[serde(rename = "deviceHeight")]
+    #[doc = "Device screen height in DIP."]
     pub device_height: JsFloat,
     #[serde(default)]
-    #[serde(rename = "scrollOffsetX")]
+    #[doc = "Position of horizontal scroll in CSS pixels."]
     pub scroll_offset_x: JsFloat,
     #[serde(default)]
-    #[serde(rename = "scrollOffsetY")]
+    #[doc = "Position of vertical scroll in CSS pixels."]
     pub scroll_offset_y: JsFloat,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "timestamp")]
+    #[doc = "Frame swap timestamp."]
     pub timestamp: Option<network::TimeSinceEpoch>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Error while paring app manifest."]
 pub struct AppManifestError {
     #[serde(default)]
-    #[serde(rename = "message")]
+    #[doc = "Error message."]
     pub message: String,
     #[serde(default)]
-    #[serde(rename = "critical")]
+    #[doc = "If critical, this is a non-recoverable parse error."]
     pub critical: JsUInt,
     #[serde(default)]
-    #[serde(rename = "line")]
+    #[doc = "Error line."]
     pub line: JsUInt,
     #[serde(default)]
-    #[serde(rename = "column")]
+    #[doc = "Error column."]
     pub column: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Parsed app manifest properties."]
 pub struct AppManifestParsedProperties {
     #[serde(default)]
-    #[serde(rename = "scope")]
+    #[doc = "Computed scope value"]
     pub scope: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Layout viewport position and dimensions."]
 pub struct LayoutViewport {
     #[serde(default)]
-    #[serde(rename = "pageX")]
+    #[doc = "Horizontal offset relative to the document (CSS pixels)."]
     pub page_x: JsUInt,
     #[serde(default)]
-    #[serde(rename = "pageY")]
+    #[doc = "Vertical offset relative to the document (CSS pixels)."]
     pub page_y: JsUInt,
     #[serde(default)]
-    #[serde(rename = "clientWidth")]
+    #[doc = "Width (CSS pixels), excludes scrollbar if present."]
     pub client_width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "clientHeight")]
+    #[doc = "Height (CSS pixels), excludes scrollbar if present."]
     pub client_height: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Visual viewport position, dimensions, and scale."]
 pub struct VisualViewport {
     #[serde(default)]
-    #[serde(rename = "offsetX")]
+    #[doc = "Horizontal offset relative to the layout viewport (CSS pixels)."]
     pub offset_x: JsFloat,
     #[serde(default)]
-    #[serde(rename = "offsetY")]
+    #[doc = "Vertical offset relative to the layout viewport (CSS pixels)."]
     pub offset_y: JsFloat,
     #[serde(default)]
-    #[serde(rename = "pageX")]
+    #[doc = "Horizontal offset relative to the document (CSS pixels)."]
     pub page_x: JsFloat,
     #[serde(default)]
-    #[serde(rename = "pageY")]
+    #[doc = "Vertical offset relative to the document (CSS pixels)."]
     pub page_y: JsFloat,
     #[serde(default)]
-    #[serde(rename = "clientWidth")]
+    #[doc = "Width (CSS pixels), excludes scrollbar if present."]
     pub client_width: JsFloat,
     #[serde(default)]
-    #[serde(rename = "clientHeight")]
+    #[doc = "Height (CSS pixels), excludes scrollbar if present."]
     pub client_height: JsFloat,
     #[serde(default)]
-    #[serde(rename = "scale")]
+    #[doc = "Scale relative to the ideal viewport (size at width=device-width)."]
     pub scale: JsFloat,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "zoom")]
+    #[doc = "Page zoom factor (CSS to device independent pixels ratio)."]
     pub zoom: Option<JsFloat>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Viewport for capturing screenshot."]
 pub struct Viewport {
     #[serde(default)]
-    #[serde(rename = "x")]
+    #[doc = "X offset in device independent pixels (dip)."]
     pub x: JsFloat,
     #[serde(default)]
-    #[serde(rename = "y")]
+    #[doc = "Y offset in device independent pixels (dip)."]
     pub y: JsFloat,
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Rectangle width in device independent pixels (dip)."]
     pub width: JsFloat,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Rectangle height in device independent pixels (dip)."]
     pub height: JsFloat,
     #[serde(default)]
-    #[serde(rename = "scale")]
+    #[doc = "Page scale factor."]
     pub scale: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Generic font families collection."]
 pub struct FontFamilies {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "standard")]
+    #[doc = "The standard font-family."]
     pub standard: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fixed")]
+    #[doc = "The fixed font-family."]
     pub fixed: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "serif")]
+    #[doc = "The serif font-family."]
     pub serif: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "sansSerif")]
+    #[doc = "The sansSerif font-family."]
     pub sans_serif: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "cursive")]
+    #[doc = "The cursive font-family."]
     pub cursive: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fantasy")]
+    #[doc = "The fantasy font-family."]
     pub fantasy: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "math")]
+    #[doc = "The math font-family."]
     pub math: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Font families collection for a script."]
 pub struct ScriptFontFamilies {
     #[serde(default)]
-    #[serde(rename = "script")]
+    #[doc = "Name of the script which these font families are defined for."]
     pub script: String,
-    #[serde(rename = "fontFamilies")]
+    #[doc = "Generic font families collection for the script."]
     pub font_families: FontFamilies,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Default font sizes."]
 pub struct FontSizes {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "standard")]
+    #[doc = "Default standard font size."]
     pub standard: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fixed")]
+    #[doc = "Default fixed font size."]
     pub fixed: Option<JsUInt>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct InstallabilityErrorArgument {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Argument name (e.g. name:'minimum-icon-size-in-pixels')."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "Argument value (e.g. value:'64')."]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "The installability error"]
 pub struct InstallabilityError {
     #[serde(default)]
-    #[serde(rename = "errorId")]
+    #[doc = "The error id (e.g. 'manifest-missing-suitable-icon')."]
     pub error_id: String,
-    #[serde(rename = "errorArguments")]
+    #[doc = "The list of error arguments (e.g. {name:'minimum-icon-size-in-pixels', value:'64'})."]
     pub error_arguments: Vec<InstallabilityErrorArgument>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Per-script compilation cache parameters for `Page.produceCompilationCache`"]
 pub struct CompilationCacheParams {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "The URL of the script to produce a compilation cache entry for."]
     pub url: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "eager")]
+    #[doc = "A hint to the backend whether eager compilation is recommended.\n (the actual compilation mode used is upon backend discretion)."]
     pub eager: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct FileFilter {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "accepts")]
     pub accepts: Option<Vec<String>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct FileHandler {
     #[serde(default)]
-    #[serde(rename = "action")]
     pub action: String,
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "icons")]
     pub icons: Option<Vec<ImageResource>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "accepts")]
+    #[doc = "Mimic a map, name is the key, accepts is the value."]
     pub accepts: Option<Vec<FileFilter>>,
     #[serde(default)]
-    #[serde(rename = "launchType")]
+    #[doc = "Won't repeat the enums, using string for easy comparison. Same as the\n other enums below."]
     pub launch_type: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "The image definition used in both icon and screenshot."]
 pub struct ImageResource {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "The src field in the definition, but changing to url in favor of\n consistency."]
     pub url: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "sizes")]
     pub sizes: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "type")]
     pub r#type: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct LaunchHandler {
     #[serde(default)]
-    #[serde(rename = "clientMode")]
     pub client_mode: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ProtocolHandler {
     #[serde(default)]
-    #[serde(rename = "protocol")]
     pub protocol: String,
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct RelatedApplication {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "id")]
     pub id: Option<String>,
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ScopeExtension {
     #[serde(default)]
-    #[serde(rename = "origin")]
+    #[doc = "Instead of using tuple, this field always returns the serialized string\n for easy understanding and comparison."]
     pub origin: String,
     #[serde(default)]
-    #[serde(rename = "hasOriginWildcard")]
     pub has_origin_wildcard: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct Screenshot {
-    #[serde(rename = "image")]
     pub image: ImageResource,
     #[serde(default)]
-    #[serde(rename = "formFactor")]
     pub form_factor: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "label")]
     pub label: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ShareTarget {
     #[serde(default)]
-    #[serde(rename = "action")]
     pub action: String,
     #[serde(default)]
-    #[serde(rename = "method")]
     pub method: String,
     #[serde(default)]
-    #[serde(rename = "enctype")]
     pub enctype: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "title")]
+    #[doc = "Embed the ShareTargetParams"]
     pub title: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "text")]
     pub text: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "files")]
     pub files: Option<Vec<FileFilter>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct Shortcut {
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct WebAppManifest {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "backgroundColor")]
     pub background_color: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "description")]
+    #[doc = "The extra description provided by the manifest."]
     pub description: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "dir")]
     pub dir: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "display")]
     pub display: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "displayOverrides")]
+    #[doc = "The overrided display mode controlled by the user."]
     pub display_overrides: Option<Vec<String>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "fileHandlers")]
+    #[doc = "The handlers to open files."]
     pub file_handlers: Option<Vec<FileHandler>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "icons")]
     pub icons: Option<Vec<ImageResource>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "id")]
     pub id: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "lang")]
     pub lang: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "launchHandler")]
+    #[doc = "TODO(crbug.com/1231886): This field is non-standard and part of a Chrome\n experiment. See:\n https://github.com/WICG/web-app-launch/blob/main/launch_handler.md"]
     pub launch_handler: Option<LaunchHandler>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "orientation")]
     pub orientation: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "preferRelatedApplications")]
     pub prefer_related_applications: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "protocolHandlers")]
+    #[doc = "The handlers to open protocols."]
     pub protocol_handlers: Option<Vec<ProtocolHandler>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "relatedApplications")]
     pub related_applications: Option<Vec<RelatedApplication>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "scope")]
     pub scope: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "scopeExtensions")]
+    #[doc = "Non-standard, see\n https://github.com/WICG/manifest-incubations/blob/gh-pages/scope_extensions-explainer.md"]
     pub scope_extensions: Option<Vec<ScopeExtension>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "screenshots")]
+    #[doc = "The screenshots used by chromium."]
     pub screenshots: Option<Vec<Screenshot>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "shareTarget")]
     pub share_target: Option<ShareTarget>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "shortName")]
     pub short_name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "shortcuts")]
     pub shortcuts: Option<Vec<Shortcut>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "startUrl")]
     pub start_url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "themeColor")]
     pub theme_color: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct BackForwardCacheBlockingDetails {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "Url of the file where blockage happened. Optional because of tests."]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "function")]
+    #[doc = "Function name where blockage happened. Optional because of anonymous functions and tests."]
     pub function: Option<String>,
     #[serde(default)]
-    #[serde(rename = "lineNumber")]
+    #[doc = "Line number in the script (0-based)."]
     pub line_number: JsUInt,
     #[serde(default)]
-    #[serde(rename = "columnNumber")]
+    #[doc = "Column number in the script (0-based)."]
     pub column_number: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct BackForwardCacheNotRestoredExplanation {
-    #[serde(rename = "type")]
+    #[doc = "Type of the reason"]
     pub r#type: BackForwardCacheNotRestoredReasonType,
-    #[serde(rename = "reason")]
+    #[doc = "Not restored reason"]
     pub reason: BackForwardCacheNotRestoredReason,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "context")]
+    #[doc = "Context associated with the reason. The meaning of this context is\n dependent on the reason:\n - EmbedderExtensionSentMessageToCachedFrame: the extension ID."]
     pub context: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "details")]
     pub details: Option<Vec<BackForwardCacheBlockingDetails>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct BackForwardCacheNotRestoredExplanationTree {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "URL of each frame"]
     pub url: String,
-    #[serde(rename = "explanations")]
+    #[doc = "Not restored reasons of each frame"]
     pub explanations: Vec<BackForwardCacheNotRestoredExplanation>,
-    #[serde(rename = "children")]
+    #[doc = "Array of children frame"]
     pub children: Vec<BackForwardCacheNotRestoredExplanationTree>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deprecated, please use addScriptToEvaluateOnNewDocument instead."]
+#[deprecated]
 pub struct AddScriptToEvaluateOnLoad {
     #[serde(default)]
-    #[serde(rename = "scriptSource")]
     pub script_source: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Evaluates given script in every frame upon creation (before loading frame's scripts)."]
 pub struct AddScriptToEvaluateOnNewDocument {
     #[serde(default)]
-    #[serde(rename = "source")]
     pub source: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "worldName")]
+    #[doc = "If specified, creates an isolated world with the given name and evaluates given script in it.\n This world name will be used as the ExecutionContextDescription::name when the corresponding\n event is emitted."]
     pub world_name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Specifies whether command line API should be available to the script, defaults\n to false."]
     #[serde(rename = "includeCommandLineAPI")]
     pub include_command_line_api: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "runImmediately")]
+    #[doc = "If true, runs the script immediately on existing execution contexts or worlds.\n Default: false."]
     pub run_immediately: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct BringToFront(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct BringToFront(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Capture page screenshot."]
 pub struct CaptureScreenshot {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "format")]
+    #[doc = "Image compression format (defaults to png)."]
     pub format: Option<CaptureScreenshotFormatOption>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "quality")]
+    #[doc = "Compression quality from range [0..100] (jpeg only)."]
     pub quality: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "clip")]
+    #[doc = "Capture the screenshot of a given region only."]
     pub clip: Option<Viewport>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fromSurface")]
+    #[doc = "Capture the screenshot from the surface, rather than the view. Defaults to true."]
     pub from_surface: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "captureBeyondViewport")]
+    #[doc = "Capture the screenshot beyond the viewport. Defaults to false."]
     pub capture_beyond_viewport: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "optimizeForSpeed")]
+    #[doc = "Optimize image encoding for speed, not for resulting size (defaults to false)"]
     pub optimize_for_speed: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns a snapshot of the page as a string. For MHTML format, the serialization includes\n iframes, shadow DOM, external resources, and element-inline styles."]
 pub struct CaptureSnapshot {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "format")]
+    #[doc = "Format (defaults to mhtml)."]
     pub format: Option<CaptureSnapshotFormatOption>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearDeviceMetricsOverride(pub Option<serde_json::Value>);
+pub struct ClearDeviceMetricsOverride(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearDeviceOrientationOverride(pub Option<serde_json::Value>);
+pub struct ClearDeviceOrientationOverride(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ClearGeolocationOverride(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ClearGeolocationOverride(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Creates an isolated world for the given frame."]
 pub struct CreateIsolatedWorld {
-    #[serde(rename = "frameId")]
+    #[doc = "Id of the frame in which the isolated world should be created."]
     pub frame_id: FrameId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "worldName")]
+    #[doc = "An optional name which is reported in the Execution Context."]
     pub world_name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "grantUniveralAccess")]
+    #[doc = "Whether or not universal access should be granted to the isolated world. This is a powerful\n option, use with caution."]
     pub grant_univeral_access: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deletes browser cookie with given name, domain and path."]
+#[deprecated]
 pub struct DeleteCookie {
     #[serde(default)]
-    #[serde(rename = "cookieName")]
+    #[doc = "Name of the cookie to remove."]
     pub cookie_name: String,
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "URL to match cooke domain and path."]
     pub url: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables page domain notifications."]
 pub struct Enable {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "enableFileChooserOpenedEvent")]
+    #[doc = "If true, the `Page.fileChooserOpened` event will be emitted regardless of the state set by\n `Page.setInterceptFileChooserDialog` command (default: false)."]
     pub enable_file_chooser_opened_event: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Gets the processed manifest for this current document.\n   This API always waits for the manifest to be loaded.\n   If manifestId is provided, and it does not match the manifest of the\n     current document, this API errors out.\n   If there is not a loaded page, this API errors out immediately."]
 pub struct GetAppManifest {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "manifestId")]
     pub manifest_id: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetInstallabilityErrors(pub Option<serde_json::Value>);
+pub struct GetInstallabilityErrors(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetManifestIcons(pub Option<serde_json::Value>);
+pub struct GetManifestIcons(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetAppId(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetAppId(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetAdScriptAncestry {
-    #[serde(rename = "frameId")]
     pub frame_id: FrameId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetFrameTree(pub Option<serde_json::Value>);
+pub struct GetFrameTree(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetLayoutMetrics(pub Option<serde_json::Value>);
+pub struct GetLayoutMetrics(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetNavigationHistory(pub Option<serde_json::Value>);
+pub struct GetNavigationHistory(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ResetNavigationHistory(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ResetNavigationHistory(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns content of the given resource."]
 pub struct GetResourceContent {
-    #[serde(rename = "frameId")]
+    #[doc = "Frame id to get resource for."]
     pub frame_id: FrameId,
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "URL of the resource to get content for."]
     pub url: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetResourceTree(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetResourceTree(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Accepts or dismisses a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload)."]
 pub struct HandleJavaScriptDialog {
     #[serde(default)]
-    #[serde(rename = "accept")]
+    #[doc = "Whether to accept or dismiss the dialog."]
     pub accept: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "promptText")]
+    #[doc = "The text to enter into the dialog prompt before accepting. Used only if this is a prompt\n dialog."]
     pub prompt_text: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Navigates current page to the given URL."]
 pub struct Navigate {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "URL to navigate the page to."]
     pub url: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "referrer")]
+    #[doc = "Referrer URL."]
     pub referrer: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "transitionType")]
+    #[doc = "Intended transition type."]
     pub transition_type: Option<TransitionType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameId")]
+    #[doc = "Frame id to navigate, if not specified navigates the top frame."]
     pub frame_id: Option<FrameId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "referrerPolicy")]
+    #[doc = "Referrer-policy used for the navigation."]
     pub referrer_policy: Option<ReferrerPolicy>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Navigates current page to the given history entry."]
 pub struct NavigateToHistoryEntry {
     #[serde(default)]
-    #[serde(rename = "entryId")]
+    #[doc = "Unique id of the entry to navigate to."]
     pub entry_id: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Print page as PDF."]
 pub struct PrintToPDF {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "landscape")]
+    #[doc = "Paper orientation. Defaults to false."]
     pub landscape: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "displayHeaderFooter")]
+    #[doc = "Display header and footer. Defaults to false."]
     pub display_header_footer: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "printBackground")]
+    #[doc = "Print background graphics. Defaults to false."]
     pub print_background: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "scale")]
+    #[doc = "Scale of the webpage rendering. Defaults to 1."]
     pub scale: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "paperWidth")]
+    #[doc = "Paper width in inches. Defaults to 8.5 inches."]
     pub paper_width: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "paperHeight")]
+    #[doc = "Paper height in inches. Defaults to 11 inches."]
     pub paper_height: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "marginTop")]
+    #[doc = "Top margin in inches. Defaults to 1cm (~0.4 inches)."]
     pub margin_top: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "marginBottom")]
+    #[doc = "Bottom margin in inches. Defaults to 1cm (~0.4 inches)."]
     pub margin_bottom: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "marginLeft")]
+    #[doc = "Left margin in inches. Defaults to 1cm (~0.4 inches)."]
     pub margin_left: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "marginRight")]
+    #[doc = "Right margin in inches. Defaults to 1cm (~0.4 inches)."]
     pub margin_right: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "pageRanges")]
+    #[doc = "Paper ranges to print, one based, e.g., '1-5, 8, 11-13'. Pages are\n printed in the document order, not in the order specified, and no\n more than once.\n Defaults to empty string, which implies the entire document is printed.\n The page numbers are quietly capped to actual page count of the\n document, and ranges beyond the end of the document are ignored.\n If this results in no pages to print, an error is reported.\n It is an error to specify a range with start greater than end."]
     pub page_ranges: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "headerTemplate")]
+    #[doc = "HTML template for the print header. Should be valid HTML markup with following\n classes used to inject printing values into them:\n - `date`: formatted print date\n - `title`: document title\n - `url`: document location\n - `pageNumber`: current page number\n - `totalPages`: total pages in the document\n \n For example, `<span class=title></span>` would generate span containing the title."]
     pub header_template: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "footerTemplate")]
+    #[doc = "HTML template for the print footer. Should use the same format as the `headerTemplate`."]
     pub footer_template: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Whether or not to prefer page size as defined by css. Defaults to false,\n in which case the content will be scaled to fit the paper size."]
     #[serde(rename = "preferCSSPageSize")]
     pub prefer_css_page_size: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "transferMode")]
+    #[doc = "return as stream"]
     pub transfer_mode: Option<PrintToPdfTransferModeOption>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Whether or not to generate tagged (accessible) PDF. Defaults to embedder choice."]
     #[serde(rename = "generateTaggedPDF")]
     pub generate_tagged_pdf: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "generateDocumentOutline")]
+    #[doc = "Whether or not to embed the document outline into the PDF."]
     pub generate_document_outline: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Reloads given page optionally ignoring the cache."]
 pub struct Reload {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "ignoreCache")]
+    #[doc = "If true, browser cache is ignored (as if the user pressed Shift+refresh)."]
     pub ignore_cache: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "scriptToEvaluateOnLoad")]
+    #[doc = "If set, the script will be injected into all frames of the inspected page after reload.\n Argument will be ignored if reloading dataURL origin."]
     pub script_to_evaluate_on_load: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "loaderId")]
+    #[doc = "If set, an error will be thrown if the target page's main frame's\n loader id does not match the provided id. This prevents accidentally\n reloading an unintended target in case there's a racing navigation."]
     pub loader_id: Option<network::LoaderId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deprecated, please use removeScriptToEvaluateOnNewDocument instead."]
+#[deprecated]
 pub struct RemoveScriptToEvaluateOnLoad {
-    #[serde(rename = "identifier")]
     pub identifier: ScriptIdentifier,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Removes given script from the list."]
 pub struct RemoveScriptToEvaluateOnNewDocument {
-    #[serde(rename = "identifier")]
     pub identifier: ScriptIdentifier,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Acknowledges that a screencast frame has been received by the frontend."]
 pub struct ScreencastFrameAck {
     #[serde(default)]
-    #[serde(rename = "sessionId")]
+    #[doc = "Frame number."]
     pub session_id: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Searches for given string in resource content."]
 pub struct SearchInResource {
-    #[serde(rename = "frameId")]
+    #[doc = "Frame id for resource to search in."]
     pub frame_id: FrameId,
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "URL of the resource to search in."]
     pub url: String,
     #[serde(default)]
-    #[serde(rename = "query")]
+    #[doc = "String to search for."]
     pub query: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "caseSensitive")]
+    #[doc = "If true, search is case sensitive."]
     pub case_sensitive: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isRegex")]
+    #[doc = "If true, treats string parameter as regex."]
     pub is_regex: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enable Chrome's experimental ad filter on all sites."]
 pub struct SetAdBlockingEnabled {
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "Whether to block ads."]
     pub enabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enable page Content Security Policy by-passing."]
 pub struct SetBypassCSP {
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "Whether to bypass page CSP."]
     pub enabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get Permissions Policy state on given frame."]
 pub struct GetPermissionsPolicyState {
-    #[serde(rename = "frameId")]
     pub frame_id: FrameId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get Origin Trials on given frame."]
 pub struct GetOriginTrials {
-    #[serde(rename = "frameId")]
     pub frame_id: FrameId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides the values of device screen dimensions (window.screen.width, window.screen.height,\n window.innerWidth, window.innerHeight, and \"device-width\"/\"device-height\"-related CSS media\n query results)."]
+#[deprecated]
 pub struct SetDeviceMetricsOverride {
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Overriding width value in pixels (minimum 0, maximum 10000000). 0 disables the override."]
     pub width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Overriding height value in pixels (minimum 0, maximum 10000000). 0 disables the override."]
     pub height: JsUInt,
     #[serde(default)]
-    #[serde(rename = "deviceScaleFactor")]
+    #[doc = "Overriding device scale factor value. 0 disables the override."]
     pub device_scale_factor: JsFloat,
     #[serde(default)]
-    #[serde(rename = "mobile")]
+    #[doc = "Whether to emulate mobile device. This includes viewport meta tag, overlay scrollbars, text\n autosizing and more."]
     pub mobile: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "scale")]
+    #[doc = "Scale to apply to resulting view image."]
     pub scale: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "screenWidth")]
+    #[doc = "Overriding screen width value in pixels (minimum 0, maximum 10000000)."]
     pub screen_width: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "screenHeight")]
+    #[doc = "Overriding screen height value in pixels (minimum 0, maximum 10000000)."]
     pub screen_height: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "positionX")]
+    #[doc = "Overriding view X position on screen in pixels (minimum 0, maximum 10000000)."]
     pub position_x: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "positionY")]
+    #[doc = "Overriding view Y position on screen in pixels (minimum 0, maximum 10000000)."]
     pub position_y: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "dontSetVisibleSize")]
+    #[doc = "Do not set visible view size, rely upon explicit setVisibleSize call."]
     pub dont_set_visible_size: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "screenOrientation")]
+    #[doc = "Screen orientation override."]
     pub screen_orientation: Option<emulation::ScreenOrientation>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "viewport")]
+    #[doc = "The viewport dimensions and scale. If not set, the override is cleared."]
     pub viewport: Option<Viewport>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides the Device Orientation."]
+#[deprecated]
 pub struct SetDeviceOrientationOverride {
     #[serde(default)]
-    #[serde(rename = "alpha")]
+    #[doc = "Mock alpha"]
     pub alpha: JsFloat,
     #[serde(default)]
-    #[serde(rename = "beta")]
+    #[doc = "Mock beta"]
     pub beta: JsFloat,
     #[serde(default)]
-    #[serde(rename = "gamma")]
+    #[doc = "Mock gamma"]
     pub gamma: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set generic font families."]
 pub struct SetFontFamilies {
-    #[serde(rename = "fontFamilies")]
+    #[doc = "Specifies font families to set. If a font family is not specified, it won't be changed."]
     pub font_families: FontFamilies,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "forScripts")]
+    #[doc = "Specifies font families to set for individual scripts."]
     pub for_scripts: Option<Vec<ScriptFontFamilies>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set default font sizes."]
 pub struct SetFontSizes {
-    #[serde(rename = "fontSizes")]
+    #[doc = "Specifies font sizes to set. If a font size is not specified, it won't be changed."]
     pub font_sizes: FontSizes,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets given markup as the document's HTML."]
 pub struct SetDocumentContent {
-    #[serde(rename = "frameId")]
+    #[doc = "Frame id to set HTML for."]
     pub frame_id: FrameId,
     #[serde(default)]
-    #[serde(rename = "html")]
+    #[doc = "HTML content to set."]
     pub html: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set the behavior when downloading a file."]
+#[deprecated]
 pub struct SetDownloadBehavior {
-    #[serde(rename = "behavior")]
+    #[doc = "Whether to allow all or deny all download requests, or use default Chrome behavior if\n available (otherwise deny)."]
     pub behavior: SetDownloadBehaviorBehaviorOption,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "downloadPath")]
+    #[doc = "The default path to save downloaded files to. This is required if behavior is set to 'allow'"]
     pub download_path: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Overrides the Geolocation Position or Error. Omitting any of the parameters emulates position\n unavailable."]
+#[deprecated]
 pub struct SetGeolocationOverride {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "latitude")]
+    #[doc = "Mock latitude"]
     pub latitude: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "longitude")]
+    #[doc = "Mock longitude"]
     pub longitude: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "accuracy")]
+    #[doc = "Mock accuracy"]
     pub accuracy: Option<JsFloat>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Controls whether page will emit lifecycle events."]
 pub struct SetLifecycleEventsEnabled {
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "If true, starts emitting lifecycle events."]
     pub enabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Toggles mouse event-based touch event emulation."]
+#[deprecated]
 pub struct SetTouchEmulationEnabled {
     #[serde(default)]
-    #[serde(rename = "enabled")]
+    #[doc = "Whether the touch event emulation should be enabled."]
     pub enabled: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "configuration")]
+    #[doc = "Touch/gesture events configuration. Default: current platform."]
     pub configuration: Option<SetTouchEmulationEnabledConfigurationOption>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Starts sending each frame using the `screencastFrame` event."]
 pub struct StartScreencast {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "format")]
+    #[doc = "Image compression format."]
     pub format: Option<StartScreencastFormatOption>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "quality")]
+    #[doc = "Compression quality from range [0..100]."]
     pub quality: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "maxWidth")]
+    #[doc = "Maximum screenshot width."]
     pub max_width: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "maxHeight")]
+    #[doc = "Maximum screenshot height."]
     pub max_height: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "everyNthFrame")]
+    #[doc = "Send every n-th frame."]
     pub every_nth_frame: Option<JsUInt>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopLoading(pub Option<serde_json::Value>);
+pub struct StopLoading(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Crash(pub Option<serde_json::Value>);
+pub struct Crash(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Close(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Close(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Tries to update the web lifecycle state of the page.\n It will transition the page to the given state according to:\n https://github.com/WICG/web-lifecycle/"]
 pub struct SetWebLifecycleState {
-    #[serde(rename = "state")]
+    #[doc = "Target lifecycle state"]
     pub state: SetWebLifecycleStateStateOption,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct StopScreencast(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct StopScreencast(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Requests backend to produce compilation cache for the specified scripts.\n `scripts` are appended to the list of scripts for which the cache\n would be produced. The list may be reset during page navigation.\n When script with a matching URL is encountered, the cache is optionally\n produced upon backend discretion, based on internal heuristics.\n See also: `Page.compilationCacheProduced`."]
 pub struct ProduceCompilationCache {
-    #[serde(rename = "scripts")]
     pub scripts: Vec<CompilationCacheParams>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Seeds compilation cache for given url. Compilation cache does not survive\n cross-process navigation."]
 pub struct AddCompilationCache {
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
-    #[serde(rename = "data")]
+    #[doc = "Base64-encoded data"]
     pub data: Vec<u8>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ClearCompilationCache(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ClearCompilationCache(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Sets the Secure Payment Confirmation transaction mode.\n https://w3c.github.io/secure-payment-confirmation/#sctn-automation-set-spc-transaction-mode"]
 pub struct SetSPCTransactionMode {
-    #[serde(rename = "mode")]
     pub mode: SetSpcTransactionModeModeOption,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Extensions for Custom Handlers API:\n https://html.spec.whatwg.org/multipage/system-state.html#rph-automation"]
 pub struct SetRPHRegistrationMode {
-    #[serde(rename = "mode")]
     pub mode: SetRphRegistrationModeModeOption,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Generates a report for testing."]
 pub struct GenerateTestReport {
     #[serde(default)]
-    #[serde(rename = "message")]
+    #[doc = "Message to be displayed in the report."]
     pub message: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "group")]
+    #[doc = "Specifies the endpoint group to deliver the report to."]
     pub group: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct WaitForDebugger(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct WaitForDebugger(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Intercept file chooser requests and transfer control to protocol clients.\n When file chooser interception is enabled, native file chooser dialog is not shown.\n Instead, a protocol event `Page.fileChooserOpened` is emitted."]
 pub struct SetInterceptFileChooserDialog {
     #[serde(default)]
-    #[serde(rename = "enabled")]
     pub enabled: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "cancel")]
+    #[doc = "If true, cancels the dialog by emitting relevant events (if any)\n in addition to not showing it if the interception is enabled\n (default: false)."]
     pub cancel: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enable/disable prerendering manually.\n \n This command is a short-term solution for https://crbug.com/1440085.\n See https://docs.google.com/document/d/12HVmFxYj5Jc-eJr5OmWsa2bqTJsbgGLKI6ZIyx0_wpA\n for more details.\n \n TODO(https://crbug.com/1440085): Remove this once Puppeteer supports tab targets."]
 pub struct SetPrerenderingAllowed {
     #[serde(default)]
-    #[serde(rename = "isAllowed")]
     pub is_allowed: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct AddScriptToEvaluateOnLoadReturnObject {
-    #[serde(rename = "identifier")]
-    pub identifier: ScriptIdentifier,
-}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct AddScriptToEvaluateOnNewDocumentReturnObject {
-    #[serde(rename = "identifier")]
-    pub identifier: ScriptIdentifier,
-}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct BringToFrontReturnObject {}
+#[doc = "Get the annotated page content for the main frame.\n This is an experimental command that is subject to change."]
+pub struct GetAnnotatedPageContent {
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "Whether to include actionable information. Defaults to true."]
+    pub include_actionable_information: Option<bool>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deprecated, please use addScriptToEvaluateOnNewDocument instead."]
+#[deprecated]
+pub struct AddScriptToEvaluateOnLoadReturnObject {
+    #[doc = "Identifier of the added script."]
+    pub identifier: ScriptIdentifier,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Evaluates given script in every frame upon creation (before loading frame's scripts)."]
+pub struct AddScriptToEvaluateOnNewDocumentReturnObject {
+    #[doc = "Identifier of the added script."]
+    pub identifier: ScriptIdentifier,
+}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Brings page to front (activates tab)."]
+pub struct BringToFrontReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Capture page screenshot."]
 pub struct CaptureScreenshotReturnObject {
-    #[serde(rename = "data")]
+    #[doc = "Base64-encoded image data."]
     pub data: Vec<u8>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns a snapshot of the page as a string. For MHTML format, the serialization includes\n iframes, shadow DOM, external resources, and element-inline styles."]
 pub struct CaptureSnapshotReturnObject {
     #[serde(default)]
-    #[serde(rename = "data")]
+    #[doc = "Serialized page data."]
     pub data: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearDeviceMetricsOverrideReturnObject {}
+#[doc = "Clears the overridden device metrics."]
+#[deprecated]
+pub struct ClearDeviceMetricsOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearDeviceOrientationOverrideReturnObject {}
+#[doc = "Clears the overridden Device Orientation."]
+#[deprecated]
+pub struct ClearDeviceOrientationOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Clears the overridden Geolocation Position and Error."]
+#[deprecated]
+pub struct ClearGeolocationOverrideReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct ClearGeolocationOverrideReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Creates an isolated world for the given frame."]
 pub struct CreateIsolatedWorldReturnObject {
-    #[serde(rename = "executionContextId")]
+    #[doc = "Execution context of the isolated world."]
     pub execution_context_id: runtime::ExecutionContextId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DeleteCookieReturnObject {}
+#[doc = "Deletes browser cookie with given name, domain and path."]
+#[deprecated]
+pub struct DeleteCookieReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables page domain notifications."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables page domain notifications."]
+pub struct EnableReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Gets the processed manifest for this current document.\n   This API always waits for the manifest to be loaded.\n   If manifestId is provided, and it does not match the manifest of the\n     current document, this API errors out.\n   If there is not a loaded page, this API errors out immediately."]
 pub struct GetAppManifestReturnObject {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "Manifest location."]
     pub url: String,
-    #[serde(rename = "errors")]
     pub errors: Vec<AppManifestError>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "data")]
+    #[doc = "Manifest content."]
     pub data: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "parsed")]
+    #[doc = "Parsed manifest properties. Deprecated, use manifest instead."]
+    #[deprecated]
     pub parsed: Option<AppManifestParsedProperties>,
-    #[serde(rename = "manifest")]
     pub manifest: WebAppManifest,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
 pub struct GetInstallabilityErrorsReturnObject {
-    #[serde(rename = "installabilityErrors")]
     pub installability_errors: Vec<InstallabilityError>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deprecated because it's not guaranteed that the returned icon is in fact the one used for PWA installation."]
+#[deprecated]
 pub struct GetManifestIconsReturnObject {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "primaryIcon")]
     pub primary_icon: Option<Vec<u8>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the unique (PWA) app id.\n Only returns values if the feature flag 'WebAppEnableManifestId' is enabled"]
 pub struct GetAppIdReturnObject {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "appId")]
+    #[doc = "App id, either from manifest's id attribute or computed from start_url"]
     pub app_id: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "recommendedId")]
+    #[doc = "Recommendation for manifest's id attribute to match current id computed from start_url"]
     pub recommended_id: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
 pub struct GetAdScriptAncestryReturnObject {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "adScriptAncestry")]
+    #[doc = "The ancestry chain of ad script identifiers leading to this frame's\n creation, along with the root script's filterlist rule. The ancestry\n chain is ordered from the most immediate script (in the frame creation\n stack) to more distant ancestors (that created the immediately preceding\n script). Only sent if frame is labelled as an ad and ids are available."]
     pub ad_script_ancestry: Option<AdScriptAncestry>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns present frame tree structure."]
 pub struct GetFrameTreeReturnObject {
-    #[serde(rename = "frameTree")]
+    #[doc = "Present frame tree structure."]
     pub frame_tree: FrameTree,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns metrics relating to the layouting of the page, such as viewport bounds/scale."]
 pub struct GetLayoutMetricsReturnObject {
-    #[serde(rename = "layoutViewport")]
+    #[doc = "Deprecated metrics relating to the layout viewport. Is in device pixels. Use `cssLayoutViewport` instead."]
+    #[deprecated]
     pub layout_viewport: LayoutViewport,
-    #[serde(rename = "visualViewport")]
+    #[doc = "Deprecated metrics relating to the visual viewport. Is in device pixels. Use `cssVisualViewport` instead."]
+    #[deprecated]
     pub visual_viewport: VisualViewport,
-    #[serde(rename = "contentSize")]
+    #[doc = "Deprecated size of scrollable area. Is in DP. Use `cssContentSize` instead."]
+    #[deprecated]
     pub content_size: dom::Rect,
-    #[serde(rename = "cssLayoutViewport")]
+    #[doc = "Metrics relating to the layout viewport in CSS pixels."]
     pub css_layout_viewport: LayoutViewport,
-    #[serde(rename = "cssVisualViewport")]
+    #[doc = "Metrics relating to the visual viewport in CSS pixels."]
     pub css_visual_viewport: VisualViewport,
-    #[serde(rename = "cssContentSize")]
+    #[doc = "Size of scrollable area in CSS pixels."]
     pub css_content_size: dom::Rect,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns navigation history for the current page."]
 pub struct GetNavigationHistoryReturnObject {
     #[serde(default)]
-    #[serde(rename = "currentIndex")]
+    #[doc = "Index of the current navigation history entry."]
     pub current_index: JsUInt,
-    #[serde(rename = "entries")]
+    #[doc = "Array of navigation history entries."]
     pub entries: Vec<NavigationEntry>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Resets navigation history for the current page."]
+pub struct ResetNavigationHistoryReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct ResetNavigationHistoryReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns content of the given resource."]
 pub struct GetResourceContentReturnObject {
     #[serde(default)]
-    #[serde(rename = "content")]
+    #[doc = "Resource content."]
     pub content: String,
     #[serde(default)]
-    #[serde(rename = "base64Encoded")]
+    #[doc = "True, if content was served as base64."]
     pub base_64_encoded: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns present frame / resource tree structure."]
 pub struct GetResourceTreeReturnObject {
-    #[serde(rename = "frameTree")]
+    #[doc = "Present frame / resource tree structure."]
     pub frame_tree: FrameResourceTree,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Accepts or dismisses a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload)."]
+pub struct HandleJavaScriptDialogReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct HandleJavaScriptDialogReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Navigates current page to the given URL."]
 pub struct NavigateReturnObject {
-    #[serde(rename = "frameId")]
+    #[doc = "Frame id that has navigated (or failed to navigate)"]
     pub frame_id: FrameId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "loaderId")]
+    #[doc = "Loader identifier. This is omitted in case of same-document navigation,\n as the previously committed loaderId would not change."]
     pub loader_id: Option<network::LoaderId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "errorText")]
+    #[doc = "User friendly error message, present if and only if navigation has failed."]
     pub error_text: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isDownload")]
+    #[doc = "Whether the navigation resulted in a download."]
     pub is_download: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Navigates current page to the given history entry."]
+pub struct NavigateToHistoryEntryReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct NavigateToHistoryEntryReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Print page as PDF."]
 pub struct PrintToPDFReturnObject {
-    #[serde(rename = "data")]
+    #[doc = "Base64-encoded pdf data. Empty if |returnAsStream| is specified."]
     pub data: Vec<u8>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "stream")]
+    #[doc = "A handle of the stream that holds resulting PDF data."]
     pub stream: Option<io::StreamHandle>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ReloadReturnObject {}
+#[doc = "Reloads given page optionally ignoring the cache."]
+pub struct ReloadReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveScriptToEvaluateOnLoadReturnObject {}
+#[doc = "Deprecated, please use removeScriptToEvaluateOnNewDocument instead."]
+#[deprecated]
+pub struct RemoveScriptToEvaluateOnLoadReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveScriptToEvaluateOnNewDocumentReturnObject {}
+#[doc = "Removes given script from the list."]
+pub struct RemoveScriptToEvaluateOnNewDocumentReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Acknowledges that a screencast frame has been received by the frontend."]
+pub struct ScreencastFrameAckReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct ScreencastFrameAckReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Searches for given string in resource content."]
 pub struct SearchInResourceReturnObject {
-    #[serde(rename = "result")]
+    #[doc = "List of search matches."]
     pub result: debugger::SearchMatch,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetAdBlockingEnabledReturnObject {}
+#[doc = "Enable Chrome's experimental ad filter on all sites."]
+pub struct SetAdBlockingEnabledReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enable page Content Security Policy by-passing."]
+pub struct SetBypassCSPReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetBypassCSPReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Get Permissions Policy state on given frame."]
 pub struct GetPermissionsPolicyStateReturnObject {
-    #[serde(rename = "states")]
     pub states: Vec<PermissionsPolicyFeatureState>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get Origin Trials on given frame."]
 pub struct GetOriginTrialsReturnObject {
-    #[serde(rename = "originTrials")]
     pub origin_trials: Vec<OriginTrial>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDeviceMetricsOverrideReturnObject {}
+#[doc = "Overrides the values of device screen dimensions (window.screen.width, window.screen.height,\n window.innerWidth, window.innerHeight, and \"device-width\"/\"device-height\"-related CSS media\n query results)."]
+#[deprecated]
+pub struct SetDeviceMetricsOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDeviceOrientationOverrideReturnObject {}
+#[doc = "Overrides the Device Orientation."]
+#[deprecated]
+pub struct SetDeviceOrientationOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetFontFamiliesReturnObject {}
+#[doc = "Set generic font families."]
+pub struct SetFontFamiliesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetFontSizesReturnObject {}
+#[doc = "Set default font sizes."]
+pub struct SetFontSizesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDocumentContentReturnObject {}
+#[doc = "Sets given markup as the document's HTML."]
+pub struct SetDocumentContentReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDownloadBehaviorReturnObject {}
+#[doc = "Set the behavior when downloading a file."]
+#[deprecated]
+pub struct SetDownloadBehaviorReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetGeolocationOverrideReturnObject {}
+#[doc = "Overrides the Geolocation Position or Error. Omitting any of the parameters emulates position\n unavailable."]
+#[deprecated]
+pub struct SetGeolocationOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetLifecycleEventsEnabledReturnObject {}
+#[doc = "Controls whether page will emit lifecycle events."]
+pub struct SetLifecycleEventsEnabledReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetTouchEmulationEnabledReturnObject {}
+#[doc = "Toggles mouse event-based touch event emulation."]
+#[deprecated]
+pub struct SetTouchEmulationEnabledReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StartScreencastReturnObject {}
+#[doc = "Starts sending each frame using the `screencastFrame` event."]
+pub struct StartScreencastReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopLoadingReturnObject {}
+#[doc = "Force the page stop all navigations and pending resource fetches."]
+pub struct StopLoadingReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CrashReturnObject {}
+#[doc = "Crashes renderer on the IO thread, generates minidumps."]
+pub struct CrashReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CloseReturnObject {}
+#[doc = "Tries to close page, running its beforeunload hooks, if any."]
+pub struct CloseReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetWebLifecycleStateReturnObject {}
+#[doc = "Tries to update the web lifecycle state of the page.\n It will transition the page to the given state according to:\n https://github.com/WICG/web-lifecycle/"]
+pub struct SetWebLifecycleStateReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopScreencastReturnObject {}
+#[doc = "Stops sending each frame in the `screencastFrame`."]
+pub struct StopScreencastReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ProduceCompilationCacheReturnObject {}
+#[doc = "Requests backend to produce compilation cache for the specified scripts.\n `scripts` are appended to the list of scripts for which the cache\n would be produced. The list may be reset during page navigation.\n When script with a matching URL is encountered, the cache is optionally\n produced upon backend discretion, based on internal heuristics.\n See also: `Page.compilationCacheProduced`."]
+pub struct ProduceCompilationCacheReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct AddCompilationCacheReturnObject {}
+#[doc = "Seeds compilation cache for given url. Compilation cache does not survive\n cross-process navigation."]
+pub struct AddCompilationCacheReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearCompilationCacheReturnObject {}
+#[doc = "Clears seeded compilation cache."]
+pub struct ClearCompilationCacheReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetSPCTransactionModeReturnObject {}
+#[doc = "Sets the Secure Payment Confirmation transaction mode.\n https://w3c.github.io/secure-payment-confirmation/#sctn-automation-set-spc-transaction-mode"]
+pub struct SetSPCTransactionModeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetRPHRegistrationModeReturnObject {}
+#[doc = "Extensions for Custom Handlers API:\n https://html.spec.whatwg.org/multipage/system-state.html#rph-automation"]
+pub struct SetRPHRegistrationModeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GenerateTestReportReturnObject {}
+#[doc = "Generates a report for testing."]
+pub struct GenerateTestReportReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct WaitForDebuggerReturnObject {}
+#[doc = "Pauses page execution. Can be resumed using generic Runtime.runIfWaitingForDebugger."]
+pub struct WaitForDebuggerReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetInterceptFileChooserDialogReturnObject {}
+#[doc = "Intercept file chooser requests and transfer control to protocol clients.\n When file chooser interception is enabled, native file chooser dialog is not shown.\n Instead, a protocol event `Page.fileChooserOpened` is emitted."]
+pub struct SetInterceptFileChooserDialogReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enable/disable prerendering manually.\n \n This command is a short-term solution for https://crbug.com/1440085.\n See https://docs.google.com/document/d/12HVmFxYj5Jc-eJr5OmWsa2bqTJsbgGLKI6ZIyx0_wpA\n for more details.\n \n TODO(https://crbug.com/1440085): Remove this once Puppeteer supports tab targets."]
+pub struct SetPrerenderingAllowedReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetPrerenderingAllowedReturnObject {}
+#[doc = "Get the annotated page content for the main frame.\n This is an experimental command that is subject to change."]
+pub struct GetAnnotatedPageContentReturnObject {
+    #[doc = "The annotated page content as a base64 encoded protobuf.\n The format is defined by the `AnnotatedPageContent` message in\n components/optimization_guide/proto/features/common_quality_data.proto"]
+    pub content: Vec<u8>,
+}
 impl Method for AddScriptToEvaluateOnLoad {
     const NAME: &'static str = "Page.addScriptToEvaluateOnLoad";
     type ReturnObject = AddScriptToEvaluateOnLoadReturnObject;
@@ -2535,278 +2892,281 @@ impl Method for SetPrerenderingAllowed {
     const NAME: &'static str = "Page.setPrerenderingAllowed";
     type ReturnObject = SetPrerenderingAllowedReturnObject;
 }
+impl Method for GetAnnotatedPageContent {
+    const NAME: &'static str = "Page.getAnnotatedPageContent";
+    type ReturnObject = GetAnnotatedPageContentReturnObject;
+}
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DomContentEventFiredEvent {
         pub params: DomContentEventFiredEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DomContentEventFiredEventParams {
-        #[serde(rename = "timestamp")]
         pub timestamp: super::super::network::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FileChooserOpenedEvent {
         pub params: FileChooserOpenedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FileChooserOpenedEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame containing input node."]
         pub frame_id: super::FrameId,
-        #[serde(rename = "mode")]
+        #[doc = "Input mode."]
         pub mode: super::FileChooserOpenedModeOption,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "backendNodeId")]
+        #[doc = "Input node id. Only present for file choosers opened via an `<input type=\"file\">` element."]
         pub backend_node_id: Option<super::super::dom::BackendNodeId>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameAttachedEvent {
         pub params: FrameAttachedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameAttachedEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that has been attached."]
         pub frame_id: super::FrameId,
-        #[serde(rename = "parentFrameId")]
+        #[doc = "Parent frame identifier."]
         pub parent_frame_id: super::FrameId,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "stack")]
+        #[doc = "JavaScript stack trace of when frame was attached, only set if frame initiated from script."]
         pub stack: Option<super::super::runtime::StackTrace>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameClearedScheduledNavigationEvent {
         pub params: FrameClearedScheduledNavigationEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameClearedScheduledNavigationEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that has cleared its scheduled navigation."]
         pub frame_id: super::FrameId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameDetachedEvent {
         pub params: FrameDetachedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameDetachedEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that has been detached."]
         pub frame_id: super::FrameId,
-        #[serde(rename = "reason")]
         pub reason: super::FrameDetachedReasonOption,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameSubtreeWillBeDetachedEvent {
         pub params: FrameSubtreeWillBeDetachedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameSubtreeWillBeDetachedEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that is the root of the subtree that will be detached."]
         pub frame_id: super::FrameId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameNavigatedEvent {
         pub params: FrameNavigatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameNavigatedEventParams {
-        #[serde(rename = "frame")]
+        #[doc = "Frame object."]
         pub frame: super::Frame,
-        #[serde(rename = "type")]
         pub r#type: super::NavigationType,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DocumentOpenedEvent {
         pub params: DocumentOpenedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DocumentOpenedEventParams {
-        #[serde(rename = "frame")]
+        #[doc = "Frame object."]
         pub frame: super::Frame,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    #[serde(rename_all = "camelCase")]
-    pub struct FrameResizedEvent(pub Option<serde_json::Value>);
+    pub struct FrameResizedEvent(pub Option<Json>);
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameStartedNavigatingEvent {
         pub params: FrameStartedNavigatingEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameStartedNavigatingEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "ID of the frame that is being navigated."]
         pub frame_id: super::FrameId,
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "The URL the navigation started with. The final URL can be different."]
         pub url: String,
-        #[serde(rename = "loaderId")]
+        #[doc = "Loader identifier. Even though it is present in case of same-document\n navigation, the previously committed loaderId would not change unless\n the navigation changes from a same-document to a cross-document\n navigation."]
         pub loader_id: super::super::network::LoaderId,
-        #[serde(rename = "navigationType")]
         pub navigation_type: super::FrameStartedNavigatingNavigationTypeOption,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameRequestedNavigationEvent {
         pub params: FrameRequestedNavigationEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameRequestedNavigationEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that is being navigated."]
         pub frame_id: super::FrameId,
-        #[serde(rename = "reason")]
+        #[doc = "The reason for the navigation."]
         pub reason: super::ClientNavigationReason,
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "The destination URL for the requested navigation."]
         pub url: String,
-        #[serde(rename = "disposition")]
+        #[doc = "The disposition for the navigation."]
         pub disposition: super::ClientNavigationDisposition,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameScheduledNavigationEvent {
         pub params: FrameScheduledNavigationEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameScheduledNavigationEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that has scheduled a navigation."]
         pub frame_id: super::FrameId,
         #[serde(default)]
-        #[serde(rename = "delay")]
+        #[doc = "Delay (in seconds) until the navigation is scheduled to begin. The navigation is not\n guaranteed to start."]
         pub delay: JsFloat,
-        #[serde(rename = "reason")]
+        #[doc = "The reason for the navigation."]
         pub reason: super::ClientNavigationReason,
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "The destination URL for the scheduled navigation."]
         pub url: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameStartedLoadingEvent {
         pub params: FrameStartedLoadingEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameStartedLoadingEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that has started loading."]
         pub frame_id: super::FrameId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FrameStoppedLoadingEvent {
         pub params: FrameStoppedLoadingEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct FrameStoppedLoadingEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that has stopped loading."]
         pub frame_id: super::FrameId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DownloadWillBeginEvent {
         pub params: DownloadWillBeginEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DownloadWillBeginEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that caused download to begin."]
         pub frame_id: super::FrameId,
         #[serde(default)]
-        #[serde(rename = "guid")]
+        #[doc = "Global unique identifier of the download."]
         pub guid: String,
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "URL of the resource being downloaded."]
         pub url: String,
         #[serde(default)]
-        #[serde(rename = "suggestedFilename")]
+        #[doc = "Suggested file name of the resource (the actual name of the file saved on disk may differ)."]
         pub suggested_filename: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DownloadProgressEvent {
         pub params: DownloadProgressEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DownloadProgressEventParams {
         #[serde(default)]
-        #[serde(rename = "guid")]
+        #[doc = "Global unique identifier of the download."]
         pub guid: String,
         #[serde(default)]
-        #[serde(rename = "totalBytes")]
+        #[doc = "Total expected bytes to download."]
         pub total_bytes: JsFloat,
         #[serde(default)]
-        #[serde(rename = "receivedBytes")]
+        #[doc = "Total bytes received."]
         pub received_bytes: JsFloat,
-        #[serde(rename = "state")]
+        #[doc = "Download status."]
         pub state: super::DownloadProgressStateOption,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    #[serde(rename_all = "camelCase")]
-    pub struct InterstitialHiddenEvent(pub Option<serde_json::Value>);
+    pub struct InterstitialHiddenEvent(pub Option<Json>);
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    #[serde(rename_all = "camelCase")]
-    pub struct InterstitialShownEvent(pub Option<serde_json::Value>);
+    pub struct InterstitialShownEvent(pub Option<Json>);
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct JavascriptDialogClosedEvent {
         pub params: JavascriptDialogClosedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct JavascriptDialogClosedEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Frame id."]
         pub frame_id: super::FrameId,
         #[serde(default)]
-        #[serde(rename = "result")]
+        #[doc = "Whether dialog was confirmed."]
         pub result: bool,
         #[serde(default)]
-        #[serde(rename = "userInput")]
+        #[doc = "User input in case of prompt."]
         pub user_input: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct JavascriptDialogOpeningEvent {
         pub params: JavascriptDialogOpeningEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct JavascriptDialogOpeningEventParams {
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "Frame url."]
         pub url: String,
-        #[serde(rename = "frameId")]
+        #[doc = "Frame id."]
         pub frame_id: super::FrameId,
         #[serde(default)]
-        #[serde(rename = "message")]
+        #[doc = "Message that will be displayed by the dialog."]
         pub message: String,
-        #[serde(rename = "type")]
+        #[doc = "Dialog type."]
         pub r#type: super::DialogType,
         #[serde(default)]
-        #[serde(rename = "hasBrowserHandler")]
+        #[doc = "True iff browser is capable showing or acting on the given dialog. When browser has no\n dialog handler for given target, calling alert while Page domain is engaged will stall\n the page execution. Execution can be resumed via calling Page.handleJavaScriptDialog."]
         pub has_browser_handler: bool,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "defaultPrompt")]
+        #[doc = "Default dialog prompt."]
         pub default_prompt: Option<String>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LifecycleEventEvent {
         pub params: LifecycleEventEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct LifecycleEventEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame."]
         pub frame_id: super::FrameId,
-        #[serde(rename = "loaderId")]
+        #[doc = "Loader identifier. Empty string if the request is fetched from worker."]
         pub loader_id: super::super::network::LoaderId,
         #[serde(default)]
-        #[serde(rename = "name")]
         pub name: String,
-        #[serde(rename = "timestamp")]
         pub timestamp: super::super::network::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct BackForwardCacheNotUsedEvent {
         pub params: BackForwardCacheNotUsedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct BackForwardCacheNotUsedEventParams {
-        #[serde(rename = "loaderId")]
+        #[doc = "The loader id for the associated navigation."]
         pub loader_id: super::super::network::LoaderId,
-        #[serde(rename = "frameId")]
+        #[doc = "The frame id of the associated frame."]
         pub frame_id: super::FrameId,
-        #[serde(rename = "notRestoredExplanations")]
+        #[doc = "Array of reasons why the page could not be cached. This must not be empty."]
         pub not_restored_explanations: Vec<super::BackForwardCacheNotRestoredExplanation>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "notRestoredExplanationsTree")]
+        #[doc = "Tree structure of reasons why the page could not be cached for each frame."]
         pub not_restored_explanations_tree:
             Option<super::BackForwardCacheNotRestoredExplanationTree>,
     }
@@ -2814,80 +3174,78 @@ pub mod events {
     pub struct LoadEventFiredEvent {
         pub params: LoadEventFiredEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct LoadEventFiredEventParams {
-        #[serde(rename = "timestamp")]
         pub timestamp: super::super::network::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct NavigatedWithinDocumentEvent {
         pub params: NavigatedWithinDocumentEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct NavigatedWithinDocumentEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame."]
         pub frame_id: super::FrameId,
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "Frame's new url."]
         pub url: String,
-        #[serde(rename = "navigationType")]
+        #[doc = "Navigation type"]
         pub navigation_type: super::NavigatedWithinDocumentNavigationTypeOption,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ScreencastFrameEvent {
         pub params: ScreencastFrameEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ScreencastFrameEventParams {
         #[serde(default)]
-        #[serde(rename = "data")]
+        #[doc = "Base64-encoded compressed image."]
         pub data: u8,
-        #[serde(rename = "metadata")]
+        #[doc = "Screencast frame metadata."]
         pub metadata: super::ScreencastFrameMetadata,
         #[serde(default)]
-        #[serde(rename = "sessionId")]
+        #[doc = "Frame number."]
         pub session_id: JsUInt,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ScreencastVisibilityChangedEvent {
         pub params: ScreencastVisibilityChangedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ScreencastVisibilityChangedEventParams {
         #[serde(default)]
-        #[serde(rename = "visible")]
+        #[doc = "True if the page is visible."]
         pub visible: bool,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WindowOpenEvent {
         pub params: WindowOpenEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WindowOpenEventParams {
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "The URL for the new window."]
         pub url: String,
         #[serde(default)]
-        #[serde(rename = "windowName")]
+        #[doc = "Window name."]
         pub window_name: String,
         #[serde(default)]
-        #[serde(rename = "windowFeatures")]
+        #[doc = "An array of enabled window features."]
         pub window_features: Vec<String>,
         #[serde(default)]
-        #[serde(rename = "userGesture")]
+        #[doc = "Whether or not it was triggered by user gesture."]
         pub user_gesture: bool,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CompilationCacheProducedEvent {
         pub params: CompilationCacheProducedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct CompilationCacheProducedEventParams {
         #[serde(default)]
-        #[serde(rename = "url")]
         pub url: String,
         #[serde(default)]
-        #[serde(rename = "data")]
+        #[doc = "Base64-encoded data"]
         pub data: u8,
     }
 }

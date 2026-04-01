@@ -67,14 +67,13 @@ impl CookieManager for Page {
             same_site: cookie.same_site,
             expires: cookie.expires,
             priority: cookie.priority,
-            same_party: None,
             source_scheme: None,
             source_port: None,
             partition_key: None,
         };
 
-        let result: SetCookieReturnObject = self.session.send_command(params, None).await?;
-        Ok(result.success)
+        let _result: SetCookieReturnObject = self.session.send_command(params, None).await?;
+        Ok(true)
     }
 
     async fn delete_cookies(

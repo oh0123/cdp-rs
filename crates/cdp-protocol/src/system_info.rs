@@ -1,6 +1,8 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: SystemInfo
+// Auto-generated from Chrome at version 146.0.7680.165 domain: SystemInfo
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -23,140 +25,161 @@ pub enum ImageType {
     #[serde(rename = "unknown")]
     Unknown,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Describes a single graphics processor (GPU)."]
 pub struct GpuDevice {
     #[serde(default)]
-    #[serde(rename = "vendorId")]
+    #[doc = "PCI ID of the GPU vendor, if available; 0 otherwise."]
     pub vendor_id: JsFloat,
     #[serde(default)]
-    #[serde(rename = "deviceId")]
+    #[doc = "PCI ID of the GPU device, if available; 0 otherwise."]
     pub device_id: JsFloat,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "subSysId")]
+    #[doc = "Sub sys ID of the GPU, only available on Windows."]
     pub sub_sys_id: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "revision")]
+    #[doc = "Revision of the GPU, only available on Windows."]
     pub revision: Option<JsFloat>,
     #[serde(default)]
-    #[serde(rename = "vendorString")]
+    #[doc = "String description of the GPU vendor, if the PCI ID is not available."]
     pub vendor_string: String,
     #[serde(default)]
-    #[serde(rename = "deviceString")]
+    #[doc = "String description of the GPU device, if the PCI ID is not available."]
     pub device_string: String,
     #[serde(default)]
-    #[serde(rename = "driverVendor")]
+    #[doc = "String description of the GPU driver vendor."]
     pub driver_vendor: String,
     #[serde(default)]
-    #[serde(rename = "driverVersion")]
+    #[doc = "String description of the GPU driver version."]
     pub driver_version: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Describes the width and height dimensions of an entity."]
 pub struct Size {
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Width in pixels."]
     pub width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Height in pixels."]
     pub height: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Describes a supported video decoding profile with its associated minimum and\n maximum resolutions."]
 pub struct VideoDecodeAcceleratorCapability {
     #[serde(default)]
-    #[serde(rename = "profile")]
+    #[doc = "Video codec profile that is supported, e.g. VP9 Profile 2."]
     pub profile: String,
-    #[serde(rename = "maxResolution")]
+    #[doc = "Maximum video dimensions in pixels supported for this |profile|."]
     pub max_resolution: Size,
-    #[serde(rename = "minResolution")]
+    #[doc = "Minimum video dimensions in pixels supported for this |profile|."]
     pub min_resolution: Size,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Describes a supported video encoding profile with its associated maximum\n resolution and maximum framerate."]
 pub struct VideoEncodeAcceleratorCapability {
     #[serde(default)]
-    #[serde(rename = "profile")]
+    #[doc = "Video codec profile that is supported, e.g H264 Main."]
     pub profile: String,
-    #[serde(rename = "maxResolution")]
+    #[doc = "Maximum video dimensions in pixels supported for this |profile|."]
     pub max_resolution: Size,
     #[serde(default)]
-    #[serde(rename = "maxFramerateNumerator")]
+    #[doc = "Maximum encoding framerate in frames per second supported for this\n |profile|, as fraction's numerator and denominator, e.g. 24/1 fps,\n 24000/1001 fps, etc."]
     pub max_framerate_numerator: JsUInt,
     #[serde(default)]
-    #[serde(rename = "maxFramerateDenominator")]
     pub max_framerate_denominator: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct ImageDecodeAcceleratorCapability {
-    #[serde(rename = "imageType")]
-    pub image_type: ImageType,
-    #[serde(rename = "maxDimensions")]
-    pub max_dimensions: Size,
-    #[serde(rename = "minDimensions")]
-    pub min_dimensions: Size,
-    #[serde(rename = "subsamplings")]
-    pub subsamplings: Vec<SubsamplingFormat>,
-}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Provides information about the GPU(s) on the system."]
 pub struct GpuInfo {
-    #[serde(rename = "devices")]
+    #[doc = "The graphics devices on the system. Element 0 is the primary GPU."]
     pub devices: Vec<GpuDevice>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "driverBugWorkarounds")]
+    #[doc = "An optional dictionary of additional GPU related attributes."]
+    pub aux_attributes: Option<Json>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "An optional dictionary of graphics features and their status."]
+    pub feature_status: Option<Json>,
+    #[serde(default)]
+    #[doc = "An optional array of GPU driver bug workarounds."]
     pub driver_bug_workarounds: Vec<String>,
-    #[serde(rename = "videoDecoding")]
+    #[doc = "Supported accelerated video decoding capabilities."]
     pub video_decoding: Vec<VideoDecodeAcceleratorCapability>,
-    #[serde(rename = "videoEncoding")]
+    #[doc = "Supported accelerated video encoding capabilities."]
     pub video_encoding: Vec<VideoEncodeAcceleratorCapability>,
-    #[serde(rename = "imageDecoding")]
-    pub image_decoding: Vec<ImageDecodeAcceleratorCapability>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Represents process info."]
 pub struct ProcessInfo {
     #[serde(default)]
-    #[serde(rename = "type")]
+    #[doc = "Specifies process type."]
     pub r#type: String,
     #[serde(default)]
-    #[serde(rename = "id")]
+    #[doc = "Specifies process id."]
     pub id: JsUInt,
     #[serde(default)]
-    #[serde(rename = "cpuTime")]
+    #[doc = "Specifies cumulative CPU usage in seconds across all threads of the\n process since the process start."]
     pub cpu_time: JsFloat,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetInfo(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetInfo(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns information about the feature state."]
 pub struct GetFeatureState {
     #[serde(default)]
-    #[serde(rename = "featureState")]
     pub feature_state: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetProcessInfo(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct GetProcessInfo(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns information about the system."]
 pub struct GetInfoReturnObject {
-    #[serde(rename = "gpu")]
+    #[doc = "Information about the GPUs on the system."]
     pub gpu: GpuInfo,
     #[serde(default)]
-    #[serde(rename = "modelName")]
+    #[doc = "A platform-dependent description of the model of the machine. On Mac OS, this is, for\n example, 'MacBookPro'. Will be the empty string if not supported."]
     pub model_name: String,
     #[serde(default)]
-    #[serde(rename = "modelVersion")]
+    #[doc = "A platform-dependent description of the version of the machine. On Mac OS, this is, for\n example, '10.1'. Will be the empty string if not supported."]
     pub model_version: String,
     #[serde(default)]
-    #[serde(rename = "commandLine")]
+    #[doc = "The command line string used to launch the browser. Will be the empty string if not\n supported."]
     pub command_line: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns information about the feature state."]
 pub struct GetFeatureStateReturnObject {
     #[serde(default)]
-    #[serde(rename = "featureEnabled")]
     pub feature_enabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns information about all running processes."]
 pub struct GetProcessInfoReturnObject {
-    #[serde(rename = "processInfo")]
+    #[doc = "An array of process info blocks."]
     pub process_info: Vec<ProcessInfo>,
 }
 impl Method for GetInfo {
@@ -175,5 +198,9 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
 }

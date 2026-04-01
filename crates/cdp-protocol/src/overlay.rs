@@ -1,9 +1,11 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Overlay
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Overlay
 use super::dom;
 use super::page;
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -46,606 +48,851 @@ pub enum InspectMode {
     #[serde(rename = "none")]
     None,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Configuration data for drawing the source order of an elements children."]
 pub struct SourceOrderConfig {
-    #[serde(rename = "parentOutlineColor")]
+    #[doc = "the color to outline the given element in."]
     pub parent_outline_color: dom::Rgba,
-    #[serde(rename = "childOutlineColor")]
+    #[doc = "the color to outline the child elements in."]
     pub child_outline_color: dom::Rgba,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Configuration data for the highlighting of Grid elements."]
 pub struct GridHighlightConfig {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showGridExtensionLines")]
+    #[doc = "Whether the extension lines from grid cells to the rulers should be shown (default: false)."]
     pub show_grid_extension_lines: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showPositiveLineNumbers")]
+    #[doc = "Show Positive line number labels (default: false)."]
     pub show_positive_line_numbers: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showNegativeLineNumbers")]
+    #[doc = "Show Negative line number labels (default: false)."]
     pub show_negative_line_numbers: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showAreaNames")]
+    #[doc = "Show area name labels (default: false)."]
     pub show_area_names: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showLineNames")]
+    #[doc = "Show line name labels (default: false)."]
     pub show_line_names: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showTrackSizes")]
+    #[doc = "Show track size labels (default: false)."]
     pub show_track_sizes: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "gridBorderColor")]
+    #[doc = "The grid container border highlight color (default: transparent)."]
     pub grid_border_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "cellBorderColor")]
+    #[doc = "The cell border color (default: transparent). Deprecated, please use rowLineColor and columnLineColor instead."]
+    #[deprecated]
     pub cell_border_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "rowLineColor")]
+    #[doc = "The row line color (default: transparent)."]
     pub row_line_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "columnLineColor")]
+    #[doc = "The column line color (default: transparent)."]
     pub column_line_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "gridBorderDash")]
+    #[doc = "Whether the grid border is dashed (default: false)."]
     pub grid_border_dash: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "cellBorderDash")]
+    #[doc = "Whether the cell border is dashed (default: false). Deprecated, please us rowLineDash and columnLineDash instead."]
+    #[deprecated]
     pub cell_border_dash: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "rowLineDash")]
+    #[doc = "Whether row lines are dashed (default: false)."]
     pub row_line_dash: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "columnLineDash")]
+    #[doc = "Whether column lines are dashed (default: false)."]
     pub column_line_dash: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "rowGapColor")]
+    #[doc = "The row gap highlight fill color (default: transparent)."]
     pub row_gap_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "rowHatchColor")]
+    #[doc = "The row gap hatching fill color (default: transparent)."]
     pub row_hatch_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "columnGapColor")]
+    #[doc = "The column gap highlight fill color (default: transparent)."]
     pub column_gap_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "columnHatchColor")]
+    #[doc = "The column gap hatching fill color (default: transparent)."]
     pub column_hatch_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "areaBorderColor")]
+    #[doc = "The named grid areas border color (Default: transparent)."]
     pub area_border_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "gridBackgroundColor")]
+    #[doc = "The grid container background color (Default: transparent)."]
     pub grid_background_color: Option<dom::Rgba>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Configuration data for the highlighting of Flex container elements."]
 pub struct FlexContainerHighlightConfig {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "containerBorder")]
+    #[doc = "The style of the container border"]
     pub container_border: Option<LineStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "lineSeparator")]
+    #[doc = "The style of the separator between lines"]
     pub line_separator: Option<LineStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "itemSeparator")]
+    #[doc = "The style of the separator between items"]
     pub item_separator: Option<LineStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "mainDistributedSpace")]
+    #[doc = "Style of content-distribution space on the main axis (justify-content)."]
     pub main_distributed_space: Option<BoxStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "crossDistributedSpace")]
+    #[doc = "Style of content-distribution space on the cross axis (align-content)."]
     pub cross_distributed_space: Option<BoxStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "rowGapSpace")]
+    #[doc = "Style of empty space caused by row gaps (gap/row-gap)."]
     pub row_gap_space: Option<BoxStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "columnGapSpace")]
+    #[doc = "Style of empty space caused by columns gaps (gap/column-gap)."]
     pub column_gap_space: Option<BoxStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "crossAlignment")]
+    #[doc = "Style of the self-alignment line (align-items)."]
     pub cross_alignment: Option<LineStyle>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Configuration data for the highlighting of Flex item elements."]
 pub struct FlexItemHighlightConfig {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "baseSizeBox")]
+    #[doc = "Style of the box representing the item's base size"]
     pub base_size_box: Option<BoxStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "baseSizeBorder")]
+    #[doc = "Style of the border around the box representing the item's base size"]
     pub base_size_border: Option<LineStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "flexibilityArrow")]
+    #[doc = "Style of the arrow representing if the item grew or shrank"]
     pub flexibility_arrow: Option<LineStyle>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Style information for drawing a line."]
 pub struct LineStyle {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "color")]
+    #[doc = "The color of the line (default: transparent)"]
     pub color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "pattern")]
+    #[doc = "The line pattern (default: solid)"]
     pub pattern: Option<LineStylePattern>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Style information for drawing a box."]
 pub struct BoxStyle {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "fillColor")]
+    #[doc = "The background color for the box (default: transparent)"]
     pub fill_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "hatchColor")]
+    #[doc = "The hatching color for the box (default: transparent)"]
     pub hatch_color: Option<dom::Rgba>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Configuration data for the highlighting of page elements."]
 pub struct HighlightConfig {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showInfo")]
+    #[doc = "Whether the node info tooltip should be shown (default: false)."]
     pub show_info: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showStyles")]
+    #[doc = "Whether the node styles in the tooltip (default: false)."]
     pub show_styles: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showRulers")]
+    #[doc = "Whether the rulers should be shown (default: false)."]
     pub show_rulers: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showAccessibilityInfo")]
+    #[doc = "Whether the a11y info should be shown (default: true)."]
     pub show_accessibility_info: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showExtensionLines")]
+    #[doc = "Whether the extension lines from node to the rulers should be shown (default: false)."]
     pub show_extension_lines: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "contentColor")]
+    #[doc = "The content box highlight fill color (default: transparent)."]
     pub content_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "paddingColor")]
+    #[doc = "The padding highlight fill color (default: transparent)."]
     pub padding_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "borderColor")]
+    #[doc = "The border highlight fill color (default: transparent)."]
     pub border_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "marginColor")]
+    #[doc = "The margin highlight fill color (default: transparent)."]
     pub margin_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "eventTargetColor")]
+    #[doc = "The event target element highlight fill color (default: transparent)."]
     pub event_target_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "shapeColor")]
+    #[doc = "The shape outside fill color (default: transparent)."]
     pub shape_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "shapeMarginColor")]
+    #[doc = "The shape margin fill color (default: transparent)."]
     pub shape_margin_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "cssGridColor")]
+    #[doc = "The grid layout color (default: transparent)."]
     pub css_grid_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "colorFormat")]
+    #[doc = "The color format used to format color styles (default: hex)."]
     pub color_format: Option<ColorFormat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "gridHighlightConfig")]
+    #[doc = "The grid layout highlight configuration (default: all transparent)."]
     pub grid_highlight_config: Option<GridHighlightConfig>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "flexContainerHighlightConfig")]
+    #[doc = "The flex container highlight configuration (default: all transparent)."]
     pub flex_container_highlight_config: Option<FlexContainerHighlightConfig>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "flexItemHighlightConfig")]
+    #[doc = "The flex item highlight configuration (default: all transparent)."]
     pub flex_item_highlight_config: Option<FlexItemHighlightConfig>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "contrastAlgorithm")]
+    #[doc = "The contrast algorithm to use for the contrast ratio (default: aa)."]
     pub contrast_algorithm: Option<ContrastAlgorithm>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "containerQueryContainerHighlightConfig")]
+    #[doc = "The container query container highlight configuration (default: all transparent)."]
     pub container_query_container_highlight_config: Option<ContainerQueryContainerHighlightConfig>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Configurations for Persistent Grid Highlight"]
 pub struct GridNodeHighlightConfig {
-    #[serde(rename = "gridHighlightConfig")]
+    #[doc = "A descriptor for the highlight appearance."]
     pub grid_highlight_config: GridHighlightConfig,
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node to highlight."]
     pub node_id: dom::NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct FlexNodeHighlightConfig {
-    #[serde(rename = "flexContainerHighlightConfig")]
+    #[doc = "A descriptor for the highlight appearance of flex containers."]
     pub flex_container_highlight_config: FlexContainerHighlightConfig,
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node to highlight."]
     pub node_id: dom::NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ScrollSnapContainerHighlightConfig {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "snapportBorder")]
+    #[doc = "The style of the snapport border (default: transparent)"]
     pub snapport_border: Option<LineStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "snapAreaBorder")]
+    #[doc = "The style of the snap area border (default: transparent)"]
     pub snap_area_border: Option<LineStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "scrollMarginColor")]
+    #[doc = "The margin highlight fill color (default: transparent)."]
     pub scroll_margin_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "scrollPaddingColor")]
+    #[doc = "The padding highlight fill color (default: transparent)."]
     pub scroll_padding_color: Option<dom::Rgba>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ScrollSnapHighlightConfig {
-    #[serde(rename = "scrollSnapContainerHighlightConfig")]
+    #[doc = "A descriptor for the highlight appearance of scroll snap containers."]
     pub scroll_snap_container_highlight_config: ScrollSnapContainerHighlightConfig,
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node to highlight."]
     pub node_id: dom::NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Configuration for dual screen hinge"]
 pub struct HingeConfig {
-    #[serde(rename = "rect")]
+    #[doc = "A rectangle represent hinge"]
     pub rect: dom::Rect,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "contentColor")]
+    #[doc = "The content box highlight fill color (default: a dark color)."]
     pub content_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "outlineColor")]
+    #[doc = "The content box highlight outline color (default: transparent)."]
     pub outline_color: Option<dom::Rgba>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Configuration for Window Controls Overlay"]
 pub struct WindowControlsOverlayConfig {
     #[serde(default)]
+    #[doc = "Whether the title bar CSS should be shown when emulating the Window Controls Overlay."]
     #[serde(rename = "showCSS")]
     pub show_css: bool,
     #[serde(default)]
-    #[serde(rename = "selectedPlatform")]
+    #[doc = "Selected platforms to show the overlay."]
     pub selected_platform: String,
     #[serde(default)]
-    #[serde(rename = "themeColor")]
+    #[doc = "The theme color defined in app manifest."]
     pub theme_color: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ContainerQueryHighlightConfig {
-    #[serde(rename = "containerQueryContainerHighlightConfig")]
+    #[doc = "A descriptor for the highlight appearance of container query containers."]
     pub container_query_container_highlight_config: ContainerQueryContainerHighlightConfig,
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the container node to highlight."]
     pub node_id: dom::NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct ContainerQueryContainerHighlightConfig {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "containerBorder")]
+    #[doc = "The style of the container border."]
     pub container_border: Option<LineStyle>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "descendantBorder")]
+    #[doc = "The style of the descendants' borders."]
     pub descendant_border: Option<LineStyle>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct IsolatedElementHighlightConfig {
-    #[serde(rename = "isolationModeHighlightConfig")]
+    #[doc = "A descriptor for the highlight appearance of an element in isolation mode."]
     pub isolation_mode_highlight_config: IsolationModeHighlightConfig,
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the isolated element to highlight."]
     pub node_id: dom::NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct IsolationModeHighlightConfig {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "resizerColor")]
+    #[doc = "The fill color of the resizers (default: transparent)."]
     pub resizer_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "resizerHandleColor")]
+    #[doc = "The fill color for resizer handles (default: transparent)."]
     pub resizer_handle_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "maskColor")]
+    #[doc = "The fill color for the mask covering non-isolated elements (default: transparent)."]
     pub mask_color: Option<dom::Rgba>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct InspectedElementAnchorConfig {
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "Identifier of the node to highlight."]
+    pub node_id: Option<dom::NodeId>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "Identifier of the backend node to highlight."]
+    pub backend_node_id: Option<dom::BackendNodeId>,
+}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Enable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "For testing."]
 pub struct GetHighlightObjectForTest {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to get highlight object for."]
     pub node_id: dom::NodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "includeDistance")]
+    #[doc = "Whether to include distance info."]
     pub include_distance: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "includeStyle")]
+    #[doc = "Whether to include style info."]
     pub include_style: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "colorFormat")]
+    #[doc = "The color format to get config with (default: hex)."]
     pub color_format: Option<ColorFormat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "showAccessibilityInfo")]
+    #[doc = "Whether to show accessibility info (default: true)."]
     pub show_accessibility_info: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "For Persistent Grid testing."]
 pub struct GetGridHighlightObjectsForTest {
-    #[serde(rename = "nodeIds")]
+    #[doc = "Ids of the node to get highlight object for."]
     pub node_ids: dom::NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "For Source Order Viewer testing."]
 pub struct GetSourceOrderHighlightObjectForTest {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to highlight."]
     pub node_id: dom::NodeId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct HideHighlight(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct HideHighlight(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Highlights owner element of the frame with given id.\n Deprecated: Doesn't work reliably and cannot be fixed due to process\n separation (the owner node might be in a different process). Determine\n the owner node in the client and use highlightNode."]
+#[deprecated]
 pub struct HighlightFrame {
-    #[serde(rename = "frameId")]
+    #[doc = "Identifier of the frame to highlight."]
     pub frame_id: page::FrameId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "contentColor")]
+    #[doc = "The content box highlight fill color (default: transparent)."]
     pub content_color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "contentOutlineColor")]
+    #[doc = "The content box highlight outline color (default: transparent)."]
     pub content_outline_color: Option<dom::Rgba>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Highlights DOM node with given id or with the given JavaScript object wrapper. Either nodeId or\n objectId must be specified."]
 pub struct HighlightNode {
-    #[serde(rename = "highlightConfig")]
+    #[doc = "A descriptor for the highlight appearance."]
     pub highlight_config: HighlightConfig,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node to highlight."]
     pub node_id: Option<dom::NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node to highlight."]
     pub backend_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node to be highlighted."]
     pub object_id: Option<runtime::RemoteObjectId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "selector")]
+    #[doc = "Selectors to highlight relevant nodes."]
     pub selector: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Highlights given quad. Coordinates are absolute with respect to the main frame viewport."]
 pub struct HighlightQuad {
-    #[serde(rename = "quad")]
+    #[doc = "Quad to highlight"]
     pub quad: dom::Quad,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "color")]
+    #[doc = "The highlight fill color (default: transparent)."]
     pub color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "outlineColor")]
+    #[doc = "The highlight outline color (default: transparent)."]
     pub outline_color: Option<dom::Rgba>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Highlights given rectangle. Coordinates are absolute with respect to the main frame viewport.\n Issue: the method does not handle device pixel ratio (DPR) correctly.\n The coordinates currently have to be adjusted by the client\n if DPR is not 1 (see crbug.com/437807128)."]
 pub struct HighlightRect {
     #[serde(default)]
-    #[serde(rename = "x")]
+    #[doc = "X coordinate"]
     pub x: JsUInt,
     #[serde(default)]
-    #[serde(rename = "y")]
+    #[doc = "Y coordinate"]
     pub y: JsUInt,
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Rectangle width"]
     pub width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Rectangle height"]
     pub height: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "color")]
+    #[doc = "The highlight fill color (default: transparent)."]
     pub color: Option<dom::Rgba>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "outlineColor")]
+    #[doc = "The highlight outline color (default: transparent)."]
     pub outline_color: Option<dom::Rgba>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Highlights the source order of the children of the DOM node with given id or with the given\n JavaScript object wrapper. Either nodeId or objectId must be specified."]
 pub struct HighlightSourceOrder {
-    #[serde(rename = "sourceOrderConfig")]
+    #[doc = "A descriptor for the appearance of the overlay drawing."]
     pub source_order_config: SourceOrderConfig,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node to highlight."]
     pub node_id: Option<dom::NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node to highlight."]
     pub backend_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node to be highlighted."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enters the 'inspect' mode. In this mode, elements that user is hovering over are highlighted.\n Backend then generates 'inspectNodeRequested' event upon element selection."]
 pub struct SetInspectMode {
-    #[serde(rename = "mode")]
+    #[doc = "Set an inspection mode."]
     pub mode: InspectMode,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "highlightConfig")]
+    #[doc = "A descriptor for the highlight appearance of hovered-over nodes. May be omitted if `enabled\n == false`."]
     pub highlight_config: Option<HighlightConfig>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Highlights owner element of all frames detected to be ads."]
 pub struct SetShowAdHighlights {
     #[serde(default)]
-    #[serde(rename = "show")]
+    #[doc = "True for showing ad highlights"]
     pub show: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SetPausedInDebuggerMessage {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "message")]
+    #[doc = "The message to display, also triggers resume and step over controls."]
     pub message: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that backend shows debug borders on layers"]
 pub struct SetShowDebugBorders {
     #[serde(default)]
-    #[serde(rename = "show")]
+    #[doc = "True for showing debug borders"]
     pub show: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that backend shows the FPS counter"]
 pub struct SetShowFPSCounter {
     #[serde(default)]
-    #[serde(rename = "show")]
+    #[doc = "True for showing the FPS counter"]
     pub show: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Highlight multiple elements with the CSS Grid overlay."]
 pub struct SetShowGridOverlays {
-    #[serde(rename = "gridNodeHighlightConfigs")]
+    #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub grid_node_highlight_configs: Vec<GridNodeHighlightConfig>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SetShowFlexOverlays {
-    #[serde(rename = "flexNodeHighlightConfigs")]
+    #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub flex_node_highlight_configs: Vec<FlexNodeHighlightConfig>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SetShowScrollSnapOverlays {
-    #[serde(rename = "scrollSnapHighlightConfigs")]
+    #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub scroll_snap_highlight_configs: Vec<ScrollSnapHighlightConfig>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SetShowContainerQueryOverlays {
-    #[serde(rename = "containerQueryHighlightConfigs")]
+    #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub container_query_highlight_configs: Vec<ContainerQueryHighlightConfig>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+pub struct SetShowInspectedElementAnchor {
+    #[doc = "Node identifier for which to show an anchor for."]
+    pub inspected_element_anchor_config: InspectedElementAnchorConfig,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that backend shows paint rectangles"]
 pub struct SetShowPaintRects {
     #[serde(default)]
-    #[serde(rename = "result")]
+    #[doc = "True for showing paint rectangles"]
     pub result: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that backend shows layout shift regions"]
 pub struct SetShowLayoutShiftRegions {
     #[serde(default)]
-    #[serde(rename = "result")]
+    #[doc = "True for showing layout shift regions"]
     pub result: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that backend shows scroll bottleneck rects"]
 pub struct SetShowScrollBottleneckRects {
     #[serde(default)]
-    #[serde(rename = "show")]
+    #[doc = "True for showing scroll bottleneck rects"]
     pub show: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deprecated, no longer has any effect."]
+#[deprecated]
 pub struct SetShowHitTestBorders {
     #[serde(default)]
-    #[serde(rename = "show")]
+    #[doc = "True for showing hit-test borders"]
     pub show: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deprecated, no longer has any effect."]
+#[deprecated]
 pub struct SetShowWebVitals {
     #[serde(default)]
-    #[serde(rename = "show")]
     pub show: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Paints viewport size upon main frame resize."]
 pub struct SetShowViewportSizeOnResize {
     #[serde(default)]
-    #[serde(rename = "show")]
+    #[doc = "Whether to paint size or not."]
     pub show: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Add a dual screen device hinge"]
 pub struct SetShowHinge {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "hingeConfig")]
+    #[doc = "hinge data, null means hideHinge"]
     pub hinge_config: Option<HingeConfig>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Show elements in isolation mode with overlays."]
 pub struct SetShowIsolatedElements {
-    #[serde(rename = "isolatedElementHighlightConfigs")]
+    #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub isolated_element_highlight_configs: Vec<IsolatedElementHighlightConfig>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Show Window Controls Overlay for PWA"]
 pub struct SetShowWindowControlsOverlay {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "windowControlsOverlayConfig")]
+    #[doc = "Window Controls Overlay data, null means hide Window Controls Overlay"]
     pub window_controls_overlay_config: Option<WindowControlsOverlayConfig>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Disables domain notifications."]
+pub struct DisableReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables domain notifications."]
+pub struct EnableReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "For testing."]
+pub struct GetHighlightObjectForTestReturnObject {
+    #[serde(default)]
+    #[doc = "Highlight data for the node."]
+    pub highlight: Json,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct GetHighlightObjectForTestReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct GetGridHighlightObjectsForTestReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct GetSourceOrderHighlightObjectForTestReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "For Persistent Grid testing."]
+pub struct GetGridHighlightObjectsForTestReturnObject {
+    #[serde(default)]
+    #[doc = "Grid Highlight data for the node ids provided."]
+    pub highlights: Json,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct HideHighlightReturnObject {}
+#[doc = "For Source Order Viewer testing."]
+pub struct GetSourceOrderHighlightObjectForTestReturnObject {
+    #[serde(default)]
+    #[doc = "Source order highlight data for the node id provided."]
+    pub highlight: Json,
+}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HighlightFrameReturnObject {}
+#[doc = "Hides any highlight."]
+pub struct HideHighlightReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HighlightNodeReturnObject {}
+#[doc = "Highlights owner element of the frame with given id.\n Deprecated: Doesn't work reliably and cannot be fixed due to process\n separation (the owner node might be in a different process). Determine\n the owner node in the client and use highlightNode."]
+#[deprecated]
+pub struct HighlightFrameReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HighlightQuadReturnObject {}
+#[doc = "Highlights DOM node with given id or with the given JavaScript object wrapper. Either nodeId or\n objectId must be specified."]
+pub struct HighlightNodeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HighlightRectReturnObject {}
+#[doc = "Highlights given quad. Coordinates are absolute with respect to the main frame viewport."]
+pub struct HighlightQuadReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HighlightSourceOrderReturnObject {}
+#[doc = "Highlights given rectangle. Coordinates are absolute with respect to the main frame viewport.\n Issue: the method does not handle device pixel ratio (DPR) correctly.\n The coordinates currently have to be adjusted by the client\n if DPR is not 1 (see crbug.com/437807128)."]
+pub struct HighlightRectReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetInspectModeReturnObject {}
+#[doc = "Highlights the source order of the children of the DOM node with given id or with the given\n JavaScript object wrapper. Either nodeId or objectId must be specified."]
+pub struct HighlightSourceOrderReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowAdHighlightsReturnObject {}
+#[doc = "Enters the 'inspect' mode. In this mode, elements that user is hovering over are highlighted.\n Backend then generates 'inspectNodeRequested' event upon element selection."]
+pub struct SetInspectModeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetPausedInDebuggerMessageReturnObject {}
+#[doc = "Highlights owner element of all frames detected to be ads."]
+pub struct SetShowAdHighlightsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowDebugBordersReturnObject {}
+pub struct SetPausedInDebuggerMessageReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowFPSCounterReturnObject {}
+#[doc = "Requests that backend shows debug borders on layers"]
+pub struct SetShowDebugBordersReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowGridOverlaysReturnObject {}
+#[doc = "Requests that backend shows the FPS counter"]
+pub struct SetShowFPSCounterReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowFlexOverlaysReturnObject {}
+#[doc = "Highlight multiple elements with the CSS Grid overlay."]
+pub struct SetShowGridOverlaysReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowScrollSnapOverlaysReturnObject {}
+pub struct SetShowFlexOverlaysReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowContainerQueryOverlaysReturnObject {}
+pub struct SetShowScrollSnapOverlaysReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowPaintRectsReturnObject {}
+pub struct SetShowContainerQueryOverlaysReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowLayoutShiftRegionsReturnObject {}
+pub struct SetShowInspectedElementAnchorReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowScrollBottleneckRectsReturnObject {}
+#[doc = "Requests that backend shows paint rectangles"]
+pub struct SetShowPaintRectsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowHitTestBordersReturnObject {}
+#[doc = "Requests that backend shows layout shift regions"]
+pub struct SetShowLayoutShiftRegionsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowWebVitalsReturnObject {}
+#[doc = "Requests that backend shows scroll bottleneck rects"]
+pub struct SetShowScrollBottleneckRectsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowViewportSizeOnResizeReturnObject {}
+#[doc = "Deprecated, no longer has any effect."]
+#[deprecated]
+pub struct SetShowHitTestBordersReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowHingeReturnObject {}
+#[doc = "Deprecated, no longer has any effect."]
+#[deprecated]
+pub struct SetShowWebVitalsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowIsolatedElementsReturnObject {}
+#[doc = "Paints viewport size upon main frame resize."]
+pub struct SetShowViewportSizeOnResizeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetShowWindowControlsOverlayReturnObject {}
+#[doc = "Add a dual screen device hinge"]
+pub struct SetShowHingeReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Show elements in isolation mode with overlays."]
+pub struct SetShowIsolatedElementsReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Show Window Controls Overlay for PWA"]
+pub struct SetShowWindowControlsOverlayReturnObject(pub Option<Json>);
 impl Method for Disable {
     const NAME: &'static str = "Overlay.disable";
     type ReturnObject = DisableReturnObject;
@@ -726,6 +973,10 @@ impl Method for SetShowContainerQueryOverlays {
     const NAME: &'static str = "Overlay.setShowContainerQueryOverlays";
     type ReturnObject = SetShowContainerQueryOverlaysReturnObject;
 }
+impl Method for SetShowInspectedElementAnchor {
+    const NAME: &'static str = "Overlay.setShowInspectedElementAnchor";
+    type ReturnObject = SetShowInspectedElementAnchorReturnObject;
+}
 impl Method for SetShowPaintRects {
     const NAME: &'static str = "Overlay.setShowPaintRects";
     type ReturnObject = SetShowPaintRectsReturnObject;
@@ -766,35 +1017,55 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InspectNodeRequestedEvent {
         pub params: InspectNodeRequestedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct InspectNodeRequestedEventParams {
-        #[serde(rename = "backendNodeId")]
+        #[doc = "Id of the node to inspect."]
         pub backend_node_id: super::super::dom::BackendNodeId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct NodeHighlightRequestedEvent {
         pub params: NodeHighlightRequestedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct NodeHighlightRequestedEventParams {
-        #[serde(rename = "nodeId")]
         pub node_id: super::super::dom::NodeId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ScreenshotRequestedEvent {
         pub params: ScreenshotRequestedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ScreenshotRequestedEventParams {
-        #[serde(rename = "viewport")]
+        #[doc = "Viewport to capture, in device independent pixels (dip)."]
         pub viewport: super::super::page::Viewport,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    #[serde(rename_all = "camelCase")]
-    pub struct InspectModeCanceledEvent(pub Option<serde_json::Value>);
+    pub struct InspectPanelShowRequestedEvent {
+        pub params: InspectPanelShowRequestedEventParams,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    pub struct InspectPanelShowRequestedEventParams {
+        #[doc = "Id of the node to show in the panel."]
+        pub backend_node_id: super::super::dom::BackendNodeId,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    pub struct InspectedElementWindowRestoredEvent {
+        pub params: InspectedElementWindowRestoredEventParams,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    pub struct InspectedElementWindowRestoredEventParams {
+        #[doc = "Id of the node to restore the floating window for."]
+        pub backend_node_id: super::super::dom::BackendNodeId,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    pub struct InspectModeCanceledEvent(pub Option<Json>);
 }

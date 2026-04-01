@@ -1,6 +1,8 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Console
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Console
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -43,46 +45,49 @@ pub enum ConsoleMessageLevel {
     #[serde(rename = "info")]
     Info,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Console message."]
 pub struct ConsoleMessage {
-    #[serde(rename = "source")]
+    #[doc = "Message source."]
     pub source: ConsoleMessageSource,
-    #[serde(rename = "level")]
+    #[doc = "Message severity."]
     pub level: ConsoleMessageLevel,
     #[serde(default)]
-    #[serde(rename = "text")]
+    #[doc = "Message text."]
     pub text: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "URL of the message origin."]
     pub url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "line")]
+    #[doc = "Line number in the resource that generated this message (1-based)."]
     pub line: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "column")]
+    #[doc = "Column number in the resource that generated this message (1-based)."]
     pub column: Option<JsUInt>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearMessages(pub Option<serde_json::Value>);
+pub struct ClearMessages(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct Disable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
+pub struct Enable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearMessagesReturnObject {}
+#[doc = "Does nothing."]
+pub struct ClearMessagesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables console domain, prevents further console messages from being reported to the client."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enables console domain, sends the messages collected so far to the client by means of the\n `messageAdded` notification."]
+pub struct EnableReturnObject(pub Option<Json>);
 impl Method for ClearMessages {
     const NAME: &'static str = "Console.clearMessages";
     type ReturnObject = ClearMessagesReturnObject;
@@ -99,14 +104,18 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct MessageAddedEvent {
         pub params: MessageAddedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct MessageAddedEventParams {
-        #[serde(rename = "message")]
+        #[doc = "Console message that has been added."]
         pub message: super::ConsoleMessage,
     }
 }

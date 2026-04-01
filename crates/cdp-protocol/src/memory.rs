@@ -1,6 +1,8 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Memory
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Memory
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -12,143 +14,160 @@ pub enum PressureLevel {
     #[serde(rename = "critical")]
     Critical,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Heap profile sample."]
 pub struct SamplingProfileNode {
     #[serde(default)]
-    #[serde(rename = "size")]
+    #[doc = "Size of the sampled allocation."]
     pub size: JsFloat,
     #[serde(default)]
-    #[serde(rename = "total")]
+    #[doc = "Total bytes attributed to this sample."]
     pub total: JsFloat,
     #[serde(default)]
-    #[serde(rename = "stack")]
+    #[doc = "Execution stack at the point of allocation."]
     pub stack: Vec<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Array of heap profile samples."]
 pub struct SamplingProfile {
-    #[serde(rename = "samples")]
     pub samples: Vec<SamplingProfileNode>,
-    #[serde(rename = "modules")]
     pub modules: Vec<Module>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Executable module information"]
 pub struct Module {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Name of the module."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "uuid")]
+    #[doc = "UUID of the module."]
     pub uuid: String,
     #[serde(default)]
-    #[serde(rename = "baseAddress")]
+    #[doc = "Base address where the module is loaded into memory. Encoded as a decimal\n or hexadecimal (0x prefixed) string."]
     pub base_address: String,
     #[serde(default)]
-    #[serde(rename = "size")]
+    #[doc = "Size of the module in bytes."]
     pub size: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "DOM object counter data."]
 pub struct DomCounter {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Object name. Note: object names should be presumed volatile and clients should not expect\n the returned names to be consistent across runs."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "count")]
+    #[doc = "Object count."]
     pub count: JsUInt,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetDOMCounters(pub Option<serde_json::Value>);
+pub struct GetDOMCounters(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetDOMCountersForLeakDetection(pub Option<serde_json::Value>);
+pub struct GetDOMCountersForLeakDetection(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct PrepareForLeakDetection(pub Option<serde_json::Value>);
+pub struct PrepareForLeakDetection(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct ForciblyPurgeJavaScriptMemory(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ForciblyPurgeJavaScriptMemory(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enable/disable suppressing memory pressure notifications in all processes."]
 pub struct SetPressureNotificationsSuppressed {
     #[serde(default)]
-    #[serde(rename = "suppressed")]
+    #[doc = "If true, memory pressure notifications will be suppressed."]
     pub suppressed: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Simulate a memory pressure notification in all processes."]
 pub struct SimulatePressureNotification {
-    #[serde(rename = "level")]
+    #[doc = "Memory pressure level of the notification."]
     pub level: PressureLevel,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Start collecting native memory profile."]
 pub struct StartSampling {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "samplingInterval")]
+    #[doc = "Average number of bytes between samples."]
     pub sampling_interval: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "suppressRandomness")]
+    #[doc = "Do not randomize intervals between samples."]
     pub suppress_randomness: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopSampling(pub Option<serde_json::Value>);
+pub struct StopSampling(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetAllTimeSamplingProfile(pub Option<serde_json::Value>);
+pub struct GetAllTimeSamplingProfile(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetBrowserSamplingProfile(pub Option<serde_json::Value>);
+pub struct GetBrowserSamplingProfile(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetSamplingProfile(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct GetSamplingProfile(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Retruns current DOM object counters."]
 pub struct GetDOMCountersReturnObject {
     #[serde(default)]
-    #[serde(rename = "documents")]
     pub documents: JsUInt,
     #[serde(default)]
-    #[serde(rename = "nodes")]
     pub nodes: JsUInt,
     #[serde(default)]
-    #[serde(rename = "jsEventListeners")]
     pub js_event_listeners: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Retruns DOM object counters after preparing renderer for leak detection."]
 pub struct GetDOMCountersForLeakDetectionReturnObject {
-    #[serde(rename = "counters")]
+    #[doc = "DOM object counters."]
     pub counters: Vec<DomCounter>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct PrepareForLeakDetectionReturnObject {}
+#[doc = "Prepares for leak detection by terminating workers, stopping spellcheckers,\n dropping non-essential internal caches, running garbage collections, etc."]
+pub struct PrepareForLeakDetectionReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ForciblyPurgeJavaScriptMemoryReturnObject {}
+#[doc = "Simulate OomIntervention by purging V8 memory."]
+pub struct ForciblyPurgeJavaScriptMemoryReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetPressureNotificationsSuppressedReturnObject {}
+#[doc = "Enable/disable suppressing memory pressure notifications in all processes."]
+pub struct SetPressureNotificationsSuppressedReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SimulatePressureNotificationReturnObject {}
+#[doc = "Simulate a memory pressure notification in all processes."]
+pub struct SimulatePressureNotificationReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StartSamplingReturnObject {}
+#[doc = "Start collecting native memory profile."]
+pub struct StartSamplingReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Stop collecting native memory profile."]
+pub struct StopSamplingReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct StopSamplingReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Retrieve native memory allocations profile\n collected since renderer process startup."]
 pub struct GetAllTimeSamplingProfileReturnObject {
-    #[serde(rename = "profile")]
     pub profile: SamplingProfile,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Retrieve native memory allocations profile\n collected since browser process startup."]
 pub struct GetBrowserSamplingProfileReturnObject {
-    #[serde(rename = "profile")]
     pub profile: SamplingProfile,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Retrieve native memory allocations profile collected since last\n `startSampling` call."]
 pub struct GetSamplingProfileReturnObject {
-    #[serde(rename = "profile")]
     pub profile: SamplingProfile,
 }
 impl Method for GetDOMCounters {
@@ -199,5 +218,9 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
 }

@@ -1,6 +1,8 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: BluetoothEmulation
+// Auto-generated from Chrome at version 146.0.7680.165 domain: BluetoothEmulation
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -48,263 +50,297 @@ pub enum DescriptorOperationType {
     #[serde(rename = "write")]
     Write,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Stores the manufacturer data"]
 pub struct ManufacturerData {
     #[serde(default)]
-    #[serde(rename = "key")]
+    #[doc = "Company identifier\n https://bitbucket.org/bluetooth-SIG/public/src/main/assigned_numbers/company_identifiers/company_identifiers.yaml\n https://usb.org/developers"]
     pub key: JsUInt,
-    #[serde(rename = "data")]
+    #[doc = "Manufacturer-specific data"]
     pub data: Vec<u8>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Stores the byte data of the advertisement packet sent by a Bluetooth device."]
 pub struct ScanRecord {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "uuids")]
     pub uuids: Option<Vec<String>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "appearance")]
+    #[doc = "Stores the external appearance description of the device."]
     pub appearance: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "txPower")]
+    #[doc = "Stores the transmission power of a broadcasting device."]
     pub tx_power: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "manufacturerData")]
+    #[doc = "Key is the company identifier and the value is an array of bytes of\n manufacturer specific data."]
     pub manufacturer_data: Option<Vec<ManufacturerData>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Stores the advertisement packet information that is sent by a Bluetooth device."]
 pub struct ScanEntry {
     #[serde(default)]
-    #[serde(rename = "deviceAddress")]
     pub device_address: String,
     #[serde(default)]
-    #[serde(rename = "rssi")]
     pub rssi: JsUInt,
-    #[serde(rename = "scanRecord")]
     pub scan_record: ScanRecord,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Describes the properties of a characteristic. This follows Bluetooth Core\n Specification BT 4.2 Vol 3 Part G 3.3.1. Characteristic Properties."]
 pub struct CharacteristicProperties {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "broadcast")]
     pub broadcast: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "read")]
     pub read: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "writeWithoutResponse")]
     pub write_without_response: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "write")]
     pub write: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "notify")]
     pub notify: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "indicate")]
     pub indicate: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "authenticatedSignedWrites")]
     pub authenticated_signed_writes: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "extendedProperties")]
     pub extended_properties: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enable the BluetoothEmulation domain."]
 pub struct Enable {
-    #[serde(rename = "state")]
+    #[doc = "State of the simulated central."]
     pub state: CentralState,
     #[serde(default)]
-    #[serde(rename = "leSupported")]
+    #[doc = "If the simulated central supports low-energy."]
     pub le_supported: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set the state of the simulated central."]
 pub struct SetSimulatedCentralState {
-    #[serde(rename = "state")]
+    #[doc = "State of the simulated central."]
     pub state: CentralState,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Simulates a peripheral with |address|, |name| and |knownServiceUuids|\n that has already been connected to the system."]
 pub struct SimulatePreconnectedPeripheral {
     #[serde(default)]
-    #[serde(rename = "address")]
     pub address: String,
     #[serde(default)]
-    #[serde(rename = "name")]
     pub name: String,
-    #[serde(rename = "manufacturerData")]
     pub manufacturer_data: Vec<ManufacturerData>,
     #[serde(default)]
-    #[serde(rename = "knownServiceUuids")]
     pub known_service_uuids: Vec<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Simulates an advertisement packet described in |entry| being received by\n the central."]
 pub struct SimulateAdvertisement {
-    #[serde(rename = "entry")]
     pub entry: ScanEntry,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Simulates the response code from the peripheral with |address| for a\n GATT operation of |type|. The |code| value follows the HCI Error Codes from\n Bluetooth Core Specification Vol 2 Part D 1.3 List Of Error Codes."]
 pub struct SimulateGATTOperationResponse {
     #[serde(default)]
-    #[serde(rename = "address")]
     pub address: String,
-    #[serde(rename = "type")]
     pub r#type: GattOperationType,
     #[serde(default)]
-    #[serde(rename = "code")]
     pub code: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Simulates the response from the characteristic with |characteristicId| for a\n characteristic operation of |type|. The |code| value follows the Error\n Codes from Bluetooth Core Specification Vol 3 Part F 3.4.1.1 Error Response.\n The |data| is expected to exist when simulating a successful read operation\n response."]
 pub struct SimulateCharacteristicOperationResponse {
     #[serde(default)]
-    #[serde(rename = "characteristicId")]
     pub characteristic_id: String,
-    #[serde(rename = "type")]
     pub r#type: CharacteristicOperationType,
     #[serde(default)]
-    #[serde(rename = "code")]
     pub code: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "data")]
     pub data: Option<Vec<u8>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Simulates the response from the descriptor with |descriptorId| for a\n descriptor operation of |type|. The |code| value follows the Error\n Codes from Bluetooth Core Specification Vol 3 Part F 3.4.1.1 Error Response.\n The |data| is expected to exist when simulating a successful read operation\n response."]
 pub struct SimulateDescriptorOperationResponse {
     #[serde(default)]
-    #[serde(rename = "descriptorId")]
     pub descriptor_id: String,
-    #[serde(rename = "type")]
     pub r#type: DescriptorOperationType,
     #[serde(default)]
-    #[serde(rename = "code")]
     pub code: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "data")]
     pub data: Option<Vec<u8>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Adds a service with |serviceUuid| to the peripheral with |address|."]
 pub struct AddService {
     #[serde(default)]
-    #[serde(rename = "address")]
     pub address: String,
     #[serde(default)]
-    #[serde(rename = "serviceUuid")]
     pub service_uuid: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Removes the service respresented by |serviceId| from the simulated central."]
 pub struct RemoveService {
     #[serde(default)]
-    #[serde(rename = "serviceId")]
     pub service_id: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Adds a characteristic with |characteristicUuid| and |properties| to the\n service represented by |serviceId|."]
 pub struct AddCharacteristic {
     #[serde(default)]
-    #[serde(rename = "serviceId")]
     pub service_id: String,
     #[serde(default)]
-    #[serde(rename = "characteristicUuid")]
     pub characteristic_uuid: String,
-    #[serde(rename = "properties")]
     pub properties: CharacteristicProperties,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Removes the characteristic respresented by |characteristicId| from the\n simulated central."]
 pub struct RemoveCharacteristic {
     #[serde(default)]
-    #[serde(rename = "characteristicId")]
     pub characteristic_id: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Adds a descriptor with |descriptorUuid| to the characteristic respresented\n by |characteristicId|."]
 pub struct AddDescriptor {
     #[serde(default)]
-    #[serde(rename = "characteristicId")]
     pub characteristic_id: String,
     #[serde(default)]
-    #[serde(rename = "descriptorUuid")]
     pub descriptor_uuid: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Removes the descriptor with |descriptorId| from the simulated central."]
 pub struct RemoveDescriptor {
     #[serde(default)]
-    #[serde(rename = "descriptorId")]
     pub descriptor_id: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Simulates a GATT disconnection from the peripheral with |address|."]
 pub struct SimulateGATTDisconnection {
     #[serde(default)]
-    #[serde(rename = "address")]
     pub address: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enable the BluetoothEmulation domain."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetSimulatedCentralStateReturnObject {}
+#[doc = "Set the state of the simulated central."]
+pub struct SetSimulatedCentralStateReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disable the BluetoothEmulation domain."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SimulatePreconnectedPeripheralReturnObject {}
+#[doc = "Simulates a peripheral with |address|, |name| and |knownServiceUuids|\n that has already been connected to the system."]
+pub struct SimulatePreconnectedPeripheralReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SimulateAdvertisementReturnObject {}
+#[doc = "Simulates an advertisement packet described in |entry| being received by\n the central."]
+pub struct SimulateAdvertisementReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SimulateGATTOperationResponseReturnObject {}
+#[doc = "Simulates the response code from the peripheral with |address| for a\n GATT operation of |type|. The |code| value follows the HCI Error Codes from\n Bluetooth Core Specification Vol 2 Part D 1.3 List Of Error Codes."]
+pub struct SimulateGATTOperationResponseReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SimulateCharacteristicOperationResponseReturnObject {}
+#[doc = "Simulates the response from the characteristic with |characteristicId| for a\n characteristic operation of |type|. The |code| value follows the Error\n Codes from Bluetooth Core Specification Vol 3 Part F 3.4.1.1 Error Response.\n The |data| is expected to exist when simulating a successful read operation\n response."]
+pub struct SimulateCharacteristicOperationResponseReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Simulates the response from the descriptor with |descriptorId| for a\n descriptor operation of |type|. The |code| value follows the Error\n Codes from Bluetooth Core Specification Vol 3 Part F 3.4.1.1 Error Response.\n The |data| is expected to exist when simulating a successful read operation\n response."]
+pub struct SimulateDescriptorOperationResponseReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SimulateDescriptorOperationResponseReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Adds a service with |serviceUuid| to the peripheral with |address|."]
 pub struct AddServiceReturnObject {
     #[serde(default)]
-    #[serde(rename = "serviceId")]
+    #[doc = "An identifier that uniquely represents this service."]
     pub service_id: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Removes the service respresented by |serviceId| from the simulated central."]
+pub struct RemoveServiceReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct RemoveServiceReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Adds a characteristic with |characteristicUuid| and |properties| to the\n service represented by |serviceId|."]
 pub struct AddCharacteristicReturnObject {
     #[serde(default)]
-    #[serde(rename = "characteristicId")]
+    #[doc = "An identifier that uniquely represents this characteristic."]
     pub characteristic_id: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Removes the characteristic respresented by |characteristicId| from the\n simulated central."]
+pub struct RemoveCharacteristicReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct RemoveCharacteristicReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Adds a descriptor with |descriptorUuid| to the characteristic respresented\n by |characteristicId|."]
 pub struct AddDescriptorReturnObject {
     #[serde(default)]
-    #[serde(rename = "descriptorId")]
+    #[doc = "An identifier that uniquely represents this descriptor."]
     pub descriptor_id: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveDescriptorReturnObject {}
+#[doc = "Removes the descriptor with |descriptorId| from the simulated central."]
+pub struct RemoveDescriptorReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SimulateGATTDisconnectionReturnObject {}
+#[doc = "Simulates a GATT disconnection from the peripheral with |address|."]
+pub struct SimulateGATTDisconnectionReturnObject(pub Option<Json>);
 impl Method for Enable {
     const NAME: &'static str = "BluetoothEmulation.enable";
     type ReturnObject = EnableReturnObject;
@@ -369,52 +405,50 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct GattOperationReceivedEvent {
         pub params: GattOperationReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct GattOperationReceivedEventParams {
         #[serde(default)]
-        #[serde(rename = "address")]
         pub address: String,
-        #[serde(rename = "type")]
         pub r#type: super::GattOperationType,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CharacteristicOperationReceivedEvent {
         pub params: CharacteristicOperationReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct CharacteristicOperationReceivedEventParams {
         #[serde(default)]
-        #[serde(rename = "characteristicId")]
         pub characteristic_id: String,
-        #[serde(rename = "type")]
         pub r#type: super::CharacteristicOperationType,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "data")]
         pub data: Option<u8>,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "writeType")]
         pub write_type: Option<super::CharacteristicWriteType>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DescriptorOperationReceivedEvent {
         pub params: DescriptorOperationReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DescriptorOperationReceivedEventParams {
         #[serde(default)]
-        #[serde(rename = "descriptorId")]
         pub descriptor_id: String,
-        #[serde(rename = "type")]
         pub r#type: super::DescriptorOperationType,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "data")]
         pub data: Option<u8>,
     }
 }

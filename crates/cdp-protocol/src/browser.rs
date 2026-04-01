@@ -1,7 +1,9 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Browser
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Browser
 use super::target;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -53,8 +55,12 @@ pub enum PermissionType {
     KeyboardLock,
     #[serde(rename = "localFonts")]
     LocalFonts,
+    #[serde(rename = "localNetwork")]
+    LocalNetwork,
     #[serde(rename = "localNetworkAccess")]
     LocalNetworkAccess,
+    #[serde(rename = "loopbackNetwork")]
+    LoopbackNetwork,
     #[serde(rename = "midi")]
     Midi,
     #[serde(rename = "midiSysex")]
@@ -141,330 +147,418 @@ pub enum DownloadProgressStateOption {
     #[serde(rename = "canceled")]
     Canceled,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Browser window bounds information"]
 pub struct Bounds {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "left")]
+    #[doc = "The offset from the left edge of the screen to the window in pixels."]
     pub left: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "top")]
+    #[doc = "The offset from the top edge of the screen to the window in pixels."]
     pub top: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "The window width in pixels."]
     pub width: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "The window height in pixels."]
     pub height: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "windowState")]
+    #[doc = "The window state. Default to normal."]
     pub window_state: Option<WindowState>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Definition of PermissionDescriptor defined in the Permissions API:\n https://w3c.github.io/permissions/#dom-permissiondescriptor."]
 pub struct PermissionDescriptor {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Name of permission.\n See https://cs.chromium.org/chromium/src/third_party/blink/renderer/modules/permissions/permission_descriptor.idl for valid permission names."]
     pub name: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "sysex")]
+    #[doc = "For \"midi\" permission, may also specify sysex control."]
     pub sysex: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "userVisibleOnly")]
+    #[doc = "For \"push\" permission, may specify userVisibleOnly.\n Note that userVisibleOnly = true is the only currently supported type."]
     pub user_visible_only: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "allowWithoutSanitization")]
+    #[doc = "For \"clipboard\" permission, may specify allowWithoutSanitization."]
     pub allow_without_sanitization: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "allowWithoutGesture")]
+    #[doc = "For \"fullscreen\" permission, must specify allowWithoutGesture:true."]
     pub allow_without_gesture: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "panTiltZoom")]
+    #[doc = "For \"camera\" permission, may specify panTiltZoom."]
     pub pan_tilt_zoom: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Chrome histogram bucket."]
 pub struct Bucket {
     #[serde(default)]
-    #[serde(rename = "low")]
+    #[doc = "Minimum value (inclusive)."]
     pub low: JsUInt,
     #[serde(default)]
-    #[serde(rename = "high")]
+    #[doc = "Maximum value (exclusive)."]
     pub high: JsUInt,
     #[serde(default)]
-    #[serde(rename = "count")]
+    #[doc = "Number of samples."]
     pub count: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Chrome histogram."]
 pub struct Histogram {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "sum")]
+    #[doc = "Sum of sample values."]
     pub sum: JsUInt,
     #[serde(default)]
-    #[serde(rename = "count")]
+    #[doc = "Total number of samples."]
     pub count: JsUInt,
-    #[serde(rename = "buckets")]
+    #[doc = "Buckets."]
     pub buckets: Vec<Bucket>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set permission settings for given embedding and embedded origins."]
 pub struct SetPermission {
-    #[serde(rename = "permission")]
+    #[doc = "Descriptor of permission to override."]
     pub permission: PermissionDescriptor,
-    #[serde(rename = "setting")]
+    #[doc = "Setting of the permission."]
     pub setting: PermissionSetting,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "origin")]
+    #[doc = "Embedding origin the permission applies to, all origins if not specified."]
     pub origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "embeddedOrigin")]
+    #[doc = "Embedded origin the permission applies to. It is ignored unless the embedding origin is\n present and valid. If the embedding origin is provided but the embedded origin isn't, the\n embedding origin is used as the embedded origin."]
     pub embedded_origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "browserContextId")]
+    #[doc = "Context to override. When omitted, default browser context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Grant specific permissions to the given origin and reject all others. Deprecated. Use\n setPermission instead."]
+#[deprecated]
 pub struct GrantPermissions {
-    #[serde(rename = "permissions")]
     pub permissions: Vec<PermissionType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "origin")]
+    #[doc = "Origin the permission applies to, all origins if not specified."]
     pub origin: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "browserContextId")]
+    #[doc = "BrowserContext to override permissions. When omitted, default browser context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Reset all permission management for all origins."]
 pub struct ResetPermissions {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "browserContextId")]
+    #[doc = "BrowserContext to reset permissions. When omitted, default browser context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set the behavior when downloading a file."]
 pub struct SetDownloadBehavior {
-    #[serde(rename = "behavior")]
+    #[doc = "Whether to allow all or deny all download requests, or use default Chrome behavior if\n available (otherwise deny). |allowAndName| allows download and names files according to\n their download guids."]
     pub behavior: SetDownloadBehaviorBehaviorOption,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "browserContextId")]
+    #[doc = "BrowserContext to set download behavior. When omitted, default browser context is used."]
     pub browser_context_id: Option<BrowserContextId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "downloadPath")]
+    #[doc = "The default path to save downloaded files to. This is required if behavior is set to 'allow'\n or 'allowAndName'."]
     pub download_path: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "eventsEnabled")]
+    #[doc = "Whether to emit download events (defaults to false)."]
     pub events_enabled: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Cancel a download if in progress"]
 pub struct CancelDownload {
     #[serde(default)]
-    #[serde(rename = "guid")]
+    #[doc = "Global unique identifier of the download."]
     pub guid: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "browserContextId")]
+    #[doc = "BrowserContext to perform the action in. When omitted, default browser context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Close(pub Option<serde_json::Value>);
+pub struct Close(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Crash(pub Option<serde_json::Value>);
+pub struct Crash(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CrashGpuProcess(pub Option<serde_json::Value>);
+pub struct CrashGpuProcess(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GetVersion(pub Option<serde_json::Value>);
+pub struct GetVersion(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetBrowserCommandLine(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetBrowserCommandLine(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Get Chrome histograms."]
 pub struct GetHistograms {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "query")]
+    #[doc = "Requested substring in name. Only histograms which have query as a\n substring in their name are extracted. An empty or absent query returns\n all histograms."]
     pub query: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "delta")]
+    #[doc = "If true, retrieve delta since last delta call."]
     pub delta: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get a Chrome histogram by name."]
 pub struct GetHistogram {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Requested histogram name."]
     pub name: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "delta")]
+    #[doc = "If true, retrieve delta since last delta call."]
     pub delta: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get position and size of the browser window."]
 pub struct GetWindowBounds {
-    #[serde(rename = "windowId")]
+    #[doc = "Browser window id."]
     pub window_id: WindowId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get the browser window that contains the devtools target."]
 pub struct GetWindowForTarget {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "targetId")]
+    #[doc = "Devtools agent host id. If called as a part of the session, associated targetId is used."]
     pub target_id: Option<target::TargetId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set position and/or size of the browser window."]
 pub struct SetWindowBounds {
-    #[serde(rename = "windowId")]
+    #[doc = "Browser window id."]
     pub window_id: WindowId,
-    #[serde(rename = "bounds")]
+    #[doc = "New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined\n with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged."]
     pub bounds: Bounds,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set size of the browser contents resizing browser window as necessary."]
 pub struct SetContentsSize {
-    #[serde(rename = "windowId")]
+    #[doc = "Browser window id."]
     pub window_id: WindowId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "The window contents width in DIP. Assumes current width if omitted.\n Must be specified if 'height' is omitted."]
     pub width: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "The window contents height in DIP. Assumes current height if omitted.\n Must be specified if 'width' is omitted."]
     pub height: Option<JsUInt>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set dock tile details, platform-specific."]
 pub struct SetDockTile {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "badgeLabel")]
     pub badge_label: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "image")]
+    #[doc = "Png encoded image."]
     pub image: Option<Vec<u8>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Invoke custom browser commands used by telemetry."]
 pub struct ExecuteBrowserCommand {
-    #[serde(rename = "commandId")]
     pub command_id: BrowserCommandId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Allows a site to use privacy sandbox features that require enrollment\n without the site actually being enrolled. Only supported on page targets."]
 pub struct AddPrivacySandboxEnrollmentOverride {
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Configures encryption keys used with a given privacy sandbox API to talk\n to a trusted coordinator.  Since this is intended for test automation only,\n coordinatorOrigin must be a .test domain. No existing coordinator\n configuration for the origin may exist."]
 pub struct AddPrivacySandboxCoordinatorKeyConfig {
-    #[serde(rename = "api")]
     pub api: PrivacySandboxApi,
     #[serde(default)]
-    #[serde(rename = "coordinatorOrigin")]
     pub coordinator_origin: String,
     #[serde(default)]
-    #[serde(rename = "keyConfig")]
     pub key_config: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "browserContextId")]
+    #[doc = "BrowserContext to perform the action in. When omitted, default browser\n context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetPermissionReturnObject {}
+#[doc = "Set permission settings for given embedding and embedded origins."]
+pub struct SetPermissionReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GrantPermissionsReturnObject {}
+#[doc = "Grant specific permissions to the given origin and reject all others. Deprecated. Use\n setPermission instead."]
+#[deprecated]
+pub struct GrantPermissionsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ResetPermissionsReturnObject {}
+#[doc = "Reset all permission management for all origins."]
+pub struct ResetPermissionsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDownloadBehaviorReturnObject {}
+#[doc = "Set the behavior when downloading a file."]
+pub struct SetDownloadBehaviorReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CancelDownloadReturnObject {}
+#[doc = "Cancel a download if in progress"]
+pub struct CancelDownloadReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CloseReturnObject {}
+#[doc = "Close browser gracefully."]
+pub struct CloseReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CrashReturnObject {}
+#[doc = "Crashes browser on the main thread."]
+pub struct CrashReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Crashes GPU process."]
+pub struct CrashGpuProcessReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct CrashGpuProcessReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns version information."]
 pub struct GetVersionReturnObject {
     #[serde(default)]
-    #[serde(rename = "protocolVersion")]
+    #[doc = "Protocol version."]
     pub protocol_version: String,
     #[serde(default)]
-    #[serde(rename = "product")]
+    #[doc = "Product name."]
     pub product: String,
     #[serde(default)]
-    #[serde(rename = "revision")]
+    #[doc = "Product revision."]
     pub revision: String,
     #[serde(default)]
-    #[serde(rename = "userAgent")]
+    #[doc = "User-Agent."]
     pub user_agent: String,
     #[serde(default)]
-    #[serde(rename = "jsVersion")]
+    #[doc = "V8 version."]
     pub js_version: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the command line switches for the browser process if, and only if\n --enable-automation is on the commandline."]
 pub struct GetBrowserCommandLineReturnObject {
-    #[serde(rename = "arguments")]
+    #[doc = "Commandline parameters"]
     pub arguments: Vec<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get Chrome histograms."]
 pub struct GetHistogramsReturnObject {
-    #[serde(rename = "histograms")]
+    #[doc = "Histograms."]
     pub histograms: Vec<Histogram>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get a Chrome histogram by name."]
 pub struct GetHistogramReturnObject {
-    #[serde(rename = "histogram")]
+    #[doc = "Histogram."]
     pub histogram: Histogram,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get position and size of the browser window."]
 pub struct GetWindowBoundsReturnObject {
-    #[serde(rename = "bounds")]
+    #[doc = "Bounds information of the window. When window state is 'minimized', the restored window\n position and size are returned."]
     pub bounds: Bounds,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Get the browser window that contains the devtools target."]
 pub struct GetWindowForTargetReturnObject {
-    #[serde(rename = "windowId")]
+    #[doc = "Browser window id."]
     pub window_id: WindowId,
-    #[serde(rename = "bounds")]
+    #[doc = "Bounds information of the window. When window state is 'minimized', the restored window\n position and size are returned."]
     pub bounds: Bounds,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetWindowBoundsReturnObject {}
+#[doc = "Set position and/or size of the browser window."]
+pub struct SetWindowBoundsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetContentsSizeReturnObject {}
+#[doc = "Set size of the browser contents resizing browser window as necessary."]
+pub struct SetContentsSizeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDockTileReturnObject {}
+#[doc = "Set dock tile details, platform-specific."]
+pub struct SetDockTileReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ExecuteBrowserCommandReturnObject {}
+#[doc = "Invoke custom browser commands used by telemetry."]
+pub struct ExecuteBrowserCommandReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct AddPrivacySandboxEnrollmentOverrideReturnObject {}
+#[doc = "Allows a site to use privacy sandbox features that require enrollment\n without the site actually being enrolled. Only supported on page targets."]
+pub struct AddPrivacySandboxEnrollmentOverrideReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct AddPrivacySandboxCoordinatorKeyConfigReturnObject {}
+#[doc = "Configures encryption keys used with a given privacy sandbox API to talk\n to a trusted coordinator.  Since this is intended for test automation only,\n coordinatorOrigin must be a .test domain. No existing coordinator\n configuration for the origin may exist."]
+pub struct AddPrivacySandboxCoordinatorKeyConfigReturnObject(pub Option<Json>);
 impl Method for SetPermission {
     const NAME: &'static str = "Browser.setPermission";
     type ReturnObject = SetPermissionReturnObject;
@@ -549,45 +643,50 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DownloadWillBeginEvent {
         pub params: DownloadWillBeginEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DownloadWillBeginEventParams {
-        #[serde(rename = "frameId")]
+        #[doc = "Id of the frame that caused the download to begin."]
         pub frame_id: super::super::page::FrameId,
         #[serde(default)]
-        #[serde(rename = "guid")]
+        #[doc = "Global unique identifier of the download."]
         pub guid: String,
         #[serde(default)]
-        #[serde(rename = "url")]
+        #[doc = "URL of the resource being downloaded."]
         pub url: String,
         #[serde(default)]
-        #[serde(rename = "suggestedFilename")]
+        #[doc = "Suggested file name of the resource (the actual name of the file saved on disk may differ)."]
         pub suggested_filename: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DownloadProgressEvent {
         pub params: DownloadProgressEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DownloadProgressEventParams {
         #[serde(default)]
-        #[serde(rename = "guid")]
+        #[doc = "Global unique identifier of the download."]
         pub guid: String,
         #[serde(default)]
-        #[serde(rename = "totalBytes")]
+        #[doc = "Total expected bytes to download."]
         pub total_bytes: JsFloat,
         #[serde(default)]
-        #[serde(rename = "receivedBytes")]
+        #[doc = "Total bytes received."]
         pub received_bytes: JsFloat,
-        #[serde(rename = "state")]
+        #[doc = "Download status."]
         pub state: super::DownloadProgressStateOption,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[serde(rename = "filePath")]
+        #[doc = "If download is \"completed\", provides the path of the downloaded file.\n Depending on the platform, it is not guaranteed to be set, nor the file\n is guaranteed to exist."]
         pub file_path: Option<String>,
     }
 }

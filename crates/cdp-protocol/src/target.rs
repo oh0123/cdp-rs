@@ -1,8 +1,10 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Target
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Target
 use super::browser;
 use super::page;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -21,322 +23,449 @@ pub enum WindowState {
     #[serde(rename = "fullscreen")]
     Fullscreen,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct TargetInfo {
-    #[serde(rename = "targetId")]
     pub target_id: TargetId,
     #[serde(default)]
-    #[serde(rename = "type")]
+    #[doc = "List of types: https://source.chromium.org/chromium/chromium/src/+/main:content/browser/devtools/devtools_agent_host_impl.cc?ss=chromium&q=f:devtools%20-f:out%20%22::kTypeTab%5B%5D%22"]
     pub r#type: String,
     #[serde(default)]
-    #[serde(rename = "title")]
     pub title: String,
     #[serde(default)]
-    #[serde(rename = "url")]
     pub url: String,
     #[serde(default)]
-    #[serde(rename = "attached")]
+    #[doc = "Whether the target has an attached client."]
     pub attached: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "openerId")]
+    #[doc = "Opener target Id"]
     pub opener_id: Option<TargetId>,
     #[serde(default)]
-    #[serde(rename = "canAccessOpener")]
+    #[doc = "Whether the target has access to the originating window."]
     pub can_access_opener: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "openerFrameId")]
+    #[doc = "Frame id of originating window (is only set if target has an opener)."]
     pub opener_frame_id: Option<page::FrameId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "parentFrameId")]
+    #[doc = "Id of the parent frame, only present for the \"iframe\" targets."]
     pub parent_frame_id: Option<page::FrameId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "browserContextId")]
     pub browser_context_id: Option<browser::BrowserContextId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "subtype")]
+    #[doc = "Provides additional details for specific target types. For example, for\n the type of \"page\", this may be set to \"prerender\"."]
     pub subtype: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A filter used by target query/discovery/auto-attach operations."]
 pub struct FilterEntry {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "exclude")]
+    #[doc = "If set, causes exclusion of matching targets from the list."]
     pub exclude: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "type")]
+    #[doc = "If not present, matches any type."]
     pub r#type: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct RemoteLocation {
     #[serde(default)]
-    #[serde(rename = "host")]
     pub host: String,
     #[serde(default)]
-    #[serde(rename = "port")]
     pub port: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Activates (focuses) the target."]
 pub struct ActivateTarget {
-    #[serde(rename = "targetId")]
     pub target_id: TargetId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Attaches to the target with given id."]
 pub struct AttachToTarget {
-    #[serde(rename = "targetId")]
     pub target_id: TargetId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "flatten")]
+    #[doc = "Enables \"flat\" access to the session via specifying sessionId attribute in the commands.\n We plan to make this the default, deprecate non-flattened mode,\n and eventually retire it. See crbug.com/991325."]
     pub flatten: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct AttachToBrowserTarget(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct AttachToBrowserTarget(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Closes the target. If the target is a page that gets closed too."]
 pub struct CloseTarget {
-    #[serde(rename = "targetId")]
     pub target_id: TargetId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Inject object to the target's main frame that provides a communication\n channel with browser target.\n \n Injected object will be available as `window[bindingName]`.\n \n The object has the following API:\n - `binding.send(json)` - a method to send messages over the remote debugging protocol\n - `binding.onmessage = json => handleMessage(json)` - a callback that will be called for the protocol notifications and command responses."]
 pub struct ExposeDevToolsProtocol {
-    #[serde(rename = "targetId")]
     pub target_id: TargetId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "bindingName")]
+    #[doc = "Binding name, 'cdp' if not specified."]
     pub binding_name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "inheritPermissions")]
+    #[doc = "If true, inherits the current root session's permissions (default: false)."]
     pub inherit_permissions: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than\n one."]
 pub struct CreateBrowserContext {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "disposeOnDetach")]
+    #[doc = "If specified, disposes this context when debugging session disconnects."]
     pub dispose_on_detach: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "proxyServer")]
+    #[doc = "Proxy server, similar to the one passed to --proxy-server"]
     pub proxy_server: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "proxyBypassList")]
+    #[doc = "Proxy bypass list, similar to the one passed to --proxy-bypass-list"]
     pub proxy_bypass_list: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "originsWithUniversalNetworkAccess")]
+    #[doc = "An optional list of origins to grant unlimited cross-origin access to.\n Parts of the URL other than those constituting origin are ignored."]
     pub origins_with_universal_network_access: Option<Vec<String>>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetBrowserContexts(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetBrowserContexts(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Creates a new page."]
 pub struct CreateTarget {
     #[serde(default)]
-    #[serde(rename = "url")]
+    #[doc = "The initial URL the page will be navigated to. An empty string indicates about:blank."]
     pub url: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "left")]
+    #[doc = "Frame left origin in DIP (requires newWindow to be true or headless shell)."]
     pub left: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "top")]
+    #[doc = "Frame top origin in DIP (requires newWindow to be true or headless shell)."]
     pub top: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Frame width in DIP (requires newWindow to be true or headless shell)."]
     pub width: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Frame height in DIP (requires newWindow to be true or headless shell)."]
     pub height: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "windowState")]
+    #[doc = "Frame window state (requires newWindow to be true or headless shell).\n Default is normal."]
     pub window_state: Option<WindowState>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "browserContextId")]
+    #[doc = "The browser context to create the page in."]
     pub browser_context_id: Option<browser::BrowserContextId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "enableBeginFrameControl")]
+    #[doc = "Whether BeginFrames for this target will be controlled via DevTools (headless shell only,\n not supported on MacOS yet, false by default)."]
     pub enable_begin_frame_control: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "newWindow")]
+    #[doc = "Whether to create a new Window or Tab (false by default, not supported by headless shell)."]
     pub new_window: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "background")]
+    #[doc = "Whether to create the target in background or foreground (false by default, not supported\n by headless shell)."]
     pub background: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "forTab")]
+    #[doc = "Whether to create the target of type \"tab\"."]
     pub for_tab: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "hidden")]
+    #[doc = "Whether to create a hidden target. The hidden target is observable via protocol, but not\n present in the tab UI strip. Cannot be created with `forTab: true`, `newWindow: true` or\n `background: false`. The life-time of the tab is limited to the life-time of the session."]
     pub hidden: Option<bool>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "If specified, the option is used to determine if the new target should\n be focused or not. By default, the focus behavior depends on the\n value of the background field. For example, background=false and focus=false\n will result in the target tab being opened but the browser window remain\n unchanged (if it was in the background, it will remain in the background)\n and background=false with focus=undefined will result in the window being focused.\n Using background: true and focus: true is not supported and will result in an error."]
+    pub focus: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Detaches session with given id."]
 pub struct DetachFromTarget {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sessionId")]
+    #[doc = "Session to detach."]
     pub session_id: Option<SessionId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "targetId")]
+    #[doc = "Deprecated."]
+    #[deprecated]
     pub target_id: Option<TargetId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Deletes a BrowserContext. All the belonging pages will be closed without calling their\n beforeunload hooks."]
 pub struct DisposeBrowserContext {
-    #[serde(rename = "browserContextId")]
     pub browser_context_id: browser::BrowserContextId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns information about a target."]
 pub struct GetTargetInfo {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "targetId")]
     pub target_id: Option<TargetId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Retrieves a list of available targets."]
 pub struct GetTargets {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "filter")]
+    #[doc = "Only targets matching filter will be reported. If filter is not specified\n and target discovery is currently enabled, a filter used for target discovery\n is used for consistency."]
     pub filter: Option<TargetFilter>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sends protocol message over session with given id.\n Consider using flat mode instead; see commands attachToTarget, setAutoAttach,\n and crbug.com/991325."]
+#[deprecated]
 pub struct SendMessageToTarget {
     #[serde(default)]
-    #[serde(rename = "message")]
     pub message: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sessionId")]
+    #[doc = "Identifier of the session."]
     pub session_id: Option<SessionId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "targetId")]
+    #[doc = "Deprecated."]
+    #[deprecated]
     pub target_id: Option<TargetId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Controls whether to automatically attach to new targets which are considered\n to be directly related to this one (for example, iframes or workers).\n When turned on, attaches to all existing related targets as well. When turned off,\n automatically detaches from all currently attached targets.\n This also clears all targets added by `autoAttachRelated` from the list of targets to watch\n for creation of related targets.\n You might want to call this recursively for auto-attached targets to attach\n to all available targets."]
 pub struct SetAutoAttach {
     #[serde(default)]
-    #[serde(rename = "autoAttach")]
+    #[doc = "Whether to auto-attach to related targets."]
     pub auto_attach: bool,
     #[serde(default)]
-    #[serde(rename = "waitForDebuggerOnStart")]
+    #[doc = "Whether to pause new targets when attaching to them. Use `Runtime.runIfWaitingForDebugger`\n to run paused targets."]
     pub wait_for_debugger_on_start: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "flatten")]
+    #[doc = "Enables \"flat\" access to the session via specifying sessionId attribute in the commands.\n We plan to make this the default, deprecate non-flattened mode,\n and eventually retire it. See crbug.com/991325."]
     pub flatten: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "filter")]
+    #[doc = "Only targets matching filter will be attached."]
     pub filter: Option<TargetFilter>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Adds the specified target to the list of targets that will be monitored for any related target\n creation (such as child frames, child workers and new versions of service worker) and reported\n through `attachedToTarget`. The specified target is also auto-attached.\n This cancels the effect of any previous `setAutoAttach` and is also cancelled by subsequent\n `setAutoAttach`. Only available at the Browser target."]
 pub struct AutoAttachRelated {
-    #[serde(rename = "targetId")]
     pub target_id: TargetId,
     #[serde(default)]
-    #[serde(rename = "waitForDebuggerOnStart")]
+    #[doc = "Whether to pause new targets when attaching to them. Use `Runtime.runIfWaitingForDebugger`\n to run paused targets."]
     pub wait_for_debugger_on_start: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "filter")]
+    #[doc = "Only targets matching filter will be attached."]
     pub filter: Option<TargetFilter>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Controls whether to discover available targets and notify via\n `targetCreated/targetInfoChanged/targetDestroyed` events."]
 pub struct SetDiscoverTargets {
     #[serde(default)]
-    #[serde(rename = "discover")]
+    #[doc = "Whether to discover available targets."]
     pub discover: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "filter")]
+    #[doc = "Only targets matching filter will be attached. If `discover` is false,\n `filter` must be omitted or empty."]
     pub filter: Option<TargetFilter>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enables target discovery for the specified locations, when `setDiscoverTargets` was set to\n `true`."]
 pub struct SetRemoteLocations {
-    #[serde(rename = "locations")]
+    #[doc = "List of remote locations."]
     pub locations: Vec<RemoteLocation>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct OpenDevTools {
-    #[serde(rename = "targetId")]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Gets the targetId of the DevTools page target opened for the given target\n (if any)."]
+pub struct GetDevToolsTarget {
+    #[doc = "Page or tab target ID."]
     pub target_id: TargetId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct ActivateTargetReturnObject {}
+#[doc = "Opens a DevTools window for the target."]
+pub struct OpenDevTools {
+    #[doc = "This can be the page or tab target ID."]
+    pub target_id: TargetId,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    #[doc = "The id of the panel we want DevTools to open initially. Currently\n supported panels are elements, console, network, sources, resources\n and performance."]
+    pub panel_id: Option<String>,
+}
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Activates (focuses) the target."]
+pub struct ActivateTargetReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Attaches to the target with given id."]
 pub struct AttachToTargetReturnObject {
-    #[serde(rename = "sessionId")]
+    #[doc = "Id assigned to the session."]
     pub session_id: SessionId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Attaches to the browser target, only uses flat sessionId mode."]
 pub struct AttachToBrowserTargetReturnObject {
-    #[serde(rename = "sessionId")]
+    #[doc = "Id assigned to the session."]
     pub session_id: SessionId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Closes the target. If the target is a page that gets closed too."]
 pub struct CloseTargetReturnObject {
     #[serde(default)]
-    #[serde(rename = "success")]
+    #[doc = "Always set to true. If an error occurs, the response indicates protocol error."]
+    #[deprecated]
     pub success: bool,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Inject object to the target's main frame that provides a communication\n channel with browser target.\n \n Injected object will be available as `window[bindingName]`.\n \n The object has the following API:\n - `binding.send(json)` - a method to send messages over the remote debugging protocol\n - `binding.onmessage = json => handleMessage(json)` - a callback that will be called for the protocol notifications and command responses."]
+pub struct ExposeDevToolsProtocolReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct ExposeDevToolsProtocolReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than\n one."]
 pub struct CreateBrowserContextReturnObject {
-    #[serde(rename = "browserContextId")]
+    #[doc = "The id of the context created."]
     pub browser_context_id: browser::BrowserContextId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns all browser contexts created with `Target.createBrowserContext` method."]
 pub struct GetBrowserContextsReturnObject {
-    #[serde(rename = "browserContextIds")]
+    #[doc = "An array of browser context ids."]
     pub browser_context_ids: browser::BrowserContextId,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "The id of the default browser context if available."]
+    pub default_browser_context_id: Option<browser::BrowserContextId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Creates a new page."]
 pub struct CreateTargetReturnObject {
-    #[serde(rename = "targetId")]
+    #[doc = "The id of the page opened."]
     pub target_id: TargetId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DetachFromTargetReturnObject {}
+#[doc = "Detaches session with given id."]
+pub struct DetachFromTargetReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Deletes a BrowserContext. All the belonging pages will be closed without calling their\n beforeunload hooks."]
+pub struct DisposeBrowserContextReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct DisposeBrowserContextReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns information about a target."]
 pub struct GetTargetInfoReturnObject {
-    #[serde(rename = "targetInfo")]
     pub target_info: TargetInfo,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Retrieves a list of available targets."]
 pub struct GetTargetsReturnObject {
-    #[serde(rename = "targetInfos")]
+    #[doc = "The list of targets."]
     pub target_infos: Vec<TargetInfo>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SendMessageToTargetReturnObject {}
+#[doc = "Sends protocol message over session with given id.\n Consider using flat mode instead; see commands attachToTarget, setAutoAttach,\n and crbug.com/991325."]
+#[deprecated]
+pub struct SendMessageToTargetReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetAutoAttachReturnObject {}
+#[doc = "Controls whether to automatically attach to new targets which are considered\n to be directly related to this one (for example, iframes or workers).\n When turned on, attaches to all existing related targets as well. When turned off,\n automatically detaches from all currently attached targets.\n This also clears all targets added by `autoAttachRelated` from the list of targets to watch\n for creation of related targets.\n You might want to call this recursively for auto-attached targets to attach\n to all available targets."]
+pub struct SetAutoAttachReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct AutoAttachRelatedReturnObject {}
+#[doc = "Adds the specified target to the list of targets that will be monitored for any related target\n creation (such as child frames, child workers and new versions of service worker) and reported\n through `attachedToTarget`. The specified target is also auto-attached.\n This cancels the effect of any previous `setAutoAttach` and is also cancelled by subsequent\n `setAutoAttach`. Only available at the Browser target."]
+pub struct AutoAttachRelatedReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetDiscoverTargetsReturnObject {}
+#[doc = "Controls whether to discover available targets and notify via\n `targetCreated/targetInfoChanged/targetDestroyed` events."]
+pub struct SetDiscoverTargetsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables target discovery for the specified locations, when `setDiscoverTargets` was set to\n `true`."]
+pub struct SetRemoteLocationsReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetRemoteLocationsReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Gets the targetId of the DevTools page target opened for the given target\n (if any)."]
+pub struct GetDevToolsTargetReturnObject {
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "The targetId of DevTools page target if exists."]
+    pub target_id: Option<TargetId>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Opens a DevTools window for the target."]
 pub struct OpenDevToolsReturnObject {
-    #[serde(rename = "targetId")]
+    #[doc = "The targetId of DevTools page target."]
     pub target_id: TargetId,
 }
 impl Method for ActivateTarget {
@@ -407,6 +536,10 @@ impl Method for SetRemoteLocations {
     const NAME: &'static str = "Target.setRemoteLocations";
     type ReturnObject = SetRemoteLocationsReturnObject;
 }
+impl Method for GetDevToolsTarget {
+    const NAME: &'static str = "Target.getDevToolsTarget";
+    type ReturnObject = GetDevToolsTargetReturnObject;
+}
 impl Method for OpenDevTools {
     const NAME: &'static str = "Target.openDevTools";
     type ReturnObject = OpenDevToolsReturnObject;
@@ -415,88 +548,89 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AttachedToTargetEvent {
         pub params: AttachedToTargetEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AttachedToTargetEventParams {
-        #[serde(rename = "sessionId")]
+        #[doc = "Identifier assigned to the session used to send/receive messages."]
         pub session_id: super::SessionId,
-        #[serde(rename = "targetInfo")]
         pub target_info: super::TargetInfo,
         #[serde(default)]
-        #[serde(rename = "waitingForDebugger")]
         pub waiting_for_debugger: bool,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DetachedFromTargetEvent {
         pub params: DetachedFromTargetEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DetachedFromTargetEventParams {
-        #[serde(rename = "sessionId")]
+        #[doc = "Detached session identifier."]
         pub session_id: super::SessionId,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "targetId")]
+        #[doc = "Deprecated."]
+        #[deprecated]
         pub target_id: Option<super::TargetId>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReceivedMessageFromTargetEvent {
         pub params: ReceivedMessageFromTargetEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ReceivedMessageFromTargetEventParams {
-        #[serde(rename = "sessionId")]
+        #[doc = "Identifier of a session which sends a message."]
         pub session_id: super::SessionId,
         #[serde(default)]
-        #[serde(rename = "message")]
         pub message: String,
+        #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde(rename = "targetId")]
+        #[doc = "Deprecated."]
+        #[deprecated]
         pub target_id: Option<super::TargetId>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TargetCreatedEvent {
         pub params: TargetCreatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct TargetCreatedEventParams {
-        #[serde(rename = "targetInfo")]
         pub target_info: super::TargetInfo,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TargetDestroyedEvent {
         pub params: TargetDestroyedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct TargetDestroyedEventParams {
-        #[serde(rename = "targetId")]
         pub target_id: super::TargetId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TargetCrashedEvent {
         pub params: TargetCrashedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct TargetCrashedEventParams {
-        #[serde(rename = "targetId")]
         pub target_id: super::TargetId,
         #[serde(default)]
-        #[serde(rename = "status")]
+        #[doc = "Termination status type."]
         pub status: String,
         #[serde(default)]
-        #[serde(rename = "errorCode")]
+        #[doc = "Termination error code."]
         pub error_code: JsUInt,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TargetInfoChangedEvent {
         pub params: TargetInfoChangedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct TargetInfoChangedEventParams {
-        #[serde(rename = "targetInfo")]
         pub target_info: super::TargetInfo,
     }
 }

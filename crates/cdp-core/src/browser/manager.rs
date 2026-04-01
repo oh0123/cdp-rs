@@ -10,10 +10,9 @@ use crate::session::Session;
 use crate::transport::{cdp_protocol::*, websocket_connection::*};
 
 use cdp_protocol::browser::{
-    GrantPermissions, GrantPermissionsReturnObject, PermissionDescriptor, PermissionSetting,
+    SetPermission, SetPermissionReturnObject, PermissionDescriptor, PermissionSetting,
     PermissionType, ResetPermissions, ResetPermissionsReturnObject, SetDownloadBehavior,
-    SetDownloadBehaviorBehaviorOption, SetDownloadBehaviorReturnObject, SetPermission,
-    SetPermissionReturnObject,
+    SetDownloadBehaviorBehaviorOption, SetDownloadBehaviorReturnObject,
 };
 use cdp_protocol::target::{
     AttachToTargetReturnObject, CreateBrowserContext, CreateBrowserContextReturnObject,
@@ -556,6 +555,7 @@ impl Browser {
             background: None,
             for_tab: None,
             hidden: None,
+            focus: Some(true),
         };
         let obj = self
             .send_command::<_, CreateTargetReturnObject>(method, None)
@@ -663,21 +663,37 @@ impl BrowserContext {
     }
 
     /// Grants the provided permissions for the optional origin.
+    ///
+    /// Each [`PermissionType`] is sent as a separate `Browser.setPermission` call
+    /// because [`PermissionDescriptor`] accepts a single permission name string.
     pub async fn grant_permissions(
         &self,
         origin: Option<&str>,
         permissions: &[PermissionType],
     ) -> Result<()> {
-        if permissions.is_empty() {
-            return Ok(());
-        }
+        for permission in permissions {
+            // Serialize the enum variant to its CDP wire-format name (e.g. "geolocation").
+            let name = serde_json::to_value(permission)
+                .ok()
+                .and_then(|v| v.as_str().map(|s| s.to_string()))
+                .unwrap_or_else(|| format!("{:?}", permission));
 
-        let method = GrantPermissions {
-            permissions: permissions.to_vec(),
-            origin: origin.map(|value| value.to_string()),
-            browser_context_id: Some(self.id.clone()),
-        };
-        let _: GrantPermissionsReturnObject = self.browser.send_command(method, None).await?;
+            let method = SetPermission {
+                permission: PermissionDescriptor {
+                    name,
+                    sysex: None,
+                    user_visible_only: None,
+                    allow_without_sanitization: None,
+                    allow_without_gesture: None,
+                    pan_tilt_zoom: None,
+                },
+                origin: origin.map(|v| v.to_string()),
+                setting: PermissionSetting::Granted,
+                browser_context_id: Some(self.id.clone()),
+                embedded_origin: None,
+            };
+            let _: SetPermissionReturnObject = self.browser.send_command(method, None).await?;
+        }
         Ok(())
     }
 

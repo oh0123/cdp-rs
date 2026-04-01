@@ -1,7 +1,9 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: ServiceWorker
+// Auto-generated from Chrome at version 146.0.7680.165 domain: ServiceWorker
 use super::target;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -33,187 +35,178 @@ pub enum ServiceWorkerVersionStatus {
     #[serde(rename = "redundant")]
     Redundant,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "ServiceWorker registration."]
 pub struct ServiceWorkerRegistration {
-    #[serde(rename = "registrationId")]
     pub registration_id: RegistrationId,
     #[serde(default)]
     #[serde(rename = "scopeURL")]
     pub scope_url: String,
     #[serde(default)]
-    #[serde(rename = "isDeleted")]
     pub is_deleted: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "ServiceWorker version."]
 pub struct ServiceWorkerVersion {
     #[serde(default)]
-    #[serde(rename = "versionId")]
     pub version_id: String,
-    #[serde(rename = "registrationId")]
     pub registration_id: RegistrationId,
     #[serde(default)]
     #[serde(rename = "scriptURL")]
     pub script_url: String,
-    #[serde(rename = "runningStatus")]
     pub running_status: ServiceWorkerVersionRunningStatus,
-    #[serde(rename = "status")]
     pub status: ServiceWorkerVersionStatus,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "scriptLastModified")]
+    #[doc = "The Last-Modified header value of the main script."]
     pub script_last_modified: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "scriptResponseTime")]
+    #[doc = "The time at which the response headers of the main script were received from the server.\n For cached script it is the last time the cache entry was validated."]
     pub script_response_time: Option<JsFloat>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "controlledClients")]
     pub controlled_clients: Option<Vec<target::TargetId>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "targetId")]
     pub target_id: Option<target::TargetId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "routerRules")]
     pub router_rules: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "ServiceWorker error message."]
 pub struct ServiceWorkerErrorMessage {
     #[serde(default)]
-    #[serde(rename = "errorMessage")]
     pub error_message: String,
-    #[serde(rename = "registrationId")]
     pub registration_id: RegistrationId,
     #[serde(default)]
-    #[serde(rename = "versionId")]
     pub version_id: String,
     #[serde(default)]
     #[serde(rename = "sourceURL")]
     pub source_url: String,
     #[serde(default)]
-    #[serde(rename = "lineNumber")]
     pub line_number: JsUInt,
     #[serde(default)]
-    #[serde(rename = "columnNumber")]
     pub column_number: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct DeliverPushMessage {
     #[serde(default)]
-    #[serde(rename = "origin")]
     pub origin: String,
-    #[serde(rename = "registrationId")]
     pub registration_id: RegistrationId,
     #[serde(default)]
-    #[serde(rename = "data")]
     pub data: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DispatchSyncEvent {
     #[serde(default)]
-    #[serde(rename = "origin")]
     pub origin: String,
-    #[serde(rename = "registrationId")]
     pub registration_id: RegistrationId,
     #[serde(default)]
-    #[serde(rename = "tag")]
     pub tag: String,
     #[serde(default)]
-    #[serde(rename = "lastChance")]
     pub last_chance: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct DispatchPeriodicSyncEvent {
     #[serde(default)]
-    #[serde(rename = "origin")]
     pub origin: String,
-    #[serde(rename = "registrationId")]
     pub registration_id: RegistrationId,
     #[serde(default)]
-    #[serde(rename = "tag")]
     pub tag: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Enable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetForceUpdateOnPageLoad {
     #[serde(default)]
-    #[serde(rename = "forceUpdateOnPageLoad")]
     pub force_update_on_page_load: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct SkipWaiting {
     #[serde(default)]
     #[serde(rename = "scopeURL")]
     pub scope_url: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct StartWorker {
     #[serde(default)]
     #[serde(rename = "scopeURL")]
     pub scope_url: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct StopAllWorkers(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct StopAllWorkers(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopWorker {
     #[serde(default)]
-    #[serde(rename = "versionId")]
     pub version_id: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct Unregister {
     #[serde(default)]
     #[serde(rename = "scopeURL")]
     pub scope_url: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct UpdateRegistration {
     #[serde(default)]
     #[serde(rename = "scopeURL")]
     pub scope_url: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DeliverPushMessageReturnObject {}
+pub struct DeliverPushMessageReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DispatchSyncEventReturnObject {}
+pub struct DispatchSyncEventReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DispatchPeriodicSyncEventReturnObject {}
+pub struct DispatchPeriodicSyncEventReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetForceUpdateOnPageLoadReturnObject {}
+pub struct SetForceUpdateOnPageLoadReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SkipWaitingReturnObject {}
+pub struct SkipWaitingReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StartWorkerReturnObject {}
+pub struct StartWorkerReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopAllWorkersReturnObject {}
+pub struct StopAllWorkersReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopWorkerReturnObject {}
+pub struct StopWorkerReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct UnregisterReturnObject {}
+pub struct UnregisterReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct UpdateRegistrationReturnObject {}
+pub struct UpdateRegistrationReturnObject(pub Option<Json>);
 impl Method for DeliverPushMessage {
     const NAME: &'static str = "ServiceWorker.deliverPushMessage";
     type ReturnObject = DeliverPushMessageReturnObject;
@@ -266,32 +259,33 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WorkerErrorReportedEvent {
         pub params: WorkerErrorReportedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WorkerErrorReportedEventParams {
-        #[serde(rename = "errorMessage")]
         pub error_message: super::ServiceWorkerErrorMessage,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WorkerRegistrationUpdatedEvent {
         pub params: WorkerRegistrationUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WorkerRegistrationUpdatedEventParams {
-        #[serde(rename = "registrations")]
         pub registrations: Vec<super::ServiceWorkerRegistration>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WorkerVersionUpdatedEvent {
         pub params: WorkerVersionUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct WorkerVersionUpdatedEventParams {
-        #[serde(rename = "versions")]
         pub versions: Vec<super::ServiceWorkerVersion>,
     }
 }

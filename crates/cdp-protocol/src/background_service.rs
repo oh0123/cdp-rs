@@ -1,8 +1,10 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: BackgroundService
+// Auto-generated from Chrome at version 146.0.7680.165 domain: BackgroundService
 use super::network;
 use super::service_worker;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -22,73 +24,83 @@ pub enum ServiceName {
     #[serde(rename = "periodicBackgroundSync")]
     PeriodicBackgroundSync,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A key-value pair for additional event information to pass along."]
 pub struct EventMetadata {
     #[serde(default)]
-    #[serde(rename = "key")]
     pub key: String,
     #[serde(default)]
-    #[serde(rename = "value")]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct BackgroundServiceEvent {
-    #[serde(rename = "timestamp")]
+    #[doc = "Timestamp of the event (in seconds)."]
     pub timestamp: network::TimeSinceEpoch,
     #[serde(default)]
-    #[serde(rename = "origin")]
+    #[doc = "The origin this event belongs to."]
     pub origin: String,
-    #[serde(rename = "serviceWorkerRegistrationId")]
+    #[doc = "The Service Worker ID that initiated the event."]
     pub service_worker_registration_id: service_worker::RegistrationId,
-    #[serde(rename = "service")]
+    #[doc = "The Background Service this event belongs to."]
     pub service: ServiceName,
     #[serde(default)]
-    #[serde(rename = "eventName")]
+    #[doc = "A description of the event."]
     pub event_name: String,
     #[serde(default)]
-    #[serde(rename = "instanceId")]
+    #[doc = "An identifier that groups related events together."]
     pub instance_id: String,
-    #[serde(rename = "eventMetadata")]
+    #[doc = "A list of event-specific information."]
     pub event_metadata: Vec<EventMetadata>,
     #[serde(default)]
-    #[serde(rename = "storageKey")]
+    #[doc = "Storage key this event belongs to."]
     pub storage_key: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enables event updates for the service."]
 pub struct StartObserving {
-    #[serde(rename = "service")]
     pub service: ServiceName,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Disables event updates for the service."]
 pub struct StopObserving {
-    #[serde(rename = "service")]
     pub service: ServiceName,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Set the recording state for the service."]
 pub struct SetRecording {
     #[serde(default)]
-    #[serde(rename = "shouldRecord")]
     pub should_record: bool,
-    #[serde(rename = "service")]
     pub service: ServiceName,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Clears all stored data for the service."]
 pub struct ClearEvents {
-    #[serde(rename = "service")]
     pub service: ServiceName,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StartObservingReturnObject {}
+#[doc = "Enables event updates for the service."]
+pub struct StartObservingReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct StopObservingReturnObject {}
+#[doc = "Disables event updates for the service."]
+pub struct StopObservingReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetRecordingReturnObject {}
+#[doc = "Set the recording state for the service."]
+pub struct SetRecordingReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearEventsReturnObject {}
+#[doc = "Clears all stored data for the service."]
+pub struct ClearEventsReturnObject(pub Option<Json>);
 impl Method for StartObserving {
     const NAME: &'static str = "BackgroundService.startObserving";
     type ReturnObject = StartObservingReturnObject;
@@ -109,26 +121,27 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RecordingStateChangedEvent {
         pub params: RecordingStateChangedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct RecordingStateChangedEventParams {
         #[serde(default)]
-        #[serde(rename = "isRecording")]
         pub is_recording: bool,
-        #[serde(rename = "service")]
         pub service: super::ServiceName,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct BackgroundServiceEventReceivedEvent {
         pub params: BackgroundServiceEventReceivedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct BackgroundServiceEventReceivedEventParams {
-        #[serde(rename = "backgroundServiceEvent")]
         pub background_service_event: super::BackgroundServiceEvent,
     }
 }

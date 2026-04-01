@@ -1,50 +1,55 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: DeviceAccess
+// Auto-generated from Chrome at version 146.0.7680.165 domain: DeviceAccess
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type RequestId = String;
 pub type DeviceId = String;
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Device information displayed in a user prompt to select a device."]
 pub struct PromptDevice {
-    #[serde(rename = "id")]
     pub id: DeviceId,
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Display name as it appears in a device request user prompt."]
     pub name: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
+pub struct Enable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Select a device in response to a DeviceAccess.deviceRequestPrompted event."]
 pub struct SelectPrompt {
-    #[serde(rename = "id")]
     pub id: RequestId,
-    #[serde(rename = "deviceId")]
     pub device_id: DeviceId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Cancel a prompt in response to a DeviceAccess.deviceRequestPrompted event."]
 pub struct CancelPrompt {
-    #[serde(rename = "id")]
     pub id: RequestId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enable events in this domain."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disable events in this domain."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SelectPromptReturnObject {}
+#[doc = "Select a device in response to a DeviceAccess.deviceRequestPrompted event."]
+pub struct SelectPromptReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct CancelPromptReturnObject {}
+#[doc = "Cancel a prompt in response to a DeviceAccess.deviceRequestPrompted event."]
+pub struct CancelPromptReturnObject(pub Option<Json>);
 impl Method for Enable {
     const NAME: &'static str = "DeviceAccess.enable";
     type ReturnObject = EnableReturnObject;
@@ -65,16 +70,18 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DeviceRequestPromptedEvent {
         pub params: DeviceRequestPromptedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DeviceRequestPromptedEventParams {
-        #[serde(rename = "id")]
         pub id: super::RequestId,
-        #[serde(rename = "devices")]
         pub devices: Vec<super::PromptDevice>,
     }
 }

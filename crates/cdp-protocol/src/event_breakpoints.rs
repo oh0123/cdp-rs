@@ -1,34 +1,41 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: EventBreakpoints
+// Auto-generated from Chrome at version 146.0.7680.165 domain: EventBreakpoints
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets breakpoint on particular native event."]
 pub struct SetInstrumentationBreakpoint {
     #[serde(default)]
-    #[serde(rename = "eventName")]
+    #[doc = "Instrumentation name to stop on."]
     pub event_name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Removes breakpoint on particular native event."]
 pub struct RemoveInstrumentationBreakpoint {
     #[serde(default)]
-    #[serde(rename = "eventName")]
+    #[doc = "Instrumentation name to stop on."]
     pub event_name: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct Disable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetInstrumentationBreakpointReturnObject {}
+#[doc = "Sets breakpoint on particular native event."]
+pub struct SetInstrumentationBreakpointReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveInstrumentationBreakpointReturnObject {}
+#[doc = "Removes breakpoint on particular native event."]
+pub struct RemoveInstrumentationBreakpointReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Removes all breakpoints"]
+pub struct DisableReturnObject(pub Option<Json>);
 impl Method for SetInstrumentationBreakpoint {
     const NAME: &'static str = "EventBreakpoints.setInstrumentationBreakpoint";
     type ReturnObject = SetInstrumentationBreakpointReturnObject;
@@ -45,5 +52,9 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
 }

@@ -1,25 +1,31 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Schema
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Schema
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Description of the protocol domain."]
 pub struct Domain {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Domain name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "version")]
+    #[doc = "Domain version."]
     pub version: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetDomains(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct GetDomains(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns supported domains."]
 pub struct GetDomainsReturnObject {
-    #[serde(rename = "domains")]
+    #[doc = "List of supported domains."]
     pub domains: Vec<Domain>,
 }
 impl Method for GetDomains {
@@ -30,5 +36,9 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
 }

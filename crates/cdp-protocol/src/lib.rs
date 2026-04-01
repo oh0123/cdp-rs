@@ -46,6 +46,7 @@ pub mod runtime;
 pub mod schema;
 pub mod security;
 pub mod service_worker;
+pub mod smart_card_emulation;
 pub mod storage;
 pub mod system_info;
 pub mod target;

@@ -1,9 +1,11 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: Accessibility
+// Auto-generated from Chrome at version 146.0.7680.165 domain: Accessibility
 use super::dom;
 use super::page;
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -203,227 +205,305 @@ pub enum AxPropertyName {
     #[serde(rename = "uninteresting")]
     Uninteresting,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A single source for a computed AX property."]
 pub struct AxValueSource {
-    #[serde(rename = "type")]
+    #[doc = "What type of source this is."]
     pub r#type: AxValueSourceType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "value")]
+    #[doc = "The value of this property source."]
     pub value: Option<AxValue>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "attribute")]
+    #[doc = "The name of the relevant attribute, if any."]
     pub attribute: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "attributeValue")]
+    #[doc = "The value of the relevant attribute, if any."]
     pub attribute_value: Option<AxValue>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "superseded")]
+    #[doc = "Whether this source is superseded by a higher priority source."]
     pub superseded: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nativeSource")]
+    #[doc = "The native markup source for this value, e.g. a `<label>` element."]
     pub native_source: Option<AxValueNativeSourceType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nativeSourceValue")]
+    #[doc = "The value, such as a node or node list, of the native source."]
     pub native_source_value: Option<AxValue>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "invalid")]
+    #[doc = "Whether the value for this property is invalid."]
     pub invalid: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "invalidReason")]
+    #[doc = "Reason for the value being invalid, if it is."]
     pub invalid_reason: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct AxRelatedNode {
+    #[doc = "The BackendNodeId of the related DOM node."]
     #[serde(rename = "backendDOMNodeId")]
     pub backend_dom_node_id: dom::BackendNodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "idref")]
+    #[doc = "The IDRef value provided, if any."]
     pub idref: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "text")]
+    #[doc = "The text alternative of this node in the current context."]
     pub text: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct AxProperty {
-    #[serde(rename = "name")]
+    #[doc = "The name of this property."]
     pub name: AxPropertyName,
-    #[serde(rename = "value")]
+    #[doc = "The value of this property."]
     pub value: AxValue,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A single computed AX property."]
 pub struct AxValue {
-    #[serde(rename = "type")]
+    #[doc = "The type of this value."]
     pub r#type: AxValueType,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "The computed value of this property."]
     pub value: Option<Json>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "relatedNodes")]
+    #[doc = "One or more related nodes, if applicable."]
     pub related_nodes: Option<Vec<AxRelatedNode>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "sources")]
+    #[doc = "The sources which contributed to the computation of this property."]
     pub sources: Option<Vec<AxValueSource>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A node in the accessibility tree."]
 pub struct AxNode {
-    #[serde(rename = "nodeId")]
+    #[doc = "Unique identifier for this node."]
     pub node_id: AxNodeId,
     #[serde(default)]
-    #[serde(rename = "ignored")]
+    #[doc = "Whether this node is ignored for accessibility"]
     pub ignored: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "ignoredReasons")]
+    #[doc = "Collection of reasons why this node is hidden."]
     pub ignored_reasons: Option<Vec<AxProperty>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "role")]
+    #[doc = "This `Node`'s role, whether explicit or implicit."]
     pub role: Option<AxValue>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "chromeRole")]
+    #[doc = "This `Node`'s Chrome raw role."]
     pub chrome_role: Option<AxValue>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "name")]
+    #[doc = "The accessible name for this `Node`."]
     pub name: Option<AxValue>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "description")]
+    #[doc = "The accessible description for this `Node`."]
     pub description: Option<AxValue>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "value")]
+    #[doc = "The value for this `Node`."]
     pub value: Option<AxValue>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "properties")]
+    #[doc = "All other properties"]
     pub properties: Option<Vec<AxProperty>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "parentId")]
+    #[doc = "ID for this node's parent."]
     pub parent_id: Option<AxNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "childIds")]
+    #[doc = "IDs for each of this node's child nodes."]
     pub child_ids: Option<Vec<AxNodeId>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
+    #[doc = "The backend ID for the associated DOM node, if any."]
     #[serde(rename = "backendDOMNodeId")]
     pub backend_dom_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameId")]
+    #[doc = "The frame ID for the frame associated with this nodes document."]
     pub frame_id: Option<page::FrameId>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
+pub struct Disable(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Enable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Enable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Fetches the accessibility node and partial accessibility tree for this DOM node, if it exists."]
 pub struct GetPartialAXTree {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node to get the partial accessibility tree for."]
     pub node_id: Option<dom::NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node to get the partial accessibility tree for."]
     pub backend_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper to get the partial accessibility tree for."]
     pub object_id: Option<runtime::RemoteObjectId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "fetchRelatives")]
+    #[doc = "Whether to fetch this node's ancestors, siblings and children. Defaults to true."]
     pub fetch_relatives: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches the entire accessibility tree for the root Document"]
 pub struct GetFullAXTree {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "depth")]
+    #[doc = "The maximum depth at which descendants of the root node should be retrieved.\n If omitted, the full tree is returned."]
     pub depth: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameId")]
+    #[doc = "The frame for whose document the AX tree should be retrieved.\n If omitted, the root frame is used."]
     pub frame_id: Option<page::FrameId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches the root node.\n Requires `enable()` to have been called previously."]
 pub struct GetRootAXNode {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameId")]
+    #[doc = "The frame in whose document the node resides.\n If omitted, the root frame is used."]
     pub frame_id: Option<page::FrameId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches a node and all ancestors up to and including the root.\n Requires `enable()` to have been called previously."]
 pub struct GetAXNodeAndAncestors {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node to get."]
     pub node_id: Option<dom::NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node to get."]
     pub backend_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper to get."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches a particular accessibility node by AXNodeId.\n Requires `enable()` to have been called previously."]
 pub struct GetChildAXNodes {
-    #[serde(rename = "id")]
     pub id: AxNodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameId")]
+    #[doc = "The frame in whose document the node resides.\n If omitted, the root frame is used."]
     pub frame_id: Option<page::FrameId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Query a DOM node's accessibility subtree for accessible name and role.\n This command computes the name and role for all nodes in the subtree, including those that are\n ignored for accessibility, and returns those that match the specified name and role. If no DOM\n node is specified, or the DOM node does not exist, the command returns an error. If neither\n `accessibleName` or `role` is specified, it returns all the accessibility nodes in the subtree."]
 pub struct QueryAXTree {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node for the root to query."]
     pub node_id: Option<dom::NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node for the root to query."]
     pub backend_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper for the root to query."]
     pub object_id: Option<runtime::RemoteObjectId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "accessibleName")]
+    #[doc = "Find nodes with this computed name."]
     pub accessible_name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "role")]
+    #[doc = "Find nodes with this computed role."]
     pub role: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables the accessibility domain."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables the accessibility domain which causes `AXNodeId`s to remain consistent between method calls.\n This turns on accessibility for the page, which can impact performance until accessibility is disabled."]
+pub struct EnableReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Fetches the accessibility node and partial accessibility tree for this DOM node, if it exists."]
 pub struct GetPartialAXTreeReturnObject {
-    #[serde(rename = "nodes")]
+    #[doc = "The `Accessibility.AXNode` for this DOM node, if it exists, plus its ancestors, siblings and\n children, if requested."]
     pub nodes: Vec<AxNode>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches the entire accessibility tree for the root Document"]
 pub struct GetFullAXTreeReturnObject {
-    #[serde(rename = "nodes")]
     pub nodes: Vec<AxNode>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches the root node.\n Requires `enable()` to have been called previously."]
 pub struct GetRootAXNodeReturnObject {
-    #[serde(rename = "node")]
     pub node: AxNode,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches a node and all ancestors up to and including the root.\n Requires `enable()` to have been called previously."]
 pub struct GetAXNodeAndAncestorsReturnObject {
-    #[serde(rename = "nodes")]
     pub nodes: Vec<AxNode>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Fetches a particular accessibility node by AXNodeId.\n Requires `enable()` to have been called previously."]
 pub struct GetChildAXNodesReturnObject {
-    #[serde(rename = "nodes")]
     pub nodes: Vec<AxNode>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Query a DOM node's accessibility subtree for accessible name and role.\n This command computes the name and role for all nodes in the subtree, including those that are\n ignored for accessibility, and returns those that match the specified name and role. If no DOM\n node is specified, or the DOM node does not exist, the command returns an error. If neither\n `accessibleName` or `role` is specified, it returns all the accessibility nodes in the subtree."]
 pub struct QueryAXTreeReturnObject {
-    #[serde(rename = "nodes")]
+    #[doc = "A list of `Accessibility.AXNode` matching the specified attributes,\n including nodes that are ignored for accessibility."]
     pub nodes: Vec<AxNode>,
 }
 impl Method for Disable {
@@ -462,23 +542,27 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LoadCompleteEvent {
         pub params: LoadCompleteEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct LoadCompleteEventParams {
-        #[serde(rename = "root")]
+        #[doc = "New document root node."]
         pub root: super::AxNode,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct NodesUpdatedEvent {
         pub params: NodesUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct NodesUpdatedEventParams {
-        #[serde(rename = "nodes")]
+        #[doc = "Updated node data."]
         pub nodes: Vec<super::AxNode>,
     }
 }

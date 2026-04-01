@@ -1,6 +1,8 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: WebAuthn
+// Auto-generated from Chrome at version 146.0.7680.165 domain: WebAuthn
 #[allow(unused_imports)]
 use super::types::*;
+#[allow(unused_imports)]
+use derive_builder::Builder;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
@@ -33,239 +35,285 @@ pub enum AuthenticatorTransport {
     #[serde(rename = "internal")]
     Internal,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct VirtualAuthenticatorOptions {
-    #[serde(rename = "protocol")]
     pub protocol: AuthenticatorProtocol,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "ctap2Version")]
+    #[doc = "Defaults to ctap2_0. Ignored if |protocol| == u2f."]
     pub ctap_2_version: Option<Ctap2Version>,
-    #[serde(rename = "transport")]
     pub transport: AuthenticatorTransport,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "hasResidentKey")]
+    #[doc = "Defaults to false."]
     pub has_resident_key: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "hasUserVerification")]
+    #[doc = "Defaults to false."]
     pub has_user_verification: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "hasLargeBlob")]
+    #[doc = "If set to true, the authenticator will support the largeBlob extension.\n https://w3c.github.io/webauthn#largeBlob\n Defaults to false."]
     pub has_large_blob: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "hasCredBlob")]
+    #[doc = "If set to true, the authenticator will support the credBlob extension.\n https://fidoalliance.org/specs/fido-v2.1-rd-20201208/fido-client-to-authenticator-protocol-v2.1-rd-20201208.html#sctn-credBlob-extension\n Defaults to false."]
     pub has_cred_blob: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "hasMinPinLength")]
+    #[doc = "If set to true, the authenticator will support the minPinLength extension.\n https://fidoalliance.org/specs/fido-v2.1-ps-20210615/fido-client-to-authenticator-protocol-v2.1-ps-20210615.html#sctn-minpinlength-extension\n Defaults to false."]
     pub has_min_pin_length: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "hasPrf")]
+    #[doc = "If set to true, the authenticator will support the prf extension.\n https://w3c.github.io/webauthn/#prf-extension\n Defaults to false."]
     pub has_prf: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "automaticPresenceSimulation")]
+    #[doc = "If set to true, tests of user presence will succeed immediately.\n Otherwise, they will not be resolved. Defaults to true."]
     pub automatic_presence_simulation: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isUserVerified")]
+    #[doc = "Sets whether User Verification succeeds or fails for an authenticator.\n Defaults to false."]
     pub is_user_verified: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "defaultBackupEligibility")]
+    #[doc = "Credentials created by this authenticator will have the backup\n eligibility (BE) flag set to this value. Defaults to false.\n https://w3c.github.io/webauthn/#sctn-credential-backup"]
     pub default_backup_eligibility: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "defaultBackupState")]
+    #[doc = "Credentials created by this authenticator will have the backup state\n (BS) flag set to this value. Defaults to false.\n https://w3c.github.io/webauthn/#sctn-credential-backup"]
     pub default_backup_state: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct Credential {
-    #[serde(rename = "credentialId")]
     pub credential_id: Vec<u8>,
     #[serde(default)]
-    #[serde(rename = "isResidentCredential")]
     pub is_resident_credential: bool,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "rpId")]
+    #[doc = "Relying Party ID the credential is scoped to. Must be set when adding a\n credential."]
     pub rp_id: Option<String>,
-    #[serde(rename = "privateKey")]
+    #[doc = "The ECDSA P-256 private key in PKCS#8 format."]
     pub private_key: Vec<u8>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "userHandle")]
+    #[doc = "An opaque byte sequence with a maximum size of 64 bytes mapping the\n credential to a specific user."]
     pub user_handle: Option<Vec<u8>>,
     #[serde(default)]
-    #[serde(rename = "signCount")]
+    #[doc = "Signature counter. This is incremented by one for each successful\n assertion.\n See https://w3c.github.io/webauthn/#signature-counter"]
     pub sign_count: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "largeBlob")]
+    #[doc = "The large blob associated with the credential.\n See https://w3c.github.io/webauthn/#sctn-large-blob-extension"]
     pub large_blob: Option<Vec<u8>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "backupEligibility")]
+    #[doc = "Assertions returned by this credential will have the backup eligibility\n (BE) flag set to this value. Defaults to the authenticator's\n defaultBackupEligibility value."]
     pub backup_eligibility: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "backupState")]
+    #[doc = "Assertions returned by this credential will have the backup state (BS)\n flag set to this value. Defaults to the authenticator's\n defaultBackupState value."]
     pub backup_state: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "userName")]
+    #[doc = "The credential's user.name property. Equivalent to empty if not set.\n https://w3c.github.io/webauthn/#dom-publickeycredentialentity-name"]
     pub user_name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "userDisplayName")]
+    #[doc = "The credential's user.displayName property. Equivalent to empty if\n not set.\n https://w3c.github.io/webauthn/#dom-publickeycredentialuserentity-displayname"]
     pub user_display_name: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enable the WebAuthn domain and start intercepting credential storage and\n retrieval with a virtual authenticator."]
 pub struct Enable {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Whether to enable the WebAuthn user interface. Enabling the UI is\n recommended for debugging and demo purposes, as it is closer to the real\n experience. Disabling the UI is recommended for automated testing.\n Supported at the embedder's discretion if UI is available.\n Defaults to false."]
     #[serde(rename = "enableUI")]
     pub enable_ui: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Creates and adds a virtual authenticator."]
 pub struct AddVirtualAuthenticator {
-    #[serde(rename = "options")]
     pub options: VirtualAuthenticatorOptions,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Resets parameters isBogusSignature, isBadUV, isBadUP to false if they are not present."]
 pub struct SetResponseOverrideBits {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isBogusSignature")]
+    #[doc = "If isBogusSignature is set, overrides the signature in the authenticator response to be zero.\n Defaults to false."]
     pub is_bogus_signature: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "If isBadUV is set, overrides the UV bit in the flags in the authenticator response to\n be zero. Defaults to false."]
     #[serde(rename = "isBadUV")]
     pub is_bad_uv: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "If isBadUP is set, overrides the UP bit in the flags in the authenticator response to\n be zero. Defaults to false."]
     #[serde(rename = "isBadUP")]
     pub is_bad_up: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Removes the given authenticator."]
 pub struct RemoveVirtualAuthenticator {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Adds the credential to the specified authenticator."]
 pub struct AddCredential {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
-    #[serde(rename = "credential")]
     pub credential: Credential,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns a single credential stored in the given virtual authenticator that\n matches the credential ID."]
 pub struct GetCredential {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
-    #[serde(rename = "credentialId")]
     pub credential_id: Vec<u8>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns all the credentials stored in the given virtual authenticator."]
 pub struct GetCredentials {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Removes a credential from the authenticator."]
 pub struct RemoveCredential {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
-    #[serde(rename = "credentialId")]
     pub credential_id: Vec<u8>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Clears all the credentials from the specified device."]
 pub struct ClearCredentials {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets whether User Verification succeeds or fails for an authenticator.\n The default is true."]
 pub struct SetUserVerified {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
     #[serde(default)]
-    #[serde(rename = "isUserVerified")]
     pub is_user_verified: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets whether tests of user presence will succeed immediately (if true) or fail to resolve (if false) for an authenticator.\n The default is true."]
 pub struct SetAutomaticPresenceSimulation {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
     #[serde(default)]
-    #[serde(rename = "enabled")]
     pub enabled: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Allows setting credential properties.\n https://w3c.github.io/webauthn/#sctn-automation-set-credential-properties"]
 pub struct SetCredentialProperties {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
-    #[serde(rename = "credentialId")]
     pub credential_id: Vec<u8>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "backupEligibility")]
     pub backup_eligibility: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "backupState")]
     pub backup_state: Option<bool>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enable the WebAuthn domain and start intercepting credential storage and\n retrieval with a virtual authenticator."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Disable the WebAuthn domain."]
+pub struct DisableReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Creates and adds a virtual authenticator."]
 pub struct AddVirtualAuthenticatorReturnObject {
-    #[serde(rename = "authenticatorId")]
     pub authenticator_id: AuthenticatorId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetResponseOverrideBitsReturnObject {}
+#[doc = "Resets parameters isBogusSignature, isBadUV, isBadUP to false if they are not present."]
+pub struct SetResponseOverrideBitsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveVirtualAuthenticatorReturnObject {}
+#[doc = "Removes the given authenticator."]
+pub struct RemoveVirtualAuthenticatorReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Adds the credential to the specified authenticator."]
+pub struct AddCredentialReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct AddCredentialReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns a single credential stored in the given virtual authenticator that\n matches the credential ID."]
 pub struct GetCredentialReturnObject {
-    #[serde(rename = "credential")]
     pub credential: Credential,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns all the credentials stored in the given virtual authenticator."]
 pub struct GetCredentialsReturnObject {
-    #[serde(rename = "credentials")]
     pub credentials: Vec<Credential>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveCredentialReturnObject {}
+#[doc = "Removes a credential from the authenticator."]
+pub struct RemoveCredentialReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ClearCredentialsReturnObject {}
+#[doc = "Clears all the credentials from the specified device."]
+pub struct ClearCredentialsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetUserVerifiedReturnObject {}
+#[doc = "Sets whether User Verification succeeds or fails for an authenticator.\n The default is true."]
+pub struct SetUserVerifiedReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetAutomaticPresenceSimulationReturnObject {}
+#[doc = "Sets whether tests of user presence will succeed immediately (if true) or fail to resolve (if false) for an authenticator.\n The default is true."]
+pub struct SetAutomaticPresenceSimulationReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetCredentialPropertiesReturnObject {}
+#[doc = "Allows setting credential properties.\n https://w3c.github.io/webauthn/#sctn-automation-set-credential-properties"]
+pub struct SetCredentialPropertiesReturnObject(pub Option<Json>);
 impl Method for Enable {
     const NAME: &'static str = "WebAuthn.enable";
     type ReturnObject = EnableReturnObject;
@@ -322,50 +370,46 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CredentialAddedEvent {
         pub params: CredentialAddedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct CredentialAddedEventParams {
-        #[serde(rename = "authenticatorId")]
         pub authenticator_id: super::AuthenticatorId,
-        #[serde(rename = "credential")]
         pub credential: super::Credential,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CredentialDeletedEvent {
         pub params: CredentialDeletedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct CredentialDeletedEventParams {
-        #[serde(rename = "authenticatorId")]
         pub authenticator_id: super::AuthenticatorId,
         #[serde(default)]
-        #[serde(rename = "credentialId")]
         pub credential_id: u8,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CredentialUpdatedEvent {
         pub params: CredentialUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct CredentialUpdatedEventParams {
-        #[serde(rename = "authenticatorId")]
         pub authenticator_id: super::AuthenticatorId,
-        #[serde(rename = "credential")]
         pub credential: super::Credential,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CredentialAssertedEvent {
         pub params: CredentialAssertedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct CredentialAssertedEventParams {
-        #[serde(rename = "authenticatorId")]
         pub authenticator_id: super::AuthenticatorId,
-        #[serde(rename = "credential")]
         pub credential: super::Credential,
     }
 }

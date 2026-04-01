@@ -1,15 +1,18 @@
-// Auto-generated from Chrome at version 143.0.7499.110 domain: DOM
+// Auto-generated from Chrome at version 146.0.7680.165 domain: DOM
 use super::dom;
 use super::page;
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
+use derive_builder::Builder;
+#[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type NodeId = JsUInt;
 pub type BackendNodeId = JsUInt;
+pub type StyleSheetId = String;
 pub type Quad = Vec<JsFloat>;
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PseudoType {
@@ -91,6 +94,8 @@ pub enum PseudoType {
     Picker,
     #[serde(rename = "permission-icon")]
     PermissionIcon,
+    #[serde(rename = "overscroll-area-parent")]
+    OverscrollAreaParent,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ShadowRootType {
@@ -151,893 +156,1184 @@ pub enum GetElementByRelationRelationOption {
     #[serde(rename = "CommandFor")]
     CommandFor,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Backend node with a friendly name."]
 pub struct BackendNode {
     #[serde(default)]
-    #[serde(rename = "nodeType")]
+    #[doc = "`Node`'s nodeType."]
     pub node_type: JsUInt,
     #[serde(default)]
-    #[serde(rename = "nodeName")]
+    #[doc = "`Node`'s nodeName."]
     pub node_name: String,
-    #[serde(rename = "backendNodeId")]
     pub backend_node_id: BackendNodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "DOM interaction is implemented in terms of mirror objects that represent the actual DOM nodes.\n DOMNode is a base node mirror type."]
 pub struct Node {
-    #[serde(rename = "nodeId")]
+    #[doc = "Node identifier that is passed into the rest of the DOM messages as the `nodeId`. Backend\n will only push node with given `id` once. It is aware of all requested nodes and will only\n fire DOM events for nodes known to the client."]
     pub node_id: NodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "parentId")]
+    #[doc = "The id of the parent node if any."]
     pub parent_id: Option<NodeId>,
-    #[serde(rename = "backendNodeId")]
+    #[doc = "The BackendNodeId for this node."]
     pub backend_node_id: BackendNodeId,
     #[serde(default)]
-    #[serde(rename = "nodeType")]
+    #[doc = "`Node`'s nodeType."]
     pub node_type: JsUInt,
     #[serde(default)]
-    #[serde(rename = "nodeName")]
+    #[doc = "`Node`'s nodeName."]
     pub node_name: String,
     #[serde(default)]
-    #[serde(rename = "localName")]
+    #[doc = "`Node`'s localName."]
     pub local_name: String,
     #[serde(default)]
-    #[serde(rename = "nodeValue")]
+    #[doc = "`Node`'s nodeValue."]
     pub node_value: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "childNodeCount")]
+    #[doc = "Child count for `Container` nodes."]
     pub child_node_count: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "children")]
+    #[doc = "Child nodes of this node when requested with children."]
     pub children: Option<Vec<Node>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "attributes")]
+    #[doc = "Attributes of the `Element` node in the form of flat array `[name1, value1, name2, value2]`."]
     pub attributes: Option<Vec<String>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Document URL that `Document` or `FrameOwner` node points to."]
     #[serde(rename = "documentURL")]
     pub document_url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Base URL that `Document` or `FrameOwner` node uses for URL completion."]
     #[serde(rename = "baseURL")]
     pub base_url: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "publicId")]
+    #[doc = "`DocumentType`'s publicId."]
     pub public_id: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "systemId")]
+    #[doc = "`DocumentType`'s systemId."]
     pub system_id: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "internalSubset")]
+    #[doc = "`DocumentType`'s internalSubset."]
     pub internal_subset: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "xmlVersion")]
+    #[doc = "`Document`'s XML version in case of XML documents."]
     pub xml_version: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "`Attr`'s name."]
     pub name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "`Attr`'s value."]
     pub value: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "pseudoType")]
+    #[doc = "Pseudo element type for this node."]
     pub pseudo_type: Option<PseudoType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "pseudoIdentifier")]
+    #[doc = "Pseudo element identifier for this node. Only present if there is a\n valid pseudoType."]
     pub pseudo_identifier: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "shadowRootType")]
+    #[doc = "Shadow root type."]
     pub shadow_root_type: Option<ShadowRootType>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "frameId")]
+    #[doc = "Frame ID for frame owner elements."]
     pub frame_id: Option<page::FrameId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "contentDocument")]
+    #[doc = "Content document for frame owner elements."]
     pub content_document: Option<Box<Node>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "shadowRoots")]
+    #[doc = "Shadow root list for given element host."]
     pub shadow_roots: Option<Vec<Node>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "templateContent")]
+    #[doc = "Content document fragment for template elements."]
     pub template_content: Option<Box<Node>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "pseudoElements")]
+    #[doc = "Pseudo elements associated with this node."]
     pub pseudo_elements: Option<Vec<Node>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "importedDocument")]
+    #[doc = "Deprecated, as the HTML Imports API has been removed (crbug.com/937746).\n This property used to return the imported document for the HTMLImport links.\n The property is always undefined now."]
+    #[deprecated]
     pub imported_document: Option<Box<Node>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "distributedNodes")]
+    #[doc = "Distributed nodes for given insertion point."]
     pub distributed_nodes: Option<Vec<BackendNode>>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Whether the node is SVG."]
     #[serde(rename = "isSVG")]
     pub is_svg: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "compatibilityMode")]
     pub compatibility_mode: Option<CompatibilityMode>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "assignedSlot")]
     pub assigned_slot: Option<BackendNode>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "isScrollable")]
     pub is_scrollable: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "affectedByStartingStyles")]
     pub affected_by_starting_styles: Option<bool>,
+    #[builder(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub adopted_style_sheets: Option<Vec<StyleSheetId>>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A structure to hold the top-level node of a detached tree and an array of its retained descendants."]
 pub struct DetachedElementInfo {
-    #[serde(rename = "treeNode")]
     pub tree_node: Node,
-    #[serde(rename = "retainedNodeIds")]
     pub retained_node_ids: Vec<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "A structure holding an RGBA color."]
 pub struct Rgba {
     #[serde(default)]
-    #[serde(rename = "r")]
+    #[doc = "The red component, in the [0-255] range."]
     pub r: JsUInt,
     #[serde(default)]
-    #[serde(rename = "g")]
+    #[doc = "The green component, in the [0-255] range."]
     pub g: JsUInt,
     #[serde(default)]
-    #[serde(rename = "b")]
+    #[doc = "The blue component, in the [0-255] range."]
     pub b: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "a")]
+    #[doc = "The alpha component, in the [0-1] range (default: 1)."]
     pub a: Option<JsFloat>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Box model."]
 pub struct BoxModel {
-    #[serde(rename = "content")]
+    #[doc = "Content box"]
     pub content: Quad,
-    #[serde(rename = "padding")]
+    #[doc = "Padding box"]
     pub padding: Quad,
-    #[serde(rename = "border")]
+    #[doc = "Border box"]
     pub border: Quad,
-    #[serde(rename = "margin")]
+    #[doc = "Margin box"]
     pub margin: Quad,
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Node width"]
     pub width: JsUInt,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Node height"]
     pub height: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "shapeOutside")]
+    #[doc = "Shape outside coordinates"]
     pub shape_outside: Option<ShapeOutsideInfo>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "CSS Shape Outside details."]
 pub struct ShapeOutsideInfo {
-    #[serde(rename = "bounds")]
+    #[doc = "Shape bounds"]
     pub bounds: Quad,
     #[serde(default)]
-    #[serde(rename = "shape")]
+    #[doc = "Shape coordinate details"]
     pub shape: Vec<Json>,
     #[serde(default)]
-    #[serde(rename = "marginShape")]
+    #[doc = "Margin shape bounds"]
     pub margin_shape: Vec<Json>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Rectangle."]
 pub struct Rect {
     #[serde(default)]
-    #[serde(rename = "x")]
+    #[doc = "X coordinate"]
     pub x: JsFloat,
     #[serde(default)]
-    #[serde(rename = "y")]
+    #[doc = "Y coordinate"]
     pub y: JsFloat,
     #[serde(default)]
-    #[serde(rename = "width")]
+    #[doc = "Rectangle width"]
     pub width: JsFloat,
     #[serde(default)]
-    #[serde(rename = "height")]
+    #[doc = "Rectangle height"]
     pub height: JsFloat,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
 pub struct CssComputedStyleProperty {
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Computed style property name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "Computed style property value."]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Collects class names for the node with given id and all of it's child nodes."]
 pub struct CollectClassNamesFromSubtree {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to collect class names."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Creates a deep copy of the specified node and places it into the target container before the\n given anchor."]
 pub struct CopyTo {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to copy."]
     pub node_id: NodeId,
-    #[serde(rename = "targetNodeId")]
+    #[doc = "Id of the element to drop the copy into."]
     pub target_node_id: NodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "insertBeforeNodeId")]
+    #[doc = "Drop the copy before this node (if absent, the copy becomes the last child of\n `targetNodeId`)."]
     pub insert_before_node_id: Option<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Describes node given its id, does not require domain to be enabled. Does not start tracking any\n objects, can be used for automation."]
 pub struct DescribeNode {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node."]
     pub node_id: Option<NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node."]
     pub backend_node_id: Option<BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "depth")]
+    #[doc = "The maximum depth at which children should be retrieved, defaults to 1. Use -1 for the\n entire subtree or provide an integer larger than 0."]
     pub depth: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "pierce")]
+    #[doc = "Whether or not iframes and shadow roots should be traversed when returning the subtree\n (default is false)."]
     pub pierce: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Scrolls the specified rect of the given node into view if not already visible.\n Note: exactly one between nodeId, backendNodeId and objectId should be passed\n to identify the node."]
 pub struct ScrollIntoViewIfNeeded {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node."]
     pub node_id: Option<NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node."]
     pub backend_node_id: Option<BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "rect")]
+    #[doc = "The rect to be scrolled into view, relative to the node's border box, in CSS pixels.\n When omitted, center of the node will be used, similar to Element.scrollIntoView."]
     pub rect: Option<Rect>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Disable(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Disable(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Discards search results from the session with the given id. `getSearchResults` should no longer\n be called for that search."]
 pub struct DiscardSearchResults {
     #[serde(default)]
-    #[serde(rename = "searchId")]
+    #[doc = "Unique search session identifier."]
     pub search_id: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Enables DOM agent for the given page."]
 pub struct Enable {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "includeWhitespace")]
+    #[doc = "Whether to include whitespaces in the children array of returned Nodes."]
     pub include_whitespace: Option<EnableIncludeWhitespaceOption>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Focuses the given element."]
 pub struct Focus {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node."]
     pub node_id: Option<NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node."]
     pub backend_node_id: Option<BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns attributes for the specified node."]
 pub struct GetAttributes {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to retrieve attributes for."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns boxes for the given node."]
 pub struct GetBoxModel {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node."]
     pub node_id: Option<NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node."]
     pub backend_node_id: Option<BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns quads that describe node position on the page. This method\n might return multiple quads for inline nodes."]
 pub struct GetContentQuads {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node."]
     pub node_id: Option<NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node."]
     pub backend_node_id: Option<BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the root DOM node (and optionally the subtree) to the caller.\n Implicitly enables the DOM domain events for the current target."]
 pub struct GetDocument {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "depth")]
+    #[doc = "The maximum depth at which children should be retrieved, defaults to 1. Use -1 for the\n entire subtree or provide an integer larger than 0."]
     pub depth: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "pierce")]
+    #[doc = "Whether or not iframes and shadow roots should be traversed when returning the subtree\n (default is false)."]
     pub pierce: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the root DOM node (and optionally the subtree) to the caller.\n Deprecated, as it is not designed to work well with the rest of the DOM agent.\n Use DOMSnapshot.captureSnapshot instead."]
+#[deprecated]
 pub struct GetFlattenedDocument {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "depth")]
+    #[doc = "The maximum depth at which children should be retrieved, defaults to 1. Use -1 for the\n entire subtree or provide an integer larger than 0."]
     pub depth: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "pierce")]
+    #[doc = "Whether or not iframes and shadow roots should be traversed when returning the subtree\n (default is false)."]
     pub pierce: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Finds nodes with a given computed style in a subtree."]
 pub struct GetNodesForSubtreeByStyle {
-    #[serde(rename = "nodeId")]
+    #[doc = "Node ID pointing to the root of a subtree."]
     pub node_id: NodeId,
-    #[serde(rename = "computedStyles")]
+    #[doc = "The style to filter nodes by (includes nodes if any of properties matches)."]
     pub computed_styles: Vec<CssComputedStyleProperty>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "pierce")]
+    #[doc = "Whether or not iframes and shadow roots in the same target should be traversed when returning the\n results (default is false)."]
     pub pierce: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns node id at given location. Depending on whether DOM domain is enabled, nodeId is\n either returned or not."]
 pub struct GetNodeForLocation {
     #[serde(default)]
-    #[serde(rename = "x")]
+    #[doc = "X coordinate."]
     pub x: JsUInt,
     #[serde(default)]
-    #[serde(rename = "y")]
+    #[doc = "Y coordinate."]
     pub y: JsUInt,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "False to skip to the nearest non-UA shadow root ancestor (default: false)."]
     #[serde(rename = "includeUserAgentShadowDOM")]
     pub include_user_agent_shadow_dom: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "ignorePointerEventsNone")]
+    #[doc = "Whether to ignore pointer-events: none on elements and hit test them."]
     pub ignore_pointer_events_none: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns node's HTML markup."]
 pub struct GetOuterHTML {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node."]
     pub node_id: Option<NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node."]
     pub backend_node_id: Option<BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "Include all shadow roots. Equals to false if not specified."]
     #[serde(rename = "includeShadowDOM")]
     pub include_shadow_dom: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the id of the nearest ancestor that is a relayout boundary."]
 pub struct GetRelayoutBoundary {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns search results from given `fromIndex` to given `toIndex` from the search with the given\n identifier."]
 pub struct GetSearchResults {
     #[serde(default)]
-    #[serde(rename = "searchId")]
+    #[doc = "Unique search session identifier."]
     pub search_id: String,
     #[serde(default)]
-    #[serde(rename = "fromIndex")]
+    #[doc = "Start index of the search result to be returned."]
     pub from_index: JsUInt,
     #[serde(default)]
-    #[serde(rename = "toIndex")]
+    #[doc = "End index of the search result to be returned."]
     pub to_index: JsUInt,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HideHighlight(pub Option<serde_json::Value>);
+pub struct HideHighlight(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HighlightNode(pub Option<serde_json::Value>);
+pub struct HighlightNode(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HighlightRect(pub Option<serde_json::Value>);
+pub struct HighlightRect(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct MarkUndoableState(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct MarkUndoableState(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Moves node into the new container, places it before the given anchor."]
 pub struct MoveTo {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to move."]
     pub node_id: NodeId,
-    #[serde(rename = "targetNodeId")]
+    #[doc = "Id of the element to drop the moved node into."]
     pub target_node_id: NodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "insertBeforeNodeId")]
+    #[doc = "Drop node before this one (if absent, the moved node becomes the last child of\n `targetNodeId`)."]
     pub insert_before_node_id: Option<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Searches for a given string in the DOM tree. Use `getSearchResults` to access search results or\n `cancelSearch` to end this search session."]
 pub struct PerformSearch {
     #[serde(default)]
-    #[serde(rename = "query")]
+    #[doc = "Plain text or query selector or XPath search query."]
     pub query: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
+    #[doc = "True to search in user agent shadow DOM."]
     #[serde(rename = "includeUserAgentShadowDOM")]
     pub include_user_agent_shadow_dom: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that the node is sent to the caller given its path. // FIXME, use XPath"]
 pub struct PushNodeByPathToFrontend {
     #[serde(default)]
-    #[serde(rename = "path")]
+    #[doc = "Path to node in the proprietary format."]
     pub path: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that a batch of nodes is sent to the caller given their backend node ids."]
 pub struct PushNodesByBackendIdsToFrontend {
-    #[serde(rename = "backendNodeIds")]
+    #[doc = "The array of backend node ids."]
     pub backend_node_ids: Vec<BackendNodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct QuerySelector {
-    #[serde(rename = "nodeId")]
-    pub node_id: NodeId,
-    #[serde(default)]
-    #[serde(rename = "selector")]
-    pub selector: String,
-}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct QuerySelectorAll {
-    #[serde(rename = "nodeId")]
-    pub node_id: NodeId,
-    #[serde(default)]
-    #[serde(rename = "selector")]
-    pub selector: String,
-}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetTopLayerElements(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-pub struct GetElementByRelation {
-    #[serde(rename = "nodeId")]
+#[doc = "Executes `querySelector` on a given node."]
+pub struct QuerySelector {
+    #[doc = "Id of the node to query upon."]
     pub node_id: NodeId,
-    #[serde(rename = "relation")]
+    #[serde(default)]
+    #[doc = "Selector string."]
+    pub selector: String,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Executes `querySelectorAll` on a given node."]
+pub struct QuerySelectorAll {
+    #[doc = "Id of the node to query upon."]
+    pub node_id: NodeId,
+    #[serde(default)]
+    #[doc = "Selector string."]
+    pub selector: String,
+}
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetTopLayerElements(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the NodeId of the matched element according to certain relations."]
+pub struct GetElementByRelation {
+    #[doc = "Id of the node from which to query the relation."]
+    pub node_id: NodeId,
+    #[doc = "Type of relation to get."]
     pub relation: GetElementByRelationRelationOption,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Redo(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Redo(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Removes attribute with given name from an element with given id."]
 pub struct RemoveAttribute {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the element to remove attribute from."]
     pub node_id: NodeId,
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Name of the attribute to remove."]
     pub name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Removes node with given id."]
 pub struct RemoveNode {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to remove."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that children of the node with given id are returned to the caller in form of\n `setChildNodes` events where not only immediate children are retrieved, but all children down to\n the specified depth."]
 pub struct RequestChildNodes {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to get children for."]
     pub node_id: NodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "depth")]
+    #[doc = "The maximum depth at which children should be retrieved, defaults to 1. Use -1 for the\n entire subtree or provide an integer larger than 0."]
     pub depth: Option<JsUInt>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "pierce")]
+    #[doc = "Whether or not iframes and shadow roots should be traversed when returning the sub-tree\n (default is false)."]
     pub pierce: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that the node is sent to the caller given the JavaScript node object reference. All\n nodes that form the path from the node to the root are also sent to the client as a series of\n `setChildNodes` notifications."]
 pub struct RequestNode {
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id to convert into node."]
     pub object_id: runtime::RemoteObjectId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Resolves the JavaScript node object for a given NodeId or BackendNodeId."]
 pub struct ResolveNode {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to resolve."]
     pub node_id: Option<NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Backend identifier of the node to resolve."]
     pub backend_node_id: Option<dom::BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "objectGroup")]
+    #[doc = "Symbolic group name that can be used to release multiple objects."]
     pub object_group: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "executionContextId")]
+    #[doc = "Execution context in which to resolve the node."]
     pub execution_context_id: Option<runtime::ExecutionContextId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets attribute for an element with given id."]
 pub struct SetAttributeValue {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the element to set attribute for."]
     pub node_id: NodeId,
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Attribute name."]
     pub name: String,
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "Attribute value."]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets attributes on element with given id. This method is useful when user edits some existing\n attribute value and types in several attribute name/value pairs."]
 pub struct SetAttributesAsText {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the element to set attributes for."]
     pub node_id: NodeId,
     #[serde(default)]
-    #[serde(rename = "text")]
+    #[doc = "Text with a number of attributes. Will parse this text using HTML parser."]
     pub text: String,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "Attribute name to replace with new attributes derived from text in case text parsed\n successfully."]
     pub name: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets files for the given file input element."]
 pub struct SetFileInputFiles {
     #[serde(default)]
-    #[serde(rename = "files")]
+    #[doc = "Array of file paths to set."]
     pub files: Vec<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Identifier of the node."]
     pub node_id: Option<NodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Identifier of the backend node."]
     pub backend_node_id: Option<BackendNodeId>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets if stack traces should be captured for Nodes. See `Node.getNodeStackTraces`. Default is disabled."]
 pub struct SetNodeStackTracesEnabled {
     #[serde(default)]
-    #[serde(rename = "enable")]
+    #[doc = "Enable or disable."]
     pub enable: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Gets stack traces associated with a Node. As of now, only provides stack trace for Node creation."]
 pub struct GetNodeStackTraces {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to get stack traces for."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns file information for the given\n File wrapper."]
 pub struct GetFileInfo {
-    #[serde(rename = "objectId")]
+    #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: runtime::RemoteObjectId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct GetDetachedDomNodes(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct GetDetachedDomNodes(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables console to refer to the node with given id via $x (see Command Line API for more details\n $x functions)."]
 pub struct SetInspectedNode {
-    #[serde(rename = "nodeId")]
+    #[doc = "DOM node id to be accessible by means of $x command line API."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets node name for a node with given id."]
 pub struct SetNodeName {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to set name for."]
     pub node_id: NodeId,
     #[serde(default)]
-    #[serde(rename = "name")]
+    #[doc = "New node's name."]
     pub name: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets node value for a node with given id."]
 pub struct SetNodeValue {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to set value for."]
     pub node_id: NodeId,
     #[serde(default)]
-    #[serde(rename = "value")]
+    #[doc = "New node's value."]
     pub value: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Sets node HTML markup, returns new node id."]
 pub struct SetOuterHTML {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node to set markup for."]
     pub node_id: NodeId,
     #[serde(default)]
+    #[doc = "Outer HTML markup to set."]
     #[serde(rename = "outerHTML")]
     pub outer_html: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+pub struct Undo(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-pub struct Undo(pub Option<serde_json::Value>);
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns iframe node that owns iframe with the given domain."]
 pub struct GetFrameOwner {
-    #[serde(rename = "frameId")]
     pub frame_id: page::FrameId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the query container of the given node based on container query\n conditions: containerName, physical and logical axes, and whether it queries\n scroll-state or anchored elements. If no axes are provided and\n queriesScrollState is false, the style container is returned, which is the\n direct parent or the closest element with a matching container-name."]
 pub struct GetContainerForNode {
-    #[serde(rename = "nodeId")]
     pub node_id: NodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "containerName")]
     pub container_name: Option<String>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "physicalAxes")]
     pub physical_axes: Option<PhysicalAxes>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "logicalAxes")]
     pub logical_axes: Option<LogicalAxes>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "queriesScrollState")]
     pub queries_scroll_state: Option<bool>,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "queriesAnchored")]
     pub queries_anchored: Option<bool>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the descendants of a container query container that have\n container queries against this container."]
 pub struct GetQueryingDescendantsForContainer {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the container node to find querying descendants from."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the target anchor element of the given anchor query according to\n https://www.w3.org/TR/css-anchor-position-1/#target."]
 pub struct GetAnchorElement {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the positioned element from which to find the anchor."]
     pub node_id: NodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[serde(rename = "anchorSpecifier")]
+    #[doc = "An optional anchor specifier, as defined in\n https://www.w3.org/TR/css-anchor-position-1/#anchor-specifier.\n If not provided, it will return the implicit anchor element for\n the given positioned element."]
     pub anchor_specifier: Option<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[builder(setter(into, strip_option))]
+#[serde(rename_all = "camelCase")]
+#[doc = "When enabling, this API force-opens the popover identified by nodeId\n and keeps it open until disabled."]
 pub struct ForceShowPopover {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the popover HTMLElement"]
     pub node_id: NodeId,
     #[serde(default)]
-    #[serde(rename = "enable")]
+    #[doc = "If true, opens the popover and keeps it open. If false, closes the\n popover if it was previously force-opened."]
     pub enable: bool,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Collects class names for the node with given id and all of it's child nodes."]
 pub struct CollectClassNamesFromSubtreeReturnObject {
-    #[serde(rename = "classNames")]
+    #[doc = "Class name list."]
     pub class_names: Vec<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Creates a deep copy of the specified node and places it into the target container before the\n given anchor."]
 pub struct CopyToReturnObject {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node clone."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Describes node given its id, does not require domain to be enabled. Does not start tracking any\n objects, can be used for automation."]
 pub struct DescribeNodeReturnObject {
-    #[serde(rename = "node")]
+    #[doc = "Node description."]
     pub node: Node,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct ScrollIntoViewIfNeededReturnObject {}
+#[doc = "Scrolls the specified rect of the given node into view if not already visible.\n Note: exactly one between nodeId, backendNodeId and objectId should be passed\n to identify the node."]
+pub struct ScrollIntoViewIfNeededReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DisableReturnObject {}
+#[doc = "Disables DOM agent for the given page."]
+pub struct DisableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct DiscardSearchResultsReturnObject {}
+#[doc = "Discards search results from the session with the given id. `getSearchResults` should no longer\n be called for that search."]
+pub struct DiscardSearchResultsReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct EnableReturnObject {}
+#[doc = "Enables DOM agent for the given page."]
+pub struct EnableReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Focuses the given element."]
+pub struct FocusReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct FocusReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns attributes for the specified node."]
 pub struct GetAttributesReturnObject {
-    #[serde(rename = "attributes")]
+    #[doc = "An interleaved array of node attribute names and values."]
     pub attributes: Vec<String>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns boxes for the given node."]
 pub struct GetBoxModelReturnObject {
-    #[serde(rename = "model")]
+    #[doc = "Box model for the node."]
     pub model: BoxModel,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns quads that describe node position on the page. This method\n might return multiple quads for inline nodes."]
 pub struct GetContentQuadsReturnObject {
-    #[serde(rename = "quads")]
+    #[doc = "Quads that describe node layout relative to viewport."]
     pub quads: Vec<Quad>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the root DOM node (and optionally the subtree) to the caller.\n Implicitly enables the DOM domain events for the current target."]
 pub struct GetDocumentReturnObject {
-    #[serde(rename = "root")]
+    #[doc = "Resulting node."]
     pub root: Node,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the root DOM node (and optionally the subtree) to the caller.\n Deprecated, as it is not designed to work well with the rest of the DOM agent.\n Use DOMSnapshot.captureSnapshot instead."]
+#[deprecated]
 pub struct GetFlattenedDocumentReturnObject {
-    #[serde(rename = "nodes")]
+    #[doc = "Resulting node."]
     pub nodes: Vec<Node>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Finds nodes with a given computed style in a subtree."]
 pub struct GetNodesForSubtreeByStyleReturnObject {
-    #[serde(rename = "nodeIds")]
+    #[doc = "Resulting nodes."]
     pub node_ids: Vec<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns node id at given location. Depending on whether DOM domain is enabled, nodeId is\n either returned or not."]
 pub struct GetNodeForLocationReturnObject {
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Resulting node."]
     pub backend_node_id: BackendNodeId,
-    #[serde(rename = "frameId")]
+    #[doc = "Frame this node belongs to."]
     pub frame_id: page::FrameId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node at given coordinates, only when enabled and requested document."]
     pub node_id: Option<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns node's HTML markup."]
 pub struct GetOuterHTMLReturnObject {
     #[serde(default)]
+    #[doc = "Outer HTML markup."]
     #[serde(rename = "outerHTML")]
     pub outer_html: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the id of the nearest ancestor that is a relayout boundary."]
 pub struct GetRelayoutBoundaryReturnObject {
-    #[serde(rename = "nodeId")]
+    #[doc = "Relayout boundary node id for the given node."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns search results from given `fromIndex` to given `toIndex` from the search with the given\n identifier."]
 pub struct GetSearchResultsReturnObject {
-    #[serde(rename = "nodeIds")]
+    #[doc = "Ids of the search result nodes."]
     pub node_ids: Vec<NodeId>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HideHighlightReturnObject {}
+#[doc = "Hides any highlight."]
+pub struct HideHighlightReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HighlightNodeReturnObject {}
+#[doc = "Highlights DOM node."]
+pub struct HighlightNodeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct HighlightRectReturnObject {}
+#[doc = "Highlights given rectangle."]
+pub struct HighlightRectReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Marks last undoable state."]
+pub struct MarkUndoableStateReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct MarkUndoableStateReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Moves node into the new container, places it before the given anchor."]
 pub struct MoveToReturnObject {
-    #[serde(rename = "nodeId")]
+    #[doc = "New id of the moved node."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Searches for a given string in the DOM tree. Use `getSearchResults` to access search results or\n `cancelSearch` to end this search session."]
 pub struct PerformSearchReturnObject {
     #[serde(default)]
-    #[serde(rename = "searchId")]
+    #[doc = "Unique search session identifier."]
     pub search_id: String,
     #[serde(default)]
-    #[serde(rename = "resultCount")]
+    #[doc = "Number of search results."]
     pub result_count: JsUInt,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that the node is sent to the caller given its path. // FIXME, use XPath"]
 pub struct PushNodeByPathToFrontendReturnObject {
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node for given path."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Requests that a batch of nodes is sent to the caller given their backend node ids."]
 pub struct PushNodesByBackendIdsToFrontendReturnObject {
-    #[serde(rename = "nodeIds")]
+    #[doc = "The array of ids of pushed nodes that correspond to the backend ids specified in\n backendNodeIds."]
     pub node_ids: Vec<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Executes `querySelector` on a given node."]
 pub struct QuerySelectorReturnObject {
-    #[serde(rename = "nodeId")]
+    #[doc = "Query selector result."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Executes `querySelectorAll` on a given node."]
 pub struct QuerySelectorAllReturnObject {
-    #[serde(rename = "nodeIds")]
+    #[doc = "Query selector result."]
     pub node_ids: Vec<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns NodeIds of current top layer elements.\n Top layer is rendered closest to the user within a viewport, therefore its elements always\n appear on top of all other content."]
 pub struct GetTopLayerElementsReturnObject {
-    #[serde(rename = "nodeIds")]
+    #[doc = "NodeIds of top layer elements"]
     pub node_ids: Vec<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the NodeId of the matched element according to certain relations."]
 pub struct GetElementByRelationReturnObject {
-    #[serde(rename = "nodeId")]
+    #[doc = "NodeId of the element matching the queried relation."]
     pub node_id: NodeId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RedoReturnObject {}
+#[doc = "Re-does the last undone action."]
+pub struct RedoReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveAttributeReturnObject {}
+#[doc = "Removes attribute with given name from an element with given id."]
+pub struct RemoveAttributeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveNodeReturnObject {}
+#[doc = "Removes node with given id."]
+pub struct RemoveNodeReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Requests that children of the node with given id are returned to the caller in form of\n `setChildNodes` events where not only immediate children are retrieved, but all children down to\n the specified depth."]
+pub struct RequestChildNodesReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct RequestChildNodesReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Requests that the node is sent to the caller given the JavaScript node object reference. All\n nodes that form the path from the node to the root are also sent to the client as a series of\n `setChildNodes` notifications."]
 pub struct RequestNodeReturnObject {
-    #[serde(rename = "nodeId")]
+    #[doc = "Node id for given object."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Resolves the JavaScript node object for a given NodeId or BackendNodeId."]
 pub struct ResolveNodeReturnObject {
-    #[serde(rename = "object")]
+    #[doc = "JavaScript object wrapper for given node."]
     pub object: runtime::RemoteObject,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetAttributeValueReturnObject {}
+#[doc = "Sets attribute for an element with given id."]
+pub struct SetAttributeValueReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetAttributesAsTextReturnObject {}
+#[doc = "Sets attributes on element with given id. This method is useful when user edits some existing\n attribute value and types in several attribute name/value pairs."]
+pub struct SetAttributesAsTextReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetFileInputFilesReturnObject {}
+#[doc = "Sets files for the given file input element."]
+pub struct SetFileInputFilesReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Sets if stack traces should be captured for Nodes. See `Node.getNodeStackTraces`. Default is disabled."]
+pub struct SetNodeStackTracesEnabledReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetNodeStackTracesEnabledReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Gets stack traces associated with a Node. As of now, only provides stack trace for Node creation."]
 pub struct GetNodeStackTracesReturnObject {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "creation")]
+    #[doc = "Creation stack trace, if available."]
     pub creation: Option<runtime::StackTrace>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns file information for the given\n File wrapper."]
 pub struct GetFileInfoReturnObject {
     #[serde(default)]
-    #[serde(rename = "path")]
     pub path: String,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns list of detached nodes"]
 pub struct GetDetachedDomNodesReturnObject {
-    #[serde(rename = "detachedNodes")]
+    #[doc = "The list of detached nodes"]
     pub detached_nodes: Vec<DetachedElementInfo>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Enables console to refer to the node with given id via $x (see Command Line API for more details\n $x functions)."]
+pub struct SetInspectedNodeReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct SetInspectedNodeReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Sets node name for a node with given id."]
 pub struct SetNodeNameReturnObject {
-    #[serde(rename = "nodeId")]
+    #[doc = "New node's id."]
     pub node_id: NodeId,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetNodeValueReturnObject {}
+#[doc = "Sets node value for a node with given id."]
+pub struct SetNodeValueReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct SetOuterHTMLReturnObject {}
+#[doc = "Sets node HTML markup, returns new node id."]
+pub struct SetOuterHTMLReturnObject(pub Option<Json>);
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Undoes the last performed action."]
+pub struct UndoReturnObject(pub Option<Json>);
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-pub struct UndoReturnObject {}
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[doc = "Returns iframe node that owns iframe with the given domain."]
 pub struct GetFrameOwnerReturnObject {
-    #[serde(rename = "backendNodeId")]
+    #[doc = "Resulting node."]
     pub backend_node_id: BackendNodeId,
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "Id of the node at given coordinates, only when enabled and requested document."]
     pub node_id: Option<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the query container of the given node based on container query\n conditions: containerName, physical and logical axes, and whether it queries\n scroll-state or anchored elements. If no axes are provided and\n queriesScrollState is false, the style container is returned, which is the\n direct parent or the closest element with a matching container-name."]
 pub struct GetContainerForNodeReturnObject {
+    #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(rename = "nodeId")]
+    #[doc = "The container node for the given node, or null if not found."]
     pub node_id: Option<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the descendants of a container query container that have\n container queries against this container."]
 pub struct GetQueryingDescendantsForContainerReturnObject {
-    #[serde(rename = "nodeIds")]
+    #[doc = "Descendant nodes with container queries against the given container."]
     pub node_ids: Vec<NodeId>,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "Returns the target anchor element of the given anchor query according to\n https://www.w3.org/TR/css-anchor-position-1/#target."]
 pub struct GetAnchorElementReturnObject {
-    #[serde(rename = "nodeId")]
+    #[doc = "The anchor element of the given anchor query."]
     pub node_id: NodeId,
 }
-#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+#[serde(rename_all = "camelCase")]
+#[doc = "When enabling, this API force-opens the popover identified by nodeId\n and keeps it open until disabled."]
 pub struct ForceShowPopoverReturnObject {
-    #[serde(rename = "nodeIds")]
+    #[doc = "List of popovers that were closed in order to respect popover stacking order."]
     pub node_ids: Vec<NodeId>,
 }
 impl Method for CollectClassNamesFromSubtree {
@@ -1256,185 +1552,198 @@ pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
     #[allow(unused_imports)]
+    use derive_builder::Builder;
+    #[allow(unused_imports)]
     use serde::{Deserialize, Serialize};
+    #[allow(unused_imports)]
+    use serde_json::Value as Json;
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AttributeModifiedEvent {
         pub params: AttributeModifiedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AttributeModifiedEventParams {
-        #[serde(rename = "nodeId")]
+        #[doc = "Id of the node that has changed."]
         pub node_id: super::NodeId,
         #[serde(default)]
-        #[serde(rename = "name")]
+        #[doc = "Attribute name."]
         pub name: String,
         #[serde(default)]
-        #[serde(rename = "value")]
+        #[doc = "Attribute value."]
         pub value: String,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    pub struct AdoptedStyleSheetsModifiedEvent {
+        pub params: AdoptedStyleSheetsModifiedEventParams,
+    }
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    pub struct AdoptedStyleSheetsModifiedEventParams {
+        #[doc = "Id of the node that has changed."]
+        pub node_id: super::NodeId,
+        #[doc = "New adoptedStyleSheets array."]
+        pub adopted_style_sheets: Vec<super::StyleSheetId>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AttributeRemovedEvent {
         pub params: AttributeRemovedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AttributeRemovedEventParams {
-        #[serde(rename = "nodeId")]
+        #[doc = "Id of the node that has changed."]
         pub node_id: super::NodeId,
         #[serde(default)]
-        #[serde(rename = "name")]
+        #[doc = "A ttribute name."]
         pub name: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CharacterDataModifiedEvent {
         pub params: CharacterDataModifiedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct CharacterDataModifiedEventParams {
-        #[serde(rename = "nodeId")]
+        #[doc = "Id of the node that has changed."]
         pub node_id: super::NodeId,
         #[serde(default)]
-        #[serde(rename = "characterData")]
+        #[doc = "New text value."]
         pub character_data: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ChildNodeCountUpdatedEvent {
         pub params: ChildNodeCountUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ChildNodeCountUpdatedEventParams {
-        #[serde(rename = "nodeId")]
+        #[doc = "Id of the node that has changed."]
         pub node_id: super::NodeId,
         #[serde(default)]
-        #[serde(rename = "childNodeCount")]
+        #[doc = "New node count."]
         pub child_node_count: JsUInt,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ChildNodeInsertedEvent {
         pub params: ChildNodeInsertedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ChildNodeInsertedEventParams {
-        #[serde(rename = "parentNodeId")]
+        #[doc = "Id of the node that has changed."]
         pub parent_node_id: super::NodeId,
-        #[serde(rename = "previousNodeId")]
+        #[doc = "Id of the previous sibling."]
         pub previous_node_id: super::NodeId,
-        #[serde(rename = "node")]
+        #[doc = "Inserted node data."]
         pub node: super::Node,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ChildNodeRemovedEvent {
         pub params: ChildNodeRemovedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ChildNodeRemovedEventParams {
-        #[serde(rename = "parentNodeId")]
+        #[doc = "Parent id."]
         pub parent_node_id: super::NodeId,
-        #[serde(rename = "nodeId")]
+        #[doc = "Id of the node that has been removed."]
         pub node_id: super::NodeId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DistributedNodesUpdatedEvent {
         pub params: DistributedNodesUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct DistributedNodesUpdatedEventParams {
-        #[serde(rename = "insertionPointId")]
+        #[doc = "Insertion point where distributed nodes were updated."]
         pub insertion_point_id: super::NodeId,
-        #[serde(rename = "distributedNodes")]
+        #[doc = "Distributed nodes for given insertion point."]
         pub distributed_nodes: Vec<super::BackendNode>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    #[serde(rename_all = "camelCase")]
-    pub struct DocumentUpdatedEvent(pub Option<serde_json::Value>);
+    pub struct DocumentUpdatedEvent(pub Option<Json>);
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InlineStyleInvalidatedEvent {
         pub params: InlineStyleInvalidatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct InlineStyleInvalidatedEventParams {
-        #[serde(rename = "nodeIds")]
+        #[doc = "Ids of the nodes for which the inline styles have been invalidated."]
         pub node_ids: Vec<super::NodeId>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PseudoElementAddedEvent {
         pub params: PseudoElementAddedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct PseudoElementAddedEventParams {
-        #[serde(rename = "parentId")]
+        #[doc = "Pseudo element's parent element id."]
         pub parent_id: super::NodeId,
-        #[serde(rename = "pseudoElement")]
+        #[doc = "The added pseudo element."]
         pub pseudo_element: super::Node,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-    #[serde(rename_all = "camelCase")]
-    pub struct TopLayerElementsUpdatedEvent(pub Option<serde_json::Value>);
+    pub struct TopLayerElementsUpdatedEvent(pub Option<Json>);
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ScrollableFlagUpdatedEvent {
         pub params: ScrollableFlagUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ScrollableFlagUpdatedEventParams {
-        #[serde(rename = "nodeId")]
+        #[doc = "The id of the node."]
         pub node_id: super::super::dom::NodeId,
         #[serde(default)]
-        #[serde(rename = "isScrollable")]
+        #[doc = "If the node is scrollable."]
         pub is_scrollable: bool,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AffectedByStartingStylesFlagUpdatedEvent {
         pub params: AffectedByStartingStylesFlagUpdatedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct AffectedByStartingStylesFlagUpdatedEventParams {
-        #[serde(rename = "nodeId")]
+        #[doc = "The id of the node."]
         pub node_id: super::super::dom::NodeId,
         #[serde(default)]
-        #[serde(rename = "affectedByStartingStyles")]
+        #[doc = "If the node has starting styles."]
         pub affected_by_starting_styles: bool,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PseudoElementRemovedEvent {
         pub params: PseudoElementRemovedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct PseudoElementRemovedEventParams {
-        #[serde(rename = "parentId")]
+        #[doc = "Pseudo element's parent element id."]
         pub parent_id: super::NodeId,
-        #[serde(rename = "pseudoElementId")]
+        #[doc = "The removed pseudo element id."]
         pub pseudo_element_id: super::NodeId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SetChildNodesEvent {
         pub params: SetChildNodesEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct SetChildNodesEventParams {
-        #[serde(rename = "parentId")]
+        #[doc = "Parent node id to populate with children."]
         pub parent_id: super::NodeId,
-        #[serde(rename = "nodes")]
+        #[doc = "Child nodes array."]
         pub nodes: Vec<super::Node>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ShadowRootPoppedEvent {
         pub params: ShadowRootPoppedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ShadowRootPoppedEventParams {
-        #[serde(rename = "hostId")]
+        #[doc = "Host element id."]
         pub host_id: super::NodeId,
-        #[serde(rename = "rootId")]
+        #[doc = "Shadow root id."]
         pub root_id: super::NodeId,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ShadowRootPushedEvent {
         pub params: ShadowRootPushedEventParams,
     }
-    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+    #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     pub struct ShadowRootPushedEventParams {
-        #[serde(rename = "hostId")]
+        #[doc = "Host element id."]
         pub host_id: super::NodeId,
-        #[serde(rename = "root")]
+        #[doc = "Shadow root."]
         pub root: super::Node,
     }
 }
