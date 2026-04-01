@@ -59,7 +59,7 @@ pub struct ManufacturerData {
     #[doc = "Company identifier\n https://bitbucket.org/bluetooth-SIG/public/src/main/assigned_numbers/company_identifiers/company_identifiers.yaml\n https://usb.org/developers"]
     pub key: JsUInt,
     #[doc = "Manufacturer-specific data"]
-    pub data: Vec<u8>,
+    pub data: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
@@ -415,6 +415,7 @@ pub mod events {
         pub params: GattOperationReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct GattOperationReceivedEventParams {
         #[serde(default)]
         pub address: String,
@@ -425,6 +426,7 @@ pub mod events {
         pub params: CharacteristicOperationReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CharacteristicOperationReceivedEventParams {
         #[serde(default)]
         pub characteristic_id: String,
@@ -432,7 +434,7 @@ pub mod events {
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        pub data: Option<u8>,
+        pub data: Option<String>,
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub write_type: Option<super::CharacteristicWriteType>,
@@ -442,6 +444,7 @@ pub mod events {
         pub params: DescriptorOperationReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DescriptorOperationReceivedEventParams {
         #[serde(default)]
         pub descriptor_id: String,
@@ -449,6 +452,6 @@ pub mod events {
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        pub data: Option<u8>,
+        pub data: Option<String>,
     }
 }

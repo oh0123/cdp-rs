@@ -60,7 +60,7 @@ pub struct PictureTile {
     #[doc = "Offset from owning layer top boundary"]
     pub y: JsFloat,
     #[doc = "Base64-encoded snapshot data."]
-    pub picture: Vec<u8>,
+    pub picture: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
@@ -321,6 +321,7 @@ pub mod events {
         pub params: LayerPaintedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct LayerPaintedEventParams {
         #[doc = "The id of the painted layer."]
         pub layer_id: super::LayerId,
@@ -332,6 +333,7 @@ pub mod events {
         pub params: LayerTreeDidChangeEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct LayerTreeDidChangeEventParams {
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]

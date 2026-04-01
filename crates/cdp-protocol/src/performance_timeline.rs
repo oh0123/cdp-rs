@@ -113,6 +113,7 @@ pub mod events {
         pub params: TimelineEventAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct TimelineEventAddedEventParams {
         pub event: super::TimelineEvent,
     }

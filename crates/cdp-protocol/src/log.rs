@@ -192,6 +192,7 @@ pub mod events {
         pub params: EntryAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct EntryAddedEventParams {
         #[doc = "The entry."]
         pub entry: super::LogEntry,

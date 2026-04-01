@@ -1675,6 +1675,7 @@ pub mod events {
         pub params: FontsUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FontsUpdatedEventParams {
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
@@ -1688,6 +1689,7 @@ pub mod events {
         pub params: StyleSheetAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct StyleSheetAddedEventParams {
         #[doc = "Added stylesheet metainfo."]
         pub header: super::CssStyleSheetHeader,
@@ -1697,6 +1699,7 @@ pub mod events {
         pub params: StyleSheetChangedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct StyleSheetChangedEventParams {
         pub style_sheet_id: super::super::dom::StyleSheetId,
     }
@@ -1705,6 +1708,7 @@ pub mod events {
         pub params: StyleSheetRemovedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct StyleSheetRemovedEventParams {
         #[doc = "Identifier of the removed stylesheet."]
         pub style_sheet_id: super::super::dom::StyleSheetId,
@@ -1714,6 +1718,7 @@ pub mod events {
         pub params: ComputedStyleUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ComputedStyleUpdatedEventParams {
         #[doc = "The node id that has updated computed styles."]
         pub node_id: super::super::dom::NodeId,

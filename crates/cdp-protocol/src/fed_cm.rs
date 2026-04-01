@@ -180,6 +180,7 @@ pub mod events {
         pub params: DialogShownEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DialogShownEventParams {
         #[serde(default)]
         pub dialog_id: String,
@@ -198,6 +199,7 @@ pub mod events {
         pub params: DialogClosedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DialogClosedEventParams {
         #[serde(default)]
         pub dialog_id: String,

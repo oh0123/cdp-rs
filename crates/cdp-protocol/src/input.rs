@@ -687,6 +687,7 @@ pub mod events {
         pub params: DragInterceptedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DragInterceptedEventParams {
         pub data: super::DragData,
     }

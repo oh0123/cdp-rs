@@ -114,6 +114,7 @@ pub mod events {
         pub params: MessageAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct MessageAddedEventParams {
         #[doc = "Console message that has been added."]
         pub message: super::ConsoleMessage,

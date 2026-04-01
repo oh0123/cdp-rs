@@ -1342,7 +1342,7 @@ pub struct GetEncodedResponseReturnObject {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[doc = "The encoded body as a base64 string. Omitted if sizeOnly is true."]
-    pub body: Option<Vec<u8>>,
+    pub body: Option<String>,
     #[serde(default)]
     #[doc = "Size before re-encoding."]
     pub original_size: JsUInt,
@@ -1399,6 +1399,7 @@ pub mod events {
         pub params: IssueAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct IssueAddedEventParams {
         pub issue: super::InspectorIssue,
     }

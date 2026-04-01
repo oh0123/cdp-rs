@@ -121,6 +121,7 @@ pub mod events {
         pub params: SinksUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct SinksUpdatedEventParams {
         pub sinks: Vec<super::Sink>,
     }
@@ -129,6 +130,7 @@ pub mod events {
         pub params: IssueUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct IssueUpdatedEventParams {
         #[serde(default)]
         pub issue_message: String,

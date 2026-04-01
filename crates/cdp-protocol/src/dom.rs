@@ -1562,6 +1562,7 @@ pub mod events {
         pub params: AttributeModifiedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AttributeModifiedEventParams {
         #[doc = "Id of the node that has changed."]
         pub node_id: super::NodeId,
@@ -1577,6 +1578,7 @@ pub mod events {
         pub params: AdoptedStyleSheetsModifiedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AdoptedStyleSheetsModifiedEventParams {
         #[doc = "Id of the node that has changed."]
         pub node_id: super::NodeId,
@@ -1588,6 +1590,7 @@ pub mod events {
         pub params: AttributeRemovedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AttributeRemovedEventParams {
         #[doc = "Id of the node that has changed."]
         pub node_id: super::NodeId,
@@ -1600,6 +1603,7 @@ pub mod events {
         pub params: CharacterDataModifiedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CharacterDataModifiedEventParams {
         #[doc = "Id of the node that has changed."]
         pub node_id: super::NodeId,
@@ -1612,6 +1616,7 @@ pub mod events {
         pub params: ChildNodeCountUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ChildNodeCountUpdatedEventParams {
         #[doc = "Id of the node that has changed."]
         pub node_id: super::NodeId,
@@ -1624,6 +1629,7 @@ pub mod events {
         pub params: ChildNodeInsertedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ChildNodeInsertedEventParams {
         #[doc = "Id of the node that has changed."]
         pub parent_node_id: super::NodeId,
@@ -1637,6 +1643,7 @@ pub mod events {
         pub params: ChildNodeRemovedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ChildNodeRemovedEventParams {
         #[doc = "Parent id."]
         pub parent_node_id: super::NodeId,
@@ -1648,6 +1655,7 @@ pub mod events {
         pub params: DistributedNodesUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DistributedNodesUpdatedEventParams {
         #[doc = "Insertion point where distributed nodes were updated."]
         pub insertion_point_id: super::NodeId,
@@ -1661,6 +1669,7 @@ pub mod events {
         pub params: InlineStyleInvalidatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct InlineStyleInvalidatedEventParams {
         #[doc = "Ids of the nodes for which the inline styles have been invalidated."]
         pub node_ids: Vec<super::NodeId>,
@@ -1670,6 +1679,7 @@ pub mod events {
         pub params: PseudoElementAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PseudoElementAddedEventParams {
         #[doc = "Pseudo element's parent element id."]
         pub parent_id: super::NodeId,
@@ -1683,6 +1693,7 @@ pub mod events {
         pub params: ScrollableFlagUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ScrollableFlagUpdatedEventParams {
         #[doc = "The id of the node."]
         pub node_id: super::super::dom::NodeId,
@@ -1695,6 +1706,7 @@ pub mod events {
         pub params: AffectedByStartingStylesFlagUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AffectedByStartingStylesFlagUpdatedEventParams {
         #[doc = "The id of the node."]
         pub node_id: super::super::dom::NodeId,
@@ -1707,6 +1719,7 @@ pub mod events {
         pub params: PseudoElementRemovedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PseudoElementRemovedEventParams {
         #[doc = "Pseudo element's parent element id."]
         pub parent_id: super::NodeId,
@@ -1718,6 +1731,7 @@ pub mod events {
         pub params: SetChildNodesEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct SetChildNodesEventParams {
         #[doc = "Parent node id to populate with children."]
         pub parent_id: super::NodeId,
@@ -1729,6 +1743,7 @@ pub mod events {
         pub params: ShadowRootPoppedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ShadowRootPoppedEventParams {
         #[doc = "Host element id."]
         pub host_id: super::NodeId,
@@ -1740,6 +1755,7 @@ pub mod events {
         pub params: ShadowRootPushedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ShadowRootPushedEventParams {
         #[doc = "Host element id."]
         pub host_id: super::NodeId,

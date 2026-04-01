@@ -198,7 +198,7 @@ pub struct GetCategoriesReturnObject {
 #[doc = "Return a descriptor for all available tracing categories."]
 pub struct GetTrackEventDescriptorReturnObject {
     #[doc = "Base64-encoded serialized perfetto.protos.TrackEventDescriptor protobuf message."]
-    pub descriptor: Vec<u8>,
+    pub descriptor: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Record a clock sync marker in the trace."]
@@ -255,6 +255,7 @@ pub mod events {
         pub params: BufferUsageEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct BufferUsageEventParams {
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
@@ -277,6 +278,7 @@ pub mod events {
         pub params: DataCollectedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DataCollectedEventParams {
         #[serde(default)]
         pub value: Vec<Json>,
@@ -286,6 +288,7 @@ pub mod events {
         pub params: TracingCompleteEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct TracingCompleteEventParams {
         #[serde(default)]
         #[doc = "Indicates whether some trace data is known to have been lost, e.g. because the trace ring\n buffer wrapped around."]

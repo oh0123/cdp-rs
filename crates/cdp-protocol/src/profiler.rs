@@ -253,6 +253,7 @@ pub mod events {
         pub params: ConsoleProfileFinishedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ConsoleProfileFinishedEventParams {
         #[serde(default)]
         pub id: String,
@@ -270,6 +271,7 @@ pub mod events {
         pub params: ConsoleProfileStartedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ConsoleProfileStartedEventParams {
         #[serde(default)]
         pub id: String,
@@ -286,6 +288,7 @@ pub mod events {
         pub params: PreciseCoverageDeltaUpdateEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PreciseCoverageDeltaUpdateEventParams {
         #[serde(default)]
         #[doc = "Monotonically increasing time (in seconds) when the coverage update was taken in the backend."]

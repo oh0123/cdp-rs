@@ -75,7 +75,7 @@ pub struct BeginFrameReturnObject {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[doc = "Base64-encoded image data of the screenshot, if one was requested and successfully taken."]
-    pub screenshot_data: Option<Vec<u8>>,
+    pub screenshot_data: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables headless events for the target."]

@@ -88,7 +88,7 @@ pub struct Header {
 #[doc = "Cached response"]
 pub struct CachedResponse {
     #[doc = "Entry content, base64-encoded."]
-    pub body: Vec<u8>,
+    pub body: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]

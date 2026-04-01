@@ -119,6 +119,7 @@ pub mod events {
         pub params: PlayerPropertiesChangedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PlayerPropertiesChangedEventParams {
         pub player_id: super::PlayerId,
         pub properties: Vec<super::PlayerProperty>,
@@ -128,6 +129,7 @@ pub mod events {
         pub params: PlayerEventsAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PlayerEventsAddedEventParams {
         pub player_id: super::PlayerId,
         pub events: Vec<super::PlayerEvent>,
@@ -137,6 +139,7 @@ pub mod events {
         pub params: PlayerMessagesLoggedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PlayerMessagesLoggedEventParams {
         pub player_id: super::PlayerId,
         pub messages: Vec<super::PlayerMessage>,
@@ -146,6 +149,7 @@ pub mod events {
         pub params: PlayerErrorsRaisedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PlayerErrorsRaisedEventParams {
         pub player_id: super::PlayerId,
         pub errors: Vec<super::PlayerError>,
@@ -155,6 +159,7 @@ pub mod events {
         pub params: PlayerCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PlayerCreatedEventParams {
         pub player: super::Player,
     }

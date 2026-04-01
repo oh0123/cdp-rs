@@ -720,7 +720,7 @@ pub struct GetScriptSourceReturnObject {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[doc = "Wasm bytecode."]
-    pub bytecode: Option<Vec<u8>>,
+    pub bytecode: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
@@ -751,7 +751,7 @@ pub struct NextWasmDisassemblyChunkReturnObject {
 #[deprecated]
 pub struct GetWasmBytecodeReturnObject {
     #[doc = "Script source."]
-    pub bytecode: Vec<u8>,
+    pub bytecode: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
@@ -1042,6 +1042,7 @@ pub mod events {
         pub params: BreakpointResolvedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct BreakpointResolvedEventParams {
         #[doc = "Breakpoint unique identifier."]
         pub breakpoint_id: super::BreakpointId,
@@ -1053,6 +1054,7 @@ pub mod events {
         pub params: PausedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PausedEventParams {
         #[doc = "Call stack the virtual machine stopped on."]
         pub call_frames: Vec<super::CallFrame>,
@@ -1089,6 +1091,7 @@ pub mod events {
         pub params: ScriptFailedToParseEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ScriptFailedToParseEventParams {
         #[doc = "Identifier of the script parsed."]
         pub script_id: super::super::runtime::ScriptId,
@@ -1166,6 +1169,7 @@ pub mod events {
         pub params: ScriptParsedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ScriptParsedEventParams {
         #[doc = "Identifier of the script parsed."]
         pub script_id: super::super::runtime::ScriptId,

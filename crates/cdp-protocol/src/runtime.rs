@@ -1301,6 +1301,7 @@ pub mod events {
         pub params: BindingCalledEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct BindingCalledEventParams {
         #[serde(default)]
         pub name: String,
@@ -1314,6 +1315,7 @@ pub mod events {
         pub params: ConsoleAPICalledEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ConsoleAPICalledEventParams {
         #[doc = "Type of the call."]
         pub r#type: super::ConsoleApiCalledTypeOption,
@@ -1338,6 +1340,7 @@ pub mod events {
         pub params: ExceptionRevokedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ExceptionRevokedEventParams {
         #[serde(default)]
         #[doc = "Reason describing why exception was revoked."]
@@ -1351,6 +1354,7 @@ pub mod events {
         pub params: ExceptionThrownEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ExceptionThrownEventParams {
         #[doc = "Timestamp of the exception."]
         pub timestamp: super::Timestamp,
@@ -1361,6 +1365,7 @@ pub mod events {
         pub params: ExecutionContextCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ExecutionContextCreatedEventParams {
         #[doc = "A newly created execution context."]
         pub context: super::ExecutionContextDescription,
@@ -1370,6 +1375,7 @@ pub mod events {
         pub params: ExecutionContextDestroyedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ExecutionContextDestroyedEventParams {
         #[doc = "Id of the destroyed context"]
         #[deprecated]
@@ -1385,6 +1391,7 @@ pub mod events {
         pub params: InspectRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct InspectRequestedEventParams {
         pub object: super::RemoteObject,
         #[serde(default)]

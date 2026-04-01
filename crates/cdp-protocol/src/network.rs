@@ -915,7 +915,7 @@ pub struct ResourceTiming {
 pub struct PostDataEntry {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub bytes: Option<Vec<u8>>,
+    pub bytes: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
@@ -1765,7 +1765,7 @@ pub struct DirectUdpSocketOptions {
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct DirectUdpMessage {
-    pub data: Vec<u8>,
+    pub data: String,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
@@ -2771,7 +2771,7 @@ pub struct SetUserAgentOverrideReturnObject(pub Option<Json>);
 #[doc = "Enables streaming of the response for the given requestId.\n If enabled, the dataReceived event contains the data that was received during streaming."]
 pub struct StreamResourceContentReturnObject {
     #[doc = "Data that has been buffered until streaming is enabled."]
-    pub buffered_data: Vec<u8>,
+    pub buffered_data: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
@@ -2976,6 +2976,7 @@ pub mod events {
         pub params: DataReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DataReceivedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -2991,13 +2992,14 @@ pub mod events {
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
         #[doc = "Data that was received."]
-        pub data: Option<u8>,
+        pub data: Option<String>,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct EventSourceMessageReceivedEvent {
         pub params: EventSourceMessageReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct EventSourceMessageReceivedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3018,6 +3020,7 @@ pub mod events {
         pub params: LoadingFailedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct LoadingFailedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3047,6 +3050,7 @@ pub mod events {
         pub params: LoadingFinishedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct LoadingFinishedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3061,6 +3065,7 @@ pub mod events {
         pub params: RequestInterceptedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct RequestInterceptedEventParams {
         #[doc = "Each request the page makes will have a unique id, however if any redirects are encountered\n while processing that fetch, they will be reported with the same id as the original fetch.\n Likewise if HTTP authentication is needed then the same fetch id will be used."]
         pub interception_id: super::InterceptionId,
@@ -3109,6 +3114,7 @@ pub mod events {
         pub params: RequestServedFromCacheEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct RequestServedFromCacheEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3118,6 +3124,7 @@ pub mod events {
         pub params: RequestWillBeSentEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct RequestWillBeSentEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3165,6 +3172,7 @@ pub mod events {
         pub params: ResourceChangedPriorityEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ResourceChangedPriorityEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3178,6 +3186,7 @@ pub mod events {
         pub params: SignedExchangeReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct SignedExchangeReceivedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3189,6 +3198,7 @@ pub mod events {
         pub params: ResponseReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ResponseReceivedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3213,6 +3223,7 @@ pub mod events {
         pub params: WebSocketClosedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebSocketClosedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3224,6 +3235,7 @@ pub mod events {
         pub params: WebSocketCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebSocketCreatedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3240,6 +3252,7 @@ pub mod events {
         pub params: WebSocketFrameErrorEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebSocketFrameErrorEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3254,6 +3267,7 @@ pub mod events {
         pub params: WebSocketFrameReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebSocketFrameReceivedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3267,6 +3281,7 @@ pub mod events {
         pub params: WebSocketFrameSentEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebSocketFrameSentEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3280,6 +3295,7 @@ pub mod events {
         pub params: WebSocketHandshakeResponseReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebSocketHandshakeResponseReceivedEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3293,6 +3309,7 @@ pub mod events {
         pub params: WebSocketWillSendHandshakeRequestEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebSocketWillSendHandshakeRequestEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
@@ -3308,6 +3325,7 @@ pub mod events {
         pub params: WebTransportCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebTransportCreatedEventParams {
         #[doc = "WebTransport identifier."]
         pub transport_id: super::RequestId,
@@ -3326,6 +3344,7 @@ pub mod events {
         pub params: WebTransportConnectionEstablishedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebTransportConnectionEstablishedEventParams {
         #[doc = "WebTransport identifier."]
         pub transport_id: super::RequestId,
@@ -3337,6 +3356,7 @@ pub mod events {
         pub params: WebTransportClosedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WebTransportClosedEventParams {
         #[doc = "WebTransport identifier."]
         pub transport_id: super::RequestId,
@@ -3348,6 +3368,7 @@ pub mod events {
         pub params: DirectTCPSocketCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketCreatedEventParams {
         pub identifier: super::RequestId,
         #[serde(default)]
@@ -3366,6 +3387,7 @@ pub mod events {
         pub params: DirectTCPSocketOpenedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketOpenedEventParams {
         pub identifier: super::RequestId,
         #[serde(default)]
@@ -3389,6 +3411,7 @@ pub mod events {
         pub params: DirectTCPSocketAbortedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketAbortedEventParams {
         pub identifier: super::RequestId,
         #[serde(default)]
@@ -3400,6 +3423,7 @@ pub mod events {
         pub params: DirectTCPSocketClosedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketClosedEventParams {
         pub identifier: super::RequestId,
         pub timestamp: super::MonotonicTime,
@@ -3409,10 +3433,11 @@ pub mod events {
         pub params: DirectTCPSocketChunkSentEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketChunkSentEventParams {
         pub identifier: super::RequestId,
         #[serde(default)]
-        pub data: u8,
+        pub data: String,
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
@@ -3420,10 +3445,11 @@ pub mod events {
         pub params: DirectTCPSocketChunkReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketChunkReceivedEventParams {
         pub identifier: super::RequestId,
         #[serde(default)]
-        pub data: u8,
+        pub data: String,
         pub timestamp: super::MonotonicTime,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
@@ -3431,6 +3457,7 @@ pub mod events {
         pub params: DirectUDPSocketJoinedMulticastGroupEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketJoinedMulticastGroupEventParams {
         pub identifier: super::RequestId,
         #[serde(default)]
@@ -3442,6 +3469,7 @@ pub mod events {
         pub params: DirectUDPSocketLeftMulticastGroupEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketLeftMulticastGroupEventParams {
         pub identifier: super::RequestId,
         #[serde(default)]
@@ -3453,6 +3481,7 @@ pub mod events {
         pub params: DirectUDPSocketCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketCreatedEventParams {
         pub identifier: super::RequestId,
         pub options: super::DirectUdpSocketOptions,
@@ -3466,6 +3495,7 @@ pub mod events {
         pub params: DirectUDPSocketOpenedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketOpenedEventParams {
         pub identifier: super::RequestId,
         #[serde(default)]
@@ -3489,6 +3519,7 @@ pub mod events {
         pub params: DirectUDPSocketAbortedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketAbortedEventParams {
         pub identifier: super::RequestId,
         #[serde(default)]
@@ -3500,6 +3531,7 @@ pub mod events {
         pub params: DirectUDPSocketClosedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketClosedEventParams {
         pub identifier: super::RequestId,
         pub timestamp: super::MonotonicTime,
@@ -3509,6 +3541,7 @@ pub mod events {
         pub params: DirectUDPSocketChunkSentEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketChunkSentEventParams {
         pub identifier: super::RequestId,
         pub message: super::DirectUdpMessage,
@@ -3519,6 +3552,7 @@ pub mod events {
         pub params: DirectUDPSocketChunkReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketChunkReceivedEventParams {
         pub identifier: super::RequestId,
         pub message: super::DirectUdpMessage,
@@ -3529,6 +3563,7 @@ pub mod events {
         pub params: RequestWillBeSentExtraInfoEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct RequestWillBeSentExtraInfoEventParams {
         #[doc = "Request identifier. Used to match this information to an existing requestWillBeSent event."]
         pub request_id: super::RequestId,
@@ -3562,6 +3597,7 @@ pub mod events {
         pub params: ResponseReceivedExtraInfoEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ResponseReceivedExtraInfoEventParams {
         #[doc = "Request identifier. Used to match this information to another responseReceived event."]
         pub request_id: super::RequestId,
@@ -3599,6 +3635,7 @@ pub mod events {
         pub params: ResponseReceivedEarlyHintsEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ResponseReceivedEarlyHintsEventParams {
         #[doc = "Request identifier. Used to match this information to another responseReceived event."]
         pub request_id: super::RequestId,
@@ -3610,6 +3647,7 @@ pub mod events {
         pub params: TrustTokenOperationDoneEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct TrustTokenOperationDoneEventParams {
         #[doc = "Detailed success or error status of the operation.\n 'AlreadyExists' also signifies a successful operation, as the result\n of the operation already exists und thus, the operation was abort\n preemptively (e.g. a cache hit)."]
         pub status: super::TrustTokenOperationDoneStatusOption,
@@ -3638,6 +3676,7 @@ pub mod events {
         pub params: ReportingApiReportAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ReportingApiReportAddedEventParams {
         pub report: super::ReportingApiReport,
     }
@@ -3646,6 +3685,7 @@ pub mod events {
         pub params: ReportingApiReportUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ReportingApiReportUpdatedEventParams {
         pub report: super::ReportingApiReport,
     }
@@ -3654,6 +3694,7 @@ pub mod events {
         pub params: ReportingApiEndpointsChangedForOriginEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ReportingApiEndpointsChangedForOriginEventParams {
         #[serde(default)]
         #[doc = "Origin of the document(s) which configured the endpoints."]
@@ -3665,6 +3706,7 @@ pub mod events {
         pub params: DeviceBoundSessionsAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DeviceBoundSessionsAddedEventParams {
         #[doc = "The device bound sessions."]
         pub sessions: Vec<super::DeviceBoundSession>,
@@ -3674,6 +3716,7 @@ pub mod events {
         pub params: DeviceBoundSessionEventOccurredEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DeviceBoundSessionEventOccurredEventParams {
         #[doc = "A unique identifier for this session event."]
         pub event_id: super::DeviceBoundSessionEventId,

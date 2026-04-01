@@ -181,6 +181,7 @@ pub mod events {
         pub params: ContextCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ContextCreatedEventParams {
         pub context: super::BaseAudioContext,
     }
@@ -189,6 +190,7 @@ pub mod events {
         pub params: ContextWillBeDestroyedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ContextWillBeDestroyedEventParams {
         pub context_id: super::GraphObjectId,
     }
@@ -197,6 +199,7 @@ pub mod events {
         pub params: ContextChangedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ContextChangedEventParams {
         pub context: super::BaseAudioContext,
     }
@@ -205,6 +208,7 @@ pub mod events {
         pub params: AudioListenerCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AudioListenerCreatedEventParams {
         pub listener: super::AudioListener,
     }
@@ -213,6 +217,7 @@ pub mod events {
         pub params: AudioListenerWillBeDestroyedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AudioListenerWillBeDestroyedEventParams {
         pub context_id: super::GraphObjectId,
         pub listener_id: super::GraphObjectId,
@@ -222,6 +227,7 @@ pub mod events {
         pub params: AudioNodeCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AudioNodeCreatedEventParams {
         pub node: super::AudioNode,
     }
@@ -230,6 +236,7 @@ pub mod events {
         pub params: AudioNodeWillBeDestroyedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AudioNodeWillBeDestroyedEventParams {
         pub context_id: super::GraphObjectId,
         pub node_id: super::GraphObjectId,
@@ -239,6 +246,7 @@ pub mod events {
         pub params: AudioParamCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AudioParamCreatedEventParams {
         pub param: super::AudioParam,
     }
@@ -247,6 +255,7 @@ pub mod events {
         pub params: AudioParamWillBeDestroyedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AudioParamWillBeDestroyedEventParams {
         pub context_id: super::GraphObjectId,
         pub node_id: super::GraphObjectId,
@@ -257,6 +266,7 @@ pub mod events {
         pub params: NodesConnectedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct NodesConnectedEventParams {
         pub context_id: super::GraphObjectId,
         pub source_id: super::GraphObjectId,
@@ -275,6 +285,7 @@ pub mod events {
         pub params: NodesDisconnectedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct NodesDisconnectedEventParams {
         pub context_id: super::GraphObjectId,
         pub source_id: super::GraphObjectId,
@@ -293,6 +304,7 @@ pub mod events {
         pub params: NodeParamConnectedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct NodeParamConnectedEventParams {
         pub context_id: super::GraphObjectId,
         pub source_id: super::GraphObjectId,
@@ -307,6 +319,7 @@ pub mod events {
         pub params: NodeParamDisconnectedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct NodeParamDisconnectedEventParams {
         pub context_id: super::GraphObjectId,
         pub source_id: super::GraphObjectId,

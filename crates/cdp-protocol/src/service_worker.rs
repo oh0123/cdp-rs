@@ -269,6 +269,7 @@ pub mod events {
         pub params: WorkerErrorReportedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WorkerErrorReportedEventParams {
         pub error_message: super::ServiceWorkerErrorMessage,
     }
@@ -277,6 +278,7 @@ pub mod events {
         pub params: WorkerRegistrationUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WorkerRegistrationUpdatedEventParams {
         pub registrations: Vec<super::ServiceWorkerRegistration>,
     }
@@ -285,6 +287,7 @@ pub mod events {
         pub params: WorkerVersionUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WorkerVersionUpdatedEventParams {
         pub versions: Vec<super::ServiceWorkerVersion>,
     }

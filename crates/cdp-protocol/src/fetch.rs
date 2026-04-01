@@ -323,6 +323,7 @@ pub mod events {
         pub params: RequestPausedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct RequestPausedEventParams {
         #[doc = "Each request the page makes will have a unique id."]
         pub request_id: super::RequestId,
@@ -364,6 +365,7 @@ pub mod events {
         pub params: AuthRequiredEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AuthRequiredEventParams {
         #[doc = "Each request the page makes will have a unique id."]
         pub request_id: super::RequestId,

@@ -275,6 +275,7 @@ pub mod events {
         pub params: AddHeapSnapshotChunkEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AddHeapSnapshotChunkEventParams {
         #[serde(default)]
         pub chunk: String,
@@ -284,6 +285,7 @@ pub mod events {
         pub params: HeapStatsUpdateEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct HeapStatsUpdateEventParams {
         #[serde(default)]
         #[doc = "An array of triplets. Each triplet describes a fragment. The first integer is the fragment\n index, the second integer is a total count of objects for the fragment, the third integer is\n a total size of the objects for the fragment."]
@@ -294,6 +296,7 @@ pub mod events {
         pub params: LastSeenObjectIdEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct LastSeenObjectIdEventParams {
         #[serde(default)]
         pub last_seen_object_id: JsUInt,
@@ -305,6 +308,7 @@ pub mod events {
         pub params: ReportHeapSnapshotProgressEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ReportHeapSnapshotProgressEventParams {
         #[serde(default)]
         pub done: JsUInt,

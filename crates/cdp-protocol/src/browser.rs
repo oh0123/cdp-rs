@@ -653,6 +653,7 @@ pub mod events {
         pub params: DownloadWillBeginEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DownloadWillBeginEventParams {
         #[doc = "Id of the frame that caused the download to begin."]
         pub frame_id: super::super::page::FrameId,
@@ -671,6 +672,7 @@ pub mod events {
         pub params: DownloadProgressEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DownloadProgressEventParams {
         #[serde(default)]
         #[doc = "Global unique identifier of the download."]

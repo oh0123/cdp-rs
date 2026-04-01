@@ -131,6 +131,7 @@ pub mod events {
         pub params: RecordingStateChangedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct RecordingStateChangedEventParams {
         #[serde(default)]
         pub is_recording: bool,
@@ -141,6 +142,7 @@ pub mod events {
         pub params: BackgroundServiceEventReceivedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct BackgroundServiceEventReceivedEventParams {
         pub background_service_event: super::BackgroundServiceEvent,
     }

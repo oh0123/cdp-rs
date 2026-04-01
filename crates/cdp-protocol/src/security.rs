@@ -282,6 +282,7 @@ pub mod events {
         pub params: CertificateErrorEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CertificateErrorEventParams {
         #[serde(default)]
         #[doc = "The ID of the event."]
@@ -299,6 +300,7 @@ pub mod events {
         pub params: VisibleSecurityStateChangedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct VisibleSecurityStateChangedEventParams {
         #[doc = "Security state information about the page."]
         pub visible_security_state: super::VisibleSecurityState,
@@ -308,6 +310,7 @@ pub mod events {
         pub params: SecurityStateChangedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct SecurityStateChangedEventParams {
         #[doc = "Security state."]
         pub security_state: super::SecurityState,

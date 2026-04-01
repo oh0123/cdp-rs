@@ -1027,6 +1027,7 @@ pub mod events {
         pub params: InspectNodeRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct InspectNodeRequestedEventParams {
         #[doc = "Id of the node to inspect."]
         pub backend_node_id: super::super::dom::BackendNodeId,
@@ -1036,6 +1037,7 @@ pub mod events {
         pub params: NodeHighlightRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct NodeHighlightRequestedEventParams {
         pub node_id: super::super::dom::NodeId,
     }
@@ -1044,6 +1046,7 @@ pub mod events {
         pub params: ScreenshotRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ScreenshotRequestedEventParams {
         #[doc = "Viewport to capture, in device independent pixels (dip)."]
         pub viewport: super::super::page::Viewport,
@@ -1053,6 +1056,7 @@ pub mod events {
         pub params: InspectPanelShowRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct InspectPanelShowRequestedEventParams {
         #[doc = "Id of the node to show in the panel."]
         pub backend_node_id: super::super::dom::BackendNodeId,
@@ -1062,6 +1066,7 @@ pub mod events {
         pub params: InspectedElementWindowRestoredEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct InspectedElementWindowRestoredEventParams {
         #[doc = "Id of the node to restore the floating window for."]
         pub backend_node_id: super::super::dom::BackendNodeId,

@@ -552,6 +552,7 @@ pub mod events {
         pub params: LoadCompleteEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct LoadCompleteEventParams {
         #[doc = "New document root node."]
         pub root: super::AxNode,
@@ -561,6 +562,7 @@ pub mod events {
         pub params: NodesUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct NodesUpdatedEventParams {
         #[doc = "Updated node data."]
         pub nodes: Vec<super::AxNode>,

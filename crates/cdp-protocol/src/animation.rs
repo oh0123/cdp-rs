@@ -330,6 +330,7 @@ pub mod events {
         pub params: AnimationCanceledEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AnimationCanceledEventParams {
         #[serde(default)]
         #[doc = "Id of the animation that was cancelled."]
@@ -340,6 +341,7 @@ pub mod events {
         pub params: AnimationCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AnimationCreatedEventParams {
         #[serde(default)]
         #[doc = "Id of the animation that was created."]
@@ -350,6 +352,7 @@ pub mod events {
         pub params: AnimationStartedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AnimationStartedEventParams {
         #[doc = "Animation that was started."]
         pub animation: super::Animation,
@@ -359,6 +362,7 @@ pub mod events {
         pub params: AnimationUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AnimationUpdatedEventParams {
         #[doc = "Animation that was updated."]
         pub animation: super::Animation,

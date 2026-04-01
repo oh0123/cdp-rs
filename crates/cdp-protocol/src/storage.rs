@@ -1060,7 +1060,7 @@ pub struct SetProtectedAudienceKAnonymity {
     #[serde(default)]
     pub name: String,
     #[serde(default)]
-    pub hashes: Vec<u8>,
+    pub hashes: Vec<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
@@ -1399,6 +1399,7 @@ pub mod events {
         pub params: CacheStorageContentUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CacheStorageContentUpdatedEventParams {
         #[serde(default)]
         #[doc = "Origin to update."]
@@ -1418,6 +1419,7 @@ pub mod events {
         pub params: CacheStorageListUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CacheStorageListUpdatedEventParams {
         #[serde(default)]
         #[doc = "Origin to update."]
@@ -1434,6 +1436,7 @@ pub mod events {
         pub params: IndexedDBContentUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct IndexedDBContentUpdatedEventParams {
         #[serde(default)]
         #[doc = "Origin to update."]
@@ -1456,6 +1459,7 @@ pub mod events {
         pub params: IndexedDBListUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct IndexedDBListUpdatedEventParams {
         #[serde(default)]
         #[doc = "Origin to update."]
@@ -1472,6 +1476,7 @@ pub mod events {
         pub params: InterestGroupAccessedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct InterestGroupAccessedEventParams {
         pub access_time: super::super::network::TimeSinceEpoch,
         pub r#type: super::InterestGroupAccessType,
@@ -1503,6 +1508,7 @@ pub mod events {
         pub params: InterestGroupAuctionEventOccurredEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct InterestGroupAuctionEventOccurredEventParams {
         pub event_time: super::super::network::TimeSinceEpoch,
         pub r#type: super::InterestGroupAuctionEventType,
@@ -1522,6 +1528,7 @@ pub mod events {
         pub params: InterestGroupAuctionNetworkRequestCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct InterestGroupAuctionNetworkRequestCreatedEventParams {
         pub r#type: super::InterestGroupAuctionFetchType,
         pub request_id: super::super::network::RequestId,
@@ -1533,6 +1540,7 @@ pub mod events {
         pub params: SharedStorageAccessedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct SharedStorageAccessedEventParams {
         #[doc = "Time of the access."]
         pub access_time: super::super::network::TimeSinceEpoch,
@@ -1556,6 +1564,7 @@ pub mod events {
         pub params: SharedStorageWorkletOperationExecutionFinishedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct SharedStorageWorkletOperationExecutionFinishedEventParams {
         #[doc = "Time that the operation finished."]
         pub finished_time: super::super::network::TimeSinceEpoch,
@@ -1580,6 +1589,7 @@ pub mod events {
         pub params: StorageBucketCreatedOrUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct StorageBucketCreatedOrUpdatedEventParams {
         pub bucket_info: super::StorageBucketInfo,
     }
@@ -1588,6 +1598,7 @@ pub mod events {
         pub params: StorageBucketDeletedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct StorageBucketDeletedEventParams {
         #[serde(default)]
         pub bucket_id: String,
@@ -1597,6 +1608,7 @@ pub mod events {
         pub params: AttributionReportingSourceRegisteredEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AttributionReportingSourceRegisteredEventParams {
         pub registration: super::AttributionReportingSourceRegistration,
         pub result: super::AttributionReportingSourceRegistrationResult,
@@ -1606,6 +1618,7 @@ pub mod events {
         pub params: AttributionReportingTriggerRegisteredEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AttributionReportingTriggerRegisteredEventParams {
         pub registration: super::AttributionReportingTriggerRegistration,
         pub event_level: super::AttributionReportingEventLevelResult,
@@ -1616,6 +1629,7 @@ pub mod events {
         pub params: AttributionReportingReportSentEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AttributionReportingReportSentEventParams {
         #[serde(default)]
         pub url: String,
@@ -1641,6 +1655,7 @@ pub mod events {
         pub params: AttributionReportingVerboseDebugReportSentEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AttributionReportingVerboseDebugReportSentEventParams {
         #[serde(default)]
         pub url: String,

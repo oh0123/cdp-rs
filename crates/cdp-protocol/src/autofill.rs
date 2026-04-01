@@ -168,6 +168,7 @@ pub mod events {
         pub params: AddressFormFilledEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AddressFormFilledEventParams {
         #[doc = "Information about the fields that were filled"]
         pub filled_fields: Vec<super::FilledField>,

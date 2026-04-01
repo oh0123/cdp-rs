@@ -2338,7 +2338,7 @@ pub struct BringToFrontReturnObject(pub Option<Json>);
 #[doc = "Capture page screenshot."]
 pub struct CaptureScreenshotReturnObject {
     #[doc = "Base64-encoded image data."]
-    pub data: Vec<u8>,
+    pub data: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
@@ -2409,7 +2409,7 @@ pub struct GetInstallabilityErrorsReturnObject {
 pub struct GetManifestIconsReturnObject {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub primary_icon: Option<Vec<u8>>,
+    pub primary_icon: Option<String>,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
@@ -2524,7 +2524,7 @@ pub struct NavigateToHistoryEntryReturnObject(pub Option<Json>);
 #[doc = "Print page as PDF."]
 pub struct PrintToPDFReturnObject {
     #[doc = "Base64-encoded pdf data. Empty if |returnAsStream| is specified."]
-    pub data: Vec<u8>,
+    pub data: String,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[doc = "A handle of the stream that holds resulting PDF data."]
@@ -2650,7 +2650,7 @@ pub struct SetPrerenderingAllowedReturnObject(pub Option<Json>);
 #[doc = "Get the annotated page content for the main frame.\n This is an experimental command that is subject to change."]
 pub struct GetAnnotatedPageContentReturnObject {
     #[doc = "The annotated page content as a base64 encoded protobuf.\n The format is defined by the `AnnotatedPageContent` message in\n components/optimization_guide/proto/features/common_quality_data.proto"]
-    pub content: Vec<u8>,
+    pub content: String,
 }
 impl Method for AddScriptToEvaluateOnLoad {
     const NAME: &'static str = "Page.addScriptToEvaluateOnLoad";
@@ -2910,6 +2910,7 @@ pub mod events {
         pub params: DomContentEventFiredEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DomContentEventFiredEventParams {
         pub timestamp: super::super::network::MonotonicTime,
     }
@@ -2918,6 +2919,7 @@ pub mod events {
         pub params: FileChooserOpenedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FileChooserOpenedEventParams {
         #[doc = "Id of the frame containing input node."]
         pub frame_id: super::FrameId,
@@ -2933,6 +2935,7 @@ pub mod events {
         pub params: FrameAttachedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameAttachedEventParams {
         #[doc = "Id of the frame that has been attached."]
         pub frame_id: super::FrameId,
@@ -2948,6 +2951,7 @@ pub mod events {
         pub params: FrameClearedScheduledNavigationEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameClearedScheduledNavigationEventParams {
         #[doc = "Id of the frame that has cleared its scheduled navigation."]
         pub frame_id: super::FrameId,
@@ -2957,6 +2961,7 @@ pub mod events {
         pub params: FrameDetachedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameDetachedEventParams {
         #[doc = "Id of the frame that has been detached."]
         pub frame_id: super::FrameId,
@@ -2967,6 +2972,7 @@ pub mod events {
         pub params: FrameSubtreeWillBeDetachedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameSubtreeWillBeDetachedEventParams {
         #[doc = "Id of the frame that is the root of the subtree that will be detached."]
         pub frame_id: super::FrameId,
@@ -2976,6 +2982,7 @@ pub mod events {
         pub params: FrameNavigatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameNavigatedEventParams {
         #[doc = "Frame object."]
         pub frame: super::Frame,
@@ -2986,6 +2993,7 @@ pub mod events {
         pub params: DocumentOpenedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DocumentOpenedEventParams {
         #[doc = "Frame object."]
         pub frame: super::Frame,
@@ -2997,6 +3005,7 @@ pub mod events {
         pub params: FrameStartedNavigatingEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameStartedNavigatingEventParams {
         #[doc = "ID of the frame that is being navigated."]
         pub frame_id: super::FrameId,
@@ -3012,6 +3021,7 @@ pub mod events {
         pub params: FrameRequestedNavigationEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameRequestedNavigationEventParams {
         #[doc = "Id of the frame that is being navigated."]
         pub frame_id: super::FrameId,
@@ -3028,6 +3038,7 @@ pub mod events {
         pub params: FrameScheduledNavigationEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameScheduledNavigationEventParams {
         #[doc = "Id of the frame that has scheduled a navigation."]
         pub frame_id: super::FrameId,
@@ -3045,6 +3056,7 @@ pub mod events {
         pub params: FrameStartedLoadingEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameStartedLoadingEventParams {
         #[doc = "Id of the frame that has started loading."]
         pub frame_id: super::FrameId,
@@ -3054,6 +3066,7 @@ pub mod events {
         pub params: FrameStoppedLoadingEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct FrameStoppedLoadingEventParams {
         #[doc = "Id of the frame that has stopped loading."]
         pub frame_id: super::FrameId,
@@ -3063,6 +3076,7 @@ pub mod events {
         pub params: DownloadWillBeginEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DownloadWillBeginEventParams {
         #[doc = "Id of the frame that caused download to begin."]
         pub frame_id: super::FrameId,
@@ -3081,6 +3095,7 @@ pub mod events {
         pub params: DownloadProgressEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DownloadProgressEventParams {
         #[serde(default)]
         #[doc = "Global unique identifier of the download."]
@@ -3103,6 +3118,7 @@ pub mod events {
         pub params: JavascriptDialogClosedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct JavascriptDialogClosedEventParams {
         #[doc = "Frame id."]
         pub frame_id: super::FrameId,
@@ -3118,6 +3134,7 @@ pub mod events {
         pub params: JavascriptDialogOpeningEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct JavascriptDialogOpeningEventParams {
         #[serde(default)]
         #[doc = "Frame url."]
@@ -3143,6 +3160,7 @@ pub mod events {
         pub params: LifecycleEventEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct LifecycleEventEventParams {
         #[doc = "Id of the frame."]
         pub frame_id: super::FrameId,
@@ -3157,6 +3175,7 @@ pub mod events {
         pub params: BackForwardCacheNotUsedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct BackForwardCacheNotUsedEventParams {
         #[doc = "The loader id for the associated navigation."]
         pub loader_id: super::super::network::LoaderId,
@@ -3175,6 +3194,7 @@ pub mod events {
         pub params: LoadEventFiredEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct LoadEventFiredEventParams {
         pub timestamp: super::super::network::MonotonicTime,
     }
@@ -3183,6 +3203,7 @@ pub mod events {
         pub params: NavigatedWithinDocumentEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct NavigatedWithinDocumentEventParams {
         #[doc = "Id of the frame."]
         pub frame_id: super::FrameId,
@@ -3197,10 +3218,11 @@ pub mod events {
         pub params: ScreencastFrameEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ScreencastFrameEventParams {
         #[serde(default)]
         #[doc = "Base64-encoded compressed image."]
-        pub data: u8,
+        pub data: String,
         #[doc = "Screencast frame metadata."]
         pub metadata: super::ScreencastFrameMetadata,
         #[serde(default)]
@@ -3212,6 +3234,7 @@ pub mod events {
         pub params: ScreencastVisibilityChangedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ScreencastVisibilityChangedEventParams {
         #[serde(default)]
         #[doc = "True if the page is visible."]
@@ -3222,6 +3245,7 @@ pub mod events {
         pub params: WindowOpenEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct WindowOpenEventParams {
         #[serde(default)]
         #[doc = "The URL for the new window."]
@@ -3241,11 +3265,12 @@ pub mod events {
         pub params: CompilationCacheProducedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CompilationCacheProducedEventParams {
         #[serde(default)]
         pub url: String,
         #[serde(default)]
         #[doc = "Base64-encoded data"]
-        pub data: u8,
+        pub data: String,
     }
 }

@@ -3,7 +3,7 @@ use cdp_core::*;
 #[tokio::main]
 async fn main() -> Result<()> {
     tracing_subscriber::fmt()
-        .with_env_filter(tracing_subscriber::EnvFilter::new("info"))
+        .with_env_filter(tracing_subscriber::EnvFilter::new("debug"))
         .with_target(false)
         .init();
     let browser = Browser::launcher().launch().await?;
@@ -14,7 +14,11 @@ async fn main() -> Result<()> {
     page.navigate("https://www.amazon.com").await?; // Puppeteer's website has a nice big button
 
     // Wait for load to ensure the page is ready
-    page.wait_for_loaded().await?;
+    page.wait_for_navigation(Some(WaitForNavigationOptions {
+        timeout_ms: Some(10000),
+        wait_until: Some(WaitUntil::NetworkIdle2),
+    }))
+    .await?;
     println!("Page loaded.");
 
     print!("   Testing element screenshot (auto-save)... ");

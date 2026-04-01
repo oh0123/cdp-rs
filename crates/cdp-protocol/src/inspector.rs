@@ -39,6 +39,7 @@ pub mod events {
         pub params: DetachedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DetachedEventParams {
         #[serde(default)]
         #[doc = "The reason why connection has been terminated."]

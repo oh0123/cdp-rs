@@ -100,7 +100,7 @@ pub struct VirtualAuthenticatorOptions {
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct Credential {
-    pub credential_id: Vec<u8>,
+    pub credential_id: String,
     #[serde(default)]
     pub is_resident_credential: bool,
     #[builder(default)]
@@ -109,18 +109,18 @@ pub struct Credential {
     #[doc = "Relying Party ID the credential is scoped to. Must be set when adding a\n credential."]
     pub rp_id: Option<String>,
     #[doc = "The ECDSA P-256 private key in PKCS#8 format."]
-    pub private_key: Vec<u8>,
+    pub private_key: String,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[doc = "An opaque byte sequence with a maximum size of 64 bytes mapping the\n credential to a specific user."]
-    pub user_handle: Option<Vec<u8>>,
+    pub user_handle: Option<String>,
     #[serde(default)]
     #[doc = "Signature counter. This is incremented by one for each successful\n assertion.\n See https://w3c.github.io/webauthn/#signature-counter"]
     pub sign_count: JsUInt,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[doc = "The large blob associated with the credential.\n See https://w3c.github.io/webauthn/#sctn-large-blob-extension"]
-    pub large_blob: Option<Vec<u8>>,
+    pub large_blob: Option<String>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
@@ -380,6 +380,7 @@ pub mod events {
         pub params: CredentialAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CredentialAddedEventParams {
         pub authenticator_id: super::AuthenticatorId,
         pub credential: super::Credential,
@@ -389,16 +390,18 @@ pub mod events {
         pub params: CredentialDeletedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CredentialDeletedEventParams {
         pub authenticator_id: super::AuthenticatorId,
         #[serde(default)]
-        pub credential_id: u8,
+        pub credential_id: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CredentialUpdatedEvent {
         pub params: CredentialUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CredentialUpdatedEventParams {
         pub authenticator_id: super::AuthenticatorId,
         pub credential: super::Credential,
@@ -408,6 +411,7 @@ pub mod events {
         pub params: CredentialAssertedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CredentialAssertedEventParams {
         pub authenticator_id: super::AuthenticatorId,
         pub credential: super::Credential,

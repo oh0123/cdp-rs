@@ -53,6 +53,7 @@ pub mod events {
         pub params: AcceptedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AcceptedEventParams {
         #[serde(default)]
         #[doc = "Port number that was successfully bound."]

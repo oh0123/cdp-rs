@@ -205,7 +205,7 @@ pub struct ReaderStateOut {
     pub event_state: ReaderStateFlags,
     #[serde(default)]
     pub event_count: JsUInt,
-    pub atr: Vec<u8>,
+    pub atr: String,
 }
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
@@ -410,6 +410,7 @@ pub mod events {
         pub params: EstablishContextRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct EstablishContextRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -419,6 +420,7 @@ pub mod events {
         pub params: ReleaseContextRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ReleaseContextRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -430,6 +432,7 @@ pub mod events {
         pub params: ListReadersRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ListReadersRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -441,6 +444,7 @@ pub mod events {
         pub params: GetStatusChangeRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct GetStatusChangeRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -458,6 +462,7 @@ pub mod events {
         pub params: CancelRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct CancelRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -469,6 +474,7 @@ pub mod events {
         pub params: ConnectRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ConnectRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -484,6 +490,7 @@ pub mod events {
         pub params: DisconnectRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DisconnectRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -496,13 +503,14 @@ pub mod events {
         pub params: TransmitRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct TransmitRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
         #[serde(default)]
         pub handle: JsUInt,
         #[serde(default)]
-        pub data: u8,
+        pub data: String,
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub protocol: Option<super::Protocol>,
@@ -512,6 +520,7 @@ pub mod events {
         pub params: ControlRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ControlRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -520,13 +529,14 @@ pub mod events {
         #[serde(default)]
         pub control_code: JsUInt,
         #[serde(default)]
-        pub data: u8,
+        pub data: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct GetAttribRequestedEvent {
         pub params: GetAttribRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct GetAttribRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -540,6 +550,7 @@ pub mod events {
         pub params: SetAttribRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct SetAttribRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -548,13 +559,14 @@ pub mod events {
         #[serde(default)]
         pub attrib_id: JsUInt,
         #[serde(default)]
-        pub data: u8,
+        pub data: String,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct StatusRequestedEvent {
         pub params: StatusRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct StatusRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -566,6 +578,7 @@ pub mod events {
         pub params: BeginTransactionRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct BeginTransactionRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
@@ -577,6 +590,7 @@ pub mod events {
         pub params: EndTransactionRequestedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct EndTransactionRequestedEventParams {
         #[serde(default)]
         pub request_id: String,

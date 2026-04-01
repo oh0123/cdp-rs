@@ -116,6 +116,7 @@ pub mod events {
         pub params: DomStorageItemAddedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DomStorageItemAddedEventParams {
         pub storage_id: super::StorageId,
         #[serde(default)]
@@ -128,6 +129,7 @@ pub mod events {
         pub params: DomStorageItemRemovedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DomStorageItemRemovedEventParams {
         pub storage_id: super::StorageId,
         #[serde(default)]
@@ -138,6 +140,7 @@ pub mod events {
         pub params: DomStorageItemUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DomStorageItemUpdatedEventParams {
         pub storage_id: super::StorageId,
         #[serde(default)]
@@ -152,6 +155,7 @@ pub mod events {
         pub params: DomStorageItemsClearedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DomStorageItemsClearedEventParams {
         pub storage_id: super::StorageId,
     }

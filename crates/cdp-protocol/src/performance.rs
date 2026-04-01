@@ -103,6 +103,7 @@ pub mod events {
         pub params: MetricsEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct MetricsEventParams {
         #[doc = "Current values of the metrics."]
         pub metrics: Vec<super::Metric>,

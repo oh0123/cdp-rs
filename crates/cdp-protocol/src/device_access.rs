@@ -80,6 +80,7 @@ pub mod events {
         pub params: DeviceRequestPromptedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DeviceRequestPromptedEventParams {
         pub id: super::RequestId,
         pub devices: Vec<super::PromptDevice>,

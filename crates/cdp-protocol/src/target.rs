@@ -558,6 +558,7 @@ pub mod events {
         pub params: AttachedToTargetEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct AttachedToTargetEventParams {
         #[doc = "Identifier assigned to the session used to send/receive messages."]
         pub session_id: super::SessionId,
@@ -570,6 +571,7 @@ pub mod events {
         pub params: DetachedFromTargetEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct DetachedFromTargetEventParams {
         #[doc = "Detached session identifier."]
         pub session_id: super::SessionId,
@@ -584,6 +586,7 @@ pub mod events {
         pub params: ReceivedMessageFromTargetEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct ReceivedMessageFromTargetEventParams {
         #[doc = "Identifier of a session which sends a message."]
         pub session_id: super::SessionId,
@@ -600,6 +603,7 @@ pub mod events {
         pub params: TargetCreatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct TargetCreatedEventParams {
         pub target_info: super::TargetInfo,
     }
@@ -608,6 +612,7 @@ pub mod events {
         pub params: TargetDestroyedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct TargetDestroyedEventParams {
         pub target_id: super::TargetId,
     }
@@ -616,6 +621,7 @@ pub mod events {
         pub params: TargetCrashedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct TargetCrashedEventParams {
         pub target_id: super::TargetId,
         #[serde(default)]
@@ -630,6 +636,7 @@ pub mod events {
         pub params: TargetInfoChangedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct TargetInfoChangedEventParams {
         pub target_info: super::TargetInfo,
     }

@@ -379,6 +379,7 @@ pub mod events {
         pub params: RuleSetUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct RuleSetUpdatedEventParams {
         pub rule_set: super::RuleSet,
     }
@@ -387,6 +388,7 @@ pub mod events {
         pub params: RuleSetRemovedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct RuleSetRemovedEventParams {
         pub id: super::RuleSetId,
     }
@@ -395,6 +397,7 @@ pub mod events {
         pub params: PreloadEnabledStateUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PreloadEnabledStateUpdatedEventParams {
         #[serde(default)]
         pub disabled_by_preference: bool,
@@ -412,6 +415,7 @@ pub mod events {
         pub params: PrefetchStatusUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PrefetchStatusUpdatedEventParams {
         pub key: super::PreloadingAttemptKey,
         pub pipeline_id: super::PreloadPipelineId,
@@ -428,6 +432,7 @@ pub mod events {
         pub params: PrerenderStatusUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PrerenderStatusUpdatedEventParams {
         pub key: super::PreloadingAttemptKey,
         pub pipeline_id: super::PreloadPipelineId,
@@ -449,6 +454,7 @@ pub mod events {
         pub params: PreloadingAttemptSourcesUpdatedEventParams,
     }
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
+    #[serde(rename_all = "camelCase")]
     pub struct PreloadingAttemptSourcesUpdatedEventParams {
         pub loader_id: super::super::network::LoaderId,
         pub preloading_attempt_sources: Vec<super::PreloadingAttemptSource>,
