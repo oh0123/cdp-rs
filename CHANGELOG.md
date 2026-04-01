@@ -7,13 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-04-01
+
 ### Added
 
+#### cdp-protocol
+- Updated Chrome DevTools Protocol to Chrome **146.0.7680.165** (from 143.0.7499.110)
+- **New domain: SmartCardEmulation** (`smart_card_emulation.rs`) — full PC/SC smart card emulation support:
+  - Types: `ResultCode`, `ShareMode`, `Disposition`, `Protocol`, `ReaderStateIn`, `ReaderStateOut`, `DeviceAttributes`, `SCardHandle`
+  - Commands: `EstablishContext`, `ReleaseContext`, `ListReaders`, `GetStatusChange`, `Cancel`, `Connect`, `Disconnect`, `Transmit`, `Control`, `GetAttrib`, `SetAttrib`, `Status`, `BeginTransaction`, `EndTransaction`
+  - 13 corresponding events in event routing
+- **Network domain**:
+  - New type alias `DeviceBoundSessionEventId`
+  - New enum `RenderBlockingBehavior` (Blocking, InBodyParserBlocking, NonBlocking, NonBlockingDynamic, PotentiallyBlocking)
+  - New enum `DeviceBoundSessionWithUsageUsage` (6 variants for session usage tracking)
+  - New enum `DeviceBoundSessionUrlRuleRuleType` (Exclude / Include)
+  - New events: `directUDPSocketJoinedMulticastGroup`, `directUDPSocketLeftMulticastGroup`, `deviceBoundSessionsAdded`, `deviceBoundSessionEventOccurred`
+- **Audits domain**:
+  - New enum `ConnectionAllowlistError` (6 variants)
+  - New enum `PermissionElementIssue` (21 variants covering layout, security, and activation errors)
+  - New `InspectorIssueCode` variants: `ConnectionAllowlistIssue`, `PermissionElementIssue`
+  - New `GenericIssueErrorType` variants: `NavigationEntryMarkedSkippable`, `AutofillAndManualTextPolicyControlledFeaturesInfo`, `AutofillPolicyControlledFeatureInfo`, `ManualTextPolicyControlledFeatureInfo`
+- **DOM domain**: new event `adoptedStyleSheetsModified`
+- **Overlay domain**: new events `inspectPanelShowRequested`, `inspectedElementWindowRestored`
+- **Event routing** (`types.rs`): 13 `SmartCardEmulation.*` events, 4 new `Network.*` events, 2 new `Overlay.*` events, `DOM.adoptedStyleSheetsModified`
+- **`derive_builder`** integration: protocol structs now derive `Builder` for ergonomic construction (opt-in per struct)
+
 #### cdp-core
-- Version bumped to 0.3.0 (in progress)
+- `grant_permissions` refactored: each `PermissionType` is now sent as an individual `Browser.setPermission` CDP call, fixing incorrect batch usage of `GrantPermissions`
+- `BrowserContext::open_page`: `focus: Some(true)` now passed by default when creating a new page target
+
+#### Dependencies
+- Added `derive_builder = "0.20.2"` to workspace dependencies
+
+### Changed
 
 #### cdp-protocol
-- Version bumped to 0.3.0 (in progress)
+- **Network domain**:
+  - Removed `IpProxyStatus` enum (superseded by updated IP Protection API)
+  - `CorsError` enum: renamed private-network variants — `InsecurePrivateNetwork` → `InsecureLocalNetwork`, `InvalidPrivateNetworkAccess` → `InvalidLocalNetworkAccess`; removed `PreflightMissingAllowPrivateNetwork`, `PreflightInvalidAllowPrivateNetwork`, `PreflightMissingPrivateNetworkAccessId`, `PreflightMissingPrivateNetworkAccessName`, `PrivateNetworkAccessPermissionUnavailable`, `PrivateNetworkAccessPermissionDenied`
+  - `PrivateNetworkRequestPolicy` renamed to `LocalNetworkAccessRequestPolicy`; removed `PreflightBlock` and `PreflightWarn` variants
+  - Cookie enums: removed `SamePartyFromCrossPartyContext` and `SamePartyConflictsWithOtherAttributes` variants
+- **Audits domain**: `GenericIssueErrorType` — renamed `FormAriaLabelledByToNonExistingId` → `FormAriaLabelledByToNonExistingIdError`, `FormLabelHasNeitherForNorNestedInput` → `FormLabelHasNeitherForNorNestedInputError`; removed `ExcludeInvalidSameParty` and `ExcludeSamePartyCrossPartyContext` from `CookieExclusionReason`
+
+#### cdp-core
+- `CookieManager::set_cookie`: removed deprecated `same_party` field; return value always `true` (API aligned with updated protocol)
+- `TracingStartOptions`: removed explicit `categories` / `options` override fields from the generated `Start` command builder
+
+#### Dependencies (workspace)
+- `tokio-tungstenite`: `0.28` → `0.29`
+- `tokio-stream`: `0.1.17` → `0.1.18`
+- `futures-util`: `0.3` → `0.3.32`
+- `reqwest`: `0.12.25` → `0.13.2`
+- `url`: `2.3` → `2.5.8`
+- `regex`: `1.11` → `1.12.3`
+- `rand`: `0.9` → `0.10`
+- `tracing`: `0.1.43` → `0.1.44`
+- `tempfile`: `3.23.0` → `3.27.0`
+- `thiserror`: `2.0.17` → `2.0.18`
+- `tracing-subscriber`: `0.3.22` → `0.3.23`
 
 ## [0.2.0] - 2025-12-13
 
@@ -128,6 +180,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/oh0123/cdp-rs/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/oh0123/cdp-rs/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/oh0123/cdp-rs/releases/tag/v0.1.0
