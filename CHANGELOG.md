@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-04-02
+
+### Fixed
+
+#### cdp-protocol
+- Fixed event deserialization issues by adding `#[serde(rename_all = "camelCase")]` to all generated `*EventParams` structs, ensuring compatibility with camelCase JSON fields from the protocol.
+- Corrected types in the `WebAuthn` domain:
+  - `Credential`: changed `credential_id`, `private_key`, `user_handle`, and `large_blob` from `Vec<u8>` to `String`.
+  - `CredentialDeletedEventParams`: changed `credential_id` from `u8` to `String`.
+- Improved documentation rendering: wrapped URLs in `<...>` in docstrings to ensure proper `rustdoc` hyperlink generation.
+- Reduced compiler noise: added `#[allow(deprecated)]` and `#[allow(dead_code)]` to generated protocol code where applicable.
+
+#### cdp-core
+- Updated execution context management: refactored `websocket_connection.rs` to use `execution_context_unique_id` instead of the deprecated `execution_context_id` for `Runtime.ExecutionContextDestroyed` events.
+
 ## [0.3.0] - 2026-04-01
 
 ### Added
