@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: CacheStorage
+#![allow(dead_code)]
 use super::storage;
 #[allow(unused_imports)]
 use super::types::*;
@@ -9,6 +10,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type CacheId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CachedResponseType {
     #[serde(rename = "basic")]
@@ -24,6 +26,7 @@ pub enum CachedResponseType {
     #[serde(rename = "opaqueRedirect")]
     OpaqueRedirect,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -52,6 +55,7 @@ pub struct DataEntry {
     #[doc = "Response headers"]
     pub response_headers: Vec<Header>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -73,6 +77,7 @@ pub struct Cache {
     #[doc = "The name of the cache."]
     pub cache_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -82,6 +87,7 @@ pub struct Header {
     #[serde(default)]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -90,6 +96,7 @@ pub struct CachedResponse {
     #[doc = "Entry content, base64-encoded."]
     pub body: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -98,6 +105,7 @@ pub struct DeleteCache {
     #[doc = "Id of cache for deletion."]
     pub cache_id: CacheId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -109,6 +117,7 @@ pub struct DeleteEntry {
     #[doc = "URL spec of the request."]
     pub request: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -129,6 +138,7 @@ pub struct RequestCacheNames {
     #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -143,6 +153,7 @@ pub struct RequestCachedResponse {
     #[doc = "headers of the request."]
     pub request_headers: Vec<Header>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -166,12 +177,15 @@ pub struct RequestEntries {
     #[doc = "If present, only return the entries containing this substring in the path"]
     pub path_filter: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Deletes a cache."]
 pub struct DeleteCacheReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Deletes a cache entry."]
 pub struct DeleteEntryReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Requests cache names."]
@@ -179,6 +193,7 @@ pub struct RequestCacheNamesReturnObject {
     #[doc = "Caches for the security origin."]
     pub caches: Vec<Cache>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Fetches cache entry."]
@@ -186,6 +201,7 @@ pub struct RequestCachedResponseReturnObject {
     #[doc = "Response read from the cache."]
     pub response: CachedResponse,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Requests data from cache."]
@@ -196,26 +212,32 @@ pub struct RequestEntriesReturnObject {
     #[doc = "Count of returned entries from this storage. If pathFilter is empty, it\n is the count of all entries from this storage."]
     pub return_count: JsFloat,
 }
+#[allow(deprecated)]
 impl Method for DeleteCache {
     const NAME: &'static str = "CacheStorage.deleteCache";
     type ReturnObject = DeleteCacheReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DeleteEntry {
     const NAME: &'static str = "CacheStorage.deleteEntry";
     type ReturnObject = DeleteEntryReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RequestCacheNames {
     const NAME: &'static str = "CacheStorage.requestCacheNames";
     type ReturnObject = RequestCacheNamesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RequestCachedResponse {
     const NAME: &'static str = "CacheStorage.requestCachedResponse";
     type ReturnObject = RequestCachedResponseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RequestEntries {
     const NAME: &'static str = "CacheStorage.requestEntries";
     type ReturnObject = RequestEntriesReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;

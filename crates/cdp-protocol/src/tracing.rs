@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Tracing
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -7,6 +8,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum TraceConfigRecordMode {
     #[serde(rename = "recordUntilFull")]
@@ -18,6 +20,7 @@ pub enum TraceConfigRecordMode {
     #[serde(rename = "echoToConsole")]
     EchoToConsole,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum StreamFormat {
     #[serde(rename = "json")]
@@ -25,6 +28,7 @@ pub enum StreamFormat {
     #[serde(rename = "proto")]
     Proto,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum StreamCompression {
     #[serde(rename = "none")]
@@ -32,6 +36,7 @@ pub enum StreamCompression {
     #[serde(rename = "gzip")]
     Gzip,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum MemoryDumpLevelOfDetail {
     #[serde(rename = "background")]
@@ -41,6 +46,7 @@ pub enum MemoryDumpLevelOfDetail {
     #[serde(rename = "detailed")]
     Detailed,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum TracingBackend {
     #[serde(rename = "auto")]
@@ -50,6 +56,7 @@ pub enum TracingBackend {
     #[serde(rename = "system")]
     System,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum StartTransferModeOption {
     #[serde(rename = "ReportEvents")]
@@ -57,8 +64,10 @@ pub enum StartTransferModeOption {
     #[serde(rename = "ReturnAsStream")]
     ReturnAsStream,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct MemoryDumpConfig(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -107,12 +116,16 @@ pub struct TraceConfig {
     #[doc = "Configuration for memory dump triggers. Used only when \"memory-infra\" category is enabled."]
     pub memory_dump_config: Option<MemoryDumpConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct End(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetCategories(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetTrackEventDescriptor(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -122,6 +135,7 @@ pub struct RecordClockSyncMarker {
     #[doc = "The ID of this clock sync marker"]
     pub sync_id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -137,6 +151,7 @@ pub struct RequestMemoryDump {
     #[doc = "Specifies level of details in memory dump. Defaults to \"detailed\"."]
     pub level_of_detail: Option<MemoryDumpLevelOfDetail>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -183,9 +198,11 @@ pub struct Start {
     #[doc = "Backend type (defaults to `auto`)"]
     pub tracing_backend: Option<TracingBackend>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Stop trace events collection."]
 pub struct EndReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Gets supported tracing categories."]
@@ -193,6 +210,7 @@ pub struct GetCategoriesReturnObject {
     #[doc = "A list of supported tracing categories."]
     pub categories: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Return a descriptor for all available tracing categories."]
@@ -200,9 +218,11 @@ pub struct GetTrackEventDescriptorReturnObject {
     #[doc = "Base64-encoded serialized perfetto.protos.TrackEventDescriptor protobuf message."]
     pub descriptor: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Record a clock sync marker in the trace."]
 pub struct RecordClockSyncMarkerReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Request a global memory dump."]
@@ -214,33 +234,41 @@ pub struct RequestMemoryDumpReturnObject {
     #[doc = "True iff the global memory dump succeeded."]
     pub success: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Start trace events collection."]
 pub struct StartReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for End {
     const NAME: &'static str = "Tracing.end";
     type ReturnObject = EndReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetCategories {
     const NAME: &'static str = "Tracing.getCategories";
     type ReturnObject = GetCategoriesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetTrackEventDescriptor {
     const NAME: &'static str = "Tracing.getTrackEventDescriptor";
     type ReturnObject = GetTrackEventDescriptorReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RecordClockSyncMarker {
     const NAME: &'static str = "Tracing.recordClockSyncMarker";
     type ReturnObject = RecordClockSyncMarkerReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RequestMemoryDump {
     const NAME: &'static str = "Tracing.requestMemoryDump";
     type ReturnObject = RequestMemoryDumpReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Start {
     const NAME: &'static str = "Tracing.start";
     type ReturnObject = StartReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -250,17 +278,19 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct BufferUsageEvent {
         pub params: BufferUsageEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct BufferUsageEventParams {
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[doc = "A number in range [0..1] that indicates the used size of event buffer as a fraction of its\n total size."]
+        #[doc = "A number in range \\[0..1\\] that indicates the used size of event buffer as a fraction of its\n total size."]
         pub percent_full: Option<JsFloat>,
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
@@ -270,23 +300,27 @@ pub mod events {
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
         #[serde(default)]
-        #[doc = "A number in range [0..1] that indicates the used size of event buffer as a fraction of its\n total size."]
+        #[doc = "A number in range \\[0..1\\] that indicates the used size of event buffer as a fraction of its\n total size."]
         pub value: Option<JsFloat>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DataCollectedEvent {
         pub params: DataCollectedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DataCollectedEventParams {
         #[serde(default)]
         pub value: Vec<Json>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TracingCompleteEvent {
         pub params: TracingCompleteEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct TracingCompleteEventParams {

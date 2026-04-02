@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: HeadlessExperimental
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -7,6 +8,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ScreenshotParamsFormat {
     #[serde(rename = "jpeg")]
@@ -16,6 +18,7 @@ pub enum ScreenshotParamsFormat {
     #[serde(rename = "webp")]
     Webp,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -28,7 +31,7 @@ pub struct ScreenshotParams {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "Compression quality from range [0..100] (jpeg and webp only)."]
+    #[doc = "Compression quality from range \\[0..100\\] (jpeg and webp only)."]
     pub quality: Option<JsUInt>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -36,10 +39,11 @@ pub struct ScreenshotParams {
     #[doc = "Optimize image encoding for speed, not for resulting size (defaults to false)"]
     pub optimize_for_speed: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Sends a BeginFrame to the target and returns when the frame was completed. Optionally captures a\n screenshot from the resulting frame. Requires that the target was created with enabled\n BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also\n https://goo.gle/chrome-headless-rendering for more background."]
+#[doc = "Sends a BeginFrame to the target and returns when the frame was completed. Optionally captures a\n screenshot from the resulting frame. Requires that the target was created with enabled\n BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also\n <https://goo.gle/chrome-headless-rendering> for more background."]
 pub struct BeginFrame {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -61,13 +65,16 @@ pub struct BeginFrame {
     #[doc = "If set, a screenshot of the frame will be captured and returned in the response. Otherwise,\n no screenshot will be captured. Note that capturing a screenshot can fail, for example,\n during renderer initialization. In such a case, no screenshot data will be returned."]
     pub screenshot: Option<ScreenshotParams>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-#[doc = "Sends a BeginFrame to the target and returns when the frame was completed. Optionally captures a\n screenshot from the resulting frame. Requires that the target was created with enabled\n BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also\n https://goo.gle/chrome-headless-rendering for more background."]
+#[doc = "Sends a BeginFrame to the target and returns when the frame was completed. Optionally captures a\n screenshot from the resulting frame. Requires that the target was created with enabled\n BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also\n <https://goo.gle/chrome-headless-rendering> for more background."]
 pub struct BeginFrameReturnObject {
     #[serde(default)]
     #[doc = "Whether the BeginFrame resulted in damage and, thus, a new frame was committed to the\n display. Reported for diagnostic uses, may be removed in the future."]
@@ -77,26 +84,32 @@ pub struct BeginFrameReturnObject {
     #[doc = "Base64-encoded image data of the screenshot, if one was requested and successfully taken."]
     pub screenshot_data: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables headless events for the target."]
 #[deprecated]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables headless events for the target."]
 #[deprecated]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for BeginFrame {
     const NAME: &'static str = "HeadlessExperimental.beginFrame";
     type ReturnObject = BeginFrameReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "HeadlessExperimental.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "HeadlessExperimental.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;

@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Log
+#![allow(dead_code)]
 use super::network;
 use super::runtime;
 #[allow(unused_imports)]
@@ -9,6 +10,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum LogEntrySource {
     #[serde(rename = "xml")]
@@ -38,6 +40,7 @@ pub enum LogEntrySource {
     #[serde(rename = "other")]
     Other,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum LogEntryLevel {
     #[serde(rename = "verbose")]
@@ -49,11 +52,13 @@ pub enum LogEntryLevel {
     #[serde(rename = "error")]
     Error,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum LogEntryCategory {
     #[serde(rename = "cors")]
     Cors,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ViolationSettingName {
     #[serde(rename = "longTask")]
@@ -71,6 +76,7 @@ pub enum ViolationSettingName {
     #[serde(rename = "recurringHandler")]
     RecurringHandler,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -116,6 +122,7 @@ pub struct LogEntry {
     #[doc = "Call arguments."]
     pub args: Option<Vec<runtime::RemoteObject>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -127,12 +134,16 @@ pub struct ViolationSetting {
     #[doc = "Time threshold to trigger upon."]
     pub threshold: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Clear(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -141,43 +152,55 @@ pub struct StartViolationsReport {
     #[doc = "Configuration for violations."]
     pub config: Vec<ViolationSetting>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopViolationsReport(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears the log."]
 pub struct ClearReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables log domain, prevents further log entries from being reported to the client."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables log domain, sends the entries collected so far to the client by means of the\n `entryAdded` notification."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "start violation reporting."]
 pub struct StartViolationsReportReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Stop violation reporting."]
 pub struct StopViolationsReportReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Clear {
     const NAME: &'static str = "Log.clear";
     type ReturnObject = ClearReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Log.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Log.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StartViolationsReport {
     const NAME: &'static str = "Log.startViolationsReport";
     type ReturnObject = StartViolationsReportReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StopViolationsReport {
     const NAME: &'static str = "Log.stopViolationsReport";
     type ReturnObject = StopViolationsReportReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -187,10 +210,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct EntryAddedEvent {
         pub params: EntryAddedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct EntryAddedEventParams {

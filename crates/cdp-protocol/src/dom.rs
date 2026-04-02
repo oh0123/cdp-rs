@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: DOM
+#![allow(dead_code)]
 use super::dom;
 use super::page;
 use super::runtime;
@@ -14,6 +15,7 @@ pub type NodeId = JsUInt;
 pub type BackendNodeId = JsUInt;
 pub type StyleSheetId = String;
 pub type Quad = Vec<JsFloat>;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PseudoType {
     #[serde(rename = "first-line")]
@@ -97,6 +99,7 @@ pub enum PseudoType {
     #[serde(rename = "overscroll-area-parent")]
     OverscrollAreaParent,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ShadowRootType {
     #[serde(rename = "user-agent")]
@@ -106,6 +109,7 @@ pub enum ShadowRootType {
     #[serde(rename = "closed")]
     Closed,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CompatibilityMode {
     #[serde(rename = "QuirksMode")]
@@ -115,6 +119,7 @@ pub enum CompatibilityMode {
     #[serde(rename = "NoQuirksMode")]
     NoQuirksMode,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PhysicalAxes {
     #[serde(rename = "Horizontal")]
@@ -124,6 +129,7 @@ pub enum PhysicalAxes {
     #[serde(rename = "Both")]
     Both,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum LogicalAxes {
     #[serde(rename = "Inline")]
@@ -133,6 +139,7 @@ pub enum LogicalAxes {
     #[serde(rename = "Both")]
     Both,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ScrollOrientation {
     #[serde(rename = "horizontal")]
@@ -140,6 +147,7 @@ pub enum ScrollOrientation {
     #[serde(rename = "vertical")]
     Vertical,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum EnableIncludeWhitespaceOption {
     #[serde(rename = "none")]
@@ -147,6 +155,7 @@ pub enum EnableIncludeWhitespaceOption {
     #[serde(rename = "all")]
     All,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum GetElementByRelationRelationOption {
     #[serde(rename = "PopoverTarget")]
@@ -156,6 +165,7 @@ pub enum GetElementByRelationRelationOption {
     #[serde(rename = "CommandFor")]
     CommandFor,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -169,6 +179,7 @@ pub struct BackendNode {
     pub node_name: String,
     pub backend_node_id: BackendNodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -206,7 +217,7 @@ pub struct Node {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "Attributes of the `Element` node in the form of flat array `[name1, value1, name2, value2]`."]
+    #[doc = "Attributes of the `Element` node in the form of flat array `\\[name1, value1, name2, value2\\]`."]
     pub attributes: Option<Vec<String>>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -316,6 +327,7 @@ pub struct Node {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub adopted_style_sheets: Option<Vec<StyleSheetId>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -324,26 +336,28 @@ pub struct DetachedElementInfo {
     pub tree_node: Node,
     pub retained_node_ids: Vec<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 #[doc = "A structure holding an RGBA color."]
 pub struct Rgba {
     #[serde(default)]
-    #[doc = "The red component, in the [0-255] range."]
+    #[doc = "The red component, in the \\[0-255\\] range."]
     pub r: JsUInt,
     #[serde(default)]
-    #[doc = "The green component, in the [0-255] range."]
+    #[doc = "The green component, in the \\[0-255\\] range."]
     pub g: JsUInt,
     #[serde(default)]
-    #[doc = "The blue component, in the [0-255] range."]
+    #[doc = "The blue component, in the \\[0-255\\] range."]
     pub b: JsUInt,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The alpha component, in the [0-1] range (default: 1)."]
+    #[doc = "The alpha component, in the \\[0-1\\] range (default: 1)."]
     pub a: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -368,6 +382,7 @@ pub struct BoxModel {
     #[doc = "Shape outside coordinates"]
     pub shape_outside: Option<ShapeOutsideInfo>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -382,6 +397,7 @@ pub struct ShapeOutsideInfo {
     #[doc = "Margin shape bounds"]
     pub margin_shape: Vec<Json>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -400,6 +416,7 @@ pub struct Rect {
     #[doc = "Rectangle height"]
     pub height: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -411,6 +428,7 @@ pub struct CssComputedStyleProperty {
     #[doc = "Computed style property value."]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -419,6 +437,7 @@ pub struct CollectClassNamesFromSubtree {
     #[doc = "Id of the node to collect class names."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -433,6 +452,7 @@ pub struct CopyTo {
     #[doc = "Drop the copy before this node (if absent, the copy becomes the last child of\n `targetNodeId`)."]
     pub insert_before_node_id: Option<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -461,6 +481,7 @@ pub struct DescribeNode {
     #[doc = "Whether or not iframes and shadow roots should be traversed when returning the subtree\n (default is false)."]
     pub pierce: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -483,8 +504,10 @@ pub struct ScrollIntoViewIfNeeded {
     #[doc = "The rect to be scrolled into view, relative to the node's border box, in CSS pixels.\n When omitted, center of the node will be used, similar to Element.scrollIntoView."]
     pub rect: Option<Rect>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -494,6 +517,7 @@ pub struct DiscardSearchResults {
     #[doc = "Unique search session identifier."]
     pub search_id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -504,6 +528,7 @@ pub struct Enable {
     #[doc = "Whether to include whitespaces in the children array of returned Nodes."]
     pub include_whitespace: Option<EnableIncludeWhitespaceOption>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -522,6 +547,7 @@ pub struct Focus {
     #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -530,6 +556,7 @@ pub struct GetAttributes {
     #[doc = "Id of the node to retrieve attributes for."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -548,6 +575,7 @@ pub struct GetBoxModel {
     #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -566,6 +594,7 @@ pub struct GetContentQuads {
     #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -582,6 +611,7 @@ pub struct GetDocument {
     #[doc = "Whether or not iframes and shadow roots should be traversed when returning the subtree\n (default is false)."]
     pub pierce: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -599,6 +629,7 @@ pub struct GetFlattenedDocument {
     #[doc = "Whether or not iframes and shadow roots should be traversed when returning the subtree\n (default is false)."]
     pub pierce: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -614,6 +645,7 @@ pub struct GetNodesForSubtreeByStyle {
     #[doc = "Whether or not iframes and shadow roots in the same target should be traversed when returning the\n results (default is false)."]
     pub pierce: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -637,6 +669,7 @@ pub struct GetNodeForLocation {
     #[doc = "Whether to ignore pointer-events: none on elements and hit test them."]
     pub ignore_pointer_events_none: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -661,6 +694,7 @@ pub struct GetOuterHTML {
     #[serde(rename = "includeShadowDOM")]
     pub include_shadow_dom: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -669,6 +703,7 @@ pub struct GetRelayoutBoundary {
     #[doc = "Id of the node."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -684,14 +719,19 @@ pub struct GetSearchResults {
     #[doc = "End index of the search result to be returned."]
     pub to_index: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct HideHighlight(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct HighlightNode(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct HighlightRect(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct MarkUndoableState(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -706,6 +746,7 @@ pub struct MoveTo {
     #[doc = "Drop node before this one (if absent, the moved node becomes the last child of\n `targetNodeId`)."]
     pub insert_before_node_id: Option<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -721,6 +762,7 @@ pub struct PerformSearch {
     #[serde(rename = "includeUserAgentShadowDOM")]
     pub include_user_agent_shadow_dom: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -730,6 +772,7 @@ pub struct PushNodeByPathToFrontend {
     #[doc = "Path to node in the proprietary format."]
     pub path: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -738,6 +781,7 @@ pub struct PushNodesByBackendIdsToFrontend {
     #[doc = "The array of backend node ids."]
     pub backend_node_ids: Vec<BackendNodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -749,6 +793,7 @@ pub struct QuerySelector {
     #[doc = "Selector string."]
     pub selector: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -760,8 +805,10 @@ pub struct QuerySelectorAll {
     #[doc = "Selector string."]
     pub selector: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetTopLayerElements(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -772,8 +819,10 @@ pub struct GetElementByRelation {
     #[doc = "Type of relation to get."]
     pub relation: GetElementByRelationRelationOption,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Redo(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -785,6 +834,7 @@ pub struct RemoveAttribute {
     #[doc = "Name of the attribute to remove."]
     pub name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -793,6 +843,7 @@ pub struct RemoveNode {
     #[doc = "Id of the node to remove."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -811,6 +862,7 @@ pub struct RequestChildNodes {
     #[doc = "Whether or not iframes and shadow roots should be traversed when returning the sub-tree\n (default is false)."]
     pub pierce: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -819,6 +871,7 @@ pub struct RequestNode {
     #[doc = "JavaScript object id to convert into node."]
     pub object_id: runtime::RemoteObjectId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -842,6 +895,7 @@ pub struct ResolveNode {
     #[doc = "Execution context in which to resolve the node."]
     pub execution_context_id: Option<runtime::ExecutionContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -856,6 +910,7 @@ pub struct SetAttributeValue {
     #[doc = "Attribute value."]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -872,6 +927,7 @@ pub struct SetAttributesAsText {
     #[doc = "Attribute name to replace with new attributes derived from text in case text parsed\n successfully."]
     pub name: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -893,6 +949,7 @@ pub struct SetFileInputFiles {
     #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -902,6 +959,7 @@ pub struct SetNodeStackTracesEnabled {
     #[doc = "Enable or disable."]
     pub enable: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -910,6 +968,7 @@ pub struct GetNodeStackTraces {
     #[doc = "Id of the node to get stack traces for."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -918,8 +977,10 @@ pub struct GetFileInfo {
     #[doc = "JavaScript object id of the node wrapper."]
     pub object_id: runtime::RemoteObjectId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetDetachedDomNodes(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -928,6 +989,7 @@ pub struct SetInspectedNode {
     #[doc = "DOM node id to be accessible by means of $x command line API."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -939,6 +1001,7 @@ pub struct SetNodeName {
     #[doc = "New node's name."]
     pub name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -950,6 +1013,7 @@ pub struct SetNodeValue {
     #[doc = "New node's value."]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -962,8 +1026,10 @@ pub struct SetOuterHTML {
     #[serde(rename = "outerHTML")]
     pub outer_html: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Undo(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -971,6 +1037,7 @@ pub struct Undo(pub Option<Json>);
 pub struct GetFrameOwner {
     pub frame_id: page::FrameId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -996,6 +1063,7 @@ pub struct GetContainerForNode {
     #[serde(default)]
     pub queries_anchored: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1004,19 +1072,21 @@ pub struct GetQueryingDescendantsForContainer {
     #[doc = "Id of the container node to find querying descendants from."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Returns the target anchor element of the given anchor query according to\n https://www.w3.org/TR/css-anchor-position-1/#target."]
+#[doc = "Returns the target anchor element of the given anchor query according to\n <https://www.w3.org/TR/css-anchor-position-1/#target>."]
 pub struct GetAnchorElement {
     #[doc = "Id of the positioned element from which to find the anchor."]
     pub node_id: NodeId,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "An optional anchor specifier, as defined in\n https://www.w3.org/TR/css-anchor-position-1/#anchor-specifier.\n If not provided, it will return the implicit anchor element for\n the given positioned element."]
+    #[doc = "An optional anchor specifier, as defined in\n <https://www.w3.org/TR/css-anchor-position-1/#anchor-specifier>.\n If not provided, it will return the implicit anchor element for\n the given positioned element."]
     pub anchor_specifier: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1028,6 +1098,7 @@ pub struct ForceShowPopover {
     #[doc = "If true, opens the popover and keeps it open. If false, closes the\n popover if it was previously force-opened."]
     pub enable: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Collects class names for the node with given id and all of it's child nodes."]
@@ -1035,6 +1106,7 @@ pub struct CollectClassNamesFromSubtreeReturnObject {
     #[doc = "Class name list."]
     pub class_names: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Creates a deep copy of the specified node and places it into the target container before the\n given anchor."]
@@ -1042,6 +1114,7 @@ pub struct CopyToReturnObject {
     #[doc = "Id of the node clone."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Describes node given its id, does not require domain to be enabled. Does not start tracking any\n objects, can be used for automation."]
@@ -1049,21 +1122,27 @@ pub struct DescribeNodeReturnObject {
     #[doc = "Node description."]
     pub node: Node,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Scrolls the specified rect of the given node into view if not already visible.\n Note: exactly one between nodeId, backendNodeId and objectId should be passed\n to identify the node."]
 pub struct ScrollIntoViewIfNeededReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables DOM agent for the given page."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Discards search results from the session with the given id. `getSearchResults` should no longer\n be called for that search."]
 pub struct DiscardSearchResultsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables DOM agent for the given page."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Focuses the given element."]
 pub struct FocusReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns attributes for the specified node."]
@@ -1071,6 +1150,7 @@ pub struct GetAttributesReturnObject {
     #[doc = "An interleaved array of node attribute names and values."]
     pub attributes: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns boxes for the given node."]
@@ -1078,6 +1158,7 @@ pub struct GetBoxModelReturnObject {
     #[doc = "Box model for the node."]
     pub model: BoxModel,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns quads that describe node position on the page. This method\n might return multiple quads for inline nodes."]
@@ -1085,6 +1166,7 @@ pub struct GetContentQuadsReturnObject {
     #[doc = "Quads that describe node layout relative to viewport."]
     pub quads: Vec<Quad>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the root DOM node (and optionally the subtree) to the caller.\n Implicitly enables the DOM domain events for the current target."]
@@ -1092,6 +1174,7 @@ pub struct GetDocumentReturnObject {
     #[doc = "Resulting node."]
     pub root: Node,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the root DOM node (and optionally the subtree) to the caller.\n Deprecated, as it is not designed to work well with the rest of the DOM agent.\n Use DOMSnapshot.captureSnapshot instead."]
@@ -1100,6 +1183,7 @@ pub struct GetFlattenedDocumentReturnObject {
     #[doc = "Resulting node."]
     pub nodes: Vec<Node>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Finds nodes with a given computed style in a subtree."]
@@ -1107,6 +1191,7 @@ pub struct GetNodesForSubtreeByStyleReturnObject {
     #[doc = "Resulting nodes."]
     pub node_ids: Vec<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns node id at given location. Depending on whether DOM domain is enabled, nodeId is\n either returned or not."]
@@ -1120,6 +1205,7 @@ pub struct GetNodeForLocationReturnObject {
     #[doc = "Id of the node at given coordinates, only when enabled and requested document."]
     pub node_id: Option<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns node's HTML markup."]
@@ -1129,6 +1215,7 @@ pub struct GetOuterHTMLReturnObject {
     #[serde(rename = "outerHTML")]
     pub outer_html: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the id of the nearest ancestor that is a relayout boundary."]
@@ -1136,6 +1223,7 @@ pub struct GetRelayoutBoundaryReturnObject {
     #[doc = "Relayout boundary node id for the given node."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns search results from given `fromIndex` to given `toIndex` from the search with the given\n identifier."]
@@ -1143,18 +1231,23 @@ pub struct GetSearchResultsReturnObject {
     #[doc = "Ids of the search result nodes."]
     pub node_ids: Vec<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Hides any highlight."]
 pub struct HideHighlightReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Highlights DOM node."]
 pub struct HighlightNodeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Highlights given rectangle."]
 pub struct HighlightRectReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Marks last undoable state."]
 pub struct MarkUndoableStateReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Moves node into the new container, places it before the given anchor."]
@@ -1162,6 +1255,7 @@ pub struct MoveToReturnObject {
     #[doc = "New id of the moved node."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Searches for a given string in the DOM tree. Use `getSearchResults` to access search results or\n `cancelSearch` to end this search session."]
@@ -1173,6 +1267,7 @@ pub struct PerformSearchReturnObject {
     #[doc = "Number of search results."]
     pub result_count: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Requests that the node is sent to the caller given its path. // FIXME, use XPath"]
@@ -1180,6 +1275,7 @@ pub struct PushNodeByPathToFrontendReturnObject {
     #[doc = "Id of the node for given path."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Requests that a batch of nodes is sent to the caller given their backend node ids."]
@@ -1187,6 +1283,7 @@ pub struct PushNodesByBackendIdsToFrontendReturnObject {
     #[doc = "The array of ids of pushed nodes that correspond to the backend ids specified in\n backendNodeIds."]
     pub node_ids: Vec<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Executes `querySelector` on a given node."]
@@ -1194,6 +1291,7 @@ pub struct QuerySelectorReturnObject {
     #[doc = "Query selector result."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Executes `querySelectorAll` on a given node."]
@@ -1201,6 +1299,7 @@ pub struct QuerySelectorAllReturnObject {
     #[doc = "Query selector result."]
     pub node_ids: Vec<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns NodeIds of current top layer elements.\n Top layer is rendered closest to the user within a viewport, therefore its elements always\n appear on top of all other content."]
@@ -1208,6 +1307,7 @@ pub struct GetTopLayerElementsReturnObject {
     #[doc = "NodeIds of top layer elements"]
     pub node_ids: Vec<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the NodeId of the matched element according to certain relations."]
@@ -1215,18 +1315,23 @@ pub struct GetElementByRelationReturnObject {
     #[doc = "NodeId of the element matching the queried relation."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Re-does the last undone action."]
 pub struct RedoReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Removes attribute with given name from an element with given id."]
 pub struct RemoveAttributeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Removes node with given id."]
 pub struct RemoveNodeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Requests that children of the node with given id are returned to the caller in form of\n `setChildNodes` events where not only immediate children are retrieved, but all children down to\n the specified depth."]
 pub struct RequestChildNodesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Requests that the node is sent to the caller given the JavaScript node object reference. All\n nodes that form the path from the node to the root are also sent to the client as a series of\n `setChildNodes` notifications."]
@@ -1234,6 +1339,7 @@ pub struct RequestNodeReturnObject {
     #[doc = "Node id for given object."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Resolves the JavaScript node object for a given NodeId or BackendNodeId."]
@@ -1241,18 +1347,23 @@ pub struct ResolveNodeReturnObject {
     #[doc = "JavaScript object wrapper for given node."]
     pub object: runtime::RemoteObject,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets attribute for an element with given id."]
 pub struct SetAttributeValueReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets attributes on element with given id. This method is useful when user edits some existing\n attribute value and types in several attribute name/value pairs."]
 pub struct SetAttributesAsTextReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets files for the given file input element."]
 pub struct SetFileInputFilesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets if stack traces should be captured for Nodes. See `Node.getNodeStackTraces`. Default is disabled."]
 pub struct SetNodeStackTracesEnabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Gets stack traces associated with a Node. As of now, only provides stack trace for Node creation."]
@@ -1262,6 +1373,7 @@ pub struct GetNodeStackTracesReturnObject {
     #[doc = "Creation stack trace, if available."]
     pub creation: Option<runtime::StackTrace>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns file information for the given\n File wrapper."]
@@ -1269,6 +1381,7 @@ pub struct GetFileInfoReturnObject {
     #[serde(default)]
     pub path: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns list of detached nodes"]
@@ -1276,9 +1389,11 @@ pub struct GetDetachedDomNodesReturnObject {
     #[doc = "The list of detached nodes"]
     pub detached_nodes: Vec<DetachedElementInfo>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables console to refer to the node with given id via $x (see Command Line API for more details\n $x functions)."]
 pub struct SetInspectedNodeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Sets node name for a node with given id."]
@@ -1286,15 +1401,19 @@ pub struct SetNodeNameReturnObject {
     #[doc = "New node's id."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets node value for a node with given id."]
 pub struct SetNodeValueReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets node HTML markup, returns new node id."]
 pub struct SetOuterHTMLReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Undoes the last performed action."]
 pub struct UndoReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns iframe node that owns iframe with the given domain."]
@@ -1306,6 +1425,7 @@ pub struct GetFrameOwnerReturnObject {
     #[doc = "Id of the node at given coordinates, only when enabled and requested document."]
     pub node_id: Option<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the query container of the given node based on container query\n conditions: containerName, physical and logical axes, and whether it queries\n scroll-state or anchored elements. If no axes are provided and\n queriesScrollState is false, the style container is returned, which is the\n direct parent or the closest element with a matching container-name."]
@@ -1315,6 +1435,7 @@ pub struct GetContainerForNodeReturnObject {
     #[doc = "The container node for the given node, or null if not found."]
     pub node_id: Option<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the descendants of a container query container that have\n container queries against this container."]
@@ -1322,13 +1443,15 @@ pub struct GetQueryingDescendantsForContainerReturnObject {
     #[doc = "Descendant nodes with container queries against the given container."]
     pub node_ids: Vec<NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-#[doc = "Returns the target anchor element of the given anchor query according to\n https://www.w3.org/TR/css-anchor-position-1/#target."]
+#[doc = "Returns the target anchor element of the given anchor query according to\n <https://www.w3.org/TR/css-anchor-position-1/#target>."]
 pub struct GetAnchorElementReturnObject {
     #[doc = "The anchor element of the given anchor query."]
     pub node_id: NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "When enabling, this API force-opens the popover identified by nodeId\n and keeps it open until disabled."]
@@ -1336,218 +1459,272 @@ pub struct ForceShowPopoverReturnObject {
     #[doc = "List of popovers that were closed in order to respect popover stacking order."]
     pub node_ids: Vec<NodeId>,
 }
+#[allow(deprecated)]
 impl Method for CollectClassNamesFromSubtree {
     const NAME: &'static str = "DOM.collectClassNamesFromSubtree";
     type ReturnObject = CollectClassNamesFromSubtreeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CopyTo {
     const NAME: &'static str = "DOM.copyTo";
     type ReturnObject = CopyToReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DescribeNode {
     const NAME: &'static str = "DOM.describeNode";
     type ReturnObject = DescribeNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ScrollIntoViewIfNeeded {
     const NAME: &'static str = "DOM.scrollIntoViewIfNeeded";
     type ReturnObject = ScrollIntoViewIfNeededReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "DOM.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DiscardSearchResults {
     const NAME: &'static str = "DOM.discardSearchResults";
     type ReturnObject = DiscardSearchResultsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "DOM.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Focus {
     const NAME: &'static str = "DOM.focus";
     type ReturnObject = FocusReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetAttributes {
     const NAME: &'static str = "DOM.getAttributes";
     type ReturnObject = GetAttributesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetBoxModel {
     const NAME: &'static str = "DOM.getBoxModel";
     type ReturnObject = GetBoxModelReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetContentQuads {
     const NAME: &'static str = "DOM.getContentQuads";
     type ReturnObject = GetContentQuadsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetDocument {
     const NAME: &'static str = "DOM.getDocument";
     type ReturnObject = GetDocumentReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetFlattenedDocument {
     const NAME: &'static str = "DOM.getFlattenedDocument";
     type ReturnObject = GetFlattenedDocumentReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetNodesForSubtreeByStyle {
     const NAME: &'static str = "DOM.getNodesForSubtreeByStyle";
     type ReturnObject = GetNodesForSubtreeByStyleReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetNodeForLocation {
     const NAME: &'static str = "DOM.getNodeForLocation";
     type ReturnObject = GetNodeForLocationReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetOuterHTML {
     const NAME: &'static str = "DOM.getOuterHTML";
     type ReturnObject = GetOuterHTMLReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetRelayoutBoundary {
     const NAME: &'static str = "DOM.getRelayoutBoundary";
     type ReturnObject = GetRelayoutBoundaryReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetSearchResults {
     const NAME: &'static str = "DOM.getSearchResults";
     type ReturnObject = GetSearchResultsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HideHighlight {
     const NAME: &'static str = "DOM.hideHighlight";
     type ReturnObject = HideHighlightReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HighlightNode {
     const NAME: &'static str = "DOM.highlightNode";
     type ReturnObject = HighlightNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HighlightRect {
     const NAME: &'static str = "DOM.highlightRect";
     type ReturnObject = HighlightRectReturnObject;
 }
+#[allow(deprecated)]
 impl Method for MarkUndoableState {
     const NAME: &'static str = "DOM.markUndoableState";
     type ReturnObject = MarkUndoableStateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for MoveTo {
     const NAME: &'static str = "DOM.moveTo";
     type ReturnObject = MoveToReturnObject;
 }
+#[allow(deprecated)]
 impl Method for PerformSearch {
     const NAME: &'static str = "DOM.performSearch";
     type ReturnObject = PerformSearchReturnObject;
 }
+#[allow(deprecated)]
 impl Method for PushNodeByPathToFrontend {
     const NAME: &'static str = "DOM.pushNodeByPathToFrontend";
     type ReturnObject = PushNodeByPathToFrontendReturnObject;
 }
+#[allow(deprecated)]
 impl Method for PushNodesByBackendIdsToFrontend {
     const NAME: &'static str = "DOM.pushNodesByBackendIdsToFrontend";
     type ReturnObject = PushNodesByBackendIdsToFrontendReturnObject;
 }
+#[allow(deprecated)]
 impl Method for QuerySelector {
     const NAME: &'static str = "DOM.querySelector";
     type ReturnObject = QuerySelectorReturnObject;
 }
+#[allow(deprecated)]
 impl Method for QuerySelectorAll {
     const NAME: &'static str = "DOM.querySelectorAll";
     type ReturnObject = QuerySelectorAllReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetTopLayerElements {
     const NAME: &'static str = "DOM.getTopLayerElements";
     type ReturnObject = GetTopLayerElementsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetElementByRelation {
     const NAME: &'static str = "DOM.getElementByRelation";
     type ReturnObject = GetElementByRelationReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Redo {
     const NAME: &'static str = "DOM.redo";
     type ReturnObject = RedoReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveAttribute {
     const NAME: &'static str = "DOM.removeAttribute";
     type ReturnObject = RemoveAttributeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveNode {
     const NAME: &'static str = "DOM.removeNode";
     type ReturnObject = RemoveNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RequestChildNodes {
     const NAME: &'static str = "DOM.requestChildNodes";
     type ReturnObject = RequestChildNodesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RequestNode {
     const NAME: &'static str = "DOM.requestNode";
     type ReturnObject = RequestNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ResolveNode {
     const NAME: &'static str = "DOM.resolveNode";
     type ReturnObject = ResolveNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAttributeValue {
     const NAME: &'static str = "DOM.setAttributeValue";
     type ReturnObject = SetAttributeValueReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAttributesAsText {
     const NAME: &'static str = "DOM.setAttributesAsText";
     type ReturnObject = SetAttributesAsTextReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetFileInputFiles {
     const NAME: &'static str = "DOM.setFileInputFiles";
     type ReturnObject = SetFileInputFilesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetNodeStackTracesEnabled {
     const NAME: &'static str = "DOM.setNodeStackTracesEnabled";
     type ReturnObject = SetNodeStackTracesEnabledReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetNodeStackTraces {
     const NAME: &'static str = "DOM.getNodeStackTraces";
     type ReturnObject = GetNodeStackTracesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetFileInfo {
     const NAME: &'static str = "DOM.getFileInfo";
     type ReturnObject = GetFileInfoReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetDetachedDomNodes {
     const NAME: &'static str = "DOM.getDetachedDomNodes";
     type ReturnObject = GetDetachedDomNodesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetInspectedNode {
     const NAME: &'static str = "DOM.setInspectedNode";
     type ReturnObject = SetInspectedNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetNodeName {
     const NAME: &'static str = "DOM.setNodeName";
     type ReturnObject = SetNodeNameReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetNodeValue {
     const NAME: &'static str = "DOM.setNodeValue";
     type ReturnObject = SetNodeValueReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetOuterHTML {
     const NAME: &'static str = "DOM.setOuterHTML";
     type ReturnObject = SetOuterHTMLReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Undo {
     const NAME: &'static str = "DOM.undo";
     type ReturnObject = UndoReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetFrameOwner {
     const NAME: &'static str = "DOM.getFrameOwner";
     type ReturnObject = GetFrameOwnerReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetContainerForNode {
     const NAME: &'static str = "DOM.getContainerForNode";
     type ReturnObject = GetContainerForNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetQueryingDescendantsForContainer {
     const NAME: &'static str = "DOM.getQueryingDescendantsForContainer";
     type ReturnObject = GetQueryingDescendantsForContainerReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetAnchorElement {
     const NAME: &'static str = "DOM.getAnchorElement";
     type ReturnObject = GetAnchorElementReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ForceShowPopover {
     const NAME: &'static str = "DOM.forceShowPopover";
     type ReturnObject = ForceShowPopoverReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -1557,10 +1734,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AttributeModifiedEvent {
         pub params: AttributeModifiedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AttributeModifiedEventParams {
@@ -1573,10 +1752,12 @@ pub mod events {
         #[doc = "Attribute value."]
         pub value: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AdoptedStyleSheetsModifiedEvent {
         pub params: AdoptedStyleSheetsModifiedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AdoptedStyleSheetsModifiedEventParams {
@@ -1585,10 +1766,12 @@ pub mod events {
         #[doc = "New adoptedStyleSheets array."]
         pub adopted_style_sheets: Vec<super::StyleSheetId>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AttributeRemovedEvent {
         pub params: AttributeRemovedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AttributeRemovedEventParams {
@@ -1598,10 +1781,12 @@ pub mod events {
         #[doc = "A ttribute name."]
         pub name: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CharacterDataModifiedEvent {
         pub params: CharacterDataModifiedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct CharacterDataModifiedEventParams {
@@ -1611,10 +1796,12 @@ pub mod events {
         #[doc = "New text value."]
         pub character_data: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ChildNodeCountUpdatedEvent {
         pub params: ChildNodeCountUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ChildNodeCountUpdatedEventParams {
@@ -1624,10 +1811,12 @@ pub mod events {
         #[doc = "New node count."]
         pub child_node_count: JsUInt,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ChildNodeInsertedEvent {
         pub params: ChildNodeInsertedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ChildNodeInsertedEventParams {
@@ -1638,10 +1827,12 @@ pub mod events {
         #[doc = "Inserted node data."]
         pub node: super::Node,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ChildNodeRemovedEvent {
         pub params: ChildNodeRemovedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ChildNodeRemovedEventParams {
@@ -1650,10 +1841,12 @@ pub mod events {
         #[doc = "Id of the node that has been removed."]
         pub node_id: super::NodeId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DistributedNodesUpdatedEvent {
         pub params: DistributedNodesUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DistributedNodesUpdatedEventParams {
@@ -1662,22 +1855,27 @@ pub mod events {
         #[doc = "Distributed nodes for given insertion point."]
         pub distributed_nodes: Vec<super::BackendNode>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DocumentUpdatedEvent(pub Option<Json>);
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InlineStyleInvalidatedEvent {
         pub params: InlineStyleInvalidatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct InlineStyleInvalidatedEventParams {
         #[doc = "Ids of the nodes for which the inline styles have been invalidated."]
         pub node_ids: Vec<super::NodeId>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PseudoElementAddedEvent {
         pub params: PseudoElementAddedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct PseudoElementAddedEventParams {
@@ -1686,12 +1884,15 @@ pub mod events {
         #[doc = "The added pseudo element."]
         pub pseudo_element: super::Node,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TopLayerElementsUpdatedEvent(pub Option<Json>);
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ScrollableFlagUpdatedEvent {
         pub params: ScrollableFlagUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ScrollableFlagUpdatedEventParams {
@@ -1701,10 +1902,12 @@ pub mod events {
         #[doc = "If the node is scrollable."]
         pub is_scrollable: bool,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AffectedByStartingStylesFlagUpdatedEvent {
         pub params: AffectedByStartingStylesFlagUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AffectedByStartingStylesFlagUpdatedEventParams {
@@ -1714,10 +1917,12 @@ pub mod events {
         #[doc = "If the node has starting styles."]
         pub affected_by_starting_styles: bool,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PseudoElementRemovedEvent {
         pub params: PseudoElementRemovedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct PseudoElementRemovedEventParams {
@@ -1726,10 +1931,12 @@ pub mod events {
         #[doc = "The removed pseudo element id."]
         pub pseudo_element_id: super::NodeId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SetChildNodesEvent {
         pub params: SetChildNodesEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct SetChildNodesEventParams {
@@ -1738,10 +1945,12 @@ pub mod events {
         #[doc = "Child nodes array."]
         pub nodes: Vec<super::Node>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ShadowRootPoppedEvent {
         pub params: ShadowRootPoppedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ShadowRootPoppedEventParams {
@@ -1750,10 +1959,12 @@ pub mod events {
         #[doc = "Shadow root id."]
         pub root_id: super::NodeId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ShadowRootPushedEvent {
         pub params: ShadowRootPushedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ShadowRootPushedEventParams {

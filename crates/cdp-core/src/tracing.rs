@@ -297,29 +297,31 @@ fn build_start_command(options: &TracingStartOptions) -> tracing_cdp::Start {
         categories.push("disabled-by-default-devtools.screenshot".to_string());
     }
 
-    tracing_cdp::Start {
-        buffer_usage_reporting_interval: options.buffer_usage_reporting_interval_ms,
-        transfer_mode: Some(StartTransferModeOption::ReturnAsStream),
-        stream_format: Some(options.stream_format.clone()),
-        stream_compression: Some(options.stream_compression.clone()),
-        trace_config: Some(tracing_cdp::TraceConfig {
-            record_mode: Some(options.record_mode.clone()),
-            trace_buffer_size_in_kb: None,
-            enable_sampling: Some(true),
-            enable_systrace: None,
-            enable_argument_filter: None,
-            included_categories: if categories.is_empty() {
-                None
-            } else {
-                Some(categories)
-            },
-            excluded_categories: None,
-            synthetic_delays: None,
-            memory_dump_config: None,
-        }),
-        perfetto_config: None,
-        tracing_backend: options.tracing_backend.clone(),
-        categories: None,
-        options: None,
+    let mut trace_config_builder = tracing_cdp::TraceConfigBuilder::default();
+    trace_config_builder.record_mode(options.record_mode.clone());
+    trace_config_builder.enable_sampling(true);
+    if !categories.is_empty() {
+        trace_config_builder.included_categories(categories);
     }
+
+    let mut start_builder = tracing_cdp::StartBuilder::default();
+    if let Some(interval) = options.buffer_usage_reporting_interval_ms {
+        start_builder.buffer_usage_reporting_interval(interval);
+    }
+
+    start_builder
+        .transfer_mode(StartTransferModeOption::ReturnAsStream)
+        .stream_format(options.stream_format.clone())
+        .stream_compression(options.stream_compression.clone())
+        .trace_config(
+            trace_config_builder
+                .build()
+                .expect("Failed to build TraceConfig"),
+        );
+
+    if let Some(backend) = &options.tracing_backend {
+        start_builder.tracing_backend(backend.clone());
+    }
+
+    start_builder.build().expect("Failed to build Start")
 }

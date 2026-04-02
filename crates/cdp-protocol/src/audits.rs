@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Audits
+#![allow(dead_code)]
 use super::dom;
 use super::network;
 use super::page;
@@ -12,6 +13,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type IssueId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CookieExclusionReason {
     #[serde(rename = "ExcludeSameSiteUnspecifiedTreatedAsLax")]
@@ -33,6 +35,7 @@ pub enum CookieExclusionReason {
     #[serde(rename = "ExcludeSchemeMismatch")]
     ExcludeSchemeMismatch,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CookieWarningReason {
     #[serde(rename = "WarnSameSiteUnspecifiedCrossSiteContext")]
@@ -64,6 +67,7 @@ pub enum CookieWarningReason {
     #[serde(rename = "WarnThirdPartyCookieHeuristic")]
     WarnThirdPartyCookieHeuristic,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CookieOperation {
     #[serde(rename = "SetCookie")]
@@ -71,6 +75,7 @@ pub enum CookieOperation {
     #[serde(rename = "ReadCookie")]
     ReadCookie,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InsightType {
     #[serde(rename = "GitHubResource")]
@@ -80,6 +85,7 @@ pub enum InsightType {
     #[serde(rename = "Heuristics")]
     Heuristics,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum MixedContentResolutionStatus {
     #[serde(rename = "MixedContentBlocked")]
@@ -89,6 +95,7 @@ pub enum MixedContentResolutionStatus {
     #[serde(rename = "MixedContentWarning")]
     MixedContentWarning,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum MixedContentResourceType {
     #[serde(rename = "AttributionSrc")]
@@ -150,6 +157,7 @@ pub enum MixedContentResourceType {
     #[serde(rename = "XSLT")]
     Xslt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum BlockedByResponseReason {
     #[serde(rename = "CoepFrameResourceNeedsCoepHeader")]
@@ -169,6 +177,7 @@ pub enum BlockedByResponseReason {
     #[serde(rename = "SRIMessageSignatureMismatch")]
     SriMessageSignatureMismatch,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum HeavyAdResolutionStatus {
     #[serde(rename = "HeavyAdBlocked")]
@@ -176,6 +185,7 @@ pub enum HeavyAdResolutionStatus {
     #[serde(rename = "HeavyAdWarning")]
     HeavyAdWarning,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum HeavyAdReason {
     #[serde(rename = "NetworkTotalLimit")]
@@ -185,6 +195,7 @@ pub enum HeavyAdReason {
     #[serde(rename = "CpuPeakLimit")]
     CpuPeakLimit,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ContentSecurityPolicyViolationType {
     #[serde(rename = "kInlineViolation")]
@@ -202,6 +213,7 @@ pub enum ContentSecurityPolicyViolationType {
     #[serde(rename = "kWasmEvalViolation")]
     KWasmEvalViolation,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SharedArrayBufferIssueType {
     #[serde(rename = "TransferIssue")]
@@ -209,6 +221,7 @@ pub enum SharedArrayBufferIssueType {
     #[serde(rename = "CreationIssue")]
     CreationIssue,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AttributionReportingIssueType {
     #[serde(rename = "PermissionPolicyDisabled")]
@@ -254,6 +267,7 @@ pub enum AttributionReportingIssueType {
     #[serde(rename = "NavigationRegistrationUniqueScopeAlreadySet")]
     NavigationRegistrationUniqueScopeAlreadySet,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SharedDictionaryError {
     #[serde(rename = "UseErrorCrossOriginNoCorsRequest")]
@@ -307,6 +321,7 @@ pub enum SharedDictionaryError {
     #[serde(rename = "WriteErrorUnsupportedType")]
     WriteErrorUnsupportedType,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SriMessageSignatureError {
     #[serde(rename = "MissingSignatureHeader")]
@@ -352,6 +367,7 @@ pub enum SriMessageSignatureError {
     #[serde(rename = "ValidationFailedIntegrityMismatch")]
     ValidationFailedIntegrityMismatch,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum UnencodedDigestError {
     #[serde(rename = "MalformedDictionary")]
@@ -363,6 +379,7 @@ pub enum UnencodedDigestError {
     #[serde(rename = "IncorrectDigestLength")]
     IncorrectDigestLength,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ConnectionAllowlistError {
     #[serde(rename = "InvalidHeader")]
@@ -378,6 +395,7 @@ pub enum ConnectionAllowlistError {
     #[serde(rename = "InvalidUrlPattern")]
     InvalidUrlPattern,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum GenericIssueErrorType {
     #[serde(rename = "FormLabelForNameError")]
@@ -411,6 +429,7 @@ pub enum GenericIssueErrorType {
     #[serde(rename = "ManualTextPolicyControlledFeatureInfo")]
     ManualTextPolicyControlledFeatureInfo,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ClientHintIssueReason {
     #[serde(rename = "MetaTagAllowListInvalidOrigin")]
@@ -418,6 +437,7 @@ pub enum ClientHintIssueReason {
     #[serde(rename = "MetaTagModifiedHTML")]
     MetaTagModifiedHtml,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum FederatedAuthRequestIssueReason {
     #[serde(rename = "ShouldEmbargo")]
@@ -517,6 +537,7 @@ pub enum FederatedAuthRequestIssueReason {
     #[serde(rename = "SuppressedBySegmentationPlatform")]
     SuppressedBySegmentationPlatform,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum FederatedAuthUserInfoRequestIssueReason {
     #[serde(rename = "NotSameOrigin")]
@@ -538,6 +559,7 @@ pub enum FederatedAuthUserInfoRequestIssueReason {
     #[serde(rename = "NoReturningUserFromFetchedAccounts")]
     NoReturningUserFromFetchedAccounts,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PartitioningBlobUrlInfo {
     #[serde(rename = "BlockedCrossPartitionFetching")]
@@ -545,6 +567,7 @@ pub enum PartitioningBlobUrlInfo {
     #[serde(rename = "EnforceNoopenerForNavigation")]
     EnforceNoopenerForNavigation,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ElementAccessibilityIssueReason {
     #[serde(rename = "DisallowedSelectChild")]
@@ -560,6 +583,7 @@ pub enum ElementAccessibilityIssueReason {
     #[serde(rename = "InteractiveContentSummaryDescendant")]
     InteractiveContentSummaryDescendant,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum StyleSheetLoadingIssueReason {
     #[serde(rename = "LateImportRule")]
@@ -567,6 +591,7 @@ pub enum StyleSheetLoadingIssueReason {
     #[serde(rename = "RequestFailed")]
     RequestFailed,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PropertyRuleIssueReason {
     #[serde(rename = "InvalidSyntax")]
@@ -578,6 +603,7 @@ pub enum PropertyRuleIssueReason {
     #[serde(rename = "InvalidName")]
     InvalidName,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum UserReidentificationIssueType {
     #[serde(rename = "BlockedFrameNavigation")]
@@ -587,6 +613,7 @@ pub enum UserReidentificationIssueType {
     #[serde(rename = "NoisedCanvasReadback")]
     NoisedCanvasReadback,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PermissionElementIssueType {
     #[serde(rename = "InvalidType")]
@@ -632,6 +659,7 @@ pub enum PermissionElementIssueType {
     #[serde(rename = "InvalidSizeValue")]
     InvalidSizeValue,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InspectorIssueCode {
     #[serde(rename = "CookieIssue")]
@@ -691,6 +719,7 @@ pub enum InspectorIssueCode {
     #[serde(rename = "PermissionElementIssue")]
     PermissionElementIssue,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum GetEncodedResponseEncodingOption {
     #[serde(rename = "webp")]
@@ -700,6 +729,7 @@ pub enum GetEncodedResponseEncodingOption {
     #[serde(rename = "png")]
     Png,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -713,6 +743,7 @@ pub struct AffectedCookie {
     #[serde(default)]
     pub domain: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -725,6 +756,7 @@ pub struct AffectedRequest {
     #[serde(default)]
     pub url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -732,6 +764,7 @@ pub struct AffectedRequest {
 pub struct AffectedFrame {
     pub frame_id: page::FrameId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -744,6 +777,7 @@ pub struct CookieIssueInsight {
     #[doc = "Link to table entry in third-party cookie migration readiness list."]
     pub table_entry_url: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -777,6 +811,7 @@ pub struct CookieIssueDetails {
     #[doc = "The recommended solution to the issue."]
     pub insight: Option<CookieIssueInsight>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -804,6 +839,7 @@ pub struct MixedContentIssueDetails {
     #[doc = "Optional because not every mixed content issue is necessarily linked to a frame."]
     pub frame: Option<AffectedFrame>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -818,6 +854,7 @@ pub struct BlockedByResponseIssueDetails {
     pub blocked_frame: Option<AffectedFrame>,
     pub reason: BlockedByResponseReason,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -829,6 +866,7 @@ pub struct HeavyAdIssueDetails {
     #[doc = "The frame that was blocked."]
     pub frame: AffectedFrame,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -843,6 +881,7 @@ pub struct SourceCodeLocation {
     #[serde(default)]
     pub column_number: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -869,6 +908,7 @@ pub struct ContentSecurityPolicyIssueDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub violating_node_id: Option<dom::BackendNodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -879,6 +919,7 @@ pub struct SharedArrayBufferIssueDetails {
     pub is_warning: bool,
     pub r#type: SharedArrayBufferIssueType,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -899,6 +940,7 @@ pub struct LowTextContrastIssueDetails {
     #[serde(default)]
     pub font_weight: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -923,10 +965,11 @@ pub struct CorsIssueDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub client_security_state: Option<network::ClientSecurityState>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Details for issues around \"Attribution Reporting API\" usage.\n Explainer: https://github.com/WICG/attribution-reporting-api"]
+#[doc = "Details for issues around \"Attribution Reporting API\" usage.\n Explainer: <https://github.com/WICG/attribution-reporting-api>"]
 pub struct AttributionReportingIssueDetails {
     pub violation_type: AttributionReportingIssueType,
     #[builder(default)]
@@ -940,6 +983,7 @@ pub struct AttributionReportingIssueDetails {
     #[serde(default)]
     pub invalid_parameter: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -954,6 +998,7 @@ pub struct QuirksModeIssueDetails {
     pub frame_id: page::FrameId,
     pub loader_id: network::LoaderId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -965,6 +1010,7 @@ pub struct NavigatorUserAgentIssueDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub location: Option<SourceCodeLocation>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -972,6 +1018,7 @@ pub struct SharedDictionaryIssueDetails {
     pub shared_dictionary_error: SharedDictionaryError,
     pub request: AffectedRequest,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -983,6 +1030,7 @@ pub struct SriMessageSignatureIssueDetails {
     pub integrity_assertions: Vec<String>,
     pub request: AffectedRequest,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -990,6 +1038,7 @@ pub struct UnencodedDigestIssueDetails {
     pub error: UnencodedDigestError,
     pub request: AffectedRequest,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -997,6 +1046,7 @@ pub struct ConnectionAllowlistIssueDetails {
     pub error: ConnectionAllowlistError,
     pub request: AffectedRequest,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1018,10 +1068,11 @@ pub struct GenericIssueDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request: Option<AffectedRequest>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "This issue tracks information needed to print a deprecation message.\n https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/third_party/blink/renderer/core/frame/deprecation/README.md"]
+#[doc = "This issue tracks information needed to print a deprecation message.\n <https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/third_party/blink/renderer/core/frame/deprecation/README.md>"]
 pub struct DeprecationIssueDetails {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1031,6 +1082,7 @@ pub struct DeprecationIssueDetails {
     #[doc = "One of the deprecation names from third_party/blink/renderer/core/frame/deprecation/deprecation.json5"]
     pub r#type: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1039,6 +1091,7 @@ pub struct BounceTrackingIssueDetails {
     #[serde(default)]
     pub tracking_sites: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1052,18 +1105,21 @@ pub struct CookieDeprecationMetadataIssueDetails {
     pub is_opt_out_top_level: bool,
     pub operation: CookieOperation,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct FederatedAuthRequestIssueDetails {
     pub federated_auth_request_issue_reason: FederatedAuthRequestIssueReason,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct FederatedAuthUserInfoRequestIssueDetails {
     pub federated_auth_user_info_request_issue_reason: FederatedAuthUserInfoRequestIssueReason,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1072,6 +1128,7 @@ pub struct ClientHintIssueDetails {
     pub source_code_location: SourceCodeLocation,
     pub client_hint_issue_reason: ClientHintIssueReason,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1086,6 +1143,7 @@ pub struct FailedRequestInfo {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_id: Option<network::RequestId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1097,6 +1155,7 @@ pub struct PartitioningBlobUrlIssueDetails {
     #[serde(rename = "partitioningBlobURLInfo")]
     pub partitioning_blob_url_info: PartitioningBlobUrlInfo,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1107,6 +1166,7 @@ pub struct ElementAccessibilityIssueDetails {
     #[serde(default)]
     pub has_disallowed_attributes: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1121,6 +1181,7 @@ pub struct StylesheetLoadingIssueDetails {
     #[doc = "Contains additional info when the failure was due to a request."]
     pub failed_request_info: Option<FailedRequestInfo>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1136,6 +1197,7 @@ pub struct PropertyRuleIssueDetails {
     #[doc = "The value of the property rule property that failed to parse"]
     pub property_value: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1151,10 +1213,11 @@ pub struct UserReidentificationIssueDetails {
     #[doc = "Applies to NoisedCanvasReadback issue type."]
     pub source_code_location: Option<SourceCodeLocation>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "This issue warns about improper usage of the <permission> element."]
+#[doc = "This issue warns about improper usage of the \\<permission\\> element."]
 pub struct PermissionElementIssueDetails {
     pub issue_type: PermissionElementIssueType,
     #[builder(default)]
@@ -1164,7 +1227,7 @@ pub struct PermissionElementIssueDetails {
     pub r#type: Option<String>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[doc = "The node ID of the <permission> element."]
+    #[doc = "The node ID of the \\<permission\\> element."]
     pub node_id: Option<dom::BackendNodeId>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1192,6 +1255,7 @@ pub struct PermissionElementIssueDetails {
     #[doc = "Used for messages about activation disabled reason"]
     pub disable_reason: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1285,6 +1349,7 @@ pub struct InspectorIssueDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permission_element_issue_details: Option<PermissionElementIssueDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1297,6 +1362,7 @@ pub struct InspectorIssue {
     #[doc = "A unique id for this issue. May be omitted if no other entity (e.g.\n exception, CDP message, etc.) is referencing this issue."]
     pub issue_id: Option<IssueId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1317,10 +1383,13 @@ pub struct GetEncodedResponse {
     #[doc = "Whether to only return the size information (defaults to false)."]
     pub size_only: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1333,8 +1402,10 @@ pub struct CheckContrast {
     #[serde(rename = "reportAAA")]
     pub report_aaa: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CheckFormsIssues(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the response body and size if it were re-encoded with the specified settings. Only\n applies to images."]
@@ -1350,41 +1421,51 @@ pub struct GetEncodedResponseReturnObject {
     #[doc = "Size after re-encoding."]
     pub encoded_size: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables issues domain, prevents further issues from being reported to the client."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables issues domain, sends the issues collected so far to the client by means of the\n `issueAdded` event."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Runs the contrast check for the target page. Found issues are reported\n using Audits.issueAdded event."]
 pub struct CheckContrastReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Runs the form issues check for the target page. Found issues are reported\n using Audits.issueAdded event."]
 pub struct CheckFormsIssuesReturnObject {
     pub form_issues: Vec<GenericIssueDetails>,
 }
+#[allow(deprecated)]
 impl Method for GetEncodedResponse {
     const NAME: &'static str = "Audits.getEncodedResponse";
     type ReturnObject = GetEncodedResponseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Audits.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Audits.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CheckContrast {
     const NAME: &'static str = "Audits.checkContrast";
     type ReturnObject = CheckContrastReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CheckFormsIssues {
     const NAME: &'static str = "Audits.checkFormsIssues";
     type ReturnObject = CheckFormsIssuesReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -1394,10 +1475,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct IssueAddedEvent {
         pub params: IssueAddedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct IssueAddedEventParams {

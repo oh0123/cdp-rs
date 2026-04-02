@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Animation
+#![allow(dead_code)]
 use super::dom;
 use super::runtime;
 #[allow(unused_imports)]
@@ -9,6 +10,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AnimationType {
     #[serde(rename = "CSSTransition")]
@@ -18,6 +20,7 @@ pub enum AnimationType {
     #[serde(rename = "WebAnimation")]
     WebAnimation,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -39,7 +42,7 @@ pub struct Animation {
     #[doc = "`Animation`'s playback rate."]
     pub playback_rate: JsFloat,
     #[serde(default)]
-    #[doc = "`Animation`'s start time.\n Milliseconds for time based animations and\n percentage [0 - 100] for scroll driven animations\n (i.e. when viewOrScrollTimeline exists)."]
+    #[doc = "`Animation`'s start time.\n Milliseconds for time based animations and\n percentage \\[0 - 100\\] for scroll driven animations\n (i.e. when viewOrScrollTimeline exists)."]
     pub start_time: JsFloat,
     #[serde(default)]
     #[doc = "`Animation`'s current time."]
@@ -60,6 +63,7 @@ pub struct Animation {
     #[doc = "View or scroll timeline"]
     pub view_or_scroll_timeline: Option<ViewOrScrollTimeline>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -86,6 +90,7 @@ pub struct ViewOrScrollTimeline {
     #[doc = "Orientation of the scroll"]
     pub axis: dom::ScrollOrientation,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -106,7 +111,7 @@ pub struct AnimationEffect {
     #[doc = "`AnimationEffect`'s iterations. Omitted if the value is infinite."]
     pub iterations: Option<JsFloat>,
     #[serde(default)]
-    #[doc = "`AnimationEffect`'s iteration duration.\n Milliseconds for time based animations and\n percentage [0 - 100] for scroll driven animations\n (i.e. when viewOrScrollTimeline exists)."]
+    #[doc = "`AnimationEffect`'s iteration duration.\n Milliseconds for time based animations and\n percentage \\[0 - 100\\] for scroll driven animations\n (i.e. when viewOrScrollTimeline exists)."]
     pub duration: JsFloat,
     #[serde(default)]
     #[doc = "`AnimationEffect`'s playback direction."]
@@ -126,6 +131,7 @@ pub struct AnimationEffect {
     #[doc = "`AnimationEffect`'s timing function."]
     pub easing: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -139,6 +145,7 @@ pub struct KeyframesRule {
     #[doc = "List of animation keyframes."]
     pub keyframes: Vec<KeyframeStyle>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -151,10 +158,13 @@ pub struct KeyframeStyle {
     #[doc = "`AnimationEffect`'s timing function."]
     pub easing: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -164,8 +174,10 @@ pub struct GetCurrentTime {
     #[doc = "Id of animation."]
     pub id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetPlaybackRate(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -175,6 +187,7 @@ pub struct ReleaseAnimations {
     #[doc = "List of animation ids to seek."]
     pub animations: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -184,6 +197,7 @@ pub struct ResolveAnimation {
     #[doc = "Animation id."]
     pub animation_id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -196,6 +210,7 @@ pub struct SeekAnimations {
     #[doc = "Set the current time of each animation."]
     pub current_time: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -208,6 +223,7 @@ pub struct SetPaused {
     #[doc = "Paused state to set to."]
     pub paused: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -217,6 +233,7 @@ pub struct SetPlaybackRate {
     #[doc = "Playback rate for animations on page"]
     pub playback_rate: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -232,12 +249,15 @@ pub struct SetTiming {
     #[doc = "Delay of the animation."]
     pub delay: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables animation domain notifications."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables animation domain notifications."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the current time of the an animation."]
@@ -246,6 +266,7 @@ pub struct GetCurrentTimeReturnObject {
     #[doc = "Current time of the page."]
     pub current_time: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Gets the playback rate of the document timeline."]
@@ -254,9 +275,11 @@ pub struct GetPlaybackRateReturnObject {
     #[doc = "Playback rate for animations on page."]
     pub playback_rate: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Releases a set of animations to no longer be manipulated."]
 pub struct ReleaseAnimationsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Gets the remote object of the Animation."]
@@ -264,58 +287,73 @@ pub struct ResolveAnimationReturnObject {
     #[doc = "Corresponding remote object."]
     pub remote_object: runtime::RemoteObject,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Seek a set of animations to a particular time within each animation."]
 pub struct SeekAnimationsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets the paused state of a set of animations."]
 pub struct SetPausedReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets the playback rate of the document timeline."]
 pub struct SetPlaybackRateReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets the timing of an animation node."]
 pub struct SetTimingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Animation.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Animation.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetCurrentTime {
     const NAME: &'static str = "Animation.getCurrentTime";
     type ReturnObject = GetCurrentTimeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetPlaybackRate {
     const NAME: &'static str = "Animation.getPlaybackRate";
     type ReturnObject = GetPlaybackRateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReleaseAnimations {
     const NAME: &'static str = "Animation.releaseAnimations";
     type ReturnObject = ReleaseAnimationsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ResolveAnimation {
     const NAME: &'static str = "Animation.resolveAnimation";
     type ReturnObject = ResolveAnimationReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SeekAnimations {
     const NAME: &'static str = "Animation.seekAnimations";
     type ReturnObject = SeekAnimationsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetPaused {
     const NAME: &'static str = "Animation.setPaused";
     type ReturnObject = SetPausedReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetPlaybackRate {
     const NAME: &'static str = "Animation.setPlaybackRate";
     type ReturnObject = SetPlaybackRateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetTiming {
     const NAME: &'static str = "Animation.setTiming";
     type ReturnObject = SetTimingReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -325,10 +363,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AnimationCanceledEvent {
         pub params: AnimationCanceledEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AnimationCanceledEventParams {
@@ -336,10 +376,12 @@ pub mod events {
         #[doc = "Id of the animation that was cancelled."]
         pub id: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AnimationCreatedEvent {
         pub params: AnimationCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AnimationCreatedEventParams {
@@ -347,20 +389,24 @@ pub mod events {
         #[doc = "Id of the animation that was created."]
         pub id: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AnimationStartedEvent {
         pub params: AnimationStartedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AnimationStartedEventParams {
         #[doc = "Animation that was started."]
         pub animation: super::Animation,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AnimationUpdatedEvent {
         pub params: AnimationUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AnimationUpdatedEventParams {

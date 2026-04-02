@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Fetch
+#![allow(dead_code)]
 use super::io;
 use super::network;
 #[allow(unused_imports)]
@@ -10,6 +11,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type RequestId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum RequestStage {
     #[serde(rename = "Request")]
@@ -17,6 +19,7 @@ pub enum RequestStage {
     #[serde(rename = "Response")]
     Response,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AuthChallengeSource {
     #[serde(rename = "Server")]
@@ -24,6 +27,7 @@ pub enum AuthChallengeSource {
     #[serde(rename = "Proxy")]
     Proxy,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AuthChallengeResponseResponse {
     #[serde(rename = "Default")]
@@ -33,6 +37,7 @@ pub enum AuthChallengeResponseResponse {
     #[serde(rename = "ProvideCredentials")]
     ProvideCredentials,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -40,7 +45,7 @@ pub struct RequestPattern {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "Wildcards (`'*'` -> zero or more, `'?'` -> exactly one) are allowed. Escape character is\n backslash. Omitting is equivalent to `\"*\"`."]
+    #[doc = "Wildcards (`'*'` -\\> zero or more, `'?'` -\\> exactly one) are allowed. Escape character is\n backslash. Omitting is equivalent to `\"*\"`."]
     pub url_pattern: Option<String>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -51,6 +56,7 @@ pub struct RequestPattern {
     #[doc = "Stage at which to begin intercepting requests. Default is Request."]
     pub request_stage: Option<RequestStage>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -61,6 +67,7 @@ pub struct HeaderEntry {
     #[serde(default)]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -80,6 +87,7 @@ pub struct AuthChallenge {
     #[doc = "The realm of the challenge. May be empty."]
     pub realm: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -98,8 +106,10 @@ pub struct AuthChallengeResponse {
     #[doc = "The password to provide, possibly empty. Should only be set if response is\n ProvideCredentials."]
     pub password: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -115,6 +125,7 @@ pub struct Enable {
     #[doc = "If true, authRequired events will be issued and requests will be paused\n expecting a call to continueWithAuth."]
     pub handle_auth_requests: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -125,6 +136,7 @@ pub struct FailRequest {
     #[doc = "Causes the request to fail with the given reason."]
     pub error_reason: network::ErrorReason,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -153,6 +165,7 @@ pub struct FulfillRequest {
     #[doc = "A textual representation of responseCode.\n If absent, a standard phrase matching responseCode is used."]
     pub response_phrase: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -184,6 +197,7 @@ pub struct ContinueRequest {
     #[doc = "If set, overrides response interception behavior for this request."]
     pub intercept_response: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -194,6 +208,7 @@ pub struct ContinueWithAuth {
     #[doc = "Response to  with an authChallenge."]
     pub auth_challenge_response: AuthChallengeResponse,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -220,6 +235,7 @@ pub struct ContinueResponse {
     #[doc = "Alternative way of specifying response headers as a \\0-separated\n series of name: value pairs. Prefer the above method unless you\n need to represent some non-UTF8 values that can't be transmitted\n over the protocol as text."]
     pub binary_response_headers: Option<Vec<u8>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -228,6 +244,7 @@ pub struct GetResponseBody {
     #[doc = "Identifier for the intercepted request to get body for."]
     pub request_id: RequestId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -235,27 +252,35 @@ pub struct GetResponseBody {
 pub struct TakeResponseBodyAsStream {
     pub request_id: RequestId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables the fetch domain."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables issuing of requestPaused events. A request will be paused until client\n calls one of failRequest, fulfillRequest or continueRequest/continueWithAuth."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Causes the request to fail with specified reason."]
 pub struct FailRequestReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Provides response to the request."]
 pub struct FulfillRequestReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Continues the request, optionally modifying some of its parameters."]
 pub struct ContinueRequestReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Continues a request supplying authChallengeResponse following authRequired event."]
 pub struct ContinueWithAuthReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Continues loading of the paused response, optionally modifying the\n response headers. If either responseCode or headers are modified, all of them\n must be present."]
 pub struct ContinueResponseReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Causes the body of the response to be received from the server and\n returned as a single string. May only be issued for a request that\n is paused in the Response stage and is mutually exclusive with\n takeResponseBodyForInterceptionAsStream. Calling other methods that\n affect the request or disabling fetch domain before body is received\n results in an undefined behavior.\n Note that the response body is not available for redirects. Requests\n paused in the _redirect received_ state may be differentiated by\n `responseCode` and presence of `location` response header, see\n comments to `requestPaused` for details."]
@@ -267,48 +292,59 @@ pub struct GetResponseBodyReturnObject {
     #[doc = "True, if content was sent as base64."]
     pub base_64_encoded: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns a handle to the stream representing the response body.\n The request must be paused in the HeadersReceived stage.\n Note that after this command the request can't be continued\n as is -- client either needs to cancel it or to provide the\n response body.\n The stream only supports sequential read, IO.read will fail if the position\n is specified.\n This method is mutually exclusive with getResponseBody.\n Calling other methods that affect the request or disabling fetch\n domain before body is received results in an undefined behavior."]
 pub struct TakeResponseBodyAsStreamReturnObject {
     pub stream: io::StreamHandle,
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Fetch.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Fetch.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for FailRequest {
     const NAME: &'static str = "Fetch.failRequest";
     type ReturnObject = FailRequestReturnObject;
 }
+#[allow(deprecated)]
 impl Method for FulfillRequest {
     const NAME: &'static str = "Fetch.fulfillRequest";
     type ReturnObject = FulfillRequestReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ContinueRequest {
     const NAME: &'static str = "Fetch.continueRequest";
     type ReturnObject = ContinueRequestReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ContinueWithAuth {
     const NAME: &'static str = "Fetch.continueWithAuth";
     type ReturnObject = ContinueWithAuthReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ContinueResponse {
     const NAME: &'static str = "Fetch.continueResponse";
     type ReturnObject = ContinueResponseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetResponseBody {
     const NAME: &'static str = "Fetch.getResponseBody";
     type ReturnObject = GetResponseBodyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TakeResponseBodyAsStream {
     const NAME: &'static str = "Fetch.takeResponseBodyAsStream";
     type ReturnObject = TakeResponseBodyAsStreamReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -318,10 +354,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestPausedEvent {
         pub params: RequestPausedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct RequestPausedEventParams {
@@ -360,10 +398,12 @@ pub mod events {
         #[doc = "If the request is due to a redirect response from the server, the id of the request that\n has caused the redirect."]
         pub redirected_request_id: Option<super::RequestId>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AuthRequiredEvent {
         pub params: AuthRequiredEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AuthRequiredEventParams {

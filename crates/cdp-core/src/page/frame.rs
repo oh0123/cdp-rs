@@ -88,7 +88,7 @@ impl Frame {
             .lock()
             .await
             .get(&self.id)
-            .cloned()
+            .map(|info| info.id)
             .ok_or_else(|| {
                 CdpError::frame(format!("Execution context not found for frame {}", self.id))
             })

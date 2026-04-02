@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Overlay
+#![allow(dead_code)]
 use super::dom;
 use super::page;
 use super::runtime;
@@ -10,6 +11,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum LineStylePattern {
     #[serde(rename = "dashed")]
@@ -17,6 +19,7 @@ pub enum LineStylePattern {
     #[serde(rename = "dotted")]
     Dotted,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ContrastAlgorithm {
     #[serde(rename = "aa")]
@@ -26,6 +29,7 @@ pub enum ContrastAlgorithm {
     #[serde(rename = "apca")]
     Apca,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ColorFormat {
     #[serde(rename = "rgb")]
@@ -37,6 +41,7 @@ pub enum ColorFormat {
     #[serde(rename = "hex")]
     Hex,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InspectMode {
     #[serde(rename = "searchForNode")]
@@ -48,6 +53,7 @@ pub enum InspectMode {
     #[serde(rename = "none")]
     None,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -58,6 +64,7 @@ pub struct SourceOrderConfig {
     #[doc = "the color to outline the child elements in."]
     pub child_outline_color: dom::Rgba,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -156,6 +163,7 @@ pub struct GridHighlightConfig {
     #[doc = "The grid container background color (Default: transparent)."]
     pub grid_background_color: Option<dom::Rgba>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -194,6 +202,7 @@ pub struct FlexContainerHighlightConfig {
     #[doc = "Style of the self-alignment line (align-items)."]
     pub cross_alignment: Option<LineStyle>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -212,6 +221,7 @@ pub struct FlexItemHighlightConfig {
     #[doc = "Style of the arrow representing if the item grew or shrank"]
     pub flexibility_arrow: Option<LineStyle>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -226,6 +236,7 @@ pub struct LineStyle {
     #[doc = "The line pattern (default: solid)"]
     pub pattern: Option<LineStylePattern>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -240,6 +251,7 @@ pub struct BoxStyle {
     #[doc = "The hatching color for the box (default: transparent)"]
     pub hatch_color: Option<dom::Rgba>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -327,6 +339,7 @@ pub struct HighlightConfig {
     #[doc = "The container query container highlight configuration (default: all transparent)."]
     pub container_query_container_highlight_config: Option<ContainerQueryContainerHighlightConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -337,6 +350,7 @@ pub struct GridNodeHighlightConfig {
     #[doc = "Identifier of the node to highlight."]
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -346,6 +360,7 @@ pub struct FlexNodeHighlightConfig {
     #[doc = "Identifier of the node to highlight."]
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -367,6 +382,7 @@ pub struct ScrollSnapContainerHighlightConfig {
     #[doc = "The padding highlight fill color (default: transparent)."]
     pub scroll_padding_color: Option<dom::Rgba>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -376,6 +392,7 @@ pub struct ScrollSnapHighlightConfig {
     #[doc = "Identifier of the node to highlight."]
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -392,6 +409,7 @@ pub struct HingeConfig {
     #[doc = "The content box highlight outline color (default: transparent)."]
     pub outline_color: Option<dom::Rgba>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -408,6 +426,7 @@ pub struct WindowControlsOverlayConfig {
     #[doc = "The theme color defined in app manifest."]
     pub theme_color: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -417,6 +436,7 @@ pub struct ContainerQueryHighlightConfig {
     #[doc = "Identifier of the container node to highlight."]
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -430,6 +450,7 @@ pub struct ContainerQueryContainerHighlightConfig {
     #[doc = "The style of the descendants' borders."]
     pub descendant_border: Option<LineStyle>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -439,6 +460,7 @@ pub struct IsolatedElementHighlightConfig {
     #[doc = "Identifier of the isolated element to highlight."]
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -456,6 +478,7 @@ pub struct IsolationModeHighlightConfig {
     #[doc = "The fill color for the mask covering non-isolated elements (default: transparent)."]
     pub mask_color: Option<dom::Rgba>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -469,10 +492,13 @@ pub struct InspectedElementAnchorConfig {
     #[doc = "Identifier of the backend node to highlight."]
     pub backend_node_id: Option<dom::BackendNodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -500,6 +526,7 @@ pub struct GetHighlightObjectForTest {
     #[doc = "Whether to show accessibility info (default: true)."]
     pub show_accessibility_info: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -508,6 +535,7 @@ pub struct GetGridHighlightObjectsForTest {
     #[doc = "Ids of the node to get highlight object for."]
     pub node_ids: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -516,8 +544,10 @@ pub struct GetSourceOrderHighlightObjectForTest {
     #[doc = "Id of the node to highlight."]
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct HideHighlight(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -535,6 +565,7 @@ pub struct HighlightFrame {
     #[doc = "The content box highlight outline color (default: transparent)."]
     pub content_outline_color: Option<dom::Rgba>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -560,6 +591,7 @@ pub struct HighlightNode {
     #[doc = "Selectors to highlight relevant nodes."]
     pub selector: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -576,6 +608,7 @@ pub struct HighlightQuad {
     #[doc = "The highlight outline color (default: transparent)."]
     pub outline_color: Option<dom::Rgba>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -602,6 +635,7 @@ pub struct HighlightRect {
     #[doc = "The highlight outline color (default: transparent)."]
     pub outline_color: Option<dom::Rgba>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -622,6 +656,7 @@ pub struct HighlightSourceOrder {
     #[doc = "JavaScript object id of the node to be highlighted."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -634,6 +669,7 @@ pub struct SetInspectMode {
     #[doc = "A descriptor for the highlight appearance of hovered-over nodes. May be omitted if `enabled\n == false`."]
     pub highlight_config: Option<HighlightConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -643,6 +679,7 @@ pub struct SetShowAdHighlights {
     #[doc = "True for showing ad highlights"]
     pub show: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -653,6 +690,7 @@ pub struct SetPausedInDebuggerMessage {
     #[doc = "The message to display, also triggers resume and step over controls."]
     pub message: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -662,6 +700,7 @@ pub struct SetShowDebugBorders {
     #[doc = "True for showing debug borders"]
     pub show: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -671,6 +710,7 @@ pub struct SetShowFPSCounter {
     #[doc = "True for showing the FPS counter"]
     pub show: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -679,6 +719,7 @@ pub struct SetShowGridOverlays {
     #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub grid_node_highlight_configs: Vec<GridNodeHighlightConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -686,6 +727,7 @@ pub struct SetShowFlexOverlays {
     #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub flex_node_highlight_configs: Vec<FlexNodeHighlightConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -693,6 +735,7 @@ pub struct SetShowScrollSnapOverlays {
     #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub scroll_snap_highlight_configs: Vec<ScrollSnapHighlightConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -700,6 +743,7 @@ pub struct SetShowContainerQueryOverlays {
     #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub container_query_highlight_configs: Vec<ContainerQueryHighlightConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -707,6 +751,7 @@ pub struct SetShowInspectedElementAnchor {
     #[doc = "Node identifier for which to show an anchor for."]
     pub inspected_element_anchor_config: InspectedElementAnchorConfig,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -716,6 +761,7 @@ pub struct SetShowPaintRects {
     #[doc = "True for showing paint rectangles"]
     pub result: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -725,6 +771,7 @@ pub struct SetShowLayoutShiftRegions {
     #[doc = "True for showing layout shift regions"]
     pub result: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -734,6 +781,7 @@ pub struct SetShowScrollBottleneckRects {
     #[doc = "True for showing scroll bottleneck rects"]
     pub show: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -744,6 +792,7 @@ pub struct SetShowHitTestBorders {
     #[doc = "True for showing hit-test borders"]
     pub show: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -753,6 +802,7 @@ pub struct SetShowWebVitals {
     #[serde(default)]
     pub show: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -762,6 +812,7 @@ pub struct SetShowViewportSizeOnResize {
     #[doc = "Whether to paint size or not."]
     pub show: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -772,6 +823,7 @@ pub struct SetShowHinge {
     #[doc = "hinge data, null means hideHinge"]
     pub hinge_config: Option<HingeConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -780,6 +832,7 @@ pub struct SetShowIsolatedElements {
     #[doc = "An array of node identifiers and descriptors for the highlight appearance."]
     pub isolated_element_highlight_configs: Vec<IsolatedElementHighlightConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -790,12 +843,15 @@ pub struct SetShowWindowControlsOverlay {
     #[doc = "Window Controls Overlay data, null means hide Window Controls Overlay"]
     pub window_controls_overlay_config: Option<WindowControlsOverlayConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables domain notifications."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables domain notifications."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "For testing."]
@@ -804,6 +860,7 @@ pub struct GetHighlightObjectForTestReturnObject {
     #[doc = "Highlight data for the node."]
     pub highlight: Json,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "For Persistent Grid testing."]
@@ -812,6 +869,7 @@ pub struct GetGridHighlightObjectsForTestReturnObject {
     #[doc = "Grid Highlight data for the node ids provided."]
     pub highlights: Json,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "For Source Order Viewer testing."]
@@ -820,199 +878,255 @@ pub struct GetSourceOrderHighlightObjectForTestReturnObject {
     #[doc = "Source order highlight data for the node id provided."]
     pub highlight: Json,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Hides any highlight."]
 pub struct HideHighlightReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Highlights owner element of the frame with given id.\n Deprecated: Doesn't work reliably and cannot be fixed due to process\n separation (the owner node might be in a different process). Determine\n the owner node in the client and use highlightNode."]
 #[deprecated]
 pub struct HighlightFrameReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Highlights DOM node with given id or with the given JavaScript object wrapper. Either nodeId or\n objectId must be specified."]
 pub struct HighlightNodeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Highlights given quad. Coordinates are absolute with respect to the main frame viewport."]
 pub struct HighlightQuadReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Highlights given rectangle. Coordinates are absolute with respect to the main frame viewport.\n Issue: the method does not handle device pixel ratio (DPR) correctly.\n The coordinates currently have to be adjusted by the client\n if DPR is not 1 (see crbug.com/437807128)."]
 pub struct HighlightRectReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Highlights the source order of the children of the DOM node with given id or with the given\n JavaScript object wrapper. Either nodeId or objectId must be specified."]
 pub struct HighlightSourceOrderReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enters the 'inspect' mode. In this mode, elements that user is hovering over are highlighted.\n Backend then generates 'inspectNodeRequested' event upon element selection."]
 pub struct SetInspectModeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Highlights owner element of all frames detected to be ads."]
 pub struct SetShowAdHighlightsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetPausedInDebuggerMessageReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Requests that backend shows debug borders on layers"]
 pub struct SetShowDebugBordersReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Requests that backend shows the FPS counter"]
 pub struct SetShowFPSCounterReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Highlight multiple elements with the CSS Grid overlay."]
 pub struct SetShowGridOverlaysReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetShowFlexOverlaysReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetShowScrollSnapOverlaysReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetShowContainerQueryOverlaysReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetShowInspectedElementAnchorReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Requests that backend shows paint rectangles"]
 pub struct SetShowPaintRectsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Requests that backend shows layout shift regions"]
 pub struct SetShowLayoutShiftRegionsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Requests that backend shows scroll bottleneck rects"]
 pub struct SetShowScrollBottleneckRectsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Deprecated, no longer has any effect."]
 #[deprecated]
 pub struct SetShowHitTestBordersReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Deprecated, no longer has any effect."]
 #[deprecated]
 pub struct SetShowWebVitalsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Paints viewport size upon main frame resize."]
 pub struct SetShowViewportSizeOnResizeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Add a dual screen device hinge"]
 pub struct SetShowHingeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Show elements in isolation mode with overlays."]
 pub struct SetShowIsolatedElementsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Show Window Controls Overlay for PWA"]
 pub struct SetShowWindowControlsOverlayReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Overlay.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Overlay.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetHighlightObjectForTest {
     const NAME: &'static str = "Overlay.getHighlightObjectForTest";
     type ReturnObject = GetHighlightObjectForTestReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetGridHighlightObjectsForTest {
     const NAME: &'static str = "Overlay.getGridHighlightObjectsForTest";
     type ReturnObject = GetGridHighlightObjectsForTestReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetSourceOrderHighlightObjectForTest {
     const NAME: &'static str = "Overlay.getSourceOrderHighlightObjectForTest";
     type ReturnObject = GetSourceOrderHighlightObjectForTestReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HideHighlight {
     const NAME: &'static str = "Overlay.hideHighlight";
     type ReturnObject = HideHighlightReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HighlightFrame {
     const NAME: &'static str = "Overlay.highlightFrame";
     type ReturnObject = HighlightFrameReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HighlightNode {
     const NAME: &'static str = "Overlay.highlightNode";
     type ReturnObject = HighlightNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HighlightQuad {
     const NAME: &'static str = "Overlay.highlightQuad";
     type ReturnObject = HighlightQuadReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HighlightRect {
     const NAME: &'static str = "Overlay.highlightRect";
     type ReturnObject = HighlightRectReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HighlightSourceOrder {
     const NAME: &'static str = "Overlay.highlightSourceOrder";
     type ReturnObject = HighlightSourceOrderReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetInspectMode {
     const NAME: &'static str = "Overlay.setInspectMode";
     type ReturnObject = SetInspectModeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowAdHighlights {
     const NAME: &'static str = "Overlay.setShowAdHighlights";
     type ReturnObject = SetShowAdHighlightsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetPausedInDebuggerMessage {
     const NAME: &'static str = "Overlay.setPausedInDebuggerMessage";
     type ReturnObject = SetPausedInDebuggerMessageReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowDebugBorders {
     const NAME: &'static str = "Overlay.setShowDebugBorders";
     type ReturnObject = SetShowDebugBordersReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowFPSCounter {
     const NAME: &'static str = "Overlay.setShowFPSCounter";
     type ReturnObject = SetShowFPSCounterReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowGridOverlays {
     const NAME: &'static str = "Overlay.setShowGridOverlays";
     type ReturnObject = SetShowGridOverlaysReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowFlexOverlays {
     const NAME: &'static str = "Overlay.setShowFlexOverlays";
     type ReturnObject = SetShowFlexOverlaysReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowScrollSnapOverlays {
     const NAME: &'static str = "Overlay.setShowScrollSnapOverlays";
     type ReturnObject = SetShowScrollSnapOverlaysReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowContainerQueryOverlays {
     const NAME: &'static str = "Overlay.setShowContainerQueryOverlays";
     type ReturnObject = SetShowContainerQueryOverlaysReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowInspectedElementAnchor {
     const NAME: &'static str = "Overlay.setShowInspectedElementAnchor";
     type ReturnObject = SetShowInspectedElementAnchorReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowPaintRects {
     const NAME: &'static str = "Overlay.setShowPaintRects";
     type ReturnObject = SetShowPaintRectsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowLayoutShiftRegions {
     const NAME: &'static str = "Overlay.setShowLayoutShiftRegions";
     type ReturnObject = SetShowLayoutShiftRegionsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowScrollBottleneckRects {
     const NAME: &'static str = "Overlay.setShowScrollBottleneckRects";
     type ReturnObject = SetShowScrollBottleneckRectsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowHitTestBorders {
     const NAME: &'static str = "Overlay.setShowHitTestBorders";
     type ReturnObject = SetShowHitTestBordersReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowWebVitals {
     const NAME: &'static str = "Overlay.setShowWebVitals";
     type ReturnObject = SetShowWebVitalsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowViewportSizeOnResize {
     const NAME: &'static str = "Overlay.setShowViewportSizeOnResize";
     type ReturnObject = SetShowViewportSizeOnResizeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowHinge {
     const NAME: &'static str = "Overlay.setShowHinge";
     type ReturnObject = SetShowHingeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowIsolatedElements {
     const NAME: &'static str = "Overlay.setShowIsolatedElements";
     type ReturnObject = SetShowIsolatedElementsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetShowWindowControlsOverlay {
     const NAME: &'static str = "Overlay.setShowWindowControlsOverlay";
     type ReturnObject = SetShowWindowControlsOverlayReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -1022,55 +1136,66 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InspectNodeRequestedEvent {
         pub params: InspectNodeRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct InspectNodeRequestedEventParams {
         #[doc = "Id of the node to inspect."]
         pub backend_node_id: super::super::dom::BackendNodeId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct NodeHighlightRequestedEvent {
         pub params: NodeHighlightRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct NodeHighlightRequestedEventParams {
         pub node_id: super::super::dom::NodeId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ScreenshotRequestedEvent {
         pub params: ScreenshotRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ScreenshotRequestedEventParams {
         #[doc = "Viewport to capture, in device independent pixels (dip)."]
         pub viewport: super::super::page::Viewport,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InspectPanelShowRequestedEvent {
         pub params: InspectPanelShowRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct InspectPanelShowRequestedEventParams {
         #[doc = "Id of the node to show in the panel."]
         pub backend_node_id: super::super::dom::BackendNodeId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InspectedElementWindowRestoredEvent {
         pub params: InspectedElementWindowRestoredEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct InspectedElementWindowRestoredEventParams {
         #[doc = "Id of the node to restore the floating window for."]
         pub backend_node_id: super::super::dom::BackendNodeId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InspectModeCanceledEvent(pub Option<Json>);
 }

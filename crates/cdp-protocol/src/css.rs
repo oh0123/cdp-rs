@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: CSS
+#![allow(dead_code)]
 use super::dom;
 use super::page;
 #[allow(unused_imports)]
@@ -9,6 +10,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum StyleSheetOrigin {
     #[serde(rename = "injected")]
@@ -20,6 +22,7 @@ pub enum StyleSheetOrigin {
     #[serde(rename = "regular")]
     Regular,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CssRuleType {
     #[serde(rename = "MediaRule")]
@@ -37,6 +40,7 @@ pub enum CssRuleType {
     #[serde(rename = "StartingStyleRule")]
     StartingStyleRule,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CssMediaSource {
     #[serde(rename = "mediaRule")]
@@ -48,6 +52,7 @@ pub enum CssMediaSource {
     #[serde(rename = "inlineSheet")]
     InlineSheet,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CssAtRuleType {
     #[serde(rename = "font-face")]
@@ -57,6 +62,7 @@ pub enum CssAtRuleType {
     #[serde(rename = "font-palette-values")]
     FontPaletteValues,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CssAtRuleSubsection {
     #[serde(rename = "swash")]
@@ -72,6 +78,7 @@ pub enum CssAtRuleSubsection {
     #[serde(rename = "character-variant")]
     CharacterVariant,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -87,6 +94,7 @@ pub struct PseudoElementMatches {
     #[doc = "Matches of CSS rules applicable to the pseudo style."]
     pub matches: Vec<RuleMatch>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -100,6 +108,7 @@ pub struct CssAnimationStyle {
     #[doc = "The style coming from the animation."]
     pub style: CssStyle,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -113,6 +122,7 @@ pub struct InheritedStyleEntry {
     #[serde(rename = "matchedCSSRules")]
     pub matched_css_rules: Vec<RuleMatch>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -127,6 +137,7 @@ pub struct InheritedAnimatedStyleEntry {
     #[doc = "The style coming from the transitions of the ancestor, if any, in the style inheritance chain."]
     pub transitions_style: Option<CssStyle>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -135,6 +146,7 @@ pub struct InheritedPseudoElementMatches {
     #[doc = "Matches of pseudo styles from the pseudos of an ancestor node."]
     pub pseudo_elements: Vec<PseudoElementMatches>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -146,6 +158,7 @@ pub struct RuleMatch {
     #[doc = "Matching selector indices in the rule's selectorList selectors (0-based)."]
     pub matching_selectors: Vec<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -163,10 +176,11 @@ pub struct Value {
     #[doc = "Specificity of the selector."]
     pub specificity: Option<Specificity>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Specificity:\n https://drafts.csswg.org/selectors/#specificity-rules"]
+#[doc = "Specificity:\n <https://drafts.csswg.org/selectors/#specificity-rules>"]
 pub struct Specificity {
     #[serde(default)]
     #[doc = "The a component, which represents the number of ID selectors."]
@@ -178,6 +192,7 @@ pub struct Specificity {
     #[doc = "The c component, which represents the number of type selectors and pseudo-elements."]
     pub c: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -189,6 +204,7 @@ pub struct SelectorList {
     #[doc = "Rule selector text."]
     pub text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -230,7 +246,7 @@ pub struct CssStyleSheetHeader {
     #[doc = "Whether this stylesheet is created for STYLE tag by parser. This flag is not set for\n document.written STYLE tags."]
     pub is_inline: bool,
     #[serde(default)]
-    #[doc = "Whether this stylesheet is mutable. Inline stylesheets become mutable\n after they have been modified via CSSOM API.\n `<link>` element's stylesheets become mutable only if DevTools modifies them.\n Constructed stylesheets (new CSSStyleSheet()) are mutable immediately after creation."]
+    #[doc = "Whether this stylesheet is mutable. Inline stylesheets become mutable\n after they have been modified via CSSOM API.\n `\\<link\\>` element's stylesheets become mutable only if DevTools modifies them.\n Constructed stylesheets (new CSSStyleSheet()) are mutable immediately after creation."]
     pub is_mutable: bool,
     #[serde(default)]
     #[doc = "True if this stylesheet is created through new CSSStyleSheet() or imported as a\n CSS module script."]
@@ -256,6 +272,7 @@ pub struct CssStyleSheetHeader {
     #[doc = "If the style sheet was loaded from a network resource, this indicates when the resource failed to load"]
     pub loading_failed: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -309,6 +326,7 @@ pub struct CssRule {
     #[doc = "@starting-style CSS at-rule array.\n The array enumerates @starting-style at-rules starting with the innermost one, going outwards."]
     pub starting_styles: Option<Vec<CssStartingStyle>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -326,6 +344,7 @@ pub struct RuleUsage {
     #[doc = "Indicates whether the rule was actually used by some element in the page."]
     pub used: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -344,6 +363,7 @@ pub struct SourceRange {
     #[doc = "End column of range (exclusive)."]
     pub end_column: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -360,6 +380,7 @@ pub struct ShorthandEntry {
     #[doc = "Whether the property has \"!important\" annotation (implies `false` if absent)."]
     pub important: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -371,6 +392,7 @@ pub struct CssComputedStyleProperty {
     #[doc = "Computed style property value."]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -379,6 +401,7 @@ pub struct ComputedStyleExtraFields {
     #[doc = "Returns whether or not this node is being rendered with base appearance,\n which happens when it has its appearance property set to base/base-select\n or it is in the subtree of an element being rendered with base appearance."]
     pub is_appearance_base: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -402,6 +425,7 @@ pub struct CssStyle {
     #[doc = "Style declaration range in the enclosing stylesheet (if available)."]
     pub range: Option<SourceRange>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -447,6 +471,7 @@ pub struct CssProperty {
     #[doc = "Parsed longhand components of this property if it is a shorthand.\n This field will be empty if the given property is not a shorthand."]
     pub longhand_properties: Option<Vec<CssProperty>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -476,6 +501,7 @@ pub struct CssMedia {
     #[doc = "Array of media queries."]
     pub media_list: Option<Vec<MediaQuery>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -487,6 +513,7 @@ pub struct MediaQuery {
     #[doc = "Whether the media query condition is satisfied."]
     pub active: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -511,6 +538,7 @@ pub struct MediaQueryExpression {
     #[doc = "Computed length of media query expression (if applicable)."]
     pub computed_length: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -551,6 +579,7 @@ pub struct CssContainerQuery {
     #[doc = "true if the query contains anchored() queries."]
     pub queries_anchored: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -571,6 +600,7 @@ pub struct CssSupports {
     #[doc = "Identifier of the stylesheet containing this object (if exists)."]
     pub style_sheet_id: Option<dom::StyleSheetId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -588,6 +618,7 @@ pub struct CssScope {
     #[doc = "Identifier of the stylesheet containing this object (if exists)."]
     pub style_sheet_id: Option<dom::StyleSheetId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -605,6 +636,7 @@ pub struct CssLayer {
     #[doc = "Identifier of the stylesheet containing this object (if exists)."]
     pub style_sheet_id: Option<dom::StyleSheetId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -619,6 +651,7 @@ pub struct CssStartingStyle {
     #[doc = "Identifier of the stylesheet containing this object (if exists)."]
     pub style_sheet_id: Option<dom::StyleSheetId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -635,6 +668,7 @@ pub struct CssLayerData {
     #[doc = "Layer order. The order determines the order of the layer in the cascade order.\n A higher number has higher priority in the cascade order."]
     pub order: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -653,6 +687,7 @@ pub struct PlatformFontUsage {
     #[doc = "Amount of glyphs that were rendered with this font."]
     pub glyph_count: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -674,10 +709,11 @@ pub struct FontVariationAxis {
     #[doc = "The default value."]
     pub default_value: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Properties of a web font: https://www.w3.org/TR/2008/REC-CSS2-20080411/fonts.html#font-descriptions\n and additional information such as platformFontFamily and fontVariationAxes."]
+#[doc = "Properties of a web font: <https://www.w3.org/TR/2008/REC-CSS2-20080411/fonts.html#font-descriptions>\n and additional information such as platformFontFamily and fontVariationAxes."]
 pub struct FontFace {
     #[serde(default)]
     #[doc = "The font-family."]
@@ -711,6 +747,7 @@ pub struct FontFace {
     #[doc = "Available variation settings (a.k.a. \"axes\")."]
     pub font_variation_axes: Option<Vec<FontVariationAxis>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -725,6 +762,7 @@ pub struct CssTryRule {
     #[doc = "Associated style declaration."]
     pub style: CssStyle,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -743,6 +781,7 @@ pub struct CssPositionTryRule {
     #[serde(default)]
     pub active: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -753,6 +792,7 @@ pub struct CssKeyframesRule {
     #[doc = "List of keyframes."]
     pub keyframes: Vec<CssKeyframeRule>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -768,6 +808,7 @@ pub struct CssPropertyRegistration {
     #[serde(default)]
     pub syntax: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -792,6 +833,7 @@ pub struct CssAtRule {
     #[doc = "Associated style declaration."]
     pub style: CssStyle,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -808,6 +850,7 @@ pub struct CssPropertyRule {
     #[doc = "Associated style declaration."]
     pub style: CssStyle,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -820,6 +863,7 @@ pub struct CssFunctionParameter {
     #[doc = "The parameter type."]
     pub r#type: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -843,6 +887,7 @@ pub struct CssFunctionConditionNode {
     #[doc = "The condition text."]
     pub condition_text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -857,6 +902,7 @@ pub struct CssFunctionNode {
     #[doc = "Values set by this node. If set, condition should not be set."]
     pub style: Option<CssStyle>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -875,6 +921,7 @@ pub struct CssFunctionRule {
     #[doc = "Function body."]
     pub children: Vec<CssFunctionNode>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -891,6 +938,7 @@ pub struct CssKeyframeRule {
     #[doc = "Associated style declaration."]
     pub style: CssStyle,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -904,6 +952,7 @@ pub struct StyleDeclarationEdit {
     #[doc = "New style text."]
     pub text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -921,6 +970,7 @@ pub struct AddRule {
     #[doc = "NodeId for the DOM node in whose context custom property declarations for registered properties should be\n validated. If omitted, declarations in the new rule text can only be validated statically, which may produce\n incorrect results if the declaration contains a var() for example."]
     pub node_for_property_syntax_validation: Option<dom::NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -928,6 +978,7 @@ pub struct AddRule {
 pub struct CollectClassNames {
     pub style_sheet_id: dom::StyleSheetId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -941,10 +992,13 @@ pub struct CreateStyleSheet {
     #[doc = "If true, creates a new stylesheet for every call. If false,\n returns a stylesheet previously created by a call with force=false\n for the frame's document if it exists or creates a new stylesheet\n (default: false)."]
     pub force: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -956,6 +1010,7 @@ pub struct ForcePseudoState {
     #[doc = "Element pseudo classes to force when computing the element's style."]
     pub forced_pseudo_classes: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -967,6 +1022,7 @@ pub struct ForceStartingStyle {
     #[doc = "Boolean indicating if this is on or off."]
     pub forced: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -974,6 +1030,7 @@ pub struct GetBackgroundColors {
     #[doc = "Id of the node to get background colors for."]
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -981,6 +1038,7 @@ pub struct GetBackgroundColors {
 pub struct GetComputedStyleForNode {
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1006,6 +1064,7 @@ pub struct ResolveValues {
     #[doc = "Pseudo element custom ident."]
     pub pseudo_identifier: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1015,6 +1074,7 @@ pub struct GetLonghandProperties {
     #[serde(default)]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1022,6 +1082,7 @@ pub struct GetLonghandProperties {
 pub struct GetInlineStylesForNode {
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1029,6 +1090,7 @@ pub struct GetInlineStylesForNode {
 pub struct GetAnimatedStylesForNode {
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1036,10 +1098,13 @@ pub struct GetAnimatedStylesForNode {
 pub struct GetMatchedStylesForNode {
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetEnvironmentVariables(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetMediaQueries(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1047,6 +1112,7 @@ pub struct GetMediaQueries(pub Option<Json>);
 pub struct GetPlatformFontsForNode {
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1054,6 +1120,7 @@ pub struct GetPlatformFontsForNode {
 pub struct GetStyleSheetText {
     pub style_sheet_id: dom::StyleSheetId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1061,6 +1128,7 @@ pub struct GetStyleSheetText {
 pub struct GetLayersForNode {
     pub node_id: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1070,6 +1138,7 @@ pub struct GetLocationForSelector {
     #[serde(default)]
     pub selector_text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1079,6 +1148,7 @@ pub struct TrackComputedStyleUpdatesForNode {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_id: Option<dom::NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1086,8 +1156,10 @@ pub struct TrackComputedStyleUpdatesForNode {
 pub struct TrackComputedStyleUpdates {
     pub properties_to_track: Vec<CssComputedStyleProperty>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct TakeComputedStyleUpdates(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1100,6 +1172,7 @@ pub struct SetEffectivePropertyValueForNode {
     #[serde(default)]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1110,6 +1183,7 @@ pub struct SetPropertyRulePropertyName {
     #[serde(default)]
     pub property_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1120,6 +1194,7 @@ pub struct SetKeyframeKey {
     #[serde(default)]
     pub key_text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1130,6 +1205,7 @@ pub struct SetMediaText {
     #[serde(default)]
     pub text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1140,6 +1216,7 @@ pub struct SetContainerQueryText {
     #[serde(default)]
     pub text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1150,6 +1227,7 @@ pub struct SetSupportsText {
     #[serde(default)]
     pub text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1160,6 +1238,7 @@ pub struct SetScopeText {
     #[serde(default)]
     pub text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1170,6 +1249,7 @@ pub struct SetRuleSelector {
     #[serde(default)]
     pub selector: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1179,6 +1259,7 @@ pub struct SetStyleSheetText {
     #[serde(default)]
     pub text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1190,12 +1271,16 @@ pub struct SetStyleTexts {
     #[doc = "NodeId for the DOM node in whose context custom property declarations for registered properties should be\n validated. If omitted, declarations in the new rule text can only be validated statically, which may produce\n incorrect results if the declaration contains a var() for example."]
     pub node_for_property_syntax_validation: Option<dom::NodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StartRuleUsageTracking(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopRuleUsageTracking(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct TakeCoverageDelta(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1205,6 +1290,7 @@ pub struct SetLocalFontsEnabled {
     #[doc = "Whether rendering of local fonts is enabled."]
     pub enabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Inserts a new rule with the given `ruleText` in a stylesheet with given `styleSheetId`, at the\n position specified by `location`."]
@@ -1212,6 +1298,7 @@ pub struct AddRuleReturnObject {
     #[doc = "The newly created rule."]
     pub rule: CssRule,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns all class names from specified stylesheet."]
@@ -1219,6 +1306,7 @@ pub struct CollectClassNamesReturnObject {
     #[doc = "Class name list."]
     pub class_names: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Creates a new special \"via-inspector\" stylesheet in the frame with given `frameId`."]
@@ -1226,18 +1314,23 @@ pub struct CreateStyleSheetReturnObject {
     #[doc = "Identifier of the created \"via-inspector\" stylesheet."]
     pub style_sheet_id: dom::StyleSheetId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables the CSS agent for the given page."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables the CSS agent for the given page. Clients should not assume that the CSS agent has been\n enabled until the result of this command is received."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Ensures that the given node will have specified pseudo-classes whenever its style is computed by\n the browser."]
 pub struct ForcePseudoStateReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Ensures that the given node is in its starting-style state."]
 pub struct ForceStartingStyleReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct GetBackgroundColorsReturnObject {
@@ -1256,6 +1349,7 @@ pub struct GetBackgroundColorsReturnObject {
     #[doc = "The computed font weight for this node, as a CSS computed value string (e.g. 'normal' or\n '100')."]
     pub computed_font_weight: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the computed style for a DOM node identified by `nodeId`."]
@@ -1265,17 +1359,20 @@ pub struct GetComputedStyleForNodeReturnObject {
     #[doc = "A list of non-standard \"extra fields\" which blink stores alongside each\n computed style."]
     pub extra_fields: ComputedStyleExtraFields,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Resolve the specified values in the context of the provided element.\n For example, a value of '1em' is evaluated according to the computed\n 'font-size' of the element and a value 'calc(1px + 2px)' will be\n resolved to '3px'.\n If the `propertyName` was specified the `values` are resolved as if\n they were property's declaration. If a value cannot be parsed according\n to the provided property syntax, the value is parsed using combined\n syntax as if null `propertyName` was provided. If the value cannot be\n resolved even then, return the provided value without any changes.\n Note: this function currently does not resolve CSS random() function,\n it returns unmodified random() function parts.`"]
 pub struct ResolveValuesReturnObject {
     pub results: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct GetLonghandPropertiesReturnObject {
     pub longhand_properties: Vec<CssProperty>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the styles defined inline (explicitly in the \"style\" attribute and implicitly, using DOM\n attributes) for a DOM node identified by `nodeId`."]
@@ -1289,6 +1386,7 @@ pub struct GetInlineStylesForNodeReturnObject {
     #[doc = "Attribute-defined element style (e.g. resulting from \"width=20 height=100%\")."]
     pub attributes_style: Option<CssStyle>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the styles coming from animations & transitions\n including the animation & transition styles coming from inheritance chain."]
@@ -1306,6 +1404,7 @@ pub struct GetAnimatedStylesForNodeReturnObject {
     #[doc = "Inherited style entries for animationsStyle and transitionsStyle from\n the inheritance chain of the element."]
     pub inherited: Option<Vec<InheritedAnimatedStyleEntry>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns requested styles for a DOM node identified by `nodeId`."]
@@ -1369,6 +1468,7 @@ pub struct GetMatchedStylesForNodeReturnObject {
     #[doc = "A list of CSS at-function rules referenced by styles of this node."]
     pub css_function_rules: Option<Vec<CssFunctionRule>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the values of the default UA-defined environment variables used in env()"]
@@ -1376,12 +1476,14 @@ pub struct GetEnvironmentVariablesReturnObject {
     #[serde(default)]
     pub environment_variables: Json,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns all media queries parsed by the rendering engine."]
 pub struct GetMediaQueriesReturnObject {
     pub medias: Vec<CssMedia>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Requests information about platform fonts which we used to render child TextNodes in the given\n node."]
@@ -1389,6 +1491,7 @@ pub struct GetPlatformFontsForNodeReturnObject {
     #[doc = "Usage statistics for every employed platform font."]
     pub fonts: Vec<PlatformFontUsage>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the current textual content for a stylesheet."]
@@ -1397,24 +1500,29 @@ pub struct GetStyleSheetTextReturnObject {
     #[doc = "The stylesheet text."]
     pub text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns all layers parsed by the rendering engine for the tree scope of a node.\n Given a DOM element identified by nodeId, getLayersForNode returns the root\n layer for the nearest ancestor document or shadow root. The layer root contains\n the full layer tree for the tree scope and their ordering."]
 pub struct GetLayersForNodeReturnObject {
     pub root_layer: CssLayerData,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Given a CSS selector text and a style sheet ID, getLocationForSelector\n returns an array of locations of the CSS selector in the style sheet."]
 pub struct GetLocationForSelectorReturnObject {
     pub ranges: Vec<SourceRange>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Starts tracking the given node for the computed style updates\n and whenever the computed style is updated for node, it queues\n a `computedStyleUpdated` event with throttling.\n There can only be 1 node tracked for computed style updates\n so passing a new node id removes tracking from the previous node.\n Pass `undefined` to disable tracking."]
 pub struct TrackComputedStyleUpdatesForNodeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Starts tracking the given computed styles for updates. The specified array of properties\n replaces the one previously specified. Pass empty array to disable tracking.\n Use takeComputedStyleUpdates to retrieve the list of nodes that had properties modified.\n The changes to computed style properties are only tracked for nodes pushed to the front-end\n by the DOM agent. If no changes to the tracked properties occur after the node has been pushed\n to the front-end, no updates will be issued for the node."]
 pub struct TrackComputedStyleUpdatesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Polls the next batch of computed style updates."]
@@ -1422,9 +1530,11 @@ pub struct TakeComputedStyleUpdatesReturnObject {
     #[doc = "The list of node Ids that have their tracked computed styles updated."]
     pub node_ids: dom::NodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Find a rule with the given active property for the given node and set the new value for this\n property"]
 pub struct SetEffectivePropertyValueForNodeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Modifies the property rule property name."]
@@ -1432,6 +1542,7 @@ pub struct SetPropertyRulePropertyNameReturnObject {
     #[doc = "The resulting key text after modification."]
     pub property_name: Value,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Modifies the keyframe rule key text."]
@@ -1439,6 +1550,7 @@ pub struct SetKeyframeKeyReturnObject {
     #[doc = "The resulting key text after modification."]
     pub key_text: Value,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Modifies the rule selector."]
@@ -1446,6 +1558,7 @@ pub struct SetMediaTextReturnObject {
     #[doc = "The resulting CSS media rule after modification."]
     pub media: CssMedia,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Modifies the expression of a container query."]
@@ -1453,6 +1566,7 @@ pub struct SetContainerQueryTextReturnObject {
     #[doc = "The resulting CSS container query rule after modification."]
     pub container_query: CssContainerQuery,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Modifies the expression of a supports at-rule."]
@@ -1460,6 +1574,7 @@ pub struct SetSupportsTextReturnObject {
     #[doc = "The resulting CSS Supports rule after modification."]
     pub supports: CssSupports,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Modifies the expression of a scope at-rule."]
@@ -1467,6 +1582,7 @@ pub struct SetScopeTextReturnObject {
     #[doc = "The resulting CSS Scope rule after modification."]
     pub scope: CssScope,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Modifies the rule selector."]
@@ -1474,6 +1590,7 @@ pub struct SetRuleSelectorReturnObject {
     #[doc = "The resulting selector list after modification."]
     pub selector_list: SelectorList,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Sets the new stylesheet text."]
@@ -1485,6 +1602,7 @@ pub struct SetStyleSheetTextReturnObject {
     #[serde(rename = "sourceMapURL")]
     pub source_map_url: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Applies specified style edits one after another in the given order."]
@@ -1492,15 +1610,18 @@ pub struct SetStyleTextsReturnObject {
     #[doc = "The resulting styles after modification."]
     pub styles: Vec<CssStyle>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables the selector recording."]
 pub struct StartRuleUsageTrackingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Stop tracking rule usage and return the list of rules that were used since last call to\n `takeCoverageDelta` (or since start of coverage instrumentation)."]
 pub struct StopRuleUsageTrackingReturnObject {
     pub rule_usage: Vec<RuleUsage>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Obtain list of rules that became used since last call to this method (or since start of coverage\n instrumentation)."]
@@ -1510,157 +1631,196 @@ pub struct TakeCoverageDeltaReturnObject {
     #[doc = "Monotonically increasing time, in seconds."]
     pub timestamp: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables/disables rendering of local CSS fonts (enabled by default)."]
 pub struct SetLocalFontsEnabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for AddRule {
     const NAME: &'static str = "CSS.addRule";
     type ReturnObject = AddRuleReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CollectClassNames {
     const NAME: &'static str = "CSS.collectClassNames";
     type ReturnObject = CollectClassNamesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CreateStyleSheet {
     const NAME: &'static str = "CSS.createStyleSheet";
     type ReturnObject = CreateStyleSheetReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "CSS.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "CSS.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ForcePseudoState {
     const NAME: &'static str = "CSS.forcePseudoState";
     type ReturnObject = ForcePseudoStateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ForceStartingStyle {
     const NAME: &'static str = "CSS.forceStartingStyle";
     type ReturnObject = ForceStartingStyleReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetBackgroundColors {
     const NAME: &'static str = "CSS.getBackgroundColors";
     type ReturnObject = GetBackgroundColorsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetComputedStyleForNode {
     const NAME: &'static str = "CSS.getComputedStyleForNode";
     type ReturnObject = GetComputedStyleForNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ResolveValues {
     const NAME: &'static str = "CSS.resolveValues";
     type ReturnObject = ResolveValuesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetLonghandProperties {
     const NAME: &'static str = "CSS.getLonghandProperties";
     type ReturnObject = GetLonghandPropertiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetInlineStylesForNode {
     const NAME: &'static str = "CSS.getInlineStylesForNode";
     type ReturnObject = GetInlineStylesForNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetAnimatedStylesForNode {
     const NAME: &'static str = "CSS.getAnimatedStylesForNode";
     type ReturnObject = GetAnimatedStylesForNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetMatchedStylesForNode {
     const NAME: &'static str = "CSS.getMatchedStylesForNode";
     type ReturnObject = GetMatchedStylesForNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetEnvironmentVariables {
     const NAME: &'static str = "CSS.getEnvironmentVariables";
     type ReturnObject = GetEnvironmentVariablesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetMediaQueries {
     const NAME: &'static str = "CSS.getMediaQueries";
     type ReturnObject = GetMediaQueriesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetPlatformFontsForNode {
     const NAME: &'static str = "CSS.getPlatformFontsForNode";
     type ReturnObject = GetPlatformFontsForNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetStyleSheetText {
     const NAME: &'static str = "CSS.getStyleSheetText";
     type ReturnObject = GetStyleSheetTextReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetLayersForNode {
     const NAME: &'static str = "CSS.getLayersForNode";
     type ReturnObject = GetLayersForNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetLocationForSelector {
     const NAME: &'static str = "CSS.getLocationForSelector";
     type ReturnObject = GetLocationForSelectorReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TrackComputedStyleUpdatesForNode {
     const NAME: &'static str = "CSS.trackComputedStyleUpdatesForNode";
     type ReturnObject = TrackComputedStyleUpdatesForNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TrackComputedStyleUpdates {
     const NAME: &'static str = "CSS.trackComputedStyleUpdates";
     type ReturnObject = TrackComputedStyleUpdatesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TakeComputedStyleUpdates {
     const NAME: &'static str = "CSS.takeComputedStyleUpdates";
     type ReturnObject = TakeComputedStyleUpdatesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetEffectivePropertyValueForNode {
     const NAME: &'static str = "CSS.setEffectivePropertyValueForNode";
     type ReturnObject = SetEffectivePropertyValueForNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetPropertyRulePropertyName {
     const NAME: &'static str = "CSS.setPropertyRulePropertyName";
     type ReturnObject = SetPropertyRulePropertyNameReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetKeyframeKey {
     const NAME: &'static str = "CSS.setKeyframeKey";
     type ReturnObject = SetKeyframeKeyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetMediaText {
     const NAME: &'static str = "CSS.setMediaText";
     type ReturnObject = SetMediaTextReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetContainerQueryText {
     const NAME: &'static str = "CSS.setContainerQueryText";
     type ReturnObject = SetContainerQueryTextReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSupportsText {
     const NAME: &'static str = "CSS.setSupportsText";
     type ReturnObject = SetSupportsTextReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetScopeText {
     const NAME: &'static str = "CSS.setScopeText";
     type ReturnObject = SetScopeTextReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetRuleSelector {
     const NAME: &'static str = "CSS.setRuleSelector";
     type ReturnObject = SetRuleSelectorReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetStyleSheetText {
     const NAME: &'static str = "CSS.setStyleSheetText";
     type ReturnObject = SetStyleSheetTextReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetStyleTexts {
     const NAME: &'static str = "CSS.setStyleTexts";
     type ReturnObject = SetStyleTextsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StartRuleUsageTracking {
     const NAME: &'static str = "CSS.startRuleUsageTracking";
     type ReturnObject = StartRuleUsageTrackingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StopRuleUsageTracking {
     const NAME: &'static str = "CSS.stopRuleUsageTracking";
     type ReturnObject = StopRuleUsageTrackingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TakeCoverageDelta {
     const NAME: &'static str = "CSS.takeCoverageDelta";
     type ReturnObject = TakeCoverageDeltaReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetLocalFontsEnabled {
     const NAME: &'static str = "CSS.setLocalFontsEnabled";
     type ReturnObject = SetLocalFontsEnabledReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -1670,10 +1830,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct FontsUpdatedEvent {
         pub params: FontsUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct FontsUpdatedEventParams {
@@ -1682,41 +1844,50 @@ pub mod events {
         #[doc = "The web font that has loaded."]
         pub font: Option<super::FontFace>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct MediaQueryResultChangedEvent(pub Option<Json>);
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct StyleSheetAddedEvent {
         pub params: StyleSheetAddedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct StyleSheetAddedEventParams {
         #[doc = "Added stylesheet metainfo."]
         pub header: super::CssStyleSheetHeader,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct StyleSheetChangedEvent {
         pub params: StyleSheetChangedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct StyleSheetChangedEventParams {
         pub style_sheet_id: super::super::dom::StyleSheetId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct StyleSheetRemovedEvent {
         pub params: StyleSheetRemovedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct StyleSheetRemovedEventParams {
         #[doc = "Identifier of the removed stylesheet."]
         pub style_sheet_id: super::super::dom::StyleSheetId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ComputedStyleUpdatedEvent {
         pub params: ComputedStyleUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ComputedStyleUpdatedEventParams {

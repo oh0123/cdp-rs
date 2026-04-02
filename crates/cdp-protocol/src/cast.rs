@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Cast
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -7,6 +8,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -21,6 +23,7 @@ pub struct Sink {
     #[doc = "Text describing the current session. Present only if there is an active\n session on the sink."]
     pub session: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -31,8 +34,10 @@ pub struct Enable {
     #[serde(default)]
     pub presentation_url: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -41,6 +46,7 @@ pub struct SetSinkToUse {
     #[serde(default)]
     pub sink_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -49,6 +55,7 @@ pub struct StartDesktopMirroring {
     #[serde(default)]
     pub sink_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -57,6 +64,7 @@ pub struct StartTabMirroring {
     #[serde(default)]
     pub sink_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -65,48 +73,61 @@ pub struct StopCasting {
     #[serde(default)]
     pub sink_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Starts observing for sinks that can be used for tab mirroring, and if set,\n sinks compatible with |presentationUrl| as well. When sinks are found, a\n |sinksUpdated| event is fired.\n Also starts observing for issue messages. When an issue is added or removed,\n an |issueUpdated| event is fired."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Stops observing for sinks and issues."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets a sink to be used when the web page requests the browser to choose a\n sink via Presentation API, Remote Playback API, or Cast SDK."]
 pub struct SetSinkToUseReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Starts mirroring the desktop to the sink."]
 pub struct StartDesktopMirroringReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Starts mirroring the tab to the sink."]
 pub struct StartTabMirroringReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Stops the active Cast session on the sink."]
 pub struct StopCastingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Cast.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Cast.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSinkToUse {
     const NAME: &'static str = "Cast.setSinkToUse";
     type ReturnObject = SetSinkToUseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StartDesktopMirroring {
     const NAME: &'static str = "Cast.startDesktopMirroring";
     type ReturnObject = StartDesktopMirroringReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StartTabMirroring {
     const NAME: &'static str = "Cast.startTabMirroring";
     type ReturnObject = StartTabMirroringReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StopCasting {
     const NAME: &'static str = "Cast.stopCasting";
     type ReturnObject = StopCastingReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -116,19 +137,23 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SinksUpdatedEvent {
         pub params: SinksUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct SinksUpdatedEventParams {
         pub sinks: Vec<super::Sink>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct IssueUpdatedEvent {
         pub params: IssueUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct IssueUpdatedEventParams {

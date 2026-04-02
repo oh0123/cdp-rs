@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Runtime
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -14,6 +15,7 @@ pub type ExecutionContextId = JsUInt;
 pub type Timestamp = JsFloat;
 pub type TimeDelta = JsFloat;
 pub type UniqueDebuggerId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SerializationOptionsSerialization {
     #[serde(rename = "deep")]
@@ -23,6 +25,7 @@ pub enum SerializationOptionsSerialization {
     #[serde(rename = "idOnly")]
     IdOnly,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DeepSerializedValueType {
     #[serde(rename = "undefined")]
@@ -74,6 +77,7 @@ pub enum DeepSerializedValueType {
     #[serde(rename = "generator")]
     Generator,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum RemoteObjectType {
     #[serde(rename = "object")]
@@ -93,6 +97,7 @@ pub enum RemoteObjectType {
     #[serde(rename = "bigint")]
     Bigint,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum RemoteObjectSubtype {
     #[serde(rename = "array")]
@@ -136,6 +141,7 @@ pub enum RemoteObjectSubtype {
     #[serde(rename = "trustedtype")]
     Trustedtype,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ObjectPreviewType {
     #[serde(rename = "object")]
@@ -155,6 +161,7 @@ pub enum ObjectPreviewType {
     #[serde(rename = "bigint")]
     Bigint,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ObjectPreviewSubtype {
     #[serde(rename = "array")]
@@ -198,6 +205,7 @@ pub enum ObjectPreviewSubtype {
     #[serde(rename = "trustedtype")]
     Trustedtype,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PropertyPreviewType {
     #[serde(rename = "object")]
@@ -219,6 +227,7 @@ pub enum PropertyPreviewType {
     #[serde(rename = "bigint")]
     Bigint,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PropertyPreviewSubtype {
     #[serde(rename = "array")]
@@ -262,6 +271,7 @@ pub enum PropertyPreviewSubtype {
     #[serde(rename = "trustedtype")]
     Trustedtype,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ConsoleApiCalledTypeOption {
     #[serde(rename = "log")]
@@ -301,6 +311,7 @@ pub enum ConsoleApiCalledTypeOption {
     #[serde(rename = "timeEnd")]
     TimeEnd,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -318,6 +329,7 @@ pub struct SerializationOptions {
     #[doc = "Embedder-specific parameters. For example if connected to V8 in Chrome these control DOM\n serialization via `maxNodeDepth: integer` and `includeShadowTree: \"none\" | \"open\" | \"all\"`.\n Values can be only of type string or integer."]
     pub additional_parameters: Option<Json>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -338,6 +350,7 @@ pub struct DeepSerializedValue {
     #[doc = "Set if value reference met more then once during serialization. In such\n case, value is provided only to one of the serialized values. Unique\n per value in the scope of one CDP call."]
     pub weak_local_object_reference: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -384,6 +397,7 @@ pub struct RemoteObject {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_preview: Option<CustomPreview>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -396,6 +410,7 @@ pub struct CustomPreview {
     #[doc = "If formatter returns true as a result of formatter.hasBody call then bodyGetterId will\n contain RemoteObjectId for the function that returns result of formatter.body(object, config) call.\n The result value is json ML array."]
     pub body_getter_id: Option<RemoteObjectId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -422,6 +437,7 @@ pub struct ObjectPreview {
     #[doc = "List of the entries. Specified for `map` and `set` subtype values only."]
     pub entries: Option<Vec<EntryPreview>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -445,6 +461,7 @@ pub struct PropertyPreview {
     #[doc = "Object subtype hint. Specified for `object` type values only."]
     pub subtype: Option<PropertyPreviewSubtype>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -456,6 +473,7 @@ pub struct EntryPreview {
     #[doc = "Preview of the value."]
     pub value: ObjectPreview,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -502,6 +520,7 @@ pub struct PropertyDescriptor {
     #[doc = "Property symbol object, if the property is of the `symbol` type."]
     pub symbol: Option<RemoteObject>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -515,6 +534,7 @@ pub struct InternalPropertyDescriptor {
     #[doc = "The value associated with the property."]
     pub value: Option<RemoteObject>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -536,6 +556,7 @@ pub struct PrivatePropertyDescriptor {
     #[doc = "A function which serves as a setter for the private property,\n or `undefined` if there is no setter (accessor descriptors only)."]
     pub set: Option<RemoteObject>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -555,6 +576,7 @@ pub struct CallArgument {
     #[doc = "Remote object handle."]
     pub object_id: Option<RemoteObjectId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -577,6 +599,7 @@ pub struct ExecutionContextDescription {
     #[doc = "Embedder-specific auxiliary data likely matching {isDefault: boolean, type: 'default'|'isolated'|'worker', frameId: string}"]
     pub aux_data: Option<Json>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -621,6 +644,7 @@ pub struct ExceptionDetails {
     #[doc = "Dictionary with entries of meta data that the client associated\n with this exception, such as information about associated network\n requests, etc."]
     pub exception_meta_data: Option<Json>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -641,6 +665,7 @@ pub struct CallFrame {
     #[doc = "JavaScript script column number (0-based)."]
     pub column_number: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -662,6 +687,7 @@ pub struct StackTrace {
     #[doc = "Asynchronous JavaScript stack trace that preceded this stack, if available."]
     pub parent_id: Option<StackTraceId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -673,6 +699,7 @@ pub struct StackTraceId {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub debugger_id: Option<UniqueDebuggerId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -691,6 +718,7 @@ pub struct AwaitPromise {
     #[doc = "Whether preview should be generated for the result."]
     pub generate_preview: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -756,6 +784,7 @@ pub struct CallFunctionOn {
     #[doc = "Specifies the result serialization. If provided, overrides\n `generatePreview` and `returnByValue`."]
     pub serialization_options: Option<SerializationOptions>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -776,12 +805,16 @@ pub struct CompileScript {
     #[doc = "Specifies in which execution context to perform script run. If the parameter is omitted the\n evaluation will be performed in the context of the inspected page."]
     pub execution_context_id: Option<ExecutionContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DiscardConsoleEntries(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -865,10 +898,13 @@ pub struct Evaluate {
     #[doc = "Specifies the result serialization. If provided, overrides\n `generatePreview` and `returnByValue`."]
     pub serialization_options: Option<SerializationOptions>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetIsolateId(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetHeapUsage(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -897,6 +933,7 @@ pub struct GetProperties {
     #[doc = "If true, returns non-indexed properties only."]
     pub non_indexed_properties_only: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -907,6 +944,7 @@ pub struct GlobalLexicalScopeNames {
     #[doc = "Specifies in which execution context to lookup global scope variables."]
     pub execution_context_id: Option<ExecutionContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -919,6 +957,7 @@ pub struct QueryObjects {
     #[doc = "Symbolic group name that can be used to release the results."]
     pub object_group: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -927,6 +966,7 @@ pub struct ReleaseObject {
     #[doc = "Identifier of the object to release."]
     pub object_id: RemoteObjectId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -936,8 +976,10 @@ pub struct ReleaseObjectGroup {
     #[doc = "Symbolic object group name."]
     pub object_group: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct RunIfWaitingForDebugger(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -981,6 +1023,7 @@ pub struct RunScript {
     #[doc = "Whether execution should `await` for resulting value and return once awaited promise is\n resolved."]
     pub await_promise: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -990,6 +1033,7 @@ pub struct SetAsyncCallStackDepth {
     #[doc = "Maximum depth of async call stacks. Setting to `0` will effectively disable collecting async\n call stacks (default)."]
     pub max_depth: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -997,6 +1041,7 @@ pub struct SetCustomObjectFormatterEnabled {
     #[serde(default)]
     pub enabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1004,8 +1049,10 @@ pub struct SetMaxCallStackSizeToCapture {
     #[serde(default)]
     pub size: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct TerminateExecution(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1024,6 +1071,7 @@ pub struct AddBinding {
     #[doc = "If specified, the binding is exposed to the executionContext with\n matching name, even for contexts created after the binding is added.\n See also `ExecutionContext.name` and `worldName` parameter to\n `Page.addScriptToEvaluateOnNewDocument`.\n This parameter is mutually exclusive with `executionContextId`."]
     pub execution_context_name: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1032,6 +1080,7 @@ pub struct RemoveBinding {
     #[serde(default)]
     pub name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1040,6 +1089,7 @@ pub struct GetExceptionDetails {
     #[doc = "The error object for which to resolve the exception details."]
     pub error_object_id: RemoteObjectId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Add handler to promise with given promise object id."]
@@ -1051,6 +1101,7 @@ pub struct AwaitPromiseReturnObject {
     #[doc = "Exception details if stack strace is available."]
     pub exception_details: Option<ExceptionDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Calls function with given declaration on the given object. Object group of the result is\n inherited from the target object."]
@@ -1062,6 +1113,7 @@ pub struct CallFunctionOnReturnObject {
     #[doc = "Exception details."]
     pub exception_details: Option<ExceptionDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Compiles expression."]
@@ -1075,15 +1127,19 @@ pub struct CompileScriptReturnObject {
     #[doc = "Exception details."]
     pub exception_details: Option<ExceptionDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables reporting of execution contexts creation."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Discards collected exceptions and console API calls."]
 pub struct DiscardConsoleEntriesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables reporting of execution contexts creation by means of `executionContextCreated` event.\n When the reporting gets enabled the event will be sent immediately for each existing execution\n context."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Evaluates expression on global object."]
@@ -1095,6 +1151,7 @@ pub struct EvaluateReturnObject {
     #[doc = "Exception details."]
     pub exception_details: Option<ExceptionDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the isolate id."]
@@ -1103,6 +1160,7 @@ pub struct GetIsolateIdReturnObject {
     #[doc = "The isolate id."]
     pub id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the JavaScript heap usage.\n It is the total usage of the corresponding isolate not scoped to a particular Runtime."]
@@ -1120,6 +1178,7 @@ pub struct GetHeapUsageReturnObject {
     #[doc = "Size in bytes of backing storage for array buffers and external strings."]
     pub backing_storage_size: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns properties of a given object. Object group of the result is inherited from the target\n object."]
@@ -1139,27 +1198,33 @@ pub struct GetPropertiesReturnObject {
     #[doc = "Exception details."]
     pub exception_details: Option<ExceptionDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns all let, const and class variables from global scope."]
 pub struct GlobalLexicalScopeNamesReturnObject {
     pub names: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct QueryObjectsReturnObject {
     #[doc = "Array with objects."]
     pub objects: RemoteObject,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Releases remote object with given id."]
 pub struct ReleaseObjectReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Releases all remote objects that belong to a given group."]
 pub struct ReleaseObjectGroupReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Tells inspected instance to run if it was waiting for debugger to attach."]
 pub struct RunIfWaitingForDebuggerReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Runs script with given id in a given context."]
@@ -1171,22 +1236,29 @@ pub struct RunScriptReturnObject {
     #[doc = "Exception details."]
     pub exception_details: Option<ExceptionDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables or disables async call stacks tracking."]
 pub struct SetAsyncCallStackDepthReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetCustomObjectFormatterEnabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetMaxCallStackSizeToCaptureReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Terminate current or next JavaScript execution.\n Will cancel the termination when the outer-most script execution ends."]
 pub struct TerminateExecutionReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "If executionContextId is empty, adds binding with the given name on the\n global objects of all inspected contexts, including those created later,\n bindings survive reloads.\n Binding function takes exactly one argument, this argument should be string,\n in case of any other input, function throws an exception.\n Each binding function call produces Runtime.bindingCalled notification."]
 pub struct AddBindingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "This method does not remove binding function from global object but\n unsubscribes current runtime agent from Runtime.bindingCalled notifications."]
 pub struct RemoveBindingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "This method tries to lookup and populate exception details for a\n JavaScript Error object.\n Note that the stackTrace portion of the resulting exceptionDetails will\n only be populated if the Runtime domain was enabled at the time when the\n Error was thrown."]
@@ -1195,98 +1267,122 @@ pub struct GetExceptionDetailsReturnObject {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub exception_details: Option<ExceptionDetails>,
 }
+#[allow(deprecated)]
 impl Method for AwaitPromise {
     const NAME: &'static str = "Runtime.awaitPromise";
     type ReturnObject = AwaitPromiseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CallFunctionOn {
     const NAME: &'static str = "Runtime.callFunctionOn";
     type ReturnObject = CallFunctionOnReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CompileScript {
     const NAME: &'static str = "Runtime.compileScript";
     type ReturnObject = CompileScriptReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Runtime.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DiscardConsoleEntries {
     const NAME: &'static str = "Runtime.discardConsoleEntries";
     type ReturnObject = DiscardConsoleEntriesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Runtime.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Evaluate {
     const NAME: &'static str = "Runtime.evaluate";
     type ReturnObject = EvaluateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetIsolateId {
     const NAME: &'static str = "Runtime.getIsolateId";
     type ReturnObject = GetIsolateIdReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetHeapUsage {
     const NAME: &'static str = "Runtime.getHeapUsage";
     type ReturnObject = GetHeapUsageReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetProperties {
     const NAME: &'static str = "Runtime.getProperties";
     type ReturnObject = GetPropertiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GlobalLexicalScopeNames {
     const NAME: &'static str = "Runtime.globalLexicalScopeNames";
     type ReturnObject = GlobalLexicalScopeNamesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for QueryObjects {
     const NAME: &'static str = "Runtime.queryObjects";
     type ReturnObject = QueryObjectsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReleaseObject {
     const NAME: &'static str = "Runtime.releaseObject";
     type ReturnObject = ReleaseObjectReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReleaseObjectGroup {
     const NAME: &'static str = "Runtime.releaseObjectGroup";
     type ReturnObject = ReleaseObjectGroupReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RunIfWaitingForDebugger {
     const NAME: &'static str = "Runtime.runIfWaitingForDebugger";
     type ReturnObject = RunIfWaitingForDebuggerReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RunScript {
     const NAME: &'static str = "Runtime.runScript";
     type ReturnObject = RunScriptReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAsyncCallStackDepth {
     const NAME: &'static str = "Runtime.setAsyncCallStackDepth";
     type ReturnObject = SetAsyncCallStackDepthReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetCustomObjectFormatterEnabled {
     const NAME: &'static str = "Runtime.setCustomObjectFormatterEnabled";
     type ReturnObject = SetCustomObjectFormatterEnabledReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetMaxCallStackSizeToCapture {
     const NAME: &'static str = "Runtime.setMaxCallStackSizeToCapture";
     type ReturnObject = SetMaxCallStackSizeToCaptureReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TerminateExecution {
     const NAME: &'static str = "Runtime.terminateExecution";
     type ReturnObject = TerminateExecutionReturnObject;
 }
+#[allow(deprecated)]
 impl Method for AddBinding {
     const NAME: &'static str = "Runtime.addBinding";
     type ReturnObject = AddBindingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveBinding {
     const NAME: &'static str = "Runtime.removeBinding";
     type ReturnObject = RemoveBindingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetExceptionDetails {
     const NAME: &'static str = "Runtime.getExceptionDetails";
     type ReturnObject = GetExceptionDetailsReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -1296,10 +1392,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct BindingCalledEvent {
         pub params: BindingCalledEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct BindingCalledEventParams {
@@ -1310,10 +1408,12 @@ pub mod events {
         #[doc = "Identifier of the context where the call was made."]
         pub execution_context_id: super::ExecutionContextId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ConsoleAPICalledEvent {
         pub params: ConsoleAPICalledEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ConsoleAPICalledEventParams {
@@ -1335,10 +1435,12 @@ pub mod events {
         #[doc = "Console context descriptor for calls on non-default console context (not console.*):\n 'anonymous#unique-logger-id' for call on unnamed context, 'name#unique-logger-id' for call\n on named context."]
         pub context: Option<String>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ExceptionRevokedEvent {
         pub params: ExceptionRevokedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ExceptionRevokedEventParams {
@@ -1349,10 +1451,12 @@ pub mod events {
         #[doc = "The id of revoked exception, as reported in `exceptionThrown`."]
         pub exception_id: JsUInt,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ExceptionThrownEvent {
         pub params: ExceptionThrownEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ExceptionThrownEventParams {
@@ -1360,20 +1464,24 @@ pub mod events {
         pub timestamp: super::Timestamp,
         pub exception_details: super::ExceptionDetails,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ExecutionContextCreatedEvent {
         pub params: ExecutionContextCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ExecutionContextCreatedEventParams {
         #[doc = "A newly created execution context."]
         pub context: super::ExecutionContextDescription,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ExecutionContextDestroyedEvent {
         pub params: ExecutionContextDestroyedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ExecutionContextDestroyedEventParams {
@@ -1384,12 +1492,15 @@ pub mod events {
         #[doc = "Unique Id of the destroyed context"]
         pub execution_context_unique_id: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ExecutionContextsClearedEvent(pub Option<Json>);
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InspectRequestedEvent {
         pub params: InspectRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct InspectRequestedEventParams {

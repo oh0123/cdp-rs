@@ -216,12 +216,16 @@ async fn update_page_meta(page: &Arc<Page>, cdp_event: CdpEvent) {
                 if let Some(aux_data) = event.params.context.aux_data
                     && let Some(frame_id) = aux_data.get("frameId").and_then(|v| v.as_str())
                 {
-                    page.register_execution_context(frame_id.to_string(), event.params.context.id)
-                        .await;
+                    page.register_execution_context(
+                        frame_id.to_string(),
+                        event.params.context.id,
+                        event.params.context.unique_id,
+                    )
+                    .await;
                 }
             }
             cdp_protocol::types::Event::RuntimeExecutionContextDestroyed(event) => {
-                page.remove_execution_context(event.params.execution_context_id)
+                page.remove_execution_context(event.params.execution_context_unique_id)
                     .await;
             }
             cdp_protocol::types::Event::RuntimeExecutionContextsCleared(_) => {

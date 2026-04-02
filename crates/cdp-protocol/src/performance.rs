@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Performance
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -7,6 +8,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum EnableTimeDomainOption {
     #[serde(rename = "timeTicks")]
@@ -14,6 +16,7 @@ pub enum EnableTimeDomainOption {
     #[serde(rename = "threadTicks")]
     ThreadTicks,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SetTimeDomainTimeDomainOption {
     #[serde(rename = "timeTicks")]
@@ -21,6 +24,7 @@ pub enum SetTimeDomainTimeDomainOption {
     #[serde(rename = "threadTicks")]
     ThreadTicks,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -33,8 +37,10 @@ pub struct Metric {
     #[doc = "Metric value."]
     pub value: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -45,6 +51,7 @@ pub struct Enable {
     #[doc = "Time domain to use for collecting and reporting duration metrics."]
     pub time_domain: Option<EnableTimeDomainOption>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -54,18 +61,23 @@ pub struct SetTimeDomain {
     #[doc = "Time domain"]
     pub time_domain: SetTimeDomainTimeDomainOption,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetMetrics(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disable collecting and reporting metrics."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enable collecting and reporting metrics."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets time domain to use for collecting and reporting duration metrics.\n Note that this must be called before enabling metrics collection. Calling\n this method while metrics collection is enabled returns an error."]
 #[deprecated]
 pub struct SetTimeDomainReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Retrieve current values of run-time metrics."]
@@ -73,22 +85,27 @@ pub struct GetMetricsReturnObject {
     #[doc = "Current values for run-time metrics."]
     pub metrics: Vec<Metric>,
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Performance.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Performance.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetTimeDomain {
     const NAME: &'static str = "Performance.setTimeDomain";
     type ReturnObject = SetTimeDomainReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetMetrics {
     const NAME: &'static str = "Performance.getMetrics";
     type ReturnObject = GetMetricsReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -98,10 +115,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct MetricsEvent {
         pub params: MetricsEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct MetricsEventParams {

@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Browser
+#![allow(dead_code)]
 use super::target;
 #[allow(unused_imports)]
 use super::types::*;
@@ -10,6 +11,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value as Json;
 pub type BrowserContextId = String;
 pub type WindowId = JsUInt;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum WindowState {
     #[serde(rename = "normal")]
@@ -21,6 +23,7 @@ pub enum WindowState {
     #[serde(rename = "fullscreen")]
     Fullscreen,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PermissionType {
     #[serde(rename = "ar")]
@@ -102,6 +105,7 @@ pub enum PermissionType {
     #[serde(rename = "windowManagement")]
     WindowManagement,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PermissionSetting {
     #[serde(rename = "granted")]
@@ -111,6 +115,7 @@ pub enum PermissionSetting {
     #[serde(rename = "prompt")]
     Prompt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum BrowserCommandId {
     #[serde(rename = "openTabSearch")]
@@ -120,6 +125,7 @@ pub enum BrowserCommandId {
     #[serde(rename = "openGlic")]
     OpenGlic,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PrivacySandboxApi {
     #[serde(rename = "BiddingAndAuctionServices")]
@@ -127,6 +133,7 @@ pub enum PrivacySandboxApi {
     #[serde(rename = "TrustedKeyValue")]
     TrustedKeyValue,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SetDownloadBehaviorBehaviorOption {
     #[serde(rename = "deny")]
@@ -138,6 +145,7 @@ pub enum SetDownloadBehaviorBehaviorOption {
     #[serde(rename = "default")]
     Default,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DownloadProgressStateOption {
     #[serde(rename = "inProgress")]
@@ -147,6 +155,7 @@ pub enum DownloadProgressStateOption {
     #[serde(rename = "canceled")]
     Canceled,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -177,13 +186,14 @@ pub struct Bounds {
     #[doc = "The window state. Default to normal."]
     pub window_state: Option<WindowState>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Definition of PermissionDescriptor defined in the Permissions API:\n https://w3c.github.io/permissions/#dom-permissiondescriptor."]
+#[doc = "Definition of PermissionDescriptor defined in the Permissions API:\n <https://w3c.github.io/permissions/#dom-permissiondescriptor>."]
 pub struct PermissionDescriptor {
     #[serde(default)]
-    #[doc = "Name of permission.\n See https://cs.chromium.org/chromium/src/third_party/blink/renderer/modules/permissions/permission_descriptor.idl for valid permission names."]
+    #[doc = "Name of permission.\n See <https://cs.chromium.org/chromium/src/third_party/blink/renderer/modules/permissions/permission_descriptor.idl> for valid permission names."]
     pub name: String,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -211,6 +221,7 @@ pub struct PermissionDescriptor {
     #[doc = "For \"camera\" permission, may specify panTiltZoom."]
     pub pan_tilt_zoom: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -226,6 +237,7 @@ pub struct Bucket {
     #[doc = "Number of samples."]
     pub count: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -243,6 +255,7 @@ pub struct Histogram {
     #[doc = "Buckets."]
     pub buckets: Vec<Bucket>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -267,6 +280,7 @@ pub struct SetPermission {
     #[doc = "Context to override. When omitted, default browser context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -284,6 +298,7 @@ pub struct GrantPermissions {
     #[doc = "BrowserContext to override permissions. When omitted, default browser context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -294,6 +309,7 @@ pub struct ResetPermissions {
     #[doc = "BrowserContext to reset permissions. When omitted, default browser context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -316,6 +332,7 @@ pub struct SetDownloadBehavior {
     #[doc = "Whether to emit download events (defaults to false)."]
     pub events_enabled: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -329,16 +346,22 @@ pub struct CancelDownload {
     #[doc = "BrowserContext to perform the action in. When omitted, default browser context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Close(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Crash(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CrashGpuProcess(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetVersion(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetBrowserCommandLine(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -355,6 +378,7 @@ pub struct GetHistograms {
     #[doc = "If true, retrieve delta since last delta call."]
     pub delta: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -369,6 +393,7 @@ pub struct GetHistogram {
     #[doc = "If true, retrieve delta since last delta call."]
     pub delta: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -377,6 +402,7 @@ pub struct GetWindowBounds {
     #[doc = "Browser window id."]
     pub window_id: WindowId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -387,6 +413,7 @@ pub struct GetWindowForTarget {
     #[doc = "Devtools agent host id. If called as a part of the session, associated targetId is used."]
     pub target_id: Option<target::TargetId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -397,6 +424,7 @@ pub struct SetWindowBounds {
     #[doc = "New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined\n with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged."]
     pub bounds: Bounds,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -415,6 +443,7 @@ pub struct SetContentsSize {
     #[doc = "The window contents height in DIP. Assumes current height if omitted.\n Must be specified if 'width' is omitted."]
     pub height: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -429,6 +458,7 @@ pub struct SetDockTile {
     #[doc = "Png encoded image."]
     pub image: Option<Vec<u8>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -436,6 +466,7 @@ pub struct SetDockTile {
 pub struct ExecuteBrowserCommand {
     pub command_id: BrowserCommandId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -444,6 +475,7 @@ pub struct AddPrivacySandboxEnrollmentOverride {
     #[serde(default)]
     pub url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -459,31 +491,40 @@ pub struct AddPrivacySandboxCoordinatorKeyConfig {
     #[doc = "BrowserContext to perform the action in. When omitted, default browser\n context is used."]
     pub browser_context_id: Option<BrowserContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Set permission settings for given embedding and embedded origins."]
 pub struct SetPermissionReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Grant specific permissions to the given origin and reject all others. Deprecated. Use\n setPermission instead."]
 #[deprecated]
 pub struct GrantPermissionsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Reset all permission management for all origins."]
 pub struct ResetPermissionsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Set the behavior when downloading a file."]
 pub struct SetDownloadBehaviorReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Cancel a download if in progress"]
 pub struct CancelDownloadReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Close browser gracefully."]
 pub struct CloseReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Crashes browser on the main thread."]
 pub struct CrashReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Crashes GPU process."]
 pub struct CrashGpuProcessReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns version information."]
@@ -504,6 +545,7 @@ pub struct GetVersionReturnObject {
     #[doc = "V8 version."]
     pub js_version: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the command line switches for the browser process if, and only if\n --enable-automation is on the commandline."]
@@ -511,6 +553,7 @@ pub struct GetBrowserCommandLineReturnObject {
     #[doc = "Commandline parameters"]
     pub arguments: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Get Chrome histograms."]
@@ -518,6 +561,7 @@ pub struct GetHistogramsReturnObject {
     #[doc = "Histograms."]
     pub histograms: Vec<Histogram>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Get a Chrome histogram by name."]
@@ -525,6 +569,7 @@ pub struct GetHistogramReturnObject {
     #[doc = "Histogram."]
     pub histogram: Histogram,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Get position and size of the browser window."]
@@ -532,6 +577,7 @@ pub struct GetWindowBoundsReturnObject {
     #[doc = "Bounds information of the window. When window state is 'minimized', the restored window\n position and size are returned."]
     pub bounds: Bounds,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Get the browser window that contains the devtools target."]
@@ -541,104 +587,131 @@ pub struct GetWindowForTargetReturnObject {
     #[doc = "Bounds information of the window. When window state is 'minimized', the restored window\n position and size are returned."]
     pub bounds: Bounds,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Set position and/or size of the browser window."]
 pub struct SetWindowBoundsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Set size of the browser contents resizing browser window as necessary."]
 pub struct SetContentsSizeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Set dock tile details, platform-specific."]
 pub struct SetDockTileReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Invoke custom browser commands used by telemetry."]
 pub struct ExecuteBrowserCommandReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Allows a site to use privacy sandbox features that require enrollment\n without the site actually being enrolled. Only supported on page targets."]
 pub struct AddPrivacySandboxEnrollmentOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Configures encryption keys used with a given privacy sandbox API to talk\n to a trusted coordinator.  Since this is intended for test automation only,\n coordinatorOrigin must be a .test domain. No existing coordinator\n configuration for the origin may exist."]
 pub struct AddPrivacySandboxCoordinatorKeyConfigReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for SetPermission {
     const NAME: &'static str = "Browser.setPermission";
     type ReturnObject = SetPermissionReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GrantPermissions {
     const NAME: &'static str = "Browser.grantPermissions";
     type ReturnObject = GrantPermissionsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ResetPermissions {
     const NAME: &'static str = "Browser.resetPermissions";
     type ReturnObject = ResetPermissionsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDownloadBehavior {
     const NAME: &'static str = "Browser.setDownloadBehavior";
     type ReturnObject = SetDownloadBehaviorReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CancelDownload {
     const NAME: &'static str = "Browser.cancelDownload";
     type ReturnObject = CancelDownloadReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Close {
     const NAME: &'static str = "Browser.close";
     type ReturnObject = CloseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Crash {
     const NAME: &'static str = "Browser.crash";
     type ReturnObject = CrashReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CrashGpuProcess {
     const NAME: &'static str = "Browser.crashGpuProcess";
     type ReturnObject = CrashGpuProcessReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetVersion {
     const NAME: &'static str = "Browser.getVersion";
     type ReturnObject = GetVersionReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetBrowserCommandLine {
     const NAME: &'static str = "Browser.getBrowserCommandLine";
     type ReturnObject = GetBrowserCommandLineReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetHistograms {
     const NAME: &'static str = "Browser.getHistograms";
     type ReturnObject = GetHistogramsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetHistogram {
     const NAME: &'static str = "Browser.getHistogram";
     type ReturnObject = GetHistogramReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetWindowBounds {
     const NAME: &'static str = "Browser.getWindowBounds";
     type ReturnObject = GetWindowBoundsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetWindowForTarget {
     const NAME: &'static str = "Browser.getWindowForTarget";
     type ReturnObject = GetWindowForTargetReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetWindowBounds {
     const NAME: &'static str = "Browser.setWindowBounds";
     type ReturnObject = SetWindowBoundsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetContentsSize {
     const NAME: &'static str = "Browser.setContentsSize";
     type ReturnObject = SetContentsSizeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDockTile {
     const NAME: &'static str = "Browser.setDockTile";
     type ReturnObject = SetDockTileReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ExecuteBrowserCommand {
     const NAME: &'static str = "Browser.executeBrowserCommand";
     type ReturnObject = ExecuteBrowserCommandReturnObject;
 }
+#[allow(deprecated)]
 impl Method for AddPrivacySandboxEnrollmentOverride {
     const NAME: &'static str = "Browser.addPrivacySandboxEnrollmentOverride";
     type ReturnObject = AddPrivacySandboxEnrollmentOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for AddPrivacySandboxCoordinatorKeyConfig {
     const NAME: &'static str = "Browser.addPrivacySandboxCoordinatorKeyConfig";
     type ReturnObject = AddPrivacySandboxCoordinatorKeyConfigReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -648,10 +721,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DownloadWillBeginEvent {
         pub params: DownloadWillBeginEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DownloadWillBeginEventParams {
@@ -667,10 +742,12 @@ pub mod events {
         #[doc = "Suggested file name of the resource (the actual name of the file saved on disk may differ)."]
         pub suggested_filename: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DownloadProgressEvent {
         pub params: DownloadProgressEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DownloadProgressEventParams {

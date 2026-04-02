@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Accessibility
+#![allow(dead_code)]
 use super::dom;
 use super::page;
 use super::runtime;
@@ -11,6 +12,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type AxNodeId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AxValueType {
     #[serde(rename = "boolean")]
@@ -48,6 +50,7 @@ pub enum AxValueType {
     #[serde(rename = "valueUndefined")]
     ValueUndefined,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AxValueSourceType {
     #[serde(rename = "attribute")]
@@ -63,6 +66,7 @@ pub enum AxValueSourceType {
     #[serde(rename = "relatedElement")]
     RelatedElement,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AxValueNativeSourceType {
     #[serde(rename = "description")]
@@ -86,6 +90,7 @@ pub enum AxValueNativeSourceType {
     #[serde(rename = "other")]
     Other,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AxPropertyName {
     #[serde(rename = "actions")]
@@ -205,6 +210,7 @@ pub enum AxPropertyName {
     #[serde(rename = "uninteresting")]
     Uninteresting,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -232,7 +238,7 @@ pub struct AxValueSource {
     pub superseded: Option<bool>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[doc = "The native markup source for this value, e.g. a `<label>` element."]
+    #[doc = "The native markup source for this value, e.g. a `\\<label\\>` element."]
     pub native_source: Option<AxValueNativeSourceType>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -249,6 +255,7 @@ pub struct AxValueSource {
     #[doc = "Reason for the value being invalid, if it is."]
     pub invalid_reason: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -267,6 +274,7 @@ pub struct AxRelatedNode {
     #[doc = "The text alternative of this node in the current context."]
     pub text: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -276,6 +284,7 @@ pub struct AxProperty {
     #[doc = "The value of this property."]
     pub value: AxValue,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -297,6 +306,7 @@ pub struct AxValue {
     #[doc = "The sources which contributed to the computation of this property."]
     pub sources: Option<Vec<AxValueSource>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -353,10 +363,13 @@ pub struct AxNode {
     #[doc = "The frame ID for the frame associated with this nodes document."]
     pub frame_id: Option<page::FrameId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -380,6 +393,7 @@ pub struct GetPartialAXTree {
     #[doc = "Whether to fetch this node's ancestors, siblings and children. Defaults to true."]
     pub fetch_relatives: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -395,6 +409,7 @@ pub struct GetFullAXTree {
     #[doc = "The frame for whose document the AX tree should be retrieved.\n If omitted, the root frame is used."]
     pub frame_id: Option<page::FrameId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -405,6 +420,7 @@ pub struct GetRootAXNode {
     #[doc = "The frame in whose document the node resides.\n If omitted, the root frame is used."]
     pub frame_id: Option<page::FrameId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -423,6 +439,7 @@ pub struct GetAXNodeAndAncestors {
     #[doc = "JavaScript object id of the node wrapper to get."]
     pub object_id: Option<runtime::RemoteObjectId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -434,6 +451,7 @@ pub struct GetChildAXNodes {
     #[doc = "The frame in whose document the node resides.\n If omitted, the root frame is used."]
     pub frame_id: Option<page::FrameId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -462,12 +480,15 @@ pub struct QueryAXTree {
     #[doc = "Find nodes with this computed role."]
     pub role: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables the accessibility domain."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables the accessibility domain which causes `AXNodeId`s to remain consistent between method calls.\n This turns on accessibility for the page, which can impact performance until accessibility is disabled."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Fetches the accessibility node and partial accessibility tree for this DOM node, if it exists."]
@@ -475,30 +496,35 @@ pub struct GetPartialAXTreeReturnObject {
     #[doc = "The `Accessibility.AXNode` for this DOM node, if it exists, plus its ancestors, siblings and\n children, if requested."]
     pub nodes: Vec<AxNode>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Fetches the entire accessibility tree for the root Document"]
 pub struct GetFullAXTreeReturnObject {
     pub nodes: Vec<AxNode>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Fetches the root node.\n Requires `enable()` to have been called previously."]
 pub struct GetRootAXNodeReturnObject {
     pub node: AxNode,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Fetches a node and all ancestors up to and including the root.\n Requires `enable()` to have been called previously."]
 pub struct GetAXNodeAndAncestorsReturnObject {
     pub nodes: Vec<AxNode>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Fetches a particular accessibility node by AXNodeId.\n Requires `enable()` to have been called previously."]
 pub struct GetChildAXNodesReturnObject {
     pub nodes: Vec<AxNode>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Query a DOM node's accessibility subtree for accessible name and role.\n This command computes the name and role for all nodes in the subtree, including those that are\n ignored for accessibility, and returns those that match the specified name and role. If no DOM\n node is specified, or the DOM node does not exist, the command returns an error. If neither\n `accessibleName` or `role` is specified, it returns all the accessibility nodes in the subtree."]
@@ -506,38 +532,47 @@ pub struct QueryAXTreeReturnObject {
     #[doc = "A list of `Accessibility.AXNode` matching the specified attributes,\n including nodes that are ignored for accessibility."]
     pub nodes: Vec<AxNode>,
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Accessibility.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Accessibility.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetPartialAXTree {
     const NAME: &'static str = "Accessibility.getPartialAXTree";
     type ReturnObject = GetPartialAXTreeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetFullAXTree {
     const NAME: &'static str = "Accessibility.getFullAXTree";
     type ReturnObject = GetFullAXTreeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetRootAXNode {
     const NAME: &'static str = "Accessibility.getRootAXNode";
     type ReturnObject = GetRootAXNodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetAXNodeAndAncestors {
     const NAME: &'static str = "Accessibility.getAXNodeAndAncestors";
     type ReturnObject = GetAXNodeAndAncestorsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetChildAXNodes {
     const NAME: &'static str = "Accessibility.getChildAXNodes";
     type ReturnObject = GetChildAXNodesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for QueryAXTree {
     const NAME: &'static str = "Accessibility.queryAXTree";
     type ReturnObject = QueryAXTreeReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -547,20 +582,24 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LoadCompleteEvent {
         pub params: LoadCompleteEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct LoadCompleteEventParams {
         #[doc = "New document root node."]
         pub root: super::AxNode,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct NodesUpdatedEvent {
         pub params: NodesUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct NodesUpdatedEventParams {

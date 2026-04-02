@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: SystemInfo
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -7,6 +8,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SubsamplingFormat {
     #[serde(rename = "yuv420")]
@@ -16,6 +18,7 @@ pub enum SubsamplingFormat {
     #[serde(rename = "yuv444")]
     Yuv444,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ImageType {
     #[serde(rename = "jpeg")]
@@ -25,6 +28,7 @@ pub enum ImageType {
     #[serde(rename = "unknown")]
     Unknown,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -59,6 +63,7 @@ pub struct GpuDevice {
     #[doc = "String description of the GPU driver version."]
     pub driver_version: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -71,6 +76,7 @@ pub struct Size {
     #[doc = "Height in pixels."]
     pub height: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -84,6 +90,7 @@ pub struct VideoDecodeAcceleratorCapability {
     #[doc = "Minimum video dimensions in pixels supported for this |profile|."]
     pub min_resolution: Size,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -100,6 +107,7 @@ pub struct VideoEncodeAcceleratorCapability {
     #[serde(default)]
     pub max_framerate_denominator: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -125,6 +133,7 @@ pub struct GpuInfo {
     #[doc = "Supported accelerated video encoding capabilities."]
     pub video_encoding: Vec<VideoEncodeAcceleratorCapability>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -140,8 +149,10 @@ pub struct ProcessInfo {
     #[doc = "Specifies cumulative CPU usage in seconds across all threads of the\n process since the process start."]
     pub cpu_time: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetInfo(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -150,8 +161,10 @@ pub struct GetFeatureState {
     #[serde(default)]
     pub feature_state: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetProcessInfo(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns information about the system."]
@@ -168,6 +181,7 @@ pub struct GetInfoReturnObject {
     #[doc = "The command line string used to launch the browser. Will be the empty string if not\n supported."]
     pub command_line: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns information about the feature state."]
@@ -175,6 +189,7 @@ pub struct GetFeatureStateReturnObject {
     #[serde(default)]
     pub feature_enabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns information about all running processes."]
@@ -182,18 +197,22 @@ pub struct GetProcessInfoReturnObject {
     #[doc = "An array of process info blocks."]
     pub process_info: Vec<ProcessInfo>,
 }
+#[allow(deprecated)]
 impl Method for GetInfo {
     const NAME: &'static str = "SystemInfo.getInfo";
     type ReturnObject = GetInfoReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetFeatureState {
     const NAME: &'static str = "SystemInfo.getFeatureState";
     type ReturnObject = GetFeatureStateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetProcessInfo {
     const NAME: &'static str = "SystemInfo.getProcessInfo";
     type ReturnObject = GetProcessInfoReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;

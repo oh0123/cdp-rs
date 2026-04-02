@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: PerformanceTimeline
+#![allow(dead_code)]
 use super::dom;
 use super::network;
 use super::page;
@@ -10,10 +11,11 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "See https://github.com/WICG/LargestContentfulPaint and largest_contentful_paint.idl"]
+#[doc = "See <https://github.com/WICG/LargestContentfulPaint> and largest_contentful_paint.idl"]
 pub struct LargestContentfulPaint {
     pub render_time: network::TimeSinceEpoch,
     pub load_time: network::TimeSinceEpoch,
@@ -34,6 +36,7 @@ pub struct LargestContentfulPaint {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_id: Option<dom::BackendNodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -44,10 +47,11 @@ pub struct LayoutShiftAttribution {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub node_id: Option<dom::BackendNodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "See https://wicg.github.io/layout-instability/#sec-layout-shift and layout_shift.idl"]
+#[doc = "See <https://wicg.github.io/layout-instability/#sec-layout-shift> and layout_shift.idl"]
 pub struct LayoutShift {
     #[serde(default)]
     #[doc = "Score increment produced by this event."]
@@ -57,6 +61,7 @@ pub struct LayoutShift {
     pub last_input_time: network::TimeSinceEpoch,
     pub sources: Vec<LayoutShiftAttribution>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -64,7 +69,7 @@ pub struct TimelineEvent {
     #[doc = "Identifies the frame that this event is related to. Empty for non-frame targets."]
     pub frame_id: page::FrameId,
     #[serde(default)]
-    #[doc = "The event type, as specified in https://w3c.github.io/performance-timeline/#dom-performanceentry-entrytype\n This determines which of the optional \"details\" fields is present."]
+    #[doc = "The event type, as specified in <https://w3c.github.io/performance-timeline/#dom-performanceentry-entrytype>\n This determines which of the optional \"details\" fields is present."]
     pub r#type: String,
     #[serde(default)]
     #[doc = "Name may be empty depending on the type."]
@@ -83,22 +88,26 @@ pub struct TimelineEvent {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub layout_shift_details: Option<LayoutShift>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 #[doc = "Previously buffered events would be reported before method returns.\n See also: timelineEventAdded"]
 pub struct Enable {
     #[serde(default)]
-    #[doc = "The types of event to report, as specified in\n https://w3c.github.io/performance-timeline/#dom-performanceentry-entrytype\n The specified filter overrides any previous filters, passing empty\n filter disables recording.\n Note that not all types exposed to the web platform are currently supported."]
+    #[doc = "The types of event to report, as specified in\n <https://w3c.github.io/performance-timeline/#dom-performanceentry-entrytype>\n The specified filter overrides any previous filters, passing empty\n filter disables recording.\n Note that not all types exposed to the web platform are currently supported."]
     pub event_types: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Previously buffered events would be reported before method returns.\n See also: timelineEventAdded"]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "PerformanceTimeline.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -108,10 +117,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TimelineEventAddedEvent {
         pub params: TimelineEventAddedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct TimelineEventAddedEventParams {

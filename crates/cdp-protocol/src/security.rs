@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Security
+#![allow(dead_code)]
 use super::network;
 #[allow(unused_imports)]
 use super::types::*;
@@ -9,6 +10,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type CertificateId = JsUInt;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum MixedContentType {
     #[serde(rename = "blockable")]
@@ -18,6 +20,7 @@ pub enum MixedContentType {
     #[serde(rename = "none")]
     None,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SecurityState {
     #[serde(rename = "unknown")]
@@ -33,6 +36,7 @@ pub enum SecurityState {
     #[serde(rename = "insecure-broken")]
     InsecureBroken,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SafetyTipStatus {
     #[serde(rename = "badReputation")]
@@ -40,6 +44,7 @@ pub enum SafetyTipStatus {
     #[serde(rename = "lookalike")]
     Lookalike,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CertificateErrorAction {
     #[serde(rename = "continue")]
@@ -47,6 +52,7 @@ pub enum CertificateErrorAction {
     #[serde(rename = "cancel")]
     Cancel,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -112,6 +118,7 @@ pub struct CertificateSecurityState {
     #[doc = "True if the connection is using an obsolete SSL signature."]
     pub obsolete_ssl_signature: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -124,6 +131,7 @@ pub struct SafetyTipInfo {
     #[doc = "The URL the safety tip suggested (\"Did you mean?\"). Only filled in for lookalike matches."]
     pub safe_url: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -143,6 +151,7 @@ pub struct VisibleSecurityState {
     #[doc = "Array of security state issues ids."]
     pub security_state_issue_ids: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -170,6 +179,7 @@ pub struct SecurityStateExplanation {
     #[doc = "Recommendations to fix any issues."]
     pub recommendations: Option<Vec<String>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -196,10 +206,13 @@ pub struct InsecureContentStatus {
     #[doc = "Always set to unknown."]
     pub displayed_insecure_content_style: SecurityState,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -209,6 +222,7 @@ pub struct SetIgnoreCertificateErrors {
     #[doc = "If true, all certificate errors will be ignored."]
     pub ignore: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -221,6 +235,7 @@ pub struct HandleCertificateError {
     #[doc = "The action to take on the certificate error."]
     pub action: CertificateErrorAction,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -231,43 +246,54 @@ pub struct SetOverrideCertificateErrors {
     #[doc = "If true, certificate errors will be overridden."]
     pub r#override: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables tracking security state changes."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables tracking security state changes."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enable/disable whether all certificate errors should be ignored."]
 pub struct SetIgnoreCertificateErrorsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Handles a certificate error that fired a certificateError event."]
 #[deprecated]
 pub struct HandleCertificateErrorReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enable/disable overriding certificate errors. If enabled, all certificate error events need to\n be handled by the DevTools client and should be answered with `handleCertificateError` commands."]
 #[deprecated]
 pub struct SetOverrideCertificateErrorsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Security.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Security.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetIgnoreCertificateErrors {
     const NAME: &'static str = "Security.setIgnoreCertificateErrors";
     type ReturnObject = SetIgnoreCertificateErrorsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for HandleCertificateError {
     const NAME: &'static str = "Security.handleCertificateError";
     type ReturnObject = HandleCertificateErrorReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetOverrideCertificateErrors {
     const NAME: &'static str = "Security.setOverrideCertificateErrors";
     type ReturnObject = SetOverrideCertificateErrorsReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -277,10 +303,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CertificateErrorEvent {
         pub params: CertificateErrorEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct CertificateErrorEventParams {
@@ -295,20 +323,24 @@ pub mod events {
         #[serde(rename = "requestURL")]
         pub request_url: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct VisibleSecurityStateChangedEvent {
         pub params: VisibleSecurityStateChangedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct VisibleSecurityStateChangedEventParams {
         #[doc = "Security state information about the page."]
         pub visible_security_state: super::VisibleSecurityState,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SecurityStateChangedEvent {
         pub params: SecurityStateChangedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct SecurityStateChangedEventParams {

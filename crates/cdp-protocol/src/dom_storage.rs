@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: DOMStorage
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -9,6 +10,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value as Json;
 pub type SerializedStorageKey = String;
 pub type Item = Vec<String>;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -27,22 +29,27 @@ pub struct StorageId {
     #[doc = "Whether the storage is local storage (not session storage)."]
     pub is_local_storage: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct Clear {
     pub storage_id: StorageId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct GetDOMStorageItems {
     pub storage_id: StorageId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -51,6 +58,7 @@ pub struct RemoveDOMStorageItem {
     #[serde(default)]
     pub key: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -61,47 +69,60 @@ pub struct SetDOMStorageItem {
     #[serde(default)]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables storage tracking, prevents storage events from being sent to the client."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables storage tracking, storage events will now be delivered to the client."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct GetDOMStorageItemsReturnObject {
     pub entries: Vec<Item>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct RemoveDOMStorageItemReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetDOMStorageItemReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Clear {
     const NAME: &'static str = "DOMStorage.clear";
     type ReturnObject = ClearReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "DOMStorage.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "DOMStorage.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetDOMStorageItems {
     const NAME: &'static str = "DOMStorage.getDOMStorageItems";
     type ReturnObject = GetDOMStorageItemsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveDOMStorageItem {
     const NAME: &'static str = "DOMStorage.removeDOMStorageItem";
     type ReturnObject = RemoveDOMStorageItemReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDOMStorageItem {
     const NAME: &'static str = "DOMStorage.setDOMStorageItem";
     type ReturnObject = SetDOMStorageItemReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -111,10 +132,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DomStorageItemAddedEvent {
         pub params: DomStorageItemAddedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DomStorageItemAddedEventParams {
@@ -124,10 +147,12 @@ pub mod events {
         #[serde(default)]
         pub new_value: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DomStorageItemRemovedEvent {
         pub params: DomStorageItemRemovedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DomStorageItemRemovedEventParams {
@@ -135,10 +160,12 @@ pub mod events {
         #[serde(default)]
         pub key: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DomStorageItemUpdatedEvent {
         pub params: DomStorageItemUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DomStorageItemUpdatedEventParams {
@@ -150,10 +177,12 @@ pub mod events {
         #[serde(default)]
         pub new_value: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DomStorageItemsClearedEvent {
         pub params: DomStorageItemsClearedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DomStorageItemsClearedEventParams {

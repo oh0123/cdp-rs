@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Preload
+#![allow(dead_code)]
 use super::dom;
 use super::network;
 #[allow(unused_imports)]
@@ -11,6 +12,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value as Json;
 pub type RuleSetId = String;
 pub type PreloadPipelineId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum RuleSetErrorType {
     #[serde(rename = "SourceIsNotJsonObject")]
@@ -20,6 +22,7 @@ pub enum RuleSetErrorType {
     #[serde(rename = "InvalidRulesetLevelTag")]
     InvalidRulesetLevelTag,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SpeculationAction {
     #[serde(rename = "Prefetch")]
@@ -29,6 +32,7 @@ pub enum SpeculationAction {
     #[serde(rename = "PrerenderUntilScript")]
     PrerenderUntilScript,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SpeculationTargetHint {
     #[serde(rename = "Blank")]
@@ -36,6 +40,7 @@ pub enum SpeculationTargetHint {
     #[serde(rename = "Self")]
     CdpSelf,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PrerenderFinalStatus {
     #[serde(rename = "Activated")]
@@ -187,6 +192,7 @@ pub enum PrerenderFinalStatus {
     #[serde(rename = "PrerenderHostReused")]
     PrerenderHostReused,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PreloadingStatus {
     #[serde(rename = "Pending")]
@@ -202,6 +208,7 @@ pub enum PreloadingStatus {
     #[serde(rename = "NotSupported")]
     NotSupported,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PrefetchStatus {
     #[serde(rename = "PrefetchAllowed")]
@@ -273,6 +280,7 @@ pub enum PrefetchStatus {
     #[serde(rename = "PrefetchNotUsedProbeFailed")]
     PrefetchNotUsedProbeFailed,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -282,11 +290,11 @@ pub struct RuleSet {
     #[doc = "Identifies a document which the rule set is associated with."]
     pub loader_id: network::LoaderId,
     #[serde(default)]
-    #[doc = "Source text of JSON representing the rule set. If it comes from\n `<script>` tag, it is the textContent of the node. Note that it is\n a JSON for valid case.\n \n See also:\n - https://wicg.github.io/nav-speculation/speculation-rules.html\n - https://github.com/WICG/nav-speculation/blob/main/triggers.md"]
+    #[doc = "Source text of JSON representing the rule set. If it comes from\n `\\<script\\>` tag, it is the textContent of the node. Note that it is\n a JSON for valid case.\n \n See also:\n - <https://wicg.github.io/nav-speculation/speculation-rules.html>\n - <https://github.com/WICG/nav-speculation/blob/main/triggers.md>"]
     pub source_text: String,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[doc = "A speculation rule set is either added through an inline\n `<script>` tag or through an external resource via the\n 'Speculation-Rules' HTTP header. For the first case, we include\n the BackendNodeId of the relevant `<script>` tag. For the second\n case, we include the external URL where the rule set was loaded\n from, and also RequestId if Network domain is enabled.\n \n See also:\n - https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-script\n - https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-header"]
+    #[doc = "A speculation rule set is either added through an inline\n `\\<script\\>` tag or through an external resource via the\n 'Speculation-Rules' HTTP header. For the first case, we include\n the BackendNodeId of the relevant `\\<script\\>` tag. For the second\n case, we include the external URL where the rule set was loaded\n from, and also RequestId if Network domain is enabled.\n \n See also:\n - <https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-script>\n - <https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-header>"]
     pub backend_node_id: Option<dom::BackendNodeId>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -302,15 +310,16 @@ pub struct RuleSet {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "TODO(https://crbug.com/1425354): Replace this property with structured error."]
+    #[doc = "TODO(<https://crbug.com/1425354>): Replace this property with structured error."]
     #[deprecated]
     pub error_message: Option<String>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "For more details, see:\n https://github.com/WICG/nav-speculation/blob/main/speculation-rules-tags.md"]
+    #[doc = "For more details, see:\n <https://github.com/WICG/nav-speculation/blob/main/speculation-rules-tags.md>"]
     pub tag: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -324,15 +333,17 @@ pub struct PreloadingAttemptKey {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target_hint: Option<SpeculationTargetHint>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Lists sources for a preloading attempt, specifically the ids of rule sets\n that had a speculation rule that triggered the attempt, and the\n BackendNodeIds of <a href> or <area href> elements that triggered the\n attempt (in the case of attempts triggered by a document rule). It is\n possible for multiple rule sets and links to trigger a single attempt."]
+#[doc = "Lists sources for a preloading attempt, specifically the ids of rule sets\n that had a speculation rule that triggered the attempt, and the\n BackendNodeIds of \\<a href\\> or \\<area href\\> elements that triggered the\n attempt (in the case of attempts triggered by a document rule). It is\n possible for multiple rule sets and links to trigger a single attempt."]
 pub struct PreloadingAttemptSource {
     pub key: PreloadingAttemptKey,
     pub rule_set_ids: Vec<RuleSetId>,
     pub node_ids: Vec<dom::BackendNodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -349,22 +360,29 @@ pub struct PrerenderMismatchedHeaders {
     #[serde(default)]
     pub activation_value: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Preload.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Preload.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -374,28 +392,34 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RuleSetUpdatedEvent {
         pub params: RuleSetUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct RuleSetUpdatedEventParams {
         pub rule_set: super::RuleSet,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RuleSetRemovedEvent {
         pub params: RuleSetRemovedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct RuleSetRemovedEventParams {
         pub id: super::RuleSetId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PreloadEnabledStateUpdatedEvent {
         pub params: PreloadEnabledStateUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct PreloadEnabledStateUpdatedEventParams {
@@ -410,10 +434,12 @@ pub mod events {
         #[serde(default)]
         pub disabled_by_holdback_prerender_speculation_rules: bool,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PrefetchStatusUpdatedEvent {
         pub params: PrefetchStatusUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct PrefetchStatusUpdatedEventParams {
@@ -427,10 +453,12 @@ pub mod events {
         pub prefetch_status: super::PrefetchStatus,
         pub request_id: super::super::network::RequestId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PrerenderStatusUpdatedEvent {
         pub params: PrerenderStatusUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct PrerenderStatusUpdatedEventParams {
@@ -449,10 +477,12 @@ pub mod events {
         #[serde(skip_serializing_if = "Option::is_none")]
         pub mismatched_headers: Option<Vec<super::PrerenderMismatchedHeaders>>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PreloadingAttemptSourcesUpdatedEvent {
         pub params: PreloadingAttemptSourcesUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct PreloadingAttemptSourcesUpdatedEventParams {

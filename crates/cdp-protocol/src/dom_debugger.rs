@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: DOMDebugger
+#![allow(dead_code)]
 use super::dom;
 use super::runtime;
 #[allow(unused_imports)]
@@ -9,6 +10,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DomBreakpointType {
     #[serde(rename = "subtree-modified")]
@@ -18,6 +20,7 @@ pub enum DomBreakpointType {
     #[serde(rename = "node-removed")]
     NodeRemoved,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CspViolationType {
     #[serde(rename = "trustedtype-sink-violation")]
@@ -25,6 +28,7 @@ pub enum CspViolationType {
     #[serde(rename = "trustedtype-policy-violation")]
     TrustedtypePolicyViolation,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -63,6 +67,7 @@ pub struct EventListener {
     #[doc = "Node the listener is added to (if any)."]
     pub backend_node_id: Option<dom::BackendNodeId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -81,6 +86,7 @@ pub struct GetEventListeners {
     #[doc = "Whether or not iframes and shadow roots should be traversed when returning the subtree\n (default is false). Reports listeners for all contexts if pierce is enabled."]
     pub pierce: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -91,6 +97,7 @@ pub struct RemoveDOMBreakpoint {
     #[doc = "Type of the breakpoint to remove."]
     pub r#type: DomBreakpointType,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -105,6 +112,7 @@ pub struct RemoveEventListenerBreakpoint {
     #[doc = "EventTarget interface name."]
     pub target_name: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -115,6 +123,7 @@ pub struct RemoveInstrumentationBreakpoint {
     #[doc = "Instrumentation name to stop on."]
     pub event_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -124,6 +133,7 @@ pub struct RemoveXHRBreakpoint {
     #[doc = "Resource URL substring."]
     pub url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -132,6 +142,7 @@ pub struct SetBreakOnCSPViolation {
     #[doc = "CSP Violations to stop upon."]
     pub violation_types: Vec<CspViolationType>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -142,6 +153,7 @@ pub struct SetDOMBreakpoint {
     #[doc = "Type of the operation to stop upon."]
     pub r#type: DomBreakpointType,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -156,6 +168,7 @@ pub struct SetEventListenerBreakpoint {
     #[doc = "EventTarget interface name to stop on. If equal to `\"*\"` or not provided, will stop on any\n EventTarget."]
     pub target_name: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -166,6 +179,7 @@ pub struct SetInstrumentationBreakpoint {
     #[doc = "Instrumentation name to stop on."]
     pub event_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -175,6 +189,7 @@ pub struct SetXHRBreakpoint {
     #[doc = "Resource URL substring. All XHRs having this substring in the URL will get stopped upon."]
     pub url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns event listeners of the given object."]
@@ -182,75 +197,95 @@ pub struct GetEventListenersReturnObject {
     #[doc = "Array of relevant listeners."]
     pub listeners: Vec<EventListener>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Removes DOM breakpoint that was set using `setDOMBreakpoint`."]
 pub struct RemoveDOMBreakpointReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Removes breakpoint on particular DOM event."]
 pub struct RemoveEventListenerBreakpointReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Removes breakpoint on particular native event."]
 #[deprecated]
 pub struct RemoveInstrumentationBreakpointReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Removes breakpoint from XMLHttpRequest."]
 pub struct RemoveXHRBreakpointReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets breakpoint on particular CSP violations."]
 pub struct SetBreakOnCSPViolationReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets breakpoint on particular operation with DOM."]
 pub struct SetDOMBreakpointReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets breakpoint on particular DOM event."]
 pub struct SetEventListenerBreakpointReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets breakpoint on particular native event."]
 #[deprecated]
 pub struct SetInstrumentationBreakpointReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets breakpoint on XMLHttpRequest."]
 pub struct SetXHRBreakpointReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for GetEventListeners {
     const NAME: &'static str = "DOMDebugger.getEventListeners";
     type ReturnObject = GetEventListenersReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveDOMBreakpoint {
     const NAME: &'static str = "DOMDebugger.removeDOMBreakpoint";
     type ReturnObject = RemoveDOMBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveEventListenerBreakpoint {
     const NAME: &'static str = "DOMDebugger.removeEventListenerBreakpoint";
     type ReturnObject = RemoveEventListenerBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveInstrumentationBreakpoint {
     const NAME: &'static str = "DOMDebugger.removeInstrumentationBreakpoint";
     type ReturnObject = RemoveInstrumentationBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveXHRBreakpoint {
     const NAME: &'static str = "DOMDebugger.removeXHRBreakpoint";
     type ReturnObject = RemoveXHRBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBreakOnCSPViolation {
     const NAME: &'static str = "DOMDebugger.setBreakOnCSPViolation";
     type ReturnObject = SetBreakOnCSPViolationReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDOMBreakpoint {
     const NAME: &'static str = "DOMDebugger.setDOMBreakpoint";
     type ReturnObject = SetDOMBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetEventListenerBreakpoint {
     const NAME: &'static str = "DOMDebugger.setEventListenerBreakpoint";
     type ReturnObject = SetEventListenerBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetInstrumentationBreakpoint {
     const NAME: &'static str = "DOMDebugger.setInstrumentationBreakpoint";
     type ReturnObject = SetInstrumentationBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetXHRBreakpoint {
     const NAME: &'static str = "DOMDebugger.setXHRBreakpoint";
     type ReturnObject = SetXHRBreakpointReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;

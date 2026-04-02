@@ -5,7 +5,7 @@ use cdp_protocol::emulation::{
     SetEmulatedMediaReturnObject, SetGeolocationOverride, SetGeolocationOverrideReturnObject,
     SetLocaleOverride, SetLocaleOverrideReturnObject, SetTimezoneOverride,
     SetTimezoneOverrideReturnObject, SetUserAgentOverride, SetUserAgentOverrideReturnObject,
-    UserAgentBrandVersion, UserAgentMetadata,
+    UserAgentBrandVersion, UserAgentMetadata, UserAgentMetadataBuilder,
 };
 use std::sync::Arc;
 
@@ -178,6 +178,7 @@ impl UserAgentOverride {
 pub struct UserAgentMetadataOverride {
     pub brands: Vec<UserAgentBrand>,
     pub full_version_list: Vec<UserAgentBrand>,
+    #[deprecated]
     pub full_version: Option<String>,
     pub platform: Option<String>,
     pub platform_version: Option<String>,
@@ -200,6 +201,8 @@ impl UserAgentMetadataOverride {
         self
     }
 
+    #[deprecated]
+    #[allow(deprecated)]
     pub fn with_full_version<T: Into<String>>(mut self, version: T) -> Self {
         self.full_version = Some(version.into());
         self
@@ -246,36 +249,50 @@ impl UserAgentMetadataOverride {
     }
 
     fn to_cdp(&self) -> UserAgentMetadata {
-        UserAgentMetadata {
-            brands: if self.brands.is_empty() {
-                None
-            } else {
-                Some(self.brands.iter().map(|brand| brand.to_cdp()).collect())
-            },
-            full_version_list: if self.full_version_list.is_empty() {
-                None
-            } else {
-                Some(
-                    self.full_version_list
-                        .iter()
-                        .map(|brand| brand.to_cdp())
-                        .collect(),
-                )
-            },
-            full_version: self.full_version.clone(),
-            platform: self.platform.clone().unwrap_or_default(),
-            platform_version: self.platform_version.clone().unwrap_or_default(),
-            architecture: self.architecture.clone().unwrap_or_default(),
-            model: self.model.clone().unwrap_or_default(),
-            mobile: self.mobile.unwrap_or(false),
-            bitness: self.bitness.clone(),
-            wow_64: self.wow64,
-            form_factors: if self.form_factors.is_empty() {
-                None
-            } else {
-                Some(self.form_factors.clone())
-            },
+        let mut builder = UserAgentMetadataBuilder::default();
+
+        if !self.brands.is_empty() {
+            builder.brands(
+                self.brands
+                    .iter()
+                    .map(|brand| brand.to_cdp())
+                    .collect::<Vec<_>>(),
+            );
         }
+
+        if !self.full_version_list.is_empty() {
+            builder.full_version_list(
+                self.full_version_list
+                    .iter()
+                    .map(|brand| brand.to_cdp())
+                    .collect::<Vec<_>>(),
+            );
+        }
+
+        #[allow(deprecated)]
+        if let Some(version) = &self.full_version {
+            builder.full_version(version.clone());
+        }
+
+        builder.platform(self.platform.clone().unwrap_or_default());
+        builder.platform_version(self.platform_version.clone().unwrap_or_default());
+        builder.architecture(self.architecture.clone().unwrap_or_default());
+        builder.model(self.model.clone().unwrap_or_default());
+        builder.mobile(self.mobile.unwrap_or(false));
+
+        if let Some(bitness) = &self.bitness {
+            builder.bitness(bitness.clone());
+        }
+
+        if let Some(wow64) = self.wow64 {
+            builder.wow_64(wow64);
+        }
+
+        if !self.form_factors.is_empty() {
+            builder.form_factors(self.form_factors.clone());
+        }
+
+        builder.build().expect("Failed to build UserAgentMetadata")
     }
 }
 

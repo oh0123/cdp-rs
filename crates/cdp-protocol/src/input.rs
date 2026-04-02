@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Input
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -8,6 +9,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type TimeSinceEpoch = JsFloat;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum GestureSourceType {
     #[serde(rename = "default")]
@@ -17,6 +19,7 @@ pub enum GestureSourceType {
     #[serde(rename = "mouse")]
     Mouse,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum MouseButton {
     #[serde(rename = "none")]
@@ -32,6 +35,7 @@ pub enum MouseButton {
     #[serde(rename = "forward")]
     Forward,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DispatchDragEventTypeOption {
     #[serde(rename = "dragEnter")]
@@ -43,6 +47,7 @@ pub enum DispatchDragEventTypeOption {
     #[serde(rename = "dragCancel")]
     DragCancel,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DispatchKeyEventTypeOption {
     #[serde(rename = "keyDown")]
@@ -54,6 +59,7 @@ pub enum DispatchKeyEventTypeOption {
     #[serde(rename = "char")]
     Char,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DispatchMouseEventTypeOption {
     #[serde(rename = "mousePressed")]
@@ -65,6 +71,7 @@ pub enum DispatchMouseEventTypeOption {
     #[serde(rename = "mouseWheel")]
     MouseWheel,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DispatchMouseEventPointerTypeOption {
     #[serde(rename = "mouse")]
@@ -72,6 +79,7 @@ pub enum DispatchMouseEventPointerTypeOption {
     #[serde(rename = "pen")]
     Pen,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DispatchTouchEventTypeOption {
     #[serde(rename = "touchStart")]
@@ -83,6 +91,7 @@ pub enum DispatchTouchEventTypeOption {
     #[serde(rename = "touchCancel")]
     TouchCancel,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum EmulateTouchFromMouseEventTypeOption {
     #[serde(rename = "mousePressed")]
@@ -94,6 +103,7 @@ pub enum EmulateTouchFromMouseEventTypeOption {
     #[serde(rename = "mouseWheel")]
     MouseWheel,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -127,22 +137,22 @@ pub struct TouchPoint {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The normalized tangential pressure, which has a range of [-1,1] (default: 0)."]
+    #[doc = "The normalized tangential pressure, which has a range of \\[-1,1\\] (default: 0)."]
     pub tangential_pressure: Option<JsFloat>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The plane angle between the Y-Z plane and the plane containing both the stylus axis and the Y axis, in degrees of the range [-90,90], a positive tiltX is to the right (default: 0)"]
+    #[doc = "The plane angle between the Y-Z plane and the plane containing both the stylus axis and the Y axis, in degrees of the range \\[-90,90\\], a positive tiltX is to the right (default: 0)"]
     pub tilt_x: Option<JsFloat>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The plane angle between the X-Z plane and the plane containing both the stylus axis and the X axis, in degrees of the range [-90,90], a positive tiltY is towards the user (default: 0)."]
+    #[doc = "The plane angle between the X-Z plane and the plane containing both the stylus axis and the X axis, in degrees of the range \\[-90,90\\], a positive tiltY is towards the user (default: 0)."]
     pub tilt_y: Option<JsFloat>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The clockwise rotation of a pen stylus around its own major axis, in degrees in the range [0,359] (default: 0)."]
+    #[doc = "The clockwise rotation of a pen stylus around its own major axis, in degrees in the range \\[0,359\\] (default: 0)."]
     pub twist: Option<JsUInt>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -150,6 +160,7 @@ pub struct TouchPoint {
     #[doc = "Identifier used to track touch sources between events, must be unique within an event."]
     pub id: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -172,6 +183,7 @@ pub struct DragDataItem {
     #[serde(rename = "baseURL")]
     pub base_url: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -186,6 +198,7 @@ pub struct DragData {
     #[doc = "Bit field representing allowed drag operations. Copy = 1, Link = 2, Move = 16"]
     pub drag_operations_mask: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -206,6 +219,7 @@ pub struct DispatchDragEvent {
     #[doc = "Bit field representing pressed modifier keys. Alt=1, Ctrl=2, Meta/Command=4, Shift=8\n (default: 0)."]
     pub modifiers: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -280,9 +294,10 @@ pub struct DispatchKeyEvent {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "Editing commands to send with the key event (e.g., 'selectAll') (default: []).\n These are related to but not equal the command names used in `document.execCommand` and NSStandardKeyBindingResponding.\n See https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/editing/commands/editor_command_names.h for valid command names."]
+    #[doc = "Editing commands to send with the key event (e.g., 'selectAll') (default: \\[\\]).\n These are related to but not equal the command names used in `document.execCommand` and NSStandardKeyBindingResponding.\n See <https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/editing/commands/editor_command_names.h> for valid command names."]
     pub commands: Option<Vec<String>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -292,6 +307,7 @@ pub struct InsertText {
     #[doc = "The text to insert."]
     pub text: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -317,6 +333,7 @@ pub struct ImeSetComposition {
     #[doc = "replacement end"]
     pub replacement_end: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -356,27 +373,27 @@ pub struct DispatchMouseEvent {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The normalized pressure, which has a range of [0,1] (default: 0)."]
+    #[doc = "The normalized pressure, which has a range of \\[0,1\\] (default: 0)."]
     pub force: Option<JsFloat>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The normalized tangential pressure, which has a range of [-1,1] (default: 0)."]
+    #[doc = "The normalized tangential pressure, which has a range of \\[-1,1\\] (default: 0)."]
     pub tangential_pressure: Option<JsFloat>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The plane angle between the Y-Z plane and the plane containing both the stylus axis and the Y axis, in degrees of the range [-90,90], a positive tiltX is to the right (default: 0)."]
+    #[doc = "The plane angle between the Y-Z plane and the plane containing both the stylus axis and the Y axis, in degrees of the range \\[-90,90\\], a positive tiltX is to the right (default: 0)."]
     pub tilt_x: Option<JsFloat>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The plane angle between the X-Z plane and the plane containing both the stylus axis and the X axis, in degrees of the range [-90,90], a positive tiltY is towards the user (default: 0)."]
+    #[doc = "The plane angle between the X-Z plane and the plane containing both the stylus axis and the X axis, in degrees of the range \\[-90,90\\], a positive tiltY is towards the user (default: 0)."]
     pub tilt_y: Option<JsFloat>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "The clockwise rotation of a pen stylus around its own major axis, in degrees in the range [0,359] (default: 0)."]
+    #[doc = "The clockwise rotation of a pen stylus around its own major axis, in degrees in the range \\[0,359\\] (default: 0)."]
     pub twist: Option<JsUInt>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -393,6 +410,7 @@ pub struct DispatchMouseEvent {
     #[doc = "Pointer type (default: \"mouse\")."]
     pub pointer_type: Option<DispatchMouseEventPointerTypeOption>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -412,8 +430,10 @@ pub struct DispatchTouchEvent {
     #[doc = "Time at which the event occurred."]
     pub timestamp: Option<TimeSinceEpoch>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CancelDragging(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -454,6 +474,7 @@ pub struct EmulateTouchFromMouseEvent {
     #[doc = "Number of times the mouse button was clicked (default: 0)."]
     pub click_count: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -463,6 +484,7 @@ pub struct SetIgnoreInputEvents {
     #[doc = "Ignores input events processing when set to true."]
     pub ignore: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -471,6 +493,7 @@ pub struct SetInterceptDrags {
     #[serde(default)]
     pub enabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -483,7 +506,7 @@ pub struct SynthesizePinchGesture {
     #[doc = "Y coordinate of the start of the gesture in CSS pixels."]
     pub y: JsFloat,
     #[serde(default)]
-    #[doc = "Relative scale factor after zooming (>1.0 zooms in, <1.0 zooms out)."]
+    #[doc = "Relative scale factor after zooming (\\>1.0 zooms in, \\<1.0 zooms out)."]
     pub scale_factor: JsFloat,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -495,6 +518,7 @@ pub struct SynthesizePinchGesture {
     #[doc = "Which type of input events to be generated (default: 'default', which queries the platform\n for the preferred input type)."]
     pub gesture_source_type: Option<GestureSourceType>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -556,6 +580,7 @@ pub struct SynthesizeScrollGesture {
     #[doc = "The name of the interaction markers to generate, if not empty (default: \"\")."]
     pub interaction_marker_name: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -582,97 +607,124 @@ pub struct SynthesizeTapGesture {
     #[doc = "Which type of input events to be generated (default: 'default', which queries the platform\n for the preferred input type)."]
     pub gesture_source_type: Option<GestureSourceType>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Dispatches a drag event into the page."]
 pub struct DispatchDragEventReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Dispatches a key event to the page."]
 pub struct DispatchKeyEventReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "This method emulates inserting text that doesn't come from a key press,\n for example an emoji keyboard or an IME."]
 pub struct InsertTextReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "This method sets the current candidate text for IME.\n Use imeCommitComposition to commit the final text.\n Use imeSetComposition with empty string as text to cancel composition."]
 pub struct ImeSetCompositionReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Dispatches a mouse event to the page."]
 pub struct DispatchMouseEventReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Dispatches a touch event to the page."]
 pub struct DispatchTouchEventReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Cancels any active dragging in the page."]
 pub struct CancelDraggingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Emulates touch event from the mouse event parameters."]
 pub struct EmulateTouchFromMouseEventReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Ignores input events (useful while auditing page)."]
 pub struct SetIgnoreInputEventsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Prevents default drag and drop behavior and instead emits `Input.dragIntercepted` events.\n Drag and drop behavior can be directly controlled via `Input.dispatchDragEvent`."]
 pub struct SetInterceptDragsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Synthesizes a pinch gesture over a time period by issuing appropriate touch events."]
 pub struct SynthesizePinchGestureReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Synthesizes a scroll gesture over a time period by issuing appropriate touch events."]
 pub struct SynthesizeScrollGestureReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Synthesizes a tap gesture over a time period by issuing appropriate touch events."]
 pub struct SynthesizeTapGestureReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for DispatchDragEvent {
     const NAME: &'static str = "Input.dispatchDragEvent";
     type ReturnObject = DispatchDragEventReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DispatchKeyEvent {
     const NAME: &'static str = "Input.dispatchKeyEvent";
     type ReturnObject = DispatchKeyEventReturnObject;
 }
+#[allow(deprecated)]
 impl Method for InsertText {
     const NAME: &'static str = "Input.insertText";
     type ReturnObject = InsertTextReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ImeSetComposition {
     const NAME: &'static str = "Input.imeSetComposition";
     type ReturnObject = ImeSetCompositionReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DispatchMouseEvent {
     const NAME: &'static str = "Input.dispatchMouseEvent";
     type ReturnObject = DispatchMouseEventReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DispatchTouchEvent {
     const NAME: &'static str = "Input.dispatchTouchEvent";
     type ReturnObject = DispatchTouchEventReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CancelDragging {
     const NAME: &'static str = "Input.cancelDragging";
     type ReturnObject = CancelDraggingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for EmulateTouchFromMouseEvent {
     const NAME: &'static str = "Input.emulateTouchFromMouseEvent";
     type ReturnObject = EmulateTouchFromMouseEventReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetIgnoreInputEvents {
     const NAME: &'static str = "Input.setIgnoreInputEvents";
     type ReturnObject = SetIgnoreInputEventsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetInterceptDrags {
     const NAME: &'static str = "Input.setInterceptDrags";
     type ReturnObject = SetInterceptDragsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SynthesizePinchGesture {
     const NAME: &'static str = "Input.synthesizePinchGesture";
     type ReturnObject = SynthesizePinchGestureReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SynthesizeScrollGesture {
     const NAME: &'static str = "Input.synthesizeScrollGesture";
     type ReturnObject = SynthesizeScrollGestureReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SynthesizeTapGesture {
     const NAME: &'static str = "Input.synthesizeTapGesture";
     type ReturnObject = SynthesizeTapGestureReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -682,10 +734,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DragInterceptedEvent {
         pub params: DragInterceptedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DragInterceptedEventParams {

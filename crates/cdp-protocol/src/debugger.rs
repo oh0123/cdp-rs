@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Debugger
+#![allow(dead_code)]
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
@@ -10,6 +11,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value as Json;
 pub type BreakpointId = String;
 pub type CallFrameId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ScopeType {
     #[serde(rename = "global")]
@@ -33,6 +35,7 @@ pub enum ScopeType {
     #[serde(rename = "wasm-expression-stack")]
     WasmExpressionStack,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum BreakLocationType {
     #[serde(rename = "debuggerStatement")]
@@ -42,6 +45,7 @@ pub enum BreakLocationType {
     #[serde(rename = "return")]
     Return,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ScriptLanguage {
     #[serde(rename = "JavaScript")]
@@ -49,6 +53,7 @@ pub enum ScriptLanguage {
     #[serde(rename = "WebAssembly")]
     WebAssembly,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DebugSymbolsType {
     #[serde(rename = "SourceMap")]
@@ -58,6 +63,7 @@ pub enum DebugSymbolsType {
     #[serde(rename = "ExternalDWARF")]
     ExternalDwarf,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ContinueToLocationTargetCallFramesOption {
     #[serde(rename = "any")]
@@ -65,11 +71,13 @@ pub enum ContinueToLocationTargetCallFramesOption {
     #[serde(rename = "current")]
     Current,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum RestartFrameModeOption {
     #[serde(rename = "StepInto")]
     StepInto,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SetInstrumentationBreakpointInstrumentationOption {
     #[serde(rename = "beforeScriptExecution")]
@@ -77,6 +85,7 @@ pub enum SetInstrumentationBreakpointInstrumentationOption {
     #[serde(rename = "beforeScriptWithSourceMapExecution")]
     BeforeScriptWithSourceMapExecution,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SetPauseOnExceptionsStateOption {
     #[serde(rename = "none")]
@@ -88,6 +97,7 @@ pub enum SetPauseOnExceptionsStateOption {
     #[serde(rename = "all")]
     All,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum StatusOption {
     #[serde(rename = "Ok")]
@@ -101,6 +111,7 @@ pub enum StatusOption {
     #[serde(rename = "BlockedByTopLevelEsModuleChange")]
     BlockedByTopLevelEsModuleChange,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PausedReasonOption {
     #[serde(rename = "ambiguous")]
@@ -130,6 +141,7 @@ pub enum PausedReasonOption {
     #[serde(rename = "step")]
     Step,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -146,6 +158,7 @@ pub struct Location {
     #[doc = "Column number in the script (0-based)."]
     pub column_number: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -156,6 +169,7 @@ pub struct ScriptPosition {
     #[serde(default)]
     pub column_number: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -165,6 +179,7 @@ pub struct LocationRange {
     pub start: ScriptPosition,
     pub end: ScriptPosition,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -199,6 +214,7 @@ pub struct CallFrame {
     #[doc = "Valid only while the VM is paused and indicates whether this frame\n can be restarted or not. Note that a `true` value here does not\n guarantee that Debugger#restartFrame with this CallFrameId will be\n successful, but it is very likely."]
     pub can_be_restarted: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -221,6 +237,7 @@ pub struct Scope {
     #[doc = "Location in the source code where scope ends"]
     pub end_location: Option<Location>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -233,6 +250,7 @@ pub struct SearchMatch {
     #[doc = "Line with match content."]
     pub line_content: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -251,6 +269,7 @@ pub struct BreakLocation {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<BreakLocationType>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -262,6 +281,7 @@ pub struct WasmDisassemblyChunk {
     #[doc = "The bytecode offsets describing the start of each line."]
     pub bytecode_offsets: Vec<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -276,6 +296,7 @@ pub struct DebugSymbols {
     #[serde(rename = "externalURL")]
     pub external_url: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -285,6 +306,7 @@ pub struct ResolvedBreakpoint {
     #[doc = "Actual breakpoint location."]
     pub location: Location,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -296,8 +318,10 @@ pub struct ContinueToLocation {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target_call_frames: Option<ContinueToLocationTargetCallFramesOption>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -309,6 +333,7 @@ pub struct Enable {
     #[doc = "The maximum size in bytes of collected scripts (not referenced by other heap objects)\n the debugger can hold. Puts no limit if parameter is omitted."]
     pub max_scripts_cache_size: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -355,6 +380,7 @@ pub struct EvaluateOnCallFrame {
     #[doc = "Terminate execution after timing out (number of milliseconds)."]
     pub timeout: Option<runtime::TimeDelta>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -372,6 +398,7 @@ pub struct GetPossibleBreakpoints {
     #[doc = "Only consider locations which are in the same (non-nested) function as start."]
     pub restrict_to_function: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -380,6 +407,7 @@ pub struct GetScriptSource {
     #[doc = "Id of the script to get source for."]
     pub script_id: runtime::ScriptId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -387,6 +415,7 @@ pub struct DisassembleWasmModule {
     #[doc = "Id of the script to disassemble"]
     pub script_id: runtime::ScriptId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -395,6 +424,7 @@ pub struct NextWasmDisassemblyChunk {
     #[serde(default)]
     pub stream_id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -404,6 +434,7 @@ pub struct GetWasmBytecode {
     #[doc = "Id of the Wasm script to get source for."]
     pub script_id: runtime::ScriptId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -411,8 +442,10 @@ pub struct GetWasmBytecode {
 pub struct GetStackTrace {
     pub stack_trace_id: runtime::StackTraceId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Pause(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -421,6 +454,7 @@ pub struct PauseOnAsyncCall {
     #[doc = "Debugger will pause when async call with given stack trace is started."]
     pub parent_stack_trace_id: runtime::StackTraceId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -428,6 +462,7 @@ pub struct PauseOnAsyncCall {
 pub struct RemoveBreakpoint {
     pub breakpoint_id: BreakpointId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -440,6 +475,7 @@ pub struct RestartFrame {
     #[doc = "The `mode` parameter must be present and set to 'StepInto', otherwise\n `restartFrame` will error out."]
     pub mode: Option<RestartFrameModeOption>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -451,6 +487,7 @@ pub struct Resume {
     #[doc = "Set to true to terminate execution upon resuming execution. In contrast\n to Runtime.terminateExecution, this will allows to execute further\n JavaScript (i.e. via evaluation) until execution of the paused code\n is actually resumed, at which point termination is triggered.\n If execution is currently not paused, this parameter has no effect."]
     pub terminate_on_resume: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -472,6 +509,7 @@ pub struct SearchInContent {
     #[doc = "If true, treats string parameter as regex."]
     pub is_regex: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -481,6 +519,7 @@ pub struct SetAsyncCallStackDepth {
     #[doc = "Maximum depth of async call stacks. Setting to `0` will effectively disable collecting async\n call stacks (default)."]
     pub max_depth: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -490,6 +529,7 @@ pub struct SetBlackboxExecutionContexts {
     #[doc = "Array of execution context unique ids for the debugger to ignore."]
     pub unique_ids: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -504,6 +544,7 @@ pub struct SetBlackboxPatterns {
     #[doc = "If true, also ignore scripts with no source url."]
     pub skip_anonymous: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -513,6 +554,7 @@ pub struct SetBlackboxedRanges {
     pub script_id: runtime::ScriptId,
     pub positions: Vec<ScriptPosition>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -526,6 +568,7 @@ pub struct SetBreakpoint {
     #[doc = "Expression to use as a breakpoint condition. When specified, debugger will only stop on the\n breakpoint if this expression evaluates to true."]
     pub condition: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -534,6 +577,7 @@ pub struct SetInstrumentationBreakpoint {
     #[doc = "Instrumentation name."]
     pub instrumentation: SetInstrumentationBreakpointInstrumentationOption,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -568,6 +612,7 @@ pub struct SetBreakpointByUrl {
     #[doc = "Expression to use as a breakpoint condition. When specified, debugger will only stop on the\n breakpoint if this expression evaluates to true."]
     pub condition: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -581,6 +626,7 @@ pub struct SetBreakpointOnFunctionCall {
     #[doc = "Expression to use as a breakpoint condition. When specified, debugger will\n stop on the breakpoint if this expression evaluates to true."]
     pub condition: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -590,6 +636,7 @@ pub struct SetBreakpointsActive {
     #[doc = "New value for breakpoints active state."]
     pub active: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -598,6 +645,7 @@ pub struct SetPauseOnExceptions {
     #[doc = "Pause on exceptions mode."]
     pub state: SetPauseOnExceptionsStateOption,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -606,6 +654,7 @@ pub struct SetReturnValue {
     #[doc = "New return value."]
     pub new_value: runtime::CallArgument,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -627,6 +676,7 @@ pub struct SetScriptSource {
     #[doc = "If true, then `scriptSource` is allowed to change the function on top of the stack\n as long as the top-most stack frame is the only activation of that function."]
     pub allow_top_frame_editing: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -636,6 +686,7 @@ pub struct SetSkipAllPauses {
     #[doc = "New value for skip pauses state."]
     pub skip: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -652,6 +703,7 @@ pub struct SetVariableValue {
     #[doc = "Id of callframe that holds variable."]
     pub call_frame_id: CallFrameId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -667,8 +719,10 @@ pub struct StepInto {
     #[doc = "The skipList specifies location ranges that should be skipped on step into."]
     pub skip_list: Option<Vec<LocationRange>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StepOut(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -679,12 +733,15 @@ pub struct StepOver {
     #[doc = "The skipList specifies location ranges that should be skipped on step over."]
     pub skip_list: Option<Vec<LocationRange>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Continues execution until specific location is reached."]
 pub struct ContinueToLocationReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables debugger for given page."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Enables debugger for the given page. Clients should not assume that the debugging has been\n enabled until the result for this command is received."]
@@ -692,6 +749,7 @@ pub struct EnableReturnObject {
     #[doc = "Unique identifier of the debugger."]
     pub debugger_id: runtime::UniqueDebuggerId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Evaluates expression on a given call frame."]
@@ -703,6 +761,7 @@ pub struct EvaluateOnCallFrameReturnObject {
     #[doc = "Exception details."]
     pub exception_details: Option<runtime::ExceptionDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns possible locations for breakpoint. scriptId in start and end range locations should be\n the same."]
@@ -710,6 +769,7 @@ pub struct GetPossibleBreakpointsReturnObject {
     #[doc = "List of the possible breakpoint locations."]
     pub locations: Vec<BreakLocation>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns source for the script with given id."]
@@ -722,6 +782,7 @@ pub struct GetScriptSourceReturnObject {
     #[doc = "Wasm bytecode."]
     pub bytecode: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct DisassembleWasmModuleReturnObject {
@@ -733,11 +794,12 @@ pub struct DisassembleWasmModuleReturnObject {
     #[serde(default)]
     #[doc = "The total number of lines in the disassembly text."]
     pub total_number_of_lines: JsUInt,
-    #[doc = "The offsets of all function bodies, in the format [start1, end1,\n start2, end2, ...] where all ends are exclusive."]
+    #[doc = "The offsets of all function bodies, in the format \\[start1, end1,\n start2, end2, ...\\] where all ends are exclusive."]
     pub function_body_offsets: Vec<JsUInt>,
     #[doc = "The first chunk of disassembly."]
     pub chunk: WasmDisassemblyChunk,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Disassemble the next chunk of lines for the module corresponding to the\n stream. If disassembly is complete, this API will invalidate the streamId\n and return an empty chunk. Any subsequent calls for the now invalid stream\n will return errors."]
@@ -745,6 +807,7 @@ pub struct NextWasmDisassemblyChunkReturnObject {
     #[doc = "The next chunk of disassembly."]
     pub chunk: WasmDisassemblyChunk,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "This command is deprecated. Use getScriptSource instead."]
@@ -753,21 +816,26 @@ pub struct GetWasmBytecodeReturnObject {
     #[doc = "Script source."]
     pub bytecode: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns stack trace with given `stackTraceId`."]
 pub struct GetStackTraceReturnObject {
     pub stack_trace: runtime::StackTrace,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Stops on the next JavaScript statement."]
 pub struct PauseReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[deprecated]
 pub struct PauseOnAsyncCallReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Removes JavaScript breakpoint."]
 pub struct RemoveBreakpointReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Restarts particular call frame from the beginning. The old, deprecated\n behavior of `restartFrame` is to stay paused and allow further CDP commands\n after a restart was scheduled. This can cause problems with restarting, so\n we now continue execution immediatly after it has been scheduled until we\n reach the beginning of the restarted frame.\n \n To stay back-wards compatible, `restartFrame` now expects a `mode`\n parameter to be present. If the `mode` parameter is missing, `restartFrame`\n errors out.\n \n The various return values are deprecated and `callFrames` is always empty.\n Use the call frames from the `Debugger#paused` events instead, that fires\n once V8 pauses at the beginning of the restarted function."]
@@ -786,9 +854,11 @@ pub struct RestartFrameReturnObject {
     #[deprecated]
     pub async_stack_trace_id: Option<runtime::StackTraceId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Resumes JavaScript execution."]
 pub struct ResumeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Searches for given string in script content."]
@@ -796,18 +866,23 @@ pub struct SearchInContentReturnObject {
     #[doc = "List of search matches."]
     pub result: Vec<SearchMatch>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables or disables async call stacks tracking."]
 pub struct SetAsyncCallStackDepthReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Replace previous blackbox execution contexts with passed ones. Forces backend to skip\n stepping/pausing in scripts in these execution contexts. VM will try to leave blackboxed script by\n performing 'step in' several times, finally resorting to 'step out' if unsuccessful."]
 pub struct SetBlackboxExecutionContextsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in\n scripts with url matching one of the patterns. VM will try to leave blackboxed script by\n performing 'step in' several times, finally resorting to 'step out' if unsuccessful."]
 pub struct SetBlackboxPatternsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted\n scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.\n Positions array contains positions where blackbox state is changed. First interval isn't\n blackboxed. Array should be sorted."]
 pub struct SetBlackboxedRangesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Sets JavaScript breakpoint at a given location."]
@@ -817,6 +892,7 @@ pub struct SetBreakpointReturnObject {
     #[doc = "Location this breakpoint resolved into."]
     pub actual_location: Location,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Sets instrumentation breakpoint."]
@@ -824,6 +900,7 @@ pub struct SetInstrumentationBreakpointReturnObject {
     #[doc = "Id of the created breakpoint for further reference."]
     pub breakpoint_id: BreakpointId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this\n command is issued, all existing parsed scripts will have breakpoints resolved and returned in\n `locations` property. Further matching script parsing will result in subsequent\n `breakpointResolved` events issued. This logical breakpoint will survive page reloads."]
@@ -833,6 +910,7 @@ pub struct SetBreakpointByUrlReturnObject {
     #[doc = "List of the locations this breakpoint resolved into upon addition."]
     pub locations: Vec<Location>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Sets JavaScript breakpoint before each call to the given function.\n If another function was created from the same source as a given one,\n calling it will also trigger the breakpoint."]
@@ -840,15 +918,19 @@ pub struct SetBreakpointOnFunctionCallReturnObject {
     #[doc = "Id of the created breakpoint for further reference."]
     pub breakpoint_id: BreakpointId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Activates / deactivates all breakpoints on the page."]
 pub struct SetBreakpointsActiveReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions,\n or caught exceptions, no exceptions. Initial pause on exceptions state is `none`."]
 pub struct SetPauseOnExceptionsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Changes return value in top frame. Available only at return break position."]
 pub struct SetReturnValueReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Edits JavaScript source live.\n \n In general, functions that are currently on the stack can not be edited with\n a single exception: If the edited function is the top-most stack frame and\n that is the only activation of that function on the stack. In this case\n the live edit will be successful and a `Debugger.restartFrame` for the\n top-most function is automatically triggered."]
@@ -881,153 +963,192 @@ pub struct SetScriptSourceReturnObject {
     #[doc = "Exception details if any. Only present when `status` is `CompileError`."]
     pub exception_details: Option<runtime::ExceptionDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Makes page not interrupt on any pauses (breakpoint, exception, dom exception etc)."]
 pub struct SetSkipAllPausesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Changes value of variable in a callframe. Object-based scopes are not supported and must be\n mutated manually."]
 pub struct SetVariableValueReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Steps into the function call."]
 pub struct StepIntoReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Steps out of the function call."]
 pub struct StepOutReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Steps over the statement."]
 pub struct StepOverReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for ContinueToLocation {
     const NAME: &'static str = "Debugger.continueToLocation";
     type ReturnObject = ContinueToLocationReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Debugger.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Debugger.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for EvaluateOnCallFrame {
     const NAME: &'static str = "Debugger.evaluateOnCallFrame";
     type ReturnObject = EvaluateOnCallFrameReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetPossibleBreakpoints {
     const NAME: &'static str = "Debugger.getPossibleBreakpoints";
     type ReturnObject = GetPossibleBreakpointsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetScriptSource {
     const NAME: &'static str = "Debugger.getScriptSource";
     type ReturnObject = GetScriptSourceReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DisassembleWasmModule {
     const NAME: &'static str = "Debugger.disassembleWasmModule";
     type ReturnObject = DisassembleWasmModuleReturnObject;
 }
+#[allow(deprecated)]
 impl Method for NextWasmDisassemblyChunk {
     const NAME: &'static str = "Debugger.nextWasmDisassemblyChunk";
     type ReturnObject = NextWasmDisassemblyChunkReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetWasmBytecode {
     const NAME: &'static str = "Debugger.getWasmBytecode";
     type ReturnObject = GetWasmBytecodeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetStackTrace {
     const NAME: &'static str = "Debugger.getStackTrace";
     type ReturnObject = GetStackTraceReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Pause {
     const NAME: &'static str = "Debugger.pause";
     type ReturnObject = PauseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for PauseOnAsyncCall {
     const NAME: &'static str = "Debugger.pauseOnAsyncCall";
     type ReturnObject = PauseOnAsyncCallReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveBreakpoint {
     const NAME: &'static str = "Debugger.removeBreakpoint";
     type ReturnObject = RemoveBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RestartFrame {
     const NAME: &'static str = "Debugger.restartFrame";
     type ReturnObject = RestartFrameReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Resume {
     const NAME: &'static str = "Debugger.resume";
     type ReturnObject = ResumeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SearchInContent {
     const NAME: &'static str = "Debugger.searchInContent";
     type ReturnObject = SearchInContentReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAsyncCallStackDepth {
     const NAME: &'static str = "Debugger.setAsyncCallStackDepth";
     type ReturnObject = SetAsyncCallStackDepthReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBlackboxExecutionContexts {
     const NAME: &'static str = "Debugger.setBlackboxExecutionContexts";
     type ReturnObject = SetBlackboxExecutionContextsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBlackboxPatterns {
     const NAME: &'static str = "Debugger.setBlackboxPatterns";
     type ReturnObject = SetBlackboxPatternsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBlackboxedRanges {
     const NAME: &'static str = "Debugger.setBlackboxedRanges";
     type ReturnObject = SetBlackboxedRangesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBreakpoint {
     const NAME: &'static str = "Debugger.setBreakpoint";
     type ReturnObject = SetBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetInstrumentationBreakpoint {
     const NAME: &'static str = "Debugger.setInstrumentationBreakpoint";
     type ReturnObject = SetInstrumentationBreakpointReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBreakpointByUrl {
     const NAME: &'static str = "Debugger.setBreakpointByUrl";
     type ReturnObject = SetBreakpointByUrlReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBreakpointOnFunctionCall {
     const NAME: &'static str = "Debugger.setBreakpointOnFunctionCall";
     type ReturnObject = SetBreakpointOnFunctionCallReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBreakpointsActive {
     const NAME: &'static str = "Debugger.setBreakpointsActive";
     type ReturnObject = SetBreakpointsActiveReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetPauseOnExceptions {
     const NAME: &'static str = "Debugger.setPauseOnExceptions";
     type ReturnObject = SetPauseOnExceptionsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetReturnValue {
     const NAME: &'static str = "Debugger.setReturnValue";
     type ReturnObject = SetReturnValueReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetScriptSource {
     const NAME: &'static str = "Debugger.setScriptSource";
     type ReturnObject = SetScriptSourceReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSkipAllPauses {
     const NAME: &'static str = "Debugger.setSkipAllPauses";
     type ReturnObject = SetSkipAllPausesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetVariableValue {
     const NAME: &'static str = "Debugger.setVariableValue";
     type ReturnObject = SetVariableValueReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StepInto {
     const NAME: &'static str = "Debugger.stepInto";
     type ReturnObject = StepIntoReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StepOut {
     const NAME: &'static str = "Debugger.stepOut";
     type ReturnObject = StepOutReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StepOver {
     const NAME: &'static str = "Debugger.stepOver";
     type ReturnObject = StepOverReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -1037,10 +1158,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct BreakpointResolvedEvent {
         pub params: BreakpointResolvedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct BreakpointResolvedEventParams {
@@ -1049,10 +1172,12 @@ pub mod events {
         #[doc = "Actual breakpoint location."]
         pub location: super::Location,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PausedEvent {
         pub params: PausedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct PausedEventParams {
@@ -1084,12 +1209,15 @@ pub mod events {
         #[deprecated]
         pub async_call_stack_trace_id: Option<super::super::runtime::StackTraceId>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResumedEvent(pub Option<Json>);
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ScriptFailedToParseEvent {
         pub params: ScriptFailedToParseEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ScriptFailedToParseEventParams {
@@ -1164,10 +1292,12 @@ pub mod events {
         #[doc = "The name the embedder supplied for this script."]
         pub embedder_name: Option<String>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ScriptParsedEvent {
         pub params: ScriptParsedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ScriptParsedEventParams {

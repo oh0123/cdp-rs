@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Emulation
+#![allow(dead_code)]
 use super::dom;
 use super::network;
 use super::page;
@@ -11,6 +12,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type ScreenId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ScreenOrientationType {
     #[serde(rename = "portraitPrimary")]
@@ -22,6 +24,7 @@ pub enum ScreenOrientationType {
     #[serde(rename = "landscapeSecondary")]
     LandscapeSecondary,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DisplayFeatureOrientation {
     #[serde(rename = "vertical")]
@@ -29,6 +32,7 @@ pub enum DisplayFeatureOrientation {
     #[serde(rename = "horizontal")]
     Horizontal,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DevicePostureType {
     #[serde(rename = "continuous")]
@@ -36,6 +40,7 @@ pub enum DevicePostureType {
     #[serde(rename = "folded")]
     Folded,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum VirtualTimePolicy {
     #[serde(rename = "advance")]
@@ -45,6 +50,7 @@ pub enum VirtualTimePolicy {
     #[serde(rename = "pauseIfNetworkFetchesPending")]
     PauseIfNetworkFetchesPending,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SensorType {
     #[serde(rename = "absolute-orientation")]
@@ -64,11 +70,13 @@ pub enum SensorType {
     #[serde(rename = "relative-orientation")]
     RelativeOrientation,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PressureSource {
     #[serde(rename = "cpu")]
     Cpu,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum PressureState {
     #[serde(rename = "nominal")]
@@ -80,6 +88,7 @@ pub enum PressureState {
     #[serde(rename = "critical")]
     Critical,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DisabledImageType {
     #[serde(rename = "avif")]
@@ -87,6 +96,7 @@ pub enum DisabledImageType {
     #[serde(rename = "webp")]
     Webp,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SetEmitTouchEventsForMouseConfigurationOption {
     #[serde(rename = "mobile")]
@@ -94,6 +104,7 @@ pub enum SetEmitTouchEventsForMouseConfigurationOption {
     #[serde(rename = "desktop")]
     Desktop,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SetEmulatedVisionDeficiencyTypeOption {
     #[serde(rename = "none")]
@@ -111,6 +122,7 @@ pub enum SetEmulatedVisionDeficiencyTypeOption {
     #[serde(rename = "tritanopia")]
     Tritanopia,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -156,6 +168,7 @@ pub struct SafeAreaInsets {
     #[doc = "Overrides safe-area-max-inset-right."]
     pub right_max: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -167,6 +180,7 @@ pub struct ScreenOrientation {
     #[doc = "Orientation angle."]
     pub angle: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -180,6 +194,7 @@ pub struct DisplayFeature {
     #[doc = "A display feature may mask content such that it is not physically\n displayed - this length along with the offset describes this area.\n A display feature that only splits content will have a 0 mask_length."]
     pub mask_length: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -187,6 +202,7 @@ pub struct DevicePosture {
     #[doc = "Current posture of the device"]
     pub r#type: DevicePostureType,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -196,20 +212,22 @@ pub struct MediaFeature {
     #[serde(default)]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Used to specify User Agent Client Hints to emulate. See https://wicg.github.io/ua-client-hints"]
+#[doc = "Used to specify User Agent Client Hints to emulate. See <https://wicg.github.io/ua-client-hints>"]
 pub struct UserAgentBrandVersion {
     #[serde(default)]
     pub brand: String,
     #[serde(default)]
     pub version: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Used to specify User Agent Client Hints to emulate. See https://wicg.github.io/ua-client-hints\n Missing optional values will be filled in by the target with what it would normally use."]
+#[doc = "Used to specify User Agent Client Hints to emulate. See <https://wicg.github.io/ua-client-hints>\n Missing optional values will be filled in by the target with what it would normally use."]
 pub struct UserAgentMetadata {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -245,9 +263,10 @@ pub struct UserAgentMetadata {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "Used to specify User Agent form-factor values.\n See https://wicg.github.io/ua-client-hints/#sec-ch-ua-form-factors"]
+    #[doc = "Used to specify User Agent form-factor values.\n See <https://wicg.github.io/ua-client-hints/#sec-ch-ua-form-factors>"]
     pub form_factors: Option<Vec<String>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -265,6 +284,7 @@ pub struct SensorMetadata {
     #[serde(default)]
     pub maximum_frequency: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -272,6 +292,7 @@ pub struct SensorReadingSingle {
     #[serde(default)]
     pub value: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -283,6 +304,7 @@ pub struct SensorReadingXyz {
     #[serde(default)]
     pub z: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -296,6 +318,7 @@ pub struct SensorReadingQuaternion {
     #[serde(default)]
     pub w: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -310,6 +333,7 @@ pub struct SensorReading {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub quaternion: Option<SensorReadingQuaternion>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -319,6 +343,7 @@ pub struct PressureMetadata {
     #[serde(default)]
     pub available: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -344,10 +369,11 @@ pub struct WorkAreaInsets {
     #[doc = "Work area right inset in pixels. Default is 0;"]
     pub right: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Screen information similar to the one returned by window.getScreenDetails() method,\n see https://w3c.github.io/window-management/#screendetailed."]
+#[doc = "Screen information similar to the one returned by window.getScreenDetails() method,\n see <https://w3c.github.io/window-management/#screendetailed>."]
 pub struct ScreenInfo {
     #[serde(default)]
     #[doc = "Offset of the left edge of the screen."]
@@ -396,14 +422,19 @@ pub struct ScreenInfo {
     #[doc = "Specifies the unique identifier of the screen."]
     pub id: ScreenId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CanEmulate(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearDeviceMetricsOverride(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearGeolocationOverride(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ResetPageScaleFactor(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -413,6 +444,7 @@ pub struct SetFocusEmulationEnabled {
     #[doc = "Whether to enable to disable focus emulation."]
     pub enabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -424,6 +456,7 @@ pub struct SetAutoDarkModeOverride {
     #[doc = "Whether to enable or disable automatic dark mode.\n If not specified, any existing override will be cleared."]
     pub enabled: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -433,6 +466,7 @@ pub struct SetCPUThrottlingRate {
     #[doc = "Throttling rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc)."]
     pub rate: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -443,6 +477,7 @@ pub struct SetDefaultBackgroundColorOverride {
     #[doc = "RGBA of the default background color. If not specified, any existing override will be\n cleared."]
     pub color: Option<dom::Rgba>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -450,6 +485,7 @@ pub struct SetDefaultBackgroundColorOverride {
 pub struct SetSafeAreaInsetsOverride {
     pub insets: SafeAreaInsets,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -516,6 +552,7 @@ pub struct SetDeviceMetricsOverride {
     #[deprecated]
     pub device_posture: Option<DevicePosture>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -523,8 +560,10 @@ pub struct SetDeviceMetricsOverride {
 pub struct SetDevicePostureOverride {
     pub posture: DevicePosture,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearDevicePostureOverride(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -532,8 +571,10 @@ pub struct ClearDevicePostureOverride(pub Option<Json>);
 pub struct SetDisplayFeaturesOverride {
     pub features: Vec<DisplayFeature>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearDisplayFeaturesOverride(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -542,6 +583,7 @@ pub struct SetScrollbarsHidden {
     #[doc = "Whether scrollbars should be always hidden."]
     pub hidden: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -550,6 +592,7 @@ pub struct SetDocumentCookieDisabled {
     #[doc = "Whether document.coookie API should be disabled."]
     pub disabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -562,6 +605,7 @@ pub struct SetEmitTouchEventsForMouse {
     #[doc = "Touch/gesture events configuration. Default: current platform."]
     pub configuration: Option<SetEmitTouchEventsForMouseConfigurationOption>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -577,6 +621,7 @@ pub struct SetEmulatedMedia {
     #[doc = "Media features to emulate."]
     pub features: Option<Vec<MediaFeature>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -585,6 +630,7 @@ pub struct SetEmulatedVisionDeficiency {
     #[doc = "Vision deficiency to emulate. Order: best-effort emulations come first, followed by any\n physiologically accurate emulations for medically recognized color vision deficiencies."]
     pub r#type: SetEmulatedVisionDeficiencyTypeOption,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -595,6 +641,7 @@ pub struct SetEmulatedOSTextScale {
     #[serde(default)]
     pub scale: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -636,12 +683,14 @@ pub struct SetGeolocationOverride {
     #[doc = "Mock speed"]
     pub speed: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct GetOverriddenSensorInformation {
     pub r#type: SensorType,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -654,6 +703,7 @@ pub struct SetSensorOverrideEnabled {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<SensorMetadata>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -662,6 +712,7 @@ pub struct SetSensorOverrideReadings {
     pub r#type: SensorType,
     pub reading: SensorReading,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -674,6 +725,7 @@ pub struct SetPressureSourceOverrideEnabled {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<PressureMetadata>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -682,6 +734,7 @@ pub struct SetPressureStateOverride {
     pub source: PressureSource,
     pub state: PressureState,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -694,6 +747,7 @@ pub struct SetPressureDataOverride {
     #[serde(default)]
     pub own_contribution_estimate: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -706,8 +760,10 @@ pub struct SetIdleOverride {
     #[doc = "Mock isScreenUnlocked"]
     pub is_screen_unlocked: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearIdleOverride(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -718,6 +774,7 @@ pub struct SetNavigatorOverrides {
     #[doc = "The platform navigator.platform should return."]
     pub platform: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -727,6 +784,7 @@ pub struct SetPageScaleFactor {
     #[doc = "Page scale factor."]
     pub page_scale_factor: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -736,6 +794,7 @@ pub struct SetScriptExecutionDisabled {
     #[doc = "Whether script execution should be disabled in the page."]
     pub value: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -750,6 +809,7 @@ pub struct SetTouchEmulationEnabled {
     #[doc = "Maximum touch points supported. Defaults to one."]
     pub max_touch_points: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -771,6 +831,7 @@ pub struct SetVirtualTimePolicy {
     #[doc = "If set, base::Time::Now will be overridden to initially return this value."]
     pub initial_virtual_time: Option<network::TimeSinceEpoch>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -782,15 +843,17 @@ pub struct SetLocaleOverride {
     #[doc = "ICU style C locale (e.g. \"en_US\"). If not specified or empty, disables the override and\n restores default host system locale."]
     pub locale: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 #[doc = "Overrides default host system timezone with the specified one."]
 pub struct SetTimezoneOverride {
     #[serde(default)]
-    #[doc = "The timezone identifier. List of supported timezones:\n https://source.chromium.org/chromium/chromium/deps/icu.git/+/faee8bc70570192d82d2978a71e2a615788597d1:source/data/misc/metaZones.txt\n If empty, disables the override and restores default host system timezone."]
+    #[doc = "The timezone identifier. List of supported timezones:\n <https://source.chromium.org/chromium/chromium/deps/icu.git/+/faee8bc70570192d82d2978a71e2a615788597d1:source/data/misc/metaZones.txt>\n If empty, disables the override and restores default host system timezone."]
     pub timezone_id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -804,6 +867,7 @@ pub struct SetVisibleSize {
     #[doc = "Frame height (DIP)."]
     pub height: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -811,6 +875,7 @@ pub struct SetDisabledImageTypes {
     #[doc = "Image types to disable."]
     pub image_types: Vec<DisabledImageType>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -822,6 +887,7 @@ pub struct SetDataSaverOverride {
     #[doc = "Override value. Omitting the parameter disables the override."]
     pub data_saver_enabled: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -830,6 +896,7 @@ pub struct SetHardwareConcurrencyOverride {
     #[doc = "Hardware concurrency to report"]
     pub hardware_concurrency: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -853,6 +920,7 @@ pub struct SetUserAgentOverride {
     #[doc = "To be sent in Sec-CH-UA-* headers and returned in navigator.userAgentData"]
     pub user_agent_metadata: Option<UserAgentMetadata>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -862,6 +930,7 @@ pub struct SetAutomationOverride {
     #[doc = "Whether the override should be enabled."]
     pub enabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -871,8 +940,10 @@ pub struct SetSmallViewportHeightDifferenceOverride {
     #[doc = "This will cause an element of size 100svh to be `difference` pixels smaller than an element\n of size 100lvh."]
     pub difference: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetScreenInfos(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -920,6 +991,7 @@ pub struct AddScreen {
     #[doc = "Indicates whether the screen is internal to the device or external, attached to the device. Default is false."]
     pub is_internal: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -927,6 +999,7 @@ pub struct AddScreen {
 pub struct RemoveScreen {
     pub screen_id: ScreenId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Tells whether emulation is supported."]
@@ -936,103 +1009,136 @@ pub struct CanEmulateReturnObject {
     #[doc = "True if emulation is supported."]
     pub result: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears the overridden device metrics."]
 pub struct ClearDeviceMetricsOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears the overridden Geolocation Position and Error."]
 pub struct ClearGeolocationOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Requests that page scale factor is reset to initial values."]
 pub struct ResetPageScaleFactorReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables or disables simulating a focused and active page."]
 pub struct SetFocusEmulationEnabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Automatically render all web contents using a dark theme."]
 pub struct SetAutoDarkModeOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables CPU throttling to emulate slow CPUs."]
 pub struct SetCPUThrottlingRateReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets or clears an override of the default background color of the frame. This override is used\n if the content does not specify one."]
 pub struct SetDefaultBackgroundColorOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Overrides the values for env(safe-area-inset-*) and env(safe-area-max-inset-*). Unset values will cause the\n respective variables to be undefined, even if previously overridden."]
 pub struct SetSafeAreaInsetsOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Overrides the values of device screen dimensions (window.screen.width, window.screen.height,\n window.innerWidth, window.innerHeight, and \"device-width\"/\"device-height\"-related CSS media\n query results)."]
 pub struct SetDeviceMetricsOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Start reporting the given posture value to the Device Posture API.\n This override can also be set in setDeviceMetricsOverride()."]
 pub struct SetDevicePostureOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears a device posture override set with either setDeviceMetricsOverride()\n or setDevicePostureOverride() and starts using posture information from the\n platform again.\n Does nothing if no override is set."]
 pub struct ClearDevicePostureOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Start using the given display features to pupulate the Viewport Segments API.\n This override can also be set in setDeviceMetricsOverride()."]
 pub struct SetDisplayFeaturesOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears the display features override set with either setDeviceMetricsOverride()\n or setDisplayFeaturesOverride() and starts using display features from the\n platform again.\n Does nothing if no override is set."]
 pub struct ClearDisplayFeaturesOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetScrollbarsHiddenReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetDocumentCookieDisabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetEmitTouchEventsForMouseReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Emulates the given media type or media feature for CSS media queries."]
 pub struct SetEmulatedMediaReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Emulates the given vision deficiency."]
 pub struct SetEmulatedVisionDeficiencyReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Emulates the given OS text scale."]
 pub struct SetEmulatedOSTextScaleReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Overrides the Geolocation Position or Error. Omitting latitude, longitude or\n accuracy emulates position unavailable."]
 pub struct SetGeolocationOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct GetOverriddenSensorInformationReturnObject {
     #[serde(default)]
     pub requested_sampling_frequency: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Overrides a platform sensor of a given type. If |enabled| is true, calls to\n Sensor.start() will use a virtual sensor as backend rather than fetching\n data from a real hardware sensor. Otherwise, existing virtual\n sensor-backend Sensor objects will fire an error event and new calls to\n Sensor.start() will attempt to use a real sensor instead."]
 pub struct SetSensorOverrideEnabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Updates the sensor readings reported by a sensor type previously overridden\n by setSensorOverrideEnabled."]
 pub struct SetSensorOverrideReadingsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Overrides a pressure source of a given type, as used by the Compute\n Pressure API, so that updates to PressureObserver.observe() are provided\n via setPressureStateOverride instead of being retrieved from\n platform-provided telemetry data."]
 pub struct SetPressureSourceOverrideEnabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "TODO: OBSOLETE: To remove when setPressureDataOverride is merged.\n Provides a given pressure state that will be processed and eventually be\n delivered to PressureObserver users. |source| must have been previously\n overridden by setPressureSourceOverrideEnabled."]
 pub struct SetPressureStateOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Provides a given pressure data set that will be processed and eventually be\n delivered to PressureObserver users. |source| must have been previously\n overridden by setPressureSourceOverrideEnabled."]
 pub struct SetPressureDataOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Overrides the Idle state."]
 pub struct SetIdleOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears Idle state overrides."]
 pub struct ClearIdleOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Overrides value returned by the javascript navigator object."]
 #[deprecated]
 pub struct SetNavigatorOverridesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets a specified page scale factor."]
 pub struct SetPageScaleFactorReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Switches script execution in the page."]
 pub struct SetScriptExecutionDisabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables touch on platforms which do not support them."]
 pub struct SetTouchEmulationEnabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Turns on virtual time for all frames (replacing real-time with a synthetic time source) and sets\n the current virtual time policy.  Note this supersedes any previous time budget."]
@@ -1041,231 +1147,290 @@ pub struct SetVirtualTimePolicyReturnObject {
     #[doc = "Absolute timestamp at which virtual time was first enabled (up time in milliseconds)."]
     pub virtual_time_ticks_base: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Overrides default host system locale with the specified one."]
 pub struct SetLocaleOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Overrides default host system timezone with the specified one."]
 pub struct SetTimezoneOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Resizes the frame/viewport of the page. Note that this does not affect the frame's container\n (e.g. browser window). Can be used to produce screenshots of the specified size. Not supported\n on Android."]
 #[deprecated]
 pub struct SetVisibleSizeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetDisabledImageTypesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Override the value of navigator.connection.saveData"]
 pub struct SetDataSaverOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetHardwareConcurrencyOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Allows overriding user agent with the given string.\n `userAgentMetadata` must be set for Client Hint headers to be sent."]
 pub struct SetUserAgentOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Allows overriding the automation flag."]
 pub struct SetAutomationOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Allows overriding the difference between the small and large viewport sizes, which determine the\n value of the `svh` and `lvh` unit, respectively. Only supported for top-level frames."]
 pub struct SetSmallViewportHeightDifferenceOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns device's screen configuration."]
 pub struct GetScreenInfosReturnObject {
     pub screen_infos: Vec<ScreenInfo>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Add a new screen to the device. Only supported in headless mode."]
 pub struct AddScreenReturnObject {
     pub screen_info: ScreenInfo,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Remove screen from the device. Only supported in headless mode."]
 pub struct RemoveScreenReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for CanEmulate {
     const NAME: &'static str = "Emulation.canEmulate";
     type ReturnObject = CanEmulateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearDeviceMetricsOverride {
     const NAME: &'static str = "Emulation.clearDeviceMetricsOverride";
     type ReturnObject = ClearDeviceMetricsOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearGeolocationOverride {
     const NAME: &'static str = "Emulation.clearGeolocationOverride";
     type ReturnObject = ClearGeolocationOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ResetPageScaleFactor {
     const NAME: &'static str = "Emulation.resetPageScaleFactor";
     type ReturnObject = ResetPageScaleFactorReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetFocusEmulationEnabled {
     const NAME: &'static str = "Emulation.setFocusEmulationEnabled";
     type ReturnObject = SetFocusEmulationEnabledReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAutoDarkModeOverride {
     const NAME: &'static str = "Emulation.setAutoDarkModeOverride";
     type ReturnObject = SetAutoDarkModeOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetCPUThrottlingRate {
     const NAME: &'static str = "Emulation.setCPUThrottlingRate";
     type ReturnObject = SetCPUThrottlingRateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDefaultBackgroundColorOverride {
     const NAME: &'static str = "Emulation.setDefaultBackgroundColorOverride";
     type ReturnObject = SetDefaultBackgroundColorOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSafeAreaInsetsOverride {
     const NAME: &'static str = "Emulation.setSafeAreaInsetsOverride";
     type ReturnObject = SetSafeAreaInsetsOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDeviceMetricsOverride {
     const NAME: &'static str = "Emulation.setDeviceMetricsOverride";
     type ReturnObject = SetDeviceMetricsOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDevicePostureOverride {
     const NAME: &'static str = "Emulation.setDevicePostureOverride";
     type ReturnObject = SetDevicePostureOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearDevicePostureOverride {
     const NAME: &'static str = "Emulation.clearDevicePostureOverride";
     type ReturnObject = ClearDevicePostureOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDisplayFeaturesOverride {
     const NAME: &'static str = "Emulation.setDisplayFeaturesOverride";
     type ReturnObject = SetDisplayFeaturesOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearDisplayFeaturesOverride {
     const NAME: &'static str = "Emulation.clearDisplayFeaturesOverride";
     type ReturnObject = ClearDisplayFeaturesOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetScrollbarsHidden {
     const NAME: &'static str = "Emulation.setScrollbarsHidden";
     type ReturnObject = SetScrollbarsHiddenReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDocumentCookieDisabled {
     const NAME: &'static str = "Emulation.setDocumentCookieDisabled";
     type ReturnObject = SetDocumentCookieDisabledReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetEmitTouchEventsForMouse {
     const NAME: &'static str = "Emulation.setEmitTouchEventsForMouse";
     type ReturnObject = SetEmitTouchEventsForMouseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetEmulatedMedia {
     const NAME: &'static str = "Emulation.setEmulatedMedia";
     type ReturnObject = SetEmulatedMediaReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetEmulatedVisionDeficiency {
     const NAME: &'static str = "Emulation.setEmulatedVisionDeficiency";
     type ReturnObject = SetEmulatedVisionDeficiencyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetEmulatedOSTextScale {
     const NAME: &'static str = "Emulation.setEmulatedOSTextScale";
     type ReturnObject = SetEmulatedOSTextScaleReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetGeolocationOverride {
     const NAME: &'static str = "Emulation.setGeolocationOverride";
     type ReturnObject = SetGeolocationOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetOverriddenSensorInformation {
     const NAME: &'static str = "Emulation.getOverriddenSensorInformation";
     type ReturnObject = GetOverriddenSensorInformationReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSensorOverrideEnabled {
     const NAME: &'static str = "Emulation.setSensorOverrideEnabled";
     type ReturnObject = SetSensorOverrideEnabledReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSensorOverrideReadings {
     const NAME: &'static str = "Emulation.setSensorOverrideReadings";
     type ReturnObject = SetSensorOverrideReadingsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetPressureSourceOverrideEnabled {
     const NAME: &'static str = "Emulation.setPressureSourceOverrideEnabled";
     type ReturnObject = SetPressureSourceOverrideEnabledReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetPressureStateOverride {
     const NAME: &'static str = "Emulation.setPressureStateOverride";
     type ReturnObject = SetPressureStateOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetPressureDataOverride {
     const NAME: &'static str = "Emulation.setPressureDataOverride";
     type ReturnObject = SetPressureDataOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetIdleOverride {
     const NAME: &'static str = "Emulation.setIdleOverride";
     type ReturnObject = SetIdleOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearIdleOverride {
     const NAME: &'static str = "Emulation.clearIdleOverride";
     type ReturnObject = ClearIdleOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetNavigatorOverrides {
     const NAME: &'static str = "Emulation.setNavigatorOverrides";
     type ReturnObject = SetNavigatorOverridesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetPageScaleFactor {
     const NAME: &'static str = "Emulation.setPageScaleFactor";
     type ReturnObject = SetPageScaleFactorReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetScriptExecutionDisabled {
     const NAME: &'static str = "Emulation.setScriptExecutionDisabled";
     type ReturnObject = SetScriptExecutionDisabledReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetTouchEmulationEnabled {
     const NAME: &'static str = "Emulation.setTouchEmulationEnabled";
     type ReturnObject = SetTouchEmulationEnabledReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetVirtualTimePolicy {
     const NAME: &'static str = "Emulation.setVirtualTimePolicy";
     type ReturnObject = SetVirtualTimePolicyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetLocaleOverride {
     const NAME: &'static str = "Emulation.setLocaleOverride";
     type ReturnObject = SetLocaleOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetTimezoneOverride {
     const NAME: &'static str = "Emulation.setTimezoneOverride";
     type ReturnObject = SetTimezoneOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetVisibleSize {
     const NAME: &'static str = "Emulation.setVisibleSize";
     type ReturnObject = SetVisibleSizeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDisabledImageTypes {
     const NAME: &'static str = "Emulation.setDisabledImageTypes";
     type ReturnObject = SetDisabledImageTypesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetDataSaverOverride {
     const NAME: &'static str = "Emulation.setDataSaverOverride";
     type ReturnObject = SetDataSaverOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetHardwareConcurrencyOverride {
     const NAME: &'static str = "Emulation.setHardwareConcurrencyOverride";
     type ReturnObject = SetHardwareConcurrencyOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetUserAgentOverride {
     const NAME: &'static str = "Emulation.setUserAgentOverride";
     type ReturnObject = SetUserAgentOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAutomationOverride {
     const NAME: &'static str = "Emulation.setAutomationOverride";
     type ReturnObject = SetAutomationOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSmallViewportHeightDifferenceOverride {
     const NAME: &'static str = "Emulation.setSmallViewportHeightDifferenceOverride";
     type ReturnObject = SetSmallViewportHeightDifferenceOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetScreenInfos {
     const NAME: &'static str = "Emulation.getScreenInfos";
     type ReturnObject = GetScreenInfosReturnObject;
 }
+#[allow(deprecated)]
 impl Method for AddScreen {
     const NAME: &'static str = "Emulation.addScreen";
     type ReturnObject = AddScreenReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RemoveScreen {
     const NAME: &'static str = "Emulation.removeScreen";
     type ReturnObject = RemoveScreenReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -1275,6 +1440,7 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct VirtualTimeBudgetExpiredEvent(pub Option<Json>);
 }

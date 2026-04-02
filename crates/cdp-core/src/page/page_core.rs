@@ -125,11 +125,20 @@ pub enum WaitUntil {
 /// DOM mutation callback
 pub type DomMutationCallback = Arc<dyn Fn(DomMutationEvent) + Send + Sync>;
 
+/// Internal information for a registered execution context.
+#[derive(Clone, Debug)]
+pub struct ExecutionContextInfo {
+    /// Numeric execution context identifier.
+    pub id: u32,
+    /// System-unique execution context identifier.
+    pub unique_id: String,
+}
+
 // --- PAGE (Unified Interface) ---
 pub struct Page {
     pub(crate) session: Arc<Session>,
-    /// Frame ID -> Execution Context ID mapping
-    pub contexts: Arc<Mutex<HashMap<String, u32>>>,
+    /// Frame ID -> Execution Context Info mapping
+    pub contexts: Arc<Mutex<HashMap<String, ExecutionContextInfo>>>,
     /// Domain manager (unified management of CDP Domain enabling/disabling)
     pub domain_manager: Arc<DomainManager>,
     /// Network monitor
@@ -602,15 +611,26 @@ impl Page {
     }
 
     /// Register Execution Context (called by event handler)
-    pub async fn register_execution_context(&self, frame_id: String, context_id: u32) {
-        self.contexts.lock().await.insert(frame_id, context_id);
+    pub async fn register_execution_context(
+        &self,
+        frame_id: String,
+        context_id: u32,
+        unique_id: String,
+    ) {
+        self.contexts.lock().await.insert(
+            frame_id,
+            ExecutionContextInfo {
+                id: context_id,
+                unique_id,
+            },
+        );
     }
 
     /// Remove specified Execution Context (called by event handler)
-    pub async fn remove_execution_context(&self, context_id: u32) {
+    pub async fn remove_execution_context(&self, unique_id: String) {
         let mut contexts = self.contexts.lock().await;
-        // Find and remove entry with this context_id
-        contexts.retain(|_frame_id, &mut ctx_id| ctx_id != context_id);
+        // Find and remove entry with this unique_id
+        contexts.retain(|_frame_id, info| info.unique_id != unique_id);
     }
 
     /// Clear all Execution Contexts (called by event handler)

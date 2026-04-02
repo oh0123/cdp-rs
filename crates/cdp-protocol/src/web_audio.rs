@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: WebAudio
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -10,6 +11,7 @@ use serde_json::Value as Json;
 pub type GraphObjectId = String;
 pub type NodeType = String;
 pub type ParamType = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ContextType {
     #[serde(rename = "realtime")]
@@ -17,6 +19,7 @@ pub enum ContextType {
     #[serde(rename = "offline")]
     Offline,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ContextState {
     #[serde(rename = "suspended")]
@@ -28,6 +31,7 @@ pub enum ContextState {
     #[serde(rename = "interrupted")]
     Interrupted,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ChannelCountMode {
     #[serde(rename = "clamped-max")]
@@ -37,6 +41,7 @@ pub enum ChannelCountMode {
     #[serde(rename = "max")]
     Max,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ChannelInterpretation {
     #[serde(rename = "discrete")]
@@ -44,6 +49,7 @@ pub enum ChannelInterpretation {
     #[serde(rename = "speakers")]
     Speakers,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AutomationRate {
     #[serde(rename = "a-rate")]
@@ -51,6 +57,7 @@ pub enum AutomationRate {
     #[serde(rename = "k-rate")]
     KRate,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -69,6 +76,7 @@ pub struct ContextRealtimeData {
     #[doc = "A running variance of callback interval."]
     pub callback_interval_variance: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -90,6 +98,7 @@ pub struct BaseAudioContext {
     #[doc = "Context sample rate."]
     pub sample_rate: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -98,6 +107,7 @@ pub struct AudioListener {
     pub listener_id: GraphObjectId,
     pub context_id: GraphObjectId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -115,6 +125,7 @@ pub struct AudioNode {
     pub channel_count_mode: ChannelCountMode,
     pub channel_interpretation: ChannelInterpretation,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -132,10 +143,13 @@ pub struct AudioParam {
     #[serde(default)]
     pub max_value: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -143,30 +157,37 @@ pub struct Disable(pub Option<Json>);
 pub struct GetRealtimeData {
     pub context_id: GraphObjectId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables the WebAudio domain and starts sending context lifetime events."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables the WebAudio domain."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Fetch the realtime data from the registered contexts."]
 pub struct GetRealtimeDataReturnObject {
     pub realtime_data: ContextRealtimeData,
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "WebAudio.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "WebAudio.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetRealtimeData {
     const NAME: &'static str = "WebAudio.getRealtimeData";
     type ReturnObject = GetRealtimeDataReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -176,84 +197,102 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ContextCreatedEvent {
         pub params: ContextCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ContextCreatedEventParams {
         pub context: super::BaseAudioContext,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ContextWillBeDestroyedEvent {
         pub params: ContextWillBeDestroyedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ContextWillBeDestroyedEventParams {
         pub context_id: super::GraphObjectId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ContextChangedEvent {
         pub params: ContextChangedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ContextChangedEventParams {
         pub context: super::BaseAudioContext,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AudioListenerCreatedEvent {
         pub params: AudioListenerCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AudioListenerCreatedEventParams {
         pub listener: super::AudioListener,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AudioListenerWillBeDestroyedEvent {
         pub params: AudioListenerWillBeDestroyedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AudioListenerWillBeDestroyedEventParams {
         pub context_id: super::GraphObjectId,
         pub listener_id: super::GraphObjectId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AudioNodeCreatedEvent {
         pub params: AudioNodeCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AudioNodeCreatedEventParams {
         pub node: super::AudioNode,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AudioNodeWillBeDestroyedEvent {
         pub params: AudioNodeWillBeDestroyedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AudioNodeWillBeDestroyedEventParams {
         pub context_id: super::GraphObjectId,
         pub node_id: super::GraphObjectId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AudioParamCreatedEvent {
         pub params: AudioParamCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AudioParamCreatedEventParams {
         pub param: super::AudioParam,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AudioParamWillBeDestroyedEvent {
         pub params: AudioParamWillBeDestroyedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AudioParamWillBeDestroyedEventParams {
@@ -261,10 +300,12 @@ pub mod events {
         pub node_id: super::GraphObjectId,
         pub param_id: super::GraphObjectId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct NodesConnectedEvent {
         pub params: NodesConnectedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct NodesConnectedEventParams {
@@ -280,10 +321,12 @@ pub mod events {
         #[serde(default)]
         pub destination_input_index: Option<JsFloat>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct NodesDisconnectedEvent {
         pub params: NodesDisconnectedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct NodesDisconnectedEventParams {
@@ -299,10 +342,12 @@ pub mod events {
         #[serde(default)]
         pub destination_input_index: Option<JsFloat>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct NodeParamConnectedEvent {
         pub params: NodeParamConnectedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct NodeParamConnectedEventParams {
@@ -314,10 +359,12 @@ pub mod events {
         #[serde(default)]
         pub source_output_index: Option<JsFloat>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct NodeParamDisconnectedEvent {
         pub params: NodeParamDisconnectedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct NodeParamDisconnectedEventParams {

@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: BackgroundService
+#![allow(dead_code)]
 use super::network;
 use super::service_worker;
 #[allow(unused_imports)]
@@ -9,6 +10,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ServiceName {
     #[serde(rename = "backgroundFetch")]
@@ -24,6 +26,7 @@ pub enum ServiceName {
     #[serde(rename = "periodicBackgroundSync")]
     PeriodicBackgroundSync,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -34,6 +37,7 @@ pub struct EventMetadata {
     #[serde(default)]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -59,6 +63,7 @@ pub struct BackgroundServiceEvent {
     #[doc = "Storage key this event belongs to."]
     pub storage_key: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -66,6 +71,7 @@ pub struct BackgroundServiceEvent {
 pub struct StartObserving {
     pub service: ServiceName,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -73,6 +79,7 @@ pub struct StartObserving {
 pub struct StopObserving {
     pub service: ServiceName,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -82,6 +89,7 @@ pub struct SetRecording {
     pub should_record: bool,
     pub service: ServiceName,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -89,34 +97,43 @@ pub struct SetRecording {
 pub struct ClearEvents {
     pub service: ServiceName,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables event updates for the service."]
 pub struct StartObservingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables event updates for the service."]
 pub struct StopObservingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Set the recording state for the service."]
 pub struct SetRecordingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears all stored data for the service."]
 pub struct ClearEventsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for StartObserving {
     const NAME: &'static str = "BackgroundService.startObserving";
     type ReturnObject = StartObservingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StopObserving {
     const NAME: &'static str = "BackgroundService.stopObserving";
     type ReturnObject = StopObservingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetRecording {
     const NAME: &'static str = "BackgroundService.setRecording";
     type ReturnObject = SetRecordingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearEvents {
     const NAME: &'static str = "BackgroundService.clearEvents";
     type ReturnObject = ClearEventsReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -126,10 +143,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RecordingStateChangedEvent {
         pub params: RecordingStateChangedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct RecordingStateChangedEventParams {
@@ -137,10 +156,12 @@ pub mod events {
         pub is_recording: bool,
         pub service: super::ServiceName,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct BackgroundServiceEventReceivedEvent {
         pub params: BackgroundServiceEventReceivedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct BackgroundServiceEventReceivedEventParams {

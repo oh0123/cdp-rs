@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Autofill
+#![allow(dead_code)]
 use super::dom;
 use super::page;
 #[allow(unused_imports)]
@@ -9,6 +10,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum FillingStrategy {
     #[serde(rename = "autocompleteAttribute")]
@@ -16,6 +18,7 @@ pub enum FillingStrategy {
     #[serde(rename = "autofillInferred")]
     AutofillInferred,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -36,17 +39,19 @@ pub struct CreditCard {
     #[doc = "3-digit card verification code."]
     pub cvc: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct AddressField {
     #[serde(default)]
-    #[doc = "address field name, for example GIVEN_NAME.\n The full list of supported field names:\n https://source.chromium.org/chromium/chromium/src/+/main:components/autofill/core/browser/field_types.cc;l=38"]
+    #[doc = "address field name, for example GIVEN_NAME.\n The full list of supported field names:\n <https://source.chromium.org/chromium/chromium/src/+/main:components/autofill/core/browser/field_types.cc;l=38>"]
     pub name: String,
     #[serde(default)]
     #[doc = "address field value, for example Jon Doe."]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -54,6 +59,7 @@ pub struct AddressField {
 pub struct AddressFields {
     pub fields: Vec<AddressField>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -61,14 +67,16 @@ pub struct Address {
     #[doc = "fields and values defining an address."]
     pub fields: Vec<AddressField>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Defines how an address can be displayed like in chrome://settings/addresses.\n Address UI is a two dimensional array, each inner array is an \"address information line\", and when rendered in a UI surface should be displayed as such.\n The following address UI for instance:\n [[{name: \"GIVE_NAME\", value: \"Jon\"}, {name: \"FAMILY_NAME\", value: \"Doe\"}], [{name: \"CITY\", value: \"Munich\"}, {name: \"ZIP\", value: \"81456\"}]]\n should allow the receiver to render:\n Jon Doe\n Munich 81456"]
+#[doc = "Defines how an address can be displayed like in chrome://settings/addresses.\n Address UI is a two dimensional array, each inner array is an \"address information line\", and when rendered in a UI surface should be displayed as such.\n The following address UI for instance:\n \\[\\[{name: \"GIVE_NAME\", value: \"Jon\"}, {name: \"FAMILY_NAME\", value: \"Doe\"}\\], \\[{name: \"CITY\", value: \"Munich\"}, {name: \"ZIP\", value: \"81456\"}\\]\\]\n should allow the receiver to render:\n Jon Doe\n Munich 81456"]
 pub struct AddressUi {
     #[doc = "A two dimension array containing the representation of values from an address profile."]
     pub address_fields: Vec<AddressFields>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -95,6 +103,7 @@ pub struct FilledField {
     #[doc = "The form field's DOM node"]
     pub field_id: dom::BackendNodeId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -115,6 +124,7 @@ pub struct Trigger {
     #[doc = "Address to fill out the form. Address data is not saved. Mutually exclusive with `card`."]
     pub address: Option<Address>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -122,38 +132,49 @@ pub struct Trigger {
 pub struct SetAddresses {
     pub addresses: Vec<Address>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Trigger autofill on a form identified by the fieldId.\n If the field and related form cannot be autofilled, returns an error."]
 pub struct TriggerReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Set addresses so that developers can verify their forms implementation."]
 pub struct SetAddressesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables autofill domain notifications."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables autofill domain notifications."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Trigger {
     const NAME: &'static str = "Autofill.trigger";
     type ReturnObject = TriggerReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAddresses {
     const NAME: &'static str = "Autofill.setAddresses";
     type ReturnObject = SetAddressesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Autofill.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Autofill.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -163,10 +184,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AddressFormFilledEvent {
         pub params: AddressFormFilledEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AddressFormFilledEventParams {

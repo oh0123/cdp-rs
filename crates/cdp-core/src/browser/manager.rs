@@ -10,9 +10,9 @@ use crate::session::Session;
 use crate::transport::{cdp_protocol::*, websocket_connection::*};
 
 use cdp_protocol::browser::{
-    SetPermission, SetPermissionReturnObject, PermissionDescriptor, PermissionSetting,
-    PermissionType, ResetPermissions, ResetPermissionsReturnObject, SetDownloadBehavior,
-    SetDownloadBehaviorBehaviorOption, SetDownloadBehaviorReturnObject,
+    PermissionDescriptor, PermissionSetting, PermissionType, ResetPermissions,
+    ResetPermissionsReturnObject, SetDownloadBehavior, SetDownloadBehaviorBehaviorOption,
+    SetDownloadBehaviorReturnObject, SetPermission, SetPermissionReturnObject,
 };
 use cdp_protocol::target::{
     AttachToTargetReturnObject, CreateBrowserContext, CreateBrowserContextReturnObject,

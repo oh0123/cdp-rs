@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: HeapProfiler
+#![allow(dead_code)]
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
@@ -9,6 +10,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type HeapSnapshotObjectId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -25,6 +27,7 @@ pub struct SamplingHeapProfileNode {
     #[doc = "Child nodes."]
     pub children: Vec<SamplingHeapProfileNode>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -40,6 +43,7 @@ pub struct SamplingHeapProfileSample {
     #[doc = "Time-ordered sample ordinal number. It is unique across all profiles retrieved\n between startSampling and stopSampling."]
     pub ordinal: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -48,6 +52,7 @@ pub struct SamplingHeapProfile {
     pub head: SamplingHeapProfileNode,
     pub samples: Vec<SamplingHeapProfileSample>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -56,12 +61,16 @@ pub struct AddInspectedHeapObject {
     #[doc = "Heap snapshot object id to be accessible by means of $x command line API."]
     pub heap_object_id: HeapSnapshotObjectId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CollectGarbage(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -69,6 +78,7 @@ pub struct GetHeapObjectId {
     #[doc = "Identifier of the object to get heap object id for."]
     pub object_id: runtime::RemoteObjectId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -80,8 +90,10 @@ pub struct GetObjectByHeapObjectId {
     #[doc = "Symbolic group name that can be used to release multiple objects."]
     pub object_group: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetSamplingProfile(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -109,6 +121,7 @@ pub struct StartSampling {
     #[serde(rename = "includeObjectsCollectedByMinorGC")]
     pub include_objects_collected_by_minor_gc: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -118,8 +131,10 @@ pub struct StartTrackingHeapObjects {
     #[serde(default)]
     pub track_allocations: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopSampling(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -146,6 +161,7 @@ pub struct StopTrackingHeapObjects {
     #[doc = "If true, exposes internals of the snapshot."]
     pub expose_internals: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -172,95 +188,120 @@ pub struct TakeHeapSnapshot {
     #[doc = "If true, exposes internals of the snapshot."]
     pub expose_internals: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables console to refer to the node with given id via $x (see Command Line API for more details\n $x functions)."]
 pub struct AddInspectedHeapObjectReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CollectGarbageReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct GetHeapObjectIdReturnObject {
     #[doc = "Id of the heap snapshot object corresponding to the passed remote object id."]
     pub heap_snapshot_object_id: HeapSnapshotObjectId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct GetObjectByHeapObjectIdReturnObject {
     #[doc = "Evaluation result."]
     pub result: runtime::RemoteObject,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct GetSamplingProfileReturnObject {
     #[doc = "Return the sampling profile being collected."]
     pub profile: SamplingHeapProfile,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StartSamplingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StartTrackingHeapObjectsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct StopSamplingReturnObject {
     #[doc = "Recorded sampling heap profile."]
     pub profile: SamplingHeapProfile,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopTrackingHeapObjectsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct TakeHeapSnapshotReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for AddInspectedHeapObject {
     const NAME: &'static str = "HeapProfiler.addInspectedHeapObject";
     type ReturnObject = AddInspectedHeapObjectReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CollectGarbage {
     const NAME: &'static str = "HeapProfiler.collectGarbage";
     type ReturnObject = CollectGarbageReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "HeapProfiler.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "HeapProfiler.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetHeapObjectId {
     const NAME: &'static str = "HeapProfiler.getHeapObjectId";
     type ReturnObject = GetHeapObjectIdReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetObjectByHeapObjectId {
     const NAME: &'static str = "HeapProfiler.getObjectByHeapObjectId";
     type ReturnObject = GetObjectByHeapObjectIdReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetSamplingProfile {
     const NAME: &'static str = "HeapProfiler.getSamplingProfile";
     type ReturnObject = GetSamplingProfileReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StartSampling {
     const NAME: &'static str = "HeapProfiler.startSampling";
     type ReturnObject = StartSamplingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StartTrackingHeapObjects {
     const NAME: &'static str = "HeapProfiler.startTrackingHeapObjects";
     type ReturnObject = StartTrackingHeapObjectsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StopSampling {
     const NAME: &'static str = "HeapProfiler.stopSampling";
     type ReturnObject = StopSamplingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StopTrackingHeapObjects {
     const NAME: &'static str = "HeapProfiler.stopTrackingHeapObjects";
     type ReturnObject = StopTrackingHeapObjectsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TakeHeapSnapshot {
     const NAME: &'static str = "HeapProfiler.takeHeapSnapshot";
     type ReturnObject = TakeHeapSnapshotReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -270,20 +311,24 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AddHeapSnapshotChunkEvent {
         pub params: AddHeapSnapshotChunkEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AddHeapSnapshotChunkEventParams {
         #[serde(default)]
         pub chunk: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct HeapStatsUpdateEvent {
         pub params: HeapStatsUpdateEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct HeapStatsUpdateEventParams {
@@ -291,10 +336,12 @@ pub mod events {
         #[doc = "An array of triplets. Each triplet describes a fragment. The first integer is the fragment\n index, the second integer is a total count of objects for the fragment, the third integer is\n a total size of the objects for the fragment."]
         pub stats_update: Vec<JsUInt>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LastSeenObjectIdEvent {
         pub params: LastSeenObjectIdEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct LastSeenObjectIdEventParams {
@@ -303,10 +350,12 @@ pub mod events {
         #[serde(default)]
         pub timestamp: JsFloat,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReportHeapSnapshotProgressEvent {
         pub params: ReportHeapSnapshotProgressEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ReportHeapSnapshotProgressEventParams {
@@ -319,6 +368,7 @@ pub mod events {
         #[serde(default)]
         pub finished: Option<bool>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResetProfilesEvent(pub Option<Json>);
 }

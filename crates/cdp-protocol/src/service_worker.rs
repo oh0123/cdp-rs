@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: ServiceWorker
+#![allow(dead_code)]
 use super::target;
 #[allow(unused_imports)]
 use super::types::*;
@@ -9,6 +10,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type RegistrationId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ServiceWorkerVersionRunningStatus {
     #[serde(rename = "stopped")]
@@ -20,6 +22,7 @@ pub enum ServiceWorkerVersionRunningStatus {
     #[serde(rename = "stopping")]
     Stopping,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ServiceWorkerVersionStatus {
     #[serde(rename = "new")]
@@ -35,6 +38,7 @@ pub enum ServiceWorkerVersionStatus {
     #[serde(rename = "redundant")]
     Redundant,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -47,6 +51,7 @@ pub struct ServiceWorkerRegistration {
     #[serde(default)]
     pub is_deleted: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -81,6 +86,7 @@ pub struct ServiceWorkerVersion {
     #[serde(default)]
     pub router_rules: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -99,6 +105,7 @@ pub struct ServiceWorkerErrorMessage {
     #[serde(default)]
     pub column_number: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -109,8 +116,10 @@ pub struct DeliverPushMessage {
     #[serde(default)]
     pub data: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -123,6 +132,7 @@ pub struct DispatchSyncEvent {
     #[serde(default)]
     pub last_chance: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -133,8 +143,10 @@ pub struct DispatchPeriodicSyncEvent {
     #[serde(default)]
     pub tag: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -142,6 +154,7 @@ pub struct SetForceUpdateOnPageLoad {
     #[serde(default)]
     pub force_update_on_page_load: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -150,6 +163,7 @@ pub struct SkipWaiting {
     #[serde(rename = "scopeURL")]
     pub scope_url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -158,8 +172,10 @@ pub struct StartWorker {
     #[serde(rename = "scopeURL")]
     pub scope_url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopAllWorkers(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -167,6 +183,7 @@ pub struct StopWorker {
     #[serde(default)]
     pub version_id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -175,6 +192,7 @@ pub struct Unregister {
     #[serde(rename = "scopeURL")]
     pub scope_url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -183,78 +201,103 @@ pub struct UpdateRegistration {
     #[serde(rename = "scopeURL")]
     pub scope_url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DeliverPushMessageReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DispatchSyncEventReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DispatchPeriodicSyncEventReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetForceUpdateOnPageLoadReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SkipWaitingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StartWorkerReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopAllWorkersReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopWorkerReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct UnregisterReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct UpdateRegistrationReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for DeliverPushMessage {
     const NAME: &'static str = "ServiceWorker.deliverPushMessage";
     type ReturnObject = DeliverPushMessageReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "ServiceWorker.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DispatchSyncEvent {
     const NAME: &'static str = "ServiceWorker.dispatchSyncEvent";
     type ReturnObject = DispatchSyncEventReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DispatchPeriodicSyncEvent {
     const NAME: &'static str = "ServiceWorker.dispatchPeriodicSyncEvent";
     type ReturnObject = DispatchPeriodicSyncEventReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "ServiceWorker.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetForceUpdateOnPageLoad {
     const NAME: &'static str = "ServiceWorker.setForceUpdateOnPageLoad";
     type ReturnObject = SetForceUpdateOnPageLoadReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SkipWaiting {
     const NAME: &'static str = "ServiceWorker.skipWaiting";
     type ReturnObject = SkipWaitingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StartWorker {
     const NAME: &'static str = "ServiceWorker.startWorker";
     type ReturnObject = StartWorkerReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StopAllWorkers {
     const NAME: &'static str = "ServiceWorker.stopAllWorkers";
     type ReturnObject = StopAllWorkersReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StopWorker {
     const NAME: &'static str = "ServiceWorker.stopWorker";
     type ReturnObject = StopWorkerReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Unregister {
     const NAME: &'static str = "ServiceWorker.unregister";
     type ReturnObject = UnregisterReturnObject;
 }
+#[allow(deprecated)]
 impl Method for UpdateRegistration {
     const NAME: &'static str = "ServiceWorker.updateRegistration";
     type ReturnObject = UpdateRegistrationReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -264,28 +307,34 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WorkerErrorReportedEvent {
         pub params: WorkerErrorReportedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WorkerErrorReportedEventParams {
         pub error_message: super::ServiceWorkerErrorMessage,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WorkerRegistrationUpdatedEvent {
         pub params: WorkerRegistrationUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WorkerRegistrationUpdatedEventParams {
         pub registrations: Vec<super::ServiceWorkerRegistration>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WorkerVersionUpdatedEvent {
         pub params: WorkerVersionUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WorkerVersionUpdatedEventParams {

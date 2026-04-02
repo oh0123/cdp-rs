@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: IndexedDB
+#![allow(dead_code)]
 use super::runtime;
 use super::storage;
 #[allow(unused_imports)]
@@ -9,6 +10,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum KeyType {
     #[serde(rename = "number")]
@@ -20,6 +22,7 @@ pub enum KeyType {
     #[serde(rename = "array")]
     Array,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum KeyPathType {
     #[serde(rename = "null")]
@@ -29,6 +32,7 @@ pub enum KeyPathType {
     #[serde(rename = "array")]
     Array,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -43,6 +47,7 @@ pub struct DatabaseWithObjectStores {
     #[doc = "Object stores in this database."]
     pub object_stores: Vec<ObjectStore>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -59,6 +64,7 @@ pub struct ObjectStore {
     #[doc = "Indexes in this object store."]
     pub indexes: Vec<ObjectStoreIndex>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -76,6 +82,7 @@ pub struct ObjectStoreIndex {
     #[doc = "If true, index allows multiple entries for a key."]
     pub multi_entry: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -103,6 +110,7 @@ pub struct Key {
     #[doc = "Array value."]
     pub array: Option<Vec<Key>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -123,6 +131,7 @@ pub struct KeyRange {
     #[doc = "If true upper bound is open."]
     pub upper_open: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -135,6 +144,7 @@ pub struct DataEntry {
     #[doc = "Value object."]
     pub value: runtime::RemoteObject,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -153,6 +163,7 @@ pub struct KeyPath {
     #[doc = "Array value."]
     pub array: Option<Vec<String>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -179,6 +190,7 @@ pub struct ClearObjectStore {
     #[doc = "Object store name."]
     pub object_store_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -202,6 +214,7 @@ pub struct DeleteDatabase {
     #[doc = "Database name."]
     pub database_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -228,10 +241,13 @@ pub struct DeleteObjectStoreEntries {
     #[doc = "Range of entry keys to delete"]
     pub key_range: KeyRange,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -273,6 +289,7 @@ pub struct RequestData {
     #[doc = "Key range."]
     pub key_range: Option<KeyRange>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -299,6 +316,7 @@ pub struct GetMetadata {
     #[doc = "Object store name."]
     pub object_store_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -322,6 +340,7 @@ pub struct RequestDatabase {
     #[doc = "Database name."]
     pub database_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -342,21 +361,27 @@ pub struct RequestDatabaseNames {
     #[doc = "Storage bucket. If not specified, it uses the default bucket."]
     pub storage_bucket: Option<storage::StorageBucket>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears all entries from an object store."]
 pub struct ClearObjectStoreReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Deletes a database."]
 pub struct DeleteDatabaseReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Delete a range of entries from an object store"]
 pub struct DeleteObjectStoreEntriesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables events from backend."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables events from backend."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Requests data from object store or index."]
@@ -367,6 +392,7 @@ pub struct RequestDataReturnObject {
     #[doc = "If true, there are more entries to fetch in the given range."]
     pub has_more: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Gets metadata of an object store."]
@@ -378,6 +404,7 @@ pub struct GetMetadataReturnObject {
     #[doc = "the current value of key generator, to become the next inserted\n key into the object store. Valid if objectStore.autoIncrement\n is true."]
     pub key_generator_value: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Requests database with given name in given frame."]
@@ -385,6 +412,7 @@ pub struct RequestDatabaseReturnObject {
     #[doc = "Database with an array of object stores."]
     pub database_with_object_stores: DatabaseWithObjectStores,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Requests database names for given security origin."]
@@ -392,42 +420,52 @@ pub struct RequestDatabaseNamesReturnObject {
     #[doc = "Database names for origin."]
     pub database_names: Vec<String>,
 }
+#[allow(deprecated)]
 impl Method for ClearObjectStore {
     const NAME: &'static str = "IndexedDB.clearObjectStore";
     type ReturnObject = ClearObjectStoreReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DeleteDatabase {
     const NAME: &'static str = "IndexedDB.deleteDatabase";
     type ReturnObject = DeleteDatabaseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DeleteObjectStoreEntries {
     const NAME: &'static str = "IndexedDB.deleteObjectStoreEntries";
     type ReturnObject = DeleteObjectStoreEntriesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "IndexedDB.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "IndexedDB.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RequestData {
     const NAME: &'static str = "IndexedDB.requestData";
     type ReturnObject = RequestDataReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetMetadata {
     const NAME: &'static str = "IndexedDB.getMetadata";
     type ReturnObject = GetMetadataReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RequestDatabase {
     const NAME: &'static str = "IndexedDB.requestDatabase";
     type ReturnObject = RequestDatabaseReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RequestDatabaseNames {
     const NAME: &'static str = "IndexedDB.requestDatabaseNames";
     type ReturnObject = RequestDatabaseNamesReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;

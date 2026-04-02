@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Network
+#![allow(dead_code)]
 use super::debugger;
 use super::emulation;
 use super::io;
@@ -21,6 +22,7 @@ pub type TimeSinceEpoch = JsFloat;
 pub type MonotonicTime = JsFloat;
 pub type ReportId = String;
 pub type DeviceBoundSessionEventId = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ResourceType {
     #[serde(rename = "Document")]
@@ -62,6 +64,7 @@ pub enum ResourceType {
     #[serde(rename = "Other")]
     Other,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ErrorReason {
     #[serde(rename = "Failed")]
@@ -93,6 +96,7 @@ pub enum ErrorReason {
     #[serde(rename = "BlockedByResponse")]
     BlockedByResponse,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ConnectionType {
     #[serde(rename = "none")]
@@ -114,6 +118,7 @@ pub enum ConnectionType {
     #[serde(rename = "other")]
     Other,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CookieSameSite {
     #[serde(rename = "Strict")]
@@ -123,6 +128,7 @@ pub enum CookieSameSite {
     #[serde(rename = "None")]
     None,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CookiePriority {
     #[serde(rename = "Low")]
@@ -132,6 +138,7 @@ pub enum CookiePriority {
     #[serde(rename = "High")]
     High,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CookieSourceScheme {
     #[serde(rename = "Unset")]
@@ -141,6 +148,7 @@ pub enum CookieSourceScheme {
     #[serde(rename = "Secure")]
     Secure,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ResourcePriority {
     #[serde(rename = "VeryLow")]
@@ -154,6 +162,7 @@ pub enum ResourcePriority {
     #[serde(rename = "VeryHigh")]
     VeryHigh,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum RenderBlockingBehavior {
     #[serde(rename = "Blocking")]
@@ -167,6 +176,7 @@ pub enum RenderBlockingBehavior {
     #[serde(rename = "PotentiallyBlocking")]
     PotentiallyBlocking,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum RequestReferrerPolicy {
     #[serde(rename = "unsafe-url")]
@@ -186,6 +196,7 @@ pub enum RequestReferrerPolicy {
     #[serde(rename = "strict-origin-when-cross-origin")]
     StrictOriginWhenCrossOrigin,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CertificateTransparencyCompliance {
     #[serde(rename = "unknown")]
@@ -195,6 +206,7 @@ pub enum CertificateTransparencyCompliance {
     #[serde(rename = "compliant")]
     Compliant,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum BlockedReason {
     #[serde(rename = "other")]
@@ -230,6 +242,7 @@ pub enum BlockedReason {
     #[serde(rename = "sri-message-signature-mismatch")]
     SriMessageSignatureMismatch,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CorsError {
     #[serde(rename = "DisallowedByMode")]
@@ -289,6 +302,7 @@ pub enum CorsError {
     #[serde(rename = "LocalNetworkAccessPermissionDenied")]
     LocalNetworkAccessPermissionDenied,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ServiceWorkerResponseSource {
     #[serde(rename = "cache-storage")]
@@ -300,6 +314,7 @@ pub enum ServiceWorkerResponseSource {
     #[serde(rename = "network")]
     Network,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum TrustTokenParamsRefreshPolicy {
     #[serde(rename = "UseCached")]
@@ -307,6 +322,7 @@ pub enum TrustTokenParamsRefreshPolicy {
     #[serde(rename = "Refresh")]
     Refresh,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum TrustTokenOperationType {
     #[serde(rename = "Issuance")]
@@ -316,6 +332,7 @@ pub enum TrustTokenOperationType {
     #[serde(rename = "Signing")]
     Signing,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AlternateProtocolUsage {
     #[serde(rename = "alternativeJobWonWithoutRace")]
@@ -335,6 +352,7 @@ pub enum AlternateProtocolUsage {
     #[serde(rename = "unspecifiedReason")]
     UnspecifiedReason,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ServiceWorkerRouterSource {
     #[serde(rename = "network")]
@@ -348,6 +366,7 @@ pub enum ServiceWorkerRouterSource {
     #[serde(rename = "race-network-and-cache")]
     RaceNetworkAndCache,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InitiatorType {
     #[serde(rename = "parser")]
@@ -365,6 +384,7 @@ pub enum InitiatorType {
     #[serde(rename = "other")]
     Other,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SetCookieBlockedReason {
     #[serde(rename = "SecureOnly")]
@@ -408,6 +428,7 @@ pub enum SetCookieBlockedReason {
     #[serde(rename = "NoCookieContent")]
     NoCookieContent,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CookieBlockedReason {
     #[serde(rename = "SecureOnly")]
@@ -447,6 +468,7 @@ pub enum CookieBlockedReason {
     #[serde(rename = "AnonymousContext")]
     AnonymousContext,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CookieExemptionReason {
     #[serde(rename = "None")]
@@ -472,6 +494,7 @@ pub enum CookieExemptionReason {
     #[serde(rename = "SameSiteNoneCookiesInSandbox")]
     SameSiteNoneCookiesInSandbox,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AuthChallengeSource {
     #[serde(rename = "Server")]
@@ -479,6 +502,7 @@ pub enum AuthChallengeSource {
     #[serde(rename = "Proxy")]
     Proxy,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AuthChallengeResponseResponse {
     #[serde(rename = "Default")]
@@ -488,6 +512,7 @@ pub enum AuthChallengeResponseResponse {
     #[serde(rename = "ProvideCredentials")]
     ProvideCredentials,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InterceptionStage {
     #[serde(rename = "Request")]
@@ -495,6 +520,7 @@ pub enum InterceptionStage {
     #[serde(rename = "HeadersReceived")]
     HeadersReceived,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SignedExchangeErrorField {
     #[serde(rename = "signatureSig")]
@@ -510,6 +536,7 @@ pub enum SignedExchangeErrorField {
     #[serde(rename = "signatureTimestamps")]
     SignatureTimestamps,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ContentEncoding {
     #[serde(rename = "deflate")]
@@ -521,6 +548,7 @@ pub enum ContentEncoding {
     #[serde(rename = "zstd")]
     Zstd,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DirectSocketDnsQueryType {
     #[serde(rename = "ipv4")]
@@ -528,6 +556,7 @@ pub enum DirectSocketDnsQueryType {
     #[serde(rename = "ipv6")]
     Ipv6,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum LocalNetworkAccessRequestPolicy {
     #[serde(rename = "Allow")]
@@ -541,6 +570,7 @@ pub enum LocalNetworkAccessRequestPolicy {
     #[serde(rename = "PermissionWarn")]
     PermissionWarn,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum IpAddressSpace {
     #[serde(rename = "Loopback")]
@@ -552,6 +582,7 @@ pub enum IpAddressSpace {
     #[serde(rename = "Unknown")]
     Unknown,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CrossOriginOpenerPolicyValue {
     #[serde(rename = "SameOrigin")]
@@ -569,6 +600,7 @@ pub enum CrossOriginOpenerPolicyValue {
     #[serde(rename = "NoopenerAllowPopups")]
     NoopenerAllowPopups,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum CrossOriginEmbedderPolicyValue {
     #[serde(rename = "None")]
@@ -578,6 +610,7 @@ pub enum CrossOriginEmbedderPolicyValue {
     #[serde(rename = "RequireCorp")]
     RequireCorp,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ContentSecurityPolicySource {
     #[serde(rename = "HTTP")]
@@ -585,6 +618,7 @@ pub enum ContentSecurityPolicySource {
     #[serde(rename = "Meta")]
     Meta,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ReportStatus {
     #[serde(rename = "Queued")]
@@ -596,6 +630,7 @@ pub enum ReportStatus {
     #[serde(rename = "Success")]
     Success,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DeviceBoundSessionWithUsageUsage {
     #[serde(rename = "NotInScope")]
@@ -611,6 +646,7 @@ pub enum DeviceBoundSessionWithUsageUsage {
     #[serde(rename = "Deferred")]
     Deferred,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DeviceBoundSessionUrlRuleRuleType {
     #[serde(rename = "Exclude")]
@@ -618,6 +654,7 @@ pub enum DeviceBoundSessionUrlRuleRuleType {
     #[serde(rename = "Include")]
     Include,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum DeviceBoundSessionFetchResult {
     #[serde(rename = "Success")]
@@ -757,6 +794,7 @@ pub enum DeviceBoundSessionFetchResult {
     #[serde(rename = "SessionDeletedDuringRefresh")]
     SessionDeletedDuringRefresh,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum RefreshEventDetailsRefreshResult {
     #[serde(rename = "Refreshed")]
@@ -774,6 +812,7 @@ pub enum RefreshEventDetailsRefreshResult {
     #[serde(rename = "SigningQuotaExceeded")]
     SigningQuotaExceeded,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum TerminationEventDetailsDeletionReason {
     #[serde(rename = "Expired")]
@@ -793,6 +832,7 @@ pub enum TerminationEventDetailsDeletionReason {
     #[serde(rename = "RefreshFatalError")]
     RefreshFatalError,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ChallengeEventDetailsChallengeResult {
     #[serde(rename = "Success")]
@@ -804,6 +844,7 @@ pub enum ChallengeEventDetailsChallengeResult {
     #[serde(rename = "CantSetBoundCookie")]
     CantSetBoundCookie,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum TrustTokenOperationDoneStatusOption {
     #[serde(rename = "Ok")]
@@ -833,8 +874,10 @@ pub enum TrustTokenOperationDoneStatusOption {
     #[serde(rename = "SiteIssuerLimit")]
     SiteIssuerLimit,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Headers(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -908,6 +951,7 @@ pub struct ResourceTiming {
     #[doc = "Finished receiving response headers."]
     pub receive_headers_end: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -917,6 +961,7 @@ pub struct PostDataEntry {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub bytes: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -956,7 +1001,7 @@ pub struct Request {
     pub mixed_content_type: Option<security::MixedContentType>,
     #[doc = "Priority of the resource request at the time request is sent."]
     pub initial_priority: ResourcePriority,
-    #[doc = "The referrer policy of the request, as defined in https://www.w3.org/TR/referrer-policy/"]
+    #[doc = "The referrer policy of the request, as defined in <https://www.w3.org/TR/referrer-policy/>"]
     pub referrer_policy: RequestReferrerPolicy,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -978,6 +1023,7 @@ pub struct Request {
     #[doc = "True when the resource request is ad-related."]
     pub is_ad_related: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1008,6 +1054,7 @@ pub struct SignedCertificateTimestamp {
     #[doc = "Signature data."]
     pub signature_data: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1060,6 +1107,7 @@ pub struct SecurityDetails {
     #[doc = "Whether the connection used Encrypted ClientHello"]
     pub encrypted_client_hello: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1068,6 +1116,7 @@ pub struct CorsErrorStatus {
     #[serde(default)]
     pub failed_parameter: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1082,6 +1131,7 @@ pub struct TrustTokenParams {
     #[doc = "Origins of issuers from whom to request tokens or redemption\n records."]
     pub issuers: Option<Vec<String>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1100,6 +1150,7 @@ pub struct ServiceWorkerRouterInfo {
     #[doc = "The actual router source used."]
     pub actual_source_type: Option<ServiceWorkerRouterSource>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1215,6 +1266,7 @@ pub struct Response {
     #[doc = "Security details for the request."]
     pub security_details: Option<SecurityDetails>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1223,6 +1275,7 @@ pub struct WebSocketRequest {
     #[doc = "HTTP request headers."]
     pub headers: Headers,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1251,6 +1304,7 @@ pub struct WebSocketResponse {
     #[doc = "HTTP request headers text."]
     pub request_headers_text: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1266,6 +1320,7 @@ pub struct WebSocketFrame {
     #[doc = "WebSocket message payload data.\n If the opcode is 1, this is a text message and payloadData is a UTF-8 string.\n If the opcode isn't 1, then payloadData is a base64 encoded string representing binary data."]
     pub payload_data: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1284,6 +1339,7 @@ pub struct CachedResource {
     #[doc = "Cached response body size."]
     pub body_size: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1315,6 +1371,7 @@ pub struct Initiator {
     #[doc = "Set if another request triggered this request (e.g. preflight)."]
     pub request_id: Option<RequestId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1327,6 +1384,7 @@ pub struct CookiePartitionKey {
     #[doc = "Indicates if the cookie has any ancestors that are cross-site to the topLevelSite."]
     pub has_cross_site_ancestor: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1368,7 +1426,7 @@ pub struct Cookie {
     #[doc = "Cookie source scheme type."]
     pub source_scheme: CookieSourceScheme,
     #[serde(default)]
-    #[doc = "Cookie source port. Valid values are {-1, [1, 65535]}, -1 indicates an unspecified port.\n An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.\n This is a temporary ability and it will be removed in the future."]
+    #[doc = "Cookie source port. Valid values are {-1, \\[1, 65535\\]}, -1 indicates an unspecified port.\n An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.\n This is a temporary ability and it will be removed in the future."]
     pub source_port: JsUInt,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1380,6 +1438,7 @@ pub struct Cookie {
     #[doc = "True if cookie partition key is opaque."]
     pub partition_key_opaque: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1395,6 +1454,7 @@ pub struct BlockedSetCookieWithReason {
     #[doc = "The cookie object which represents the cookie which was not stored. It is optional because\n sometimes complete cookie information is not available, such as in the case of parsing\n errors."]
     pub cookie: Option<Cookie>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1408,6 +1468,7 @@ pub struct ExemptedSetCookieWithReason {
     #[doc = "The cookie object representing the cookie."]
     pub cookie: Cookie,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1422,6 +1483,7 @@ pub struct AssociatedCookie {
     #[doc = "The reason the cookie should have been blocked by 3PCD but is exempted. A cookie could\n only have at most one exemption reason."]
     pub exemption_reason: Option<CookieExemptionReason>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1477,13 +1539,14 @@ pub struct CookieParam {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "Cookie source port. Valid values are {-1, [1, 65535]}, -1 indicates an unspecified port.\n An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.\n This is a temporary ability and it will be removed in the future."]
+    #[doc = "Cookie source port. Valid values are {-1, \\[1, 65535\\]}, -1 indicates an unspecified port.\n An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.\n This is a temporary ability and it will be removed in the future."]
     pub source_port: Option<JsUInt>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[doc = "Cookie partition key. If not set, the cookie will be set as not partitioned."]
     pub partition_key: Option<CookiePartitionKey>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1503,6 +1566,7 @@ pub struct AuthChallenge {
     #[doc = "The realm of the challenge. May be empty."]
     pub realm: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1521,6 +1585,7 @@ pub struct AuthChallengeResponse {
     #[doc = "The password to provide, possibly empty. Should only be set if response is\n ProvideCredentials."]
     pub password: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1529,7 +1594,7 @@ pub struct RequestPattern {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "Wildcards (`'*'` -> zero or more, `'?'` -> exactly one) are allowed. Escape character is\n backslash. Omitting is equivalent to `\"*\"`."]
+    #[doc = "Wildcards (`'*'` -\\> zero or more, `'?'` -\\> exactly one) are allowed. Escape character is\n backslash. Omitting is equivalent to `\"*\"`."]
     pub url_pattern: Option<String>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1540,10 +1605,11 @@ pub struct RequestPattern {
     #[doc = "Stage at which to begin intercepting requests. Default is Request."]
     pub interception_stage: Option<InterceptionStage>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Information about a signed exchange signature.\n https://wicg.github.io/webpackage/draft-yasskin-httpbis-origin-signed-exchanges-impl.html#rfc.section.3.1"]
+#[doc = "Information about a signed exchange signature.\n <https://wicg.github.io/webpackage/draft-yasskin-httpbis-origin-signed-exchanges-impl.html#rfc.section.3.1>"]
 pub struct SignedExchangeSignature {
     #[serde(default)]
     #[doc = "Signed exchange signature label."]
@@ -1579,10 +1645,11 @@ pub struct SignedExchangeSignature {
     #[doc = "The encoded certificates."]
     pub certificates: Option<Vec<String>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Information about a signed exchange header.\n https://wicg.github.io/webpackage/draft-yasskin-httpbis-origin-signed-exchanges-impl.html#cbor-representation"]
+#[doc = "Information about a signed exchange header.\n <https://wicg.github.io/webpackage/draft-yasskin-httpbis-origin-signed-exchanges-impl.html#cbor-representation>"]
 pub struct SignedExchangeHeader {
     #[serde(default)]
     #[doc = "Signed exchange request URL."]
@@ -1595,9 +1662,10 @@ pub struct SignedExchangeHeader {
     #[doc = "Signed exchange response signature."]
     pub signatures: Vec<SignedExchangeSignature>,
     #[serde(default)]
-    #[doc = "Signed exchange header integrity hash in the form of `sha256-<base64-hash-value>`."]
+    #[doc = "Signed exchange header integrity hash in the form of `sha256-\\<base64-hash-value\\>`."]
     pub header_integrity: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1616,6 +1684,7 @@ pub struct SignedExchangeError {
     #[doc = "The field which caused the error."]
     pub error_field: Option<SignedExchangeErrorField>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1639,12 +1708,13 @@ pub struct SignedExchangeInfo {
     #[doc = "Errors occurred while handling the signed exchange."]
     pub errors: Option<Vec<SignedExchangeError>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct NetworkConditions {
     #[serde(default)]
-    #[doc = "Only matching requests will be affected by these conditions. Patterns use the URLPattern constructor string\n syntax (https://urlpattern.spec.whatwg.org/) and must be absolute. If the pattern is empty, all requests are\n matched (including p2p connections)."]
+    #[doc = "Only matching requests will be affected by these conditions. Patterns use the URLPattern constructor string\n syntax (<https://urlpattern.spec.whatwg.org/>) and must be absolute. If the pattern is empty, all requests are\n matched (including p2p connections)."]
     pub url_pattern: String,
     #[serde(default)]
     #[doc = "Minimum latency from request sent to response headers received (ms)."]
@@ -1675,17 +1745,19 @@ pub struct NetworkConditions {
     #[doc = "WebRTC packetReordering feature."]
     pub packet_reordering: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
 pub struct BlockPattern {
     #[serde(default)]
-    #[doc = "URL pattern to match. Patterns use the URLPattern constructor string syntax\n (https://urlpattern.spec.whatwg.org/) and must be absolute. Example: `*://*:*/*.css`."]
+    #[doc = "URL pattern to match. Patterns use the URLPattern constructor string syntax\n (<https://urlpattern.spec.whatwg.org/>) and must be absolute. Example: `*://*:*/*.css`."]
     pub url_pattern: String,
     #[serde(default)]
     #[doc = "Whether or not to block the pattern. If false, a matching request will not be blocked even if it matches a later\n `BlockPattern`."]
     pub block: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1712,6 +1784,7 @@ pub struct DirectTcpSocketOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dns_query_type: Option<DirectSocketDnsQueryType>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1761,6 +1834,7 @@ pub struct DirectUdpSocketOptions {
     #[serde(default)]
     pub multicast_allow_address_sharing: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1777,6 +1851,7 @@ pub struct DirectUdpMessage {
     #[doc = "Null for connected mode.\n Expected to be unsigned integer."]
     pub remote_port: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1785,6 +1860,7 @@ pub struct ConnectTiming {
     #[doc = "Timing's requestTime is a baseline in seconds, while the other numbers are ticks in\n milliseconds relatively to this requestTime. Matches ResourceTiming's requestTime for\n the same request (but not for redirected requests)."]
     pub request_time: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1795,6 +1871,7 @@ pub struct ClientSecurityState {
     pub initiator_ip_address_space: IpAddressSpace,
     pub local_network_access_request_policy: LocalNetworkAccessRequestPolicy,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1810,6 +1887,7 @@ pub struct CrossOriginOpenerPolicyStatus {
     #[serde(default)]
     pub report_only_reporting_endpoint: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1825,6 +1903,7 @@ pub struct CrossOriginEmbedderPolicyStatus {
     #[serde(default)]
     pub report_only_reporting_endpoint: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1835,6 +1914,7 @@ pub struct ContentSecurityPolicyStatus {
     pub is_enforced: bool,
     pub source: ContentSecurityPolicySource,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1849,6 +1929,7 @@ pub struct SecurityIsolationStatus {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub csp: Option<Vec<ContentSecurityPolicyStatus>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1876,6 +1957,7 @@ pub struct ReportingApiReport {
     pub body: Json,
     pub status: ReportStatus,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1887,6 +1969,7 @@ pub struct ReportingApiEndpoint {
     #[doc = "Name of the endpoint group."]
     pub group_name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1899,6 +1982,7 @@ pub struct DeviceBoundSessionKey {
     #[doc = "The id of the session."]
     pub id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1909,6 +1993,7 @@ pub struct DeviceBoundSessionWithUsage {
     #[doc = "How the session was used (or not used)."]
     pub usage: DeviceBoundSessionWithUsageUsage,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1934,6 +2019,7 @@ pub struct DeviceBoundSessionCookieCraving {
     #[doc = "The `SameSite` attribute of the craving attributes."]
     pub same_site: Option<CookieSameSite>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1948,6 +2034,7 @@ pub struct DeviceBoundSessionUrlRule {
     #[doc = "See comments on `net::device_bound_sessions::SessionInclusionRules::UrlRule::path_prefix`."]
     pub path_prefix: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1962,6 +2049,7 @@ pub struct DeviceBoundSessionInclusionRules {
     #[doc = "See comments on `net::device_bound_sessions::SessionInclusionRules::url_rules_`."]
     pub url_rules: Vec<DeviceBoundSessionUrlRule>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1987,6 +2075,7 @@ pub struct DeviceBoundSession {
     #[doc = "See comments on `net::device_bound_sessions::Session::allowed_refresh_initiators_`."]
     pub allowed_refresh_initiators: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1999,6 +2088,7 @@ pub struct CreationEventDetails {
     #[doc = "The session if there was a newly created session. This is populated for\n all successful creation events."]
     pub new_session: Option<DeviceBoundSession>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2018,6 +2108,7 @@ pub struct RefreshEventDetails {
     #[doc = "See comments on `net::device_bound_sessions::RefreshEventResult::was_fully_proactive_refresh`."]
     pub was_fully_proactive_refresh: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2026,6 +2117,7 @@ pub struct TerminationEventDetails {
     #[doc = "The reason for a session being deleted."]
     pub deletion_reason: TerminationEventDetailsDeletionReason,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2037,6 +2129,7 @@ pub struct ChallengeEventDetails {
     #[doc = "The challenge set."]
     pub challenge: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2066,6 +2159,7 @@ pub struct LoadNetworkResourcePageResult {
     #[doc = "Response headers."]
     pub headers: Option<network::Headers>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2076,6 +2170,7 @@ pub struct LoadNetworkResourceOptions {
     #[serde(default)]
     pub include_credentials: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2084,18 +2179,25 @@ pub struct SetAcceptedEncodings {
     #[doc = "List of accepted content encodings."]
     pub encodings: Vec<ContentEncoding>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearAcceptedEncodingsOverride(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CanClearBrowserCache(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CanClearBrowserCookies(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct CanEmulateNetworkConditions(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearBrowserCache(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct ClearBrowserCookies(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2135,6 +2237,7 @@ pub struct ContinueInterceptedRequest {
     #[doc = "Response to a requestIntercepted with an authChallenge. Must not be set otherwise."]
     pub auth_challenge_response: Option<AuthChallengeResponse>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2163,8 +2266,10 @@ pub struct DeleteCookies {
     #[doc = "If specified, deletes only cookies with the the given name and partitionKey where\n all partition key attributes match the cookie partition key attribute."]
     pub partition_key: Option<CookiePartitionKey>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2203,6 +2308,7 @@ pub struct EmulateNetworkConditions {
     #[doc = "WebRTC packetReordering feature."]
     pub packet_reordering: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2214,6 +2320,7 @@ pub struct EmulateNetworkConditionsByRule {
     #[doc = "Configure conditions for matching requests. If multiple entries match a request, the first entry wins.  Global\n conditions can be configured by leaving the urlPattern for the conditions empty. These global conditions are\n also applied for throttling of p2p connections."]
     pub matched_network_conditions: Vec<NetworkConditions>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2236,6 +2343,7 @@ pub struct OverrideNetworkState {
     #[doc = "Connection type if known."]
     pub connection_type: Option<ConnectionType>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2267,6 +2375,7 @@ pub struct Enable {
     #[doc = "Enable storing response bodies outside of renderer, so that these survive\n a cross-process navigation. Requires maxTotalBufferSize to be set.\n Currently defaults to false. This field is being deprecated in favor of the dedicated\n configureDurableMessages command, due to the possibility of deadlocks when awaiting\n Network.enable before issuing Runtime.runIfWaitingForDebugger."]
     pub enable_durable_messages: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2283,8 +2392,10 @@ pub struct ConfigureDurableMessages {
     #[doc = "Per-resource buffer size in bytes to use when preserving network payloads (XHRs, etc)."]
     pub max_resource_buffer_size: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetAllCookies(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2294,6 +2405,7 @@ pub struct GetCertificate {
     #[doc = "Origin to get certificate for."]
     pub origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2305,6 +2417,7 @@ pub struct GetCookies {
     #[doc = "The list of URLs for which applicable cookies will be fetched.\n If not specified, it's assumed to be set to the list containing\n the URLs of the page and all of its subframes."]
     pub urls: Option<Vec<String>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2313,6 +2426,7 @@ pub struct GetResponseBody {
     #[doc = "Identifier of the network request to get content for."]
     pub request_id: RequestId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2321,6 +2435,7 @@ pub struct GetRequestPostData {
     #[doc = "Identifier of the network request to get content for."]
     pub request_id: RequestId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2329,6 +2444,7 @@ pub struct GetResponseBodyForInterception {
     #[doc = "Identifier for the intercepted request to get body for."]
     pub interception_id: InterceptionId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2336,6 +2452,7 @@ pub struct GetResponseBodyForInterception {
 pub struct TakeResponseBodyForInterceptionAsStream {
     pub interception_id: InterceptionId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2344,6 +2461,7 @@ pub struct ReplayXHR {
     #[doc = "Identifier of XHR to replay."]
     pub request_id: RequestId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2365,6 +2483,7 @@ pub struct SearchInResponseBody {
     #[doc = "If true, treats string parameter as regex."]
     pub is_regex: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2381,6 +2500,7 @@ pub struct SetBlockedURLs {
     #[deprecated]
     pub urls: Option<Vec<String>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2390,6 +2510,7 @@ pub struct SetBypassServiceWorker {
     #[doc = "Bypass service worker and load from network."]
     pub bypass: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2399,6 +2520,7 @@ pub struct SetCacheDisabled {
     #[doc = "Cache disabled state."]
     pub cache_disabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2454,13 +2576,14 @@ pub struct SetCookie {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
-    #[doc = "Cookie source port. Valid values are {-1, [1, 65535]}, -1 indicates an unspecified port.\n An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.\n This is a temporary ability and it will be removed in the future."]
+    #[doc = "Cookie source port. Valid values are {-1, \\[1, 65535\\]}, -1 indicates an unspecified port.\n An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.\n This is a temporary ability and it will be removed in the future."]
     pub source_port: Option<JsUInt>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[doc = "Cookie partition key. If not set, the cookie will be set as not partitioned."]
     pub partition_key: Option<CookiePartitionKey>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2469,6 +2592,7 @@ pub struct SetCookies {
     #[doc = "Cookies to be set."]
     pub cookies: Vec<CookieParam>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2477,6 +2601,7 @@ pub struct SetExtraHTTPHeaders {
     #[doc = "Map with extra HTTP headers."]
     pub headers: Headers,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2486,6 +2611,7 @@ pub struct SetAttachDebugStack {
     #[doc = "Whether to attach a page script stack for debugging purpose."]
     pub enabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2495,6 +2621,7 @@ pub struct SetRequestInterception {
     #[doc = "Requests matching any of these patterns will be forwarded and wait for the corresponding\n continueInterceptedRequest call."]
     pub patterns: Vec<RequestPattern>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2518,6 +2645,7 @@ pub struct SetUserAgentOverride {
     #[doc = "To be sent in Sec-CH-UA-* headers and returned in navigator.userAgentData"]
     pub user_agent_metadata: Option<emulation::UserAgentMetadata>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2526,6 +2654,7 @@ pub struct StreamResourceContent {
     #[doc = "Identifier of the request to stream."]
     pub request_id: RequestId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2536,6 +2665,7 @@ pub struct GetSecurityIsolationStatus {
     #[doc = "If no frameId is provided, the status of the target is provided."]
     pub frame_id: Option<page::FrameId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2545,6 +2675,7 @@ pub struct EnableReportingApi {
     #[doc = "Whether to enable or disable events for the Reporting API"]
     pub enable: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2554,6 +2685,7 @@ pub struct EnableDeviceBoundSessions {
     #[doc = "Whether to enable or disable events."]
     pub enable: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2563,6 +2695,7 @@ pub struct FetchSchemefulSite {
     #[doc = "The URL origin."]
     pub origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2578,6 +2711,7 @@ pub struct LoadNetworkResource {
     #[doc = "Options for the request."]
     pub options: LoadNetworkResourceOptions,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -2593,12 +2727,15 @@ pub struct SetCookieControls {
     #[doc = "Whether 3pc heuristics exceptions should be enabled; false by default."]
     pub disable_third_party_cookie_heuristics: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets a list of content encodings that will be accepted. Empty list means no encoding is accepted."]
 pub struct SetAcceptedEncodingsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears accepted encodings set by setAcceptedEncodings"]
 pub struct ClearAcceptedEncodingsOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Tells whether clearing browser cache is supported."]
@@ -2608,6 +2745,7 @@ pub struct CanClearBrowserCacheReturnObject {
     #[doc = "True if browser cache can be cleared."]
     pub result: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Tells whether clearing browser cookies is supported."]
@@ -2617,6 +2755,7 @@ pub struct CanClearBrowserCookiesReturnObject {
     #[doc = "True if browser cookies can be cleared."]
     pub result: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Tells whether emulation of network conditions is supported."]
@@ -2626,26 +2765,33 @@ pub struct CanEmulateNetworkConditionsReturnObject {
     #[doc = "True if emulation of network conditions is supported."]
     pub result: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears browser cache."]
 pub struct ClearBrowserCacheReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears browser cookies."]
 pub struct ClearBrowserCookiesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Response to Network.requestIntercepted which either modifies the request to continue with any\n modifications, or blocks it, or completes it with the provided response bytes. If a network\n fetch occurs as a result which encounters a redirect an additional Network.requestIntercepted\n event will be sent with the same InterceptionId.\n Deprecated, use Fetch.continueRequest, Fetch.fulfillRequest and Fetch.failRequest instead."]
 #[deprecated]
 pub struct ContinueInterceptedRequestReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Deletes browser cookies with matching name and url or domain/path/partitionKey pair."]
 pub struct DeleteCookiesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables network tracking, prevents network events from being sent to the client."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Activates emulation of network conditions. This command is deprecated in favor of the emulateNetworkConditionsByRule\n and overrideNetworkState commands, which can be used together to the same effect."]
 #[deprecated]
 pub struct EmulateNetworkConditionsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Activates emulation of network conditions for individual requests using URL match patterns. Unlike the deprecated\n Network.emulateNetworkConditions this method does not affect `navigator` state. Use Network.overrideNetworkState to\n explicitly modify `navigator` behavior."]
@@ -2653,15 +2799,19 @@ pub struct EmulateNetworkConditionsByRuleReturnObject {
     #[doc = "An id for each entry in matchedNetworkConditions. The id will be included in the requestWillBeSentExtraInfo for\n requests affected by a rule."]
     pub rule_ids: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Override the state of navigator.onLine and navigator.connection."]
 pub struct OverrideNetworkStateReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables network tracking, network events will now be delivered to the client."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Configures storing response bodies outside of renderer, so that these survive\n a cross-process navigation.\n If maxTotalBufferSize is not set, durable messages are disabled."]
 pub struct ConfigureDurableMessagesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns all browser cookies. Depending on the backend support, will return detailed cookie\n information in the `cookies` field.\n Deprecated. Use Storage.getCookies instead."]
@@ -2670,12 +2820,14 @@ pub struct GetAllCookiesReturnObject {
     #[doc = "Array of cookie objects."]
     pub cookies: Vec<Cookie>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the DER-encoded certificate."]
 pub struct GetCertificateReturnObject {
     pub table_names: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns all browser cookies for the current URL. Depending on the backend support, will return\n detailed cookie information in the `cookies` field."]
@@ -2683,6 +2835,7 @@ pub struct GetCookiesReturnObject {
     #[doc = "Array of cookie objects."]
     pub cookies: Vec<Cookie>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns content served for the given request."]
@@ -2694,6 +2847,7 @@ pub struct GetResponseBodyReturnObject {
     #[doc = "True, if content was sent as base64."]
     pub base_64_encoded: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns post data sent with the request. Returns an error when no data was sent with the request."]
@@ -2705,6 +2859,7 @@ pub struct GetRequestPostDataReturnObject {
     #[doc = "True, if content was sent as base64."]
     pub base_64_encoded: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns content served for the given currently intercepted request."]
@@ -2716,15 +2871,18 @@ pub struct GetResponseBodyForInterceptionReturnObject {
     #[doc = "True, if content was sent as base64."]
     pub base_64_encoded: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns a handle to the stream representing the response body. Note that after this command,\n the intercepted request can't be continued as is -- you either need to cancel it or to provide\n the response body. The stream only supports sequential read, IO.read will fail if the position\n is specified."]
 pub struct TakeResponseBodyForInterceptionAsStreamReturnObject {
     pub stream: io::StreamHandle,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "This method sends a new XMLHttpRequest which is identical to the original one. The following\n parameters should be identical: method, url, async, request body, extra headers, withCredentials\n attribute, user, password."]
 pub struct ReplayXHRReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Searches for given string in response content."]
@@ -2732,15 +2890,19 @@ pub struct SearchInResponseBodyReturnObject {
     #[doc = "List of search matches."]
     pub result: debugger::SearchMatch,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Blocks URLs from loading."]
 pub struct SetBlockedURLsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Toggles ignoring of service worker for each request."]
 pub struct SetBypassServiceWorkerReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Toggles ignoring cache for each request. If `true`, cache will not be used."]
 pub struct SetCacheDisabledReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist."]
@@ -2750,22 +2912,28 @@ pub struct SetCookieReturnObject {
     #[deprecated]
     pub success: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets given cookies."]
 pub struct SetCookiesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Specifies whether to always send extra HTTP headers with the requests from this page."]
 pub struct SetExtraHTTPHeadersReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Specifies whether to attach a page script stack id in requests"]
 pub struct SetAttachDebugStackReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets the requests to intercept that match the provided patterns and optionally resource types.\n Deprecated, please use Fetch.enable instead."]
 #[deprecated]
 pub struct SetRequestInterceptionReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Allows overriding user agent with the given string."]
 pub struct SetUserAgentOverrideReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Enables streaming of the response for the given requestId.\n If enabled, the dataReceived event contains the data that was received during streaming."]
@@ -2773,18 +2941,22 @@ pub struct StreamResourceContentReturnObject {
     #[doc = "Data that has been buffered until streaming is enabled."]
     pub buffered_data: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns information about the COEP/COOP isolation status."]
 pub struct GetSecurityIsolationStatusReturnObject {
     pub status: SecurityIsolationStatus,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables tracking for the Reporting API, events generated by the Reporting API will now be delivered to the client.\n Enabling triggers 'reportingApiReportAdded' for all existing reports."]
 pub struct EnableReportingApiReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets up tracking device bound sessions and fetching of initial set of sessions."]
 pub struct EnableDeviceBoundSessionsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Fetches the schemeful site for a specific origin."]
@@ -2793,175 +2965,218 @@ pub struct FetchSchemefulSiteReturnObject {
     #[doc = "The corresponding schemeful site."]
     pub schemeful_site: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Fetches the resource and returns the content."]
 pub struct LoadNetworkResourceReturnObject {
     pub resource: LoadNetworkResourcePageResult,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets Controls for third-party cookie access\n Page reload is required before the new cookie behavior will be observed"]
 pub struct SetCookieControlsReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for SetAcceptedEncodings {
     const NAME: &'static str = "Network.setAcceptedEncodings";
     type ReturnObject = SetAcceptedEncodingsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearAcceptedEncodingsOverride {
     const NAME: &'static str = "Network.clearAcceptedEncodingsOverride";
     type ReturnObject = ClearAcceptedEncodingsOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CanClearBrowserCache {
     const NAME: &'static str = "Network.canClearBrowserCache";
     type ReturnObject = CanClearBrowserCacheReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CanClearBrowserCookies {
     const NAME: &'static str = "Network.canClearBrowserCookies";
     type ReturnObject = CanClearBrowserCookiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CanEmulateNetworkConditions {
     const NAME: &'static str = "Network.canEmulateNetworkConditions";
     type ReturnObject = CanEmulateNetworkConditionsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearBrowserCache {
     const NAME: &'static str = "Network.clearBrowserCache";
     type ReturnObject = ClearBrowserCacheReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearBrowserCookies {
     const NAME: &'static str = "Network.clearBrowserCookies";
     type ReturnObject = ClearBrowserCookiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ContinueInterceptedRequest {
     const NAME: &'static str = "Network.continueInterceptedRequest";
     type ReturnObject = ContinueInterceptedRequestReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DeleteCookies {
     const NAME: &'static str = "Network.deleteCookies";
     type ReturnObject = DeleteCookiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Network.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for EmulateNetworkConditions {
     const NAME: &'static str = "Network.emulateNetworkConditions";
     type ReturnObject = EmulateNetworkConditionsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for EmulateNetworkConditionsByRule {
     const NAME: &'static str = "Network.emulateNetworkConditionsByRule";
     type ReturnObject = EmulateNetworkConditionsByRuleReturnObject;
 }
+#[allow(deprecated)]
 impl Method for OverrideNetworkState {
     const NAME: &'static str = "Network.overrideNetworkState";
     type ReturnObject = OverrideNetworkStateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Network.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ConfigureDurableMessages {
     const NAME: &'static str = "Network.configureDurableMessages";
     type ReturnObject = ConfigureDurableMessagesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetAllCookies {
     const NAME: &'static str = "Network.getAllCookies";
     type ReturnObject = GetAllCookiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetCertificate {
     const NAME: &'static str = "Network.getCertificate";
     type ReturnObject = GetCertificateReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetCookies {
     const NAME: &'static str = "Network.getCookies";
     type ReturnObject = GetCookiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetResponseBody {
     const NAME: &'static str = "Network.getResponseBody";
     type ReturnObject = GetResponseBodyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetRequestPostData {
     const NAME: &'static str = "Network.getRequestPostData";
     type ReturnObject = GetRequestPostDataReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetResponseBodyForInterception {
     const NAME: &'static str = "Network.getResponseBodyForInterception";
     type ReturnObject = GetResponseBodyForInterceptionReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TakeResponseBodyForInterceptionAsStream {
     const NAME: &'static str = "Network.takeResponseBodyForInterceptionAsStream";
     type ReturnObject = TakeResponseBodyForInterceptionAsStreamReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReplayXHR {
     const NAME: &'static str = "Network.replayXHR";
     type ReturnObject = ReplayXHRReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SearchInResponseBody {
     const NAME: &'static str = "Network.searchInResponseBody";
     type ReturnObject = SearchInResponseBodyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBlockedURLs {
     const NAME: &'static str = "Network.setBlockedURLs";
     type ReturnObject = SetBlockedURLsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetBypassServiceWorker {
     const NAME: &'static str = "Network.setBypassServiceWorker";
     type ReturnObject = SetBypassServiceWorkerReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetCacheDisabled {
     const NAME: &'static str = "Network.setCacheDisabled";
     type ReturnObject = SetCacheDisabledReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetCookie {
     const NAME: &'static str = "Network.setCookie";
     type ReturnObject = SetCookieReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetCookies {
     const NAME: &'static str = "Network.setCookies";
     type ReturnObject = SetCookiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetExtraHTTPHeaders {
     const NAME: &'static str = "Network.setExtraHTTPHeaders";
     type ReturnObject = SetExtraHTTPHeadersReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAttachDebugStack {
     const NAME: &'static str = "Network.setAttachDebugStack";
     type ReturnObject = SetAttachDebugStackReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetRequestInterception {
     const NAME: &'static str = "Network.setRequestInterception";
     type ReturnObject = SetRequestInterceptionReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetUserAgentOverride {
     const NAME: &'static str = "Network.setUserAgentOverride";
     type ReturnObject = SetUserAgentOverrideReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StreamResourceContent {
     const NAME: &'static str = "Network.streamResourceContent";
     type ReturnObject = StreamResourceContentReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetSecurityIsolationStatus {
     const NAME: &'static str = "Network.getSecurityIsolationStatus";
     type ReturnObject = GetSecurityIsolationStatusReturnObject;
 }
+#[allow(deprecated)]
 impl Method for EnableReportingApi {
     const NAME: &'static str = "Network.enableReportingApi";
     type ReturnObject = EnableReportingApiReturnObject;
 }
+#[allow(deprecated)]
 impl Method for EnableDeviceBoundSessions {
     const NAME: &'static str = "Network.enableDeviceBoundSessions";
     type ReturnObject = EnableDeviceBoundSessionsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for FetchSchemefulSite {
     const NAME: &'static str = "Network.fetchSchemefulSite";
     type ReturnObject = FetchSchemefulSiteReturnObject;
 }
+#[allow(deprecated)]
 impl Method for LoadNetworkResource {
     const NAME: &'static str = "Network.loadNetworkResource";
     type ReturnObject = LoadNetworkResourceReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetCookieControls {
     const NAME: &'static str = "Network.setCookieControls";
     type ReturnObject = SetCookieControlsReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -2971,10 +3186,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DataReceivedEvent {
         pub params: DataReceivedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DataReceivedEventParams {
@@ -2994,10 +3211,12 @@ pub mod events {
         #[doc = "Data that was received."]
         pub data: Option<String>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct EventSourceMessageReceivedEvent {
         pub params: EventSourceMessageReceivedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct EventSourceMessageReceivedEventParams {
@@ -3015,10 +3234,12 @@ pub mod events {
         #[doc = "Message content."]
         pub data: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LoadingFailedEvent {
         pub params: LoadingFailedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct LoadingFailedEventParams {
@@ -3029,7 +3250,7 @@ pub mod events {
         #[doc = "Resource type."]
         pub r#type: super::ResourceType,
         #[serde(default)]
-        #[doc = "Error message. List of network errors: https://cs.chromium.org/chromium/src/net/base/net_error_list.h"]
+        #[doc = "Error message. List of network errors: <https://cs.chromium.org/chromium/src/net/base/net_error_list.h>"]
         pub error_text: String,
         #[builder(default)]
         #[serde(skip_serializing_if = "Option::is_none")]
@@ -3045,10 +3266,12 @@ pub mod events {
         #[doc = "The reason why loading was blocked by CORS, if any."]
         pub cors_error_status: Option<super::CorsErrorStatus>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LoadingFinishedEvent {
         pub params: LoadingFinishedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct LoadingFinishedEventParams {
@@ -3060,10 +3283,12 @@ pub mod events {
         #[doc = "Total number of bytes received for this request."]
         pub encoded_data_length: JsFloat,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestInterceptedEvent {
         pub params: RequestInterceptedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct RequestInterceptedEventParams {
@@ -3109,20 +3334,24 @@ pub mod events {
         #[doc = "If the intercepted request had a corresponding requestWillBeSent event fired for it, then\n this requestId will be the same as the requestId present in the requestWillBeSent event."]
         pub request_id: Option<super::RequestId>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestServedFromCacheEvent {
         pub params: RequestServedFromCacheEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct RequestServedFromCacheEventParams {
         #[doc = "Request identifier."]
         pub request_id: super::RequestId,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestWillBeSentEvent {
         pub params: RequestWillBeSentEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct RequestWillBeSentEventParams {
@@ -3167,10 +3396,12 @@ pub mod events {
         #[doc = "The render blocking behavior of the request."]
         pub render_blocking_behavior: Option<super::RenderBlockingBehavior>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResourceChangedPriorityEvent {
         pub params: ResourceChangedPriorityEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ResourceChangedPriorityEventParams {
@@ -3181,10 +3412,12 @@ pub mod events {
         #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SignedExchangeReceivedEvent {
         pub params: SignedExchangeReceivedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct SignedExchangeReceivedEventParams {
@@ -3193,10 +3426,12 @@ pub mod events {
         #[doc = "Information about the signed exchange response."]
         pub info: super::SignedExchangeInfo,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResponseReceivedEvent {
         pub params: ResponseReceivedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ResponseReceivedEventParams {
@@ -3218,10 +3453,12 @@ pub mod events {
         #[doc = "Frame identifier."]
         pub frame_id: Option<super::super::page::FrameId>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketClosedEvent {
         pub params: WebSocketClosedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebSocketClosedEventParams {
@@ -3230,10 +3467,12 @@ pub mod events {
         #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketCreatedEvent {
         pub params: WebSocketCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebSocketCreatedEventParams {
@@ -3247,10 +3486,12 @@ pub mod events {
         #[doc = "Request initiator."]
         pub initiator: Option<super::Initiator>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketFrameErrorEvent {
         pub params: WebSocketFrameErrorEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebSocketFrameErrorEventParams {
@@ -3262,10 +3503,12 @@ pub mod events {
         #[doc = "WebSocket error message."]
         pub error_message: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketFrameReceivedEvent {
         pub params: WebSocketFrameReceivedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebSocketFrameReceivedEventParams {
@@ -3276,10 +3519,12 @@ pub mod events {
         #[doc = "WebSocket response data."]
         pub response: super::WebSocketFrame,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketFrameSentEvent {
         pub params: WebSocketFrameSentEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebSocketFrameSentEventParams {
@@ -3290,10 +3535,12 @@ pub mod events {
         #[doc = "WebSocket response data."]
         pub response: super::WebSocketFrame,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketHandshakeResponseReceivedEvent {
         pub params: WebSocketHandshakeResponseReceivedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebSocketHandshakeResponseReceivedEventParams {
@@ -3304,10 +3551,12 @@ pub mod events {
         #[doc = "WebSocket response data."]
         pub response: super::WebSocketResponse,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebSocketWillSendHandshakeRequestEvent {
         pub params: WebSocketWillSendHandshakeRequestEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebSocketWillSendHandshakeRequestEventParams {
@@ -3320,10 +3569,12 @@ pub mod events {
         #[doc = "WebSocket request data."]
         pub request: super::WebSocketRequest,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebTransportCreatedEvent {
         pub params: WebTransportCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebTransportCreatedEventParams {
@@ -3339,10 +3590,12 @@ pub mod events {
         #[doc = "Request initiator."]
         pub initiator: Option<super::Initiator>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebTransportConnectionEstablishedEvent {
         pub params: WebTransportConnectionEstablishedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebTransportConnectionEstablishedEventParams {
@@ -3351,10 +3604,12 @@ pub mod events {
         #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct WebTransportClosedEvent {
         pub params: WebTransportClosedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct WebTransportClosedEventParams {
@@ -3363,10 +3618,12 @@ pub mod events {
         #[doc = "Timestamp."]
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketCreatedEvent {
         pub params: DirectTCPSocketCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketCreatedEventParams {
@@ -3382,10 +3639,12 @@ pub mod events {
         #[serde(skip_serializing_if = "Option::is_none")]
         pub initiator: Option<super::Initiator>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketOpenedEvent {
         pub params: DirectTCPSocketOpenedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketOpenedEventParams {
@@ -3406,10 +3665,12 @@ pub mod events {
         #[doc = "Expected to be unsigned integer."]
         pub local_port: Option<JsUInt>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketAbortedEvent {
         pub params: DirectTCPSocketAbortedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketAbortedEventParams {
@@ -3418,20 +3679,24 @@ pub mod events {
         pub error_message: String,
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketClosedEvent {
         pub params: DirectTCPSocketClosedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketClosedEventParams {
         pub identifier: super::RequestId,
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketChunkSentEvent {
         pub params: DirectTCPSocketChunkSentEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketChunkSentEventParams {
@@ -3440,10 +3705,12 @@ pub mod events {
         pub data: String,
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectTCPSocketChunkReceivedEvent {
         pub params: DirectTCPSocketChunkReceivedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectTCPSocketChunkReceivedEventParams {
@@ -3452,10 +3719,12 @@ pub mod events {
         pub data: String,
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketJoinedMulticastGroupEvent {
         pub params: DirectUDPSocketJoinedMulticastGroupEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketJoinedMulticastGroupEventParams {
@@ -3464,10 +3733,12 @@ pub mod events {
         #[serde(rename = "IPAddress")]
         pub ip_address: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketLeftMulticastGroupEvent {
         pub params: DirectUDPSocketLeftMulticastGroupEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketLeftMulticastGroupEventParams {
@@ -3476,10 +3747,12 @@ pub mod events {
         #[serde(rename = "IPAddress")]
         pub ip_address: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketCreatedEvent {
         pub params: DirectUDPSocketCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketCreatedEventParams {
@@ -3490,10 +3763,12 @@ pub mod events {
         #[serde(skip_serializing_if = "Option::is_none")]
         pub initiator: Option<super::Initiator>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketOpenedEvent {
         pub params: DirectUDPSocketOpenedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketOpenedEventParams {
@@ -3514,10 +3789,12 @@ pub mod events {
         #[doc = "Expected to be unsigned integer."]
         pub remote_port: Option<JsUInt>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketAbortedEvent {
         pub params: DirectUDPSocketAbortedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketAbortedEventParams {
@@ -3526,20 +3803,24 @@ pub mod events {
         pub error_message: String,
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketClosedEvent {
         pub params: DirectUDPSocketClosedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketClosedEventParams {
         pub identifier: super::RequestId,
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketChunkSentEvent {
         pub params: DirectUDPSocketChunkSentEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketChunkSentEventParams {
@@ -3547,10 +3828,12 @@ pub mod events {
         pub message: super::DirectUdpMessage,
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DirectUDPSocketChunkReceivedEvent {
         pub params: DirectUDPSocketChunkReceivedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DirectUDPSocketChunkReceivedEventParams {
@@ -3558,10 +3841,12 @@ pub mod events {
         pub message: super::DirectUdpMessage,
         pub timestamp: super::MonotonicTime,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct RequestWillBeSentExtraInfoEvent {
         pub params: RequestWillBeSentExtraInfoEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct RequestWillBeSentExtraInfoEventParams {
@@ -3592,10 +3877,12 @@ pub mod events {
         #[doc = "The network conditions id if this request was affected by network conditions configured via\n emulateNetworkConditionsByRule."]
         pub applied_network_conditions_id: Option<String>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResponseReceivedExtraInfoEvent {
         pub params: ResponseReceivedExtraInfoEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ResponseReceivedExtraInfoEventParams {
@@ -3630,10 +3917,12 @@ pub mod events {
         #[doc = "A list of cookies which should have been blocked by 3PCD but are exempted and stored from\n the response with the corresponding reason."]
         pub exempted_cookies: Option<Vec<super::ExemptedSetCookieWithReason>>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ResponseReceivedEarlyHintsEvent {
         pub params: ResponseReceivedEarlyHintsEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ResponseReceivedEarlyHintsEventParams {
@@ -3642,10 +3931,12 @@ pub mod events {
         #[doc = "Raw response headers as they were received over the wire.\n Duplicate headers in the response are represented as a single key with their values\n concatentated using `\\n` as the separator.\n See also `headersText` that contains verbatim text for HTTP/1.*."]
         pub headers: super::Headers,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TrustTokenOperationDoneEvent {
         pub params: TrustTokenOperationDoneEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct TrustTokenOperationDoneEventParams {
@@ -3669,30 +3960,37 @@ pub mod events {
         #[doc = "The number of obtained Trust Tokens on a successful \"Issuance\" operation."]
         pub issued_token_count: Option<JsUInt>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PolicyUpdatedEvent(pub Option<Json>);
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReportingApiReportAddedEvent {
         pub params: ReportingApiReportAddedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ReportingApiReportAddedEventParams {
         pub report: super::ReportingApiReport,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReportingApiReportUpdatedEvent {
         pub params: ReportingApiReportUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ReportingApiReportUpdatedEventParams {
         pub report: super::ReportingApiReport,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReportingApiEndpointsChangedForOriginEvent {
         pub params: ReportingApiEndpointsChangedForOriginEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ReportingApiEndpointsChangedForOriginEventParams {
@@ -3701,20 +3999,24 @@ pub mod events {
         pub origin: String,
         pub endpoints: Vec<super::ReportingApiEndpoint>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DeviceBoundSessionsAddedEvent {
         pub params: DeviceBoundSessionsAddedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DeviceBoundSessionsAddedEventParams {
         #[doc = "The device bound sessions."]
         pub sessions: Vec<super::DeviceBoundSession>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DeviceBoundSessionEventOccurredEvent {
         pub params: DeviceBoundSessionEventOccurredEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DeviceBoundSessionEventOccurredEventParams {

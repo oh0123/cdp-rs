@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: SmartCardEmulation
+#![allow(dead_code)]
 #[allow(unused_imports)]
 use super::types::*;
 #[allow(unused_imports)]
@@ -7,6 +8,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ResultCode {
     #[serde(rename = "success")]
@@ -74,6 +76,7 @@ pub enum ResultCode {
     #[serde(rename = "unknown")]
     Unknown,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ShareMode {
     #[serde(rename = "shared")]
@@ -83,6 +86,7 @@ pub enum ShareMode {
     #[serde(rename = "direct")]
     Direct,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum Disposition {
     #[serde(rename = "leave-card")]
@@ -94,6 +98,7 @@ pub enum Disposition {
     #[serde(rename = "eject-card")]
     EjectCard,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ConnectionState {
     #[serde(rename = "absent")]
@@ -109,6 +114,7 @@ pub enum ConnectionState {
     #[serde(rename = "specific")]
     Specific,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum Protocol {
     #[serde(rename = "t0")]
@@ -118,6 +124,7 @@ pub enum Protocol {
     #[serde(rename = "raw")]
     Raw,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -168,6 +175,7 @@ pub struct ReaderStateFlags {
     #[serde(default)]
     pub unpowered: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -186,6 +194,7 @@ pub struct ProtocolSet {
     #[serde(default)]
     pub raw: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -196,6 +205,7 @@ pub struct ReaderStateIn {
     #[serde(default)]
     pub current_insertion_count: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -207,69 +217,78 @@ pub struct ReaderStateOut {
     pub event_count: JsUInt,
     pub atr: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Reports the successful result of a |SCardEstablishContext| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gaa1b8970169fd4883a6dc4a8f43f19b67\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardestablishcontext"]
+#[doc = "Reports the successful result of a |SCardEstablishContext| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gaa1b8970169fd4883a6dc4a8f43f19b67>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardestablishcontext>"]
 pub struct ReportEstablishContextResult {
     #[serde(default)]
     pub request_id: String,
     #[serde(default)]
     pub context_id: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Reports the successful result of a |SCardReleaseContext| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga6aabcba7744c5c9419fdd6404f73a934\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardreleasecontext"]
+#[doc = "Reports the successful result of a |SCardReleaseContext| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga6aabcba7744c5c9419fdd6404f73a934>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardreleasecontext>"]
 pub struct ReportReleaseContextResult {
     #[serde(default)]
     pub request_id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Reports the successful result of a |SCardListReaders| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga93b07815789b3cf2629d439ecf20f0d9\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardlistreadersa"]
+#[doc = "Reports the successful result of a |SCardListReaders| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga93b07815789b3cf2629d439ecf20f0d9>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardlistreadersa>"]
 pub struct ReportListReadersResult {
     #[serde(default)]
     pub request_id: String,
     #[serde(default)]
     pub readers: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Reports the successful result of a |SCardGetStatusChange| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga33247d5d1257d59e55647c3bb717db24\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardgetstatuschangea"]
+#[doc = "Reports the successful result of a |SCardGetStatusChange| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga33247d5d1257d59e55647c3bb717db24>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardgetstatuschangea>"]
 pub struct ReportGetStatusChangeResult {
     #[serde(default)]
     pub request_id: String,
     pub reader_states: Vec<ReaderStateOut>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Reports the result of a |SCardBeginTransaction| call.\n On success, this creates a new transaction object.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gaddb835dce01a0da1d6ca02d33ee7d861\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardbegintransaction"]
+#[doc = "Reports the result of a |SCardBeginTransaction| call.\n On success, this creates a new transaction object.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gaddb835dce01a0da1d6ca02d33ee7d861>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardbegintransaction>"]
 pub struct ReportBeginTransactionResult {
     #[serde(default)]
     pub request_id: String,
     #[serde(default)]
     pub handle: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Reports the successful result of a call that returns only a result code.\n Used for: |SCardCancel|, |SCardDisconnect|, |SCardSetAttrib|, |SCardEndTransaction|.\n \n This maps to:\n 1. SCardCancel\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gaacbbc0c6d6c0cbbeb4f4debf6fbeeee6\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardcancel\n \n 2. SCardDisconnect\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga4be198045c73ec0deb79e66c0ca1738a\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scarddisconnect\n \n 3. SCardSetAttrib\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga060f0038a4ddfd5dd2b8fadf3c3a2e4f\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardsetattrib\n \n 4. SCardEndTransaction\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gae8742473b404363e5c587f570d7e2f3b\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardendtransaction"]
+#[doc = "Reports the successful result of a call that returns only a result code.\n Used for: |SCardCancel|, |SCardDisconnect|, |SCardSetAttrib|, |SCardEndTransaction|.\n \n This maps to:\n 1. SCardCancel\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gaacbbc0c6d6c0cbbeb4f4debf6fbeeee6>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardcancel>\n \n 2. SCardDisconnect\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga4be198045c73ec0deb79e66c0ca1738a>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scarddisconnect>\n \n 3. SCardSetAttrib\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga060f0038a4ddfd5dd2b8fadf3c3a2e4f>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardsetattrib>\n \n 4. SCardEndTransaction\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gae8742473b404363e5c587f570d7e2f3b>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardendtransaction>"]
 pub struct ReportPlainResult {
     #[serde(default)]
     pub request_id: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Reports the successful result of a |SCardConnect| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga4e515829752e0a8dbc4d630696a8d6a5\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardconnecta"]
+#[doc = "Reports the successful result of a |SCardConnect| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga4e515829752e0a8dbc4d630696a8d6a5>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardconnecta>"]
 pub struct ReportConnectResult {
     #[serde(default)]
     pub request_id: String,
@@ -279,19 +298,21 @@ pub struct ReportConnectResult {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub active_protocol: Option<Protocol>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Reports the successful result of a call that sends back data on success.\n Used for |SCardTransmit|, |SCardControl|, and |SCardGetAttrib|.\n \n This maps to:\n 1. SCardTransmit\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga9a2d77242a271310269065e64633ab99\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardtransmit\n \n 2. SCardControl\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gac3454d4657110fd7f753b2d3d8f4e32f\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardcontrol\n \n 3. SCardGetAttrib\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gaacfec51917255b7a25b94c5104961602\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardgetattrib"]
+#[doc = "Reports the successful result of a call that sends back data on success.\n Used for |SCardTransmit|, |SCardControl|, and |SCardGetAttrib|.\n \n This maps to:\n 1. SCardTransmit\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga9a2d77242a271310269065e64633ab99>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardtransmit>\n \n 2. SCardControl\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gac3454d4657110fd7f753b2d3d8f4e32f>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardcontrol>\n \n 3. SCardGetAttrib\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gaacfec51917255b7a25b94c5104961602>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardgetattrib>"]
 pub struct ReportDataResult {
     #[serde(default)]
     pub request_id: String,
     pub data: Vec<u8>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Reports the successful result of a |SCardStatus| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gae49c3c894ad7ac12a5b896bde70d0382\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardstatusa"]
+#[doc = "Reports the successful result of a |SCardStatus| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gae49c3c894ad7ac12a5b896bde70d0382>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardstatusa>"]
 pub struct ReportStatusResult {
     #[serde(default)]
     pub request_id: String,
@@ -303,6 +324,7 @@ pub struct ReportStatusResult {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: Option<Protocol>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -312,90 +334,115 @@ pub struct ReportError {
     pub request_id: String,
     pub result_code: ResultCode,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables the |SmartCardEmulation| domain."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables the |SmartCardEmulation| domain."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "Reports the successful result of a |SCardEstablishContext| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gaa1b8970169fd4883a6dc4a8f43f19b67\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardestablishcontext"]
+#[doc = "Reports the successful result of a |SCardEstablishContext| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gaa1b8970169fd4883a6dc4a8f43f19b67>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardestablishcontext>"]
 pub struct ReportEstablishContextResultReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "Reports the successful result of a |SCardReleaseContext| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga6aabcba7744c5c9419fdd6404f73a934\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardreleasecontext"]
+#[doc = "Reports the successful result of a |SCardReleaseContext| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga6aabcba7744c5c9419fdd6404f73a934>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardreleasecontext>"]
 pub struct ReportReleaseContextResultReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "Reports the successful result of a |SCardListReaders| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga93b07815789b3cf2629d439ecf20f0d9\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardlistreadersa"]
+#[doc = "Reports the successful result of a |SCardListReaders| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga93b07815789b3cf2629d439ecf20f0d9>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardlistreadersa>"]
 pub struct ReportListReadersResultReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "Reports the successful result of a |SCardGetStatusChange| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga33247d5d1257d59e55647c3bb717db24\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardgetstatuschangea"]
+#[doc = "Reports the successful result of a |SCardGetStatusChange| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga33247d5d1257d59e55647c3bb717db24>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardgetstatuschangea>"]
 pub struct ReportGetStatusChangeResultReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "Reports the result of a |SCardBeginTransaction| call.\n On success, this creates a new transaction object.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gaddb835dce01a0da1d6ca02d33ee7d861\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardbegintransaction"]
+#[doc = "Reports the result of a |SCardBeginTransaction| call.\n On success, this creates a new transaction object.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gaddb835dce01a0da1d6ca02d33ee7d861>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardbegintransaction>"]
 pub struct ReportBeginTransactionResultReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "Reports the successful result of a call that returns only a result code.\n Used for: |SCardCancel|, |SCardDisconnect|, |SCardSetAttrib|, |SCardEndTransaction|.\n \n This maps to:\n 1. SCardCancel\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gaacbbc0c6d6c0cbbeb4f4debf6fbeeee6\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardcancel\n \n 2. SCardDisconnect\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga4be198045c73ec0deb79e66c0ca1738a\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scarddisconnect\n \n 3. SCardSetAttrib\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga060f0038a4ddfd5dd2b8fadf3c3a2e4f\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardsetattrib\n \n 4. SCardEndTransaction\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gae8742473b404363e5c587f570d7e2f3b\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardendtransaction"]
+#[doc = "Reports the successful result of a call that returns only a result code.\n Used for: |SCardCancel|, |SCardDisconnect|, |SCardSetAttrib|, |SCardEndTransaction|.\n \n This maps to:\n 1. SCardCancel\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gaacbbc0c6d6c0cbbeb4f4debf6fbeeee6>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardcancel>\n \n 2. SCardDisconnect\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga4be198045c73ec0deb79e66c0ca1738a>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scarddisconnect>\n \n 3. SCardSetAttrib\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga060f0038a4ddfd5dd2b8fadf3c3a2e4f>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardsetattrib>\n \n 4. SCardEndTransaction\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gae8742473b404363e5c587f570d7e2f3b>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardendtransaction>"]
 pub struct ReportPlainResultReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "Reports the successful result of a |SCardConnect| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga4e515829752e0a8dbc4d630696a8d6a5\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardconnecta"]
+#[doc = "Reports the successful result of a |SCardConnect| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga4e515829752e0a8dbc4d630696a8d6a5>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardconnecta>"]
 pub struct ReportConnectResultReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "Reports the successful result of a call that sends back data on success.\n Used for |SCardTransmit|, |SCardControl|, and |SCardGetAttrib|.\n \n This maps to:\n 1. SCardTransmit\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#ga9a2d77242a271310269065e64633ab99\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardtransmit\n \n 2. SCardControl\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gac3454d4657110fd7f753b2d3d8f4e32f\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardcontrol\n \n 3. SCardGetAttrib\n    PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gaacfec51917255b7a25b94c5104961602\n    Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardgetattrib"]
+#[doc = "Reports the successful result of a call that sends back data on success.\n Used for |SCardTransmit|, |SCardControl|, and |SCardGetAttrib|.\n \n This maps to:\n 1. SCardTransmit\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#ga9a2d77242a271310269065e64633ab99>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardtransmit>\n \n 2. SCardControl\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gac3454d4657110fd7f753b2d3d8f4e32f>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardcontrol>\n \n 3. SCardGetAttrib\n    PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gaacfec51917255b7a25b94c5104961602>\n    Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardgetattrib>"]
 pub struct ReportDataResultReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "Reports the successful result of a |SCardStatus| call.\n \n This maps to:\n PC/SC Lite: https://pcsclite.apdu.fr/api/group__API.html#gae49c3c894ad7ac12a5b896bde70d0382\n Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardstatusa"]
+#[doc = "Reports the successful result of a |SCardStatus| call.\n \n This maps to:\n PC/SC Lite: <https://pcsclite.apdu.fr/api/group__API.html#gae49c3c894ad7ac12a5b896bde70d0382>\n Microsoft: <https://learn.microsoft.com/en-us/windows/win32/api/winscard/nf-winscard-scardstatusa>"]
 pub struct ReportStatusResultReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Reports an error result for the given request."]
 pub struct ReportErrorReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "SmartCardEmulation.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "SmartCardEmulation.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportEstablishContextResult {
     const NAME: &'static str = "SmartCardEmulation.reportEstablishContextResult";
     type ReturnObject = ReportEstablishContextResultReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportReleaseContextResult {
     const NAME: &'static str = "SmartCardEmulation.reportReleaseContextResult";
     type ReturnObject = ReportReleaseContextResultReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportListReadersResult {
     const NAME: &'static str = "SmartCardEmulation.reportListReadersResult";
     type ReturnObject = ReportListReadersResultReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportGetStatusChangeResult {
     const NAME: &'static str = "SmartCardEmulation.reportGetStatusChangeResult";
     type ReturnObject = ReportGetStatusChangeResultReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportBeginTransactionResult {
     const NAME: &'static str = "SmartCardEmulation.reportBeginTransactionResult";
     type ReturnObject = ReportBeginTransactionResultReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportPlainResult {
     const NAME: &'static str = "SmartCardEmulation.reportPlainResult";
     type ReturnObject = ReportPlainResultReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportConnectResult {
     const NAME: &'static str = "SmartCardEmulation.reportConnectResult";
     type ReturnObject = ReportConnectResultReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportDataResult {
     const NAME: &'static str = "SmartCardEmulation.reportDataResult";
     type ReturnObject = ReportDataResultReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportStatusResult {
     const NAME: &'static str = "SmartCardEmulation.reportStatusResult";
     type ReturnObject = ReportStatusResultReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReportError {
     const NAME: &'static str = "SmartCardEmulation.reportError";
     type ReturnObject = ReportErrorReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -405,20 +452,24 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct EstablishContextRequestedEvent {
         pub params: EstablishContextRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct EstablishContextRequestedEventParams {
         #[serde(default)]
         pub request_id: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ReleaseContextRequestedEvent {
         pub params: ReleaseContextRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ReleaseContextRequestedEventParams {
@@ -427,10 +478,12 @@ pub mod events {
         #[serde(default)]
         pub context_id: JsUInt,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ListReadersRequestedEvent {
         pub params: ListReadersRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ListReadersRequestedEventParams {
@@ -439,10 +492,12 @@ pub mod events {
         #[serde(default)]
         pub context_id: JsUInt,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct GetStatusChangeRequestedEvent {
         pub params: GetStatusChangeRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct GetStatusChangeRequestedEventParams {
@@ -457,10 +512,12 @@ pub mod events {
         #[doc = "in milliseconds, if absent, it means \"infinite\""]
         pub timeout: Option<JsUInt>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CancelRequestedEvent {
         pub params: CancelRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct CancelRequestedEventParams {
@@ -469,10 +526,12 @@ pub mod events {
         #[serde(default)]
         pub context_id: JsUInt,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ConnectRequestedEvent {
         pub params: ConnectRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ConnectRequestedEventParams {
@@ -485,10 +544,12 @@ pub mod events {
         pub share_mode: super::ShareMode,
         pub preferred_protocols: super::ProtocolSet,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct DisconnectRequestedEvent {
         pub params: DisconnectRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct DisconnectRequestedEventParams {
@@ -498,10 +559,12 @@ pub mod events {
         pub handle: JsUInt,
         pub disposition: super::Disposition,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct TransmitRequestedEvent {
         pub params: TransmitRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct TransmitRequestedEventParams {
@@ -515,10 +578,12 @@ pub mod events {
         #[serde(skip_serializing_if = "Option::is_none")]
         pub protocol: Option<super::Protocol>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ControlRequestedEvent {
         pub params: ControlRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ControlRequestedEventParams {
@@ -531,10 +596,12 @@ pub mod events {
         #[serde(default)]
         pub data: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct GetAttribRequestedEvent {
         pub params: GetAttribRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct GetAttribRequestedEventParams {
@@ -545,10 +612,12 @@ pub mod events {
         #[serde(default)]
         pub attrib_id: JsUInt,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SetAttribRequestedEvent {
         pub params: SetAttribRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct SetAttribRequestedEventParams {
@@ -561,10 +630,12 @@ pub mod events {
         #[serde(default)]
         pub data: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct StatusRequestedEvent {
         pub params: StatusRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct StatusRequestedEventParams {
@@ -573,10 +644,12 @@ pub mod events {
         #[serde(default)]
         pub handle: JsUInt,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct BeginTransactionRequestedEvent {
         pub params: BeginTransactionRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct BeginTransactionRequestedEventParams {
@@ -585,10 +658,12 @@ pub mod events {
         #[serde(default)]
         pub handle: JsUInt,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct EndTransactionRequestedEvent {
         pub params: EndTransactionRequestedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct EndTransactionRequestedEventParams {

@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: DOMSnapshot
+#![allow(dead_code)]
 use super::dom;
 use super::dom_debugger;
 use super::page;
@@ -13,6 +14,7 @@ use serde_json::Value as Json;
 pub type StringIndex = JsUInt;
 pub type ArrayOfStrings = Vec<StringIndex>;
 pub type Rectangle = Vec<JsFloat>;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -148,6 +150,7 @@ pub struct DomNode {
     #[serde(default)]
     pub scroll_offset_y: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -162,6 +165,7 @@ pub struct InlineTextBox {
     #[doc = "The number of characters in this post layout textbox substring. Characters that would be\n represented as a surrogate pair in UTF-16 have length 2."]
     pub num_characters: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -197,6 +201,7 @@ pub struct LayoutTreeNode {
     #[doc = "Set to true to indicate the element begins a new stacking context."]
     pub is_stacking_context: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -205,6 +210,7 @@ pub struct ComputedStyle {
     #[doc = "Name/value pairs of computed style properties."]
     pub properties: Vec<NameValue>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -217,6 +223,7 @@ pub struct NameValue {
     #[doc = "Attribute/property value."]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -226,6 +233,7 @@ pub struct RareStringData {
     pub index: Vec<JsUInt>,
     pub value: Vec<StringIndex>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -233,6 +241,7 @@ pub struct RareBooleanData {
     #[serde(default)]
     pub index: Vec<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -242,6 +251,7 @@ pub struct RareIntegerData {
     #[serde(default)]
     pub value: Vec<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -292,6 +302,7 @@ pub struct DocumentSnapshot {
     #[doc = "Document content height."]
     pub content_height: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -370,6 +381,7 @@ pub struct NodeTreeSnapshot {
     #[serde(rename = "originURL")]
     pub origin_url: Option<RareStringData>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -413,6 +425,7 @@ pub struct LayoutTreeSnapshot {
     #[doc = "The list of computed text opacities."]
     pub text_color_opacities: Option<Vec<JsFloat>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -430,10 +443,13 @@ pub struct TextBoxSnapshot {
     #[doc = "The number of characters in this post layout textbox substring. Characters that would be\n represented as a surrogate pair in UTF-16 have length 2."]
     pub length: Vec<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -459,6 +475,7 @@ pub struct GetSnapshot {
     #[doc = "Whether to include UA shadow tree in the snapshot (default false)."]
     pub include_user_agent_shadow_tree: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -489,12 +506,15 @@ pub struct CaptureSnapshot {
     #[doc = "Whether to include text color opacity in the snapshot (default: false).\n An element might have the opacity property set that affects the text color of the element.\n The final text color opacity is computed based on the opacity of all overlapping elements."]
     pub include_text_color_opacities: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables DOM snapshot agent for the given page."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables DOM snapshot agent for the given page."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns a document snapshot, including the full DOM tree of the root node (including iframes,\n template contents, and imported documents) in a flattened array, as well as layout and\n white-listed computed style information for the nodes. Shadow DOM in the returned DOM tree is\n flattened."]
@@ -507,6 +527,7 @@ pub struct GetSnapshotReturnObject {
     #[doc = "Whitelisted ComputedStyle properties for each node in the layout tree."]
     pub computed_styles: Vec<ComputedStyle>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns a document snapshot, including the full DOM tree of the root node (including iframes,\n template contents, and imported documents) in a flattened array, as well as layout and\n white-listed computed style information for the nodes. Shadow DOM in the returned DOM tree is\n flattened."]
@@ -516,22 +537,27 @@ pub struct CaptureSnapshotReturnObject {
     #[doc = "Shared string table that all string properties refer to with indexes."]
     pub strings: Vec<String>,
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "DOMSnapshot.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "DOMSnapshot.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetSnapshot {
     const NAME: &'static str = "DOMSnapshot.getSnapshot";
     type ReturnObject = GetSnapshotReturnObject;
 }
+#[allow(deprecated)]
 impl Method for CaptureSnapshot {
     const NAME: &'static str = "DOMSnapshot.captureSnapshot";
     type ReturnObject = CaptureSnapshotReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;

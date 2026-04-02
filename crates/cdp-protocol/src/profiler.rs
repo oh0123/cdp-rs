@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Profiler
+#![allow(dead_code)]
 use super::runtime;
 #[allow(unused_imports)]
 use super::types::*;
@@ -8,6 +9,7 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -38,6 +40,7 @@ pub struct ProfileNode {
     #[doc = "An array of source position ticks."]
     pub position_ticks: Option<Vec<PositionTickInfo>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -62,6 +65,7 @@ pub struct Profile {
     #[doc = "Time intervals between adjacent samples in microseconds. The first delta is relative to the\n profile startTime."]
     pub time_deltas: Option<Vec<JsUInt>>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -74,6 +78,7 @@ pub struct PositionTickInfo {
     #[doc = "Number of samples attributed to the source line."]
     pub ticks: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -89,6 +94,7 @@ pub struct CoverageRange {
     #[doc = "Collected execution count of the source range."]
     pub count: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -103,6 +109,7 @@ pub struct FunctionCoverage {
     #[doc = "Whether coverage data for this function has block granularity."]
     pub is_block_coverage: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -116,12 +123,16 @@ pub struct ScriptCoverage {
     #[doc = "Functions contained in the script that has coverage data."]
     pub functions: Vec<FunctionCoverage>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetBestEffortCoverage(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -131,8 +142,10 @@ pub struct SetSamplingInterval {
     #[doc = "New sampling interval in microseconds."]
     pub interval: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Start(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -154,16 +167,22 @@ pub struct StartPreciseCoverage {
     #[doc = "Allow the backend to send updates on its own initiative"]
     pub allow_triggered_updates: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Stop(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StopPreciseCoverage(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct TakePreciseCoverage(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Collect coverage data for the current isolate. The coverage data may be incomplete due to\n garbage collection."]
@@ -171,11 +190,14 @@ pub struct GetBestEffortCoverageReturnObject {
     #[doc = "Coverage data for the current isolate."]
     pub result: Vec<ScriptCoverage>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Changes CPU profiler sampling interval. Must be called before CPU profiles recording started."]
 pub struct SetSamplingIntervalReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct StartReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code\n coverage may be incomplete. Enabling prevents running optimized code and resets execution\n counters."]
@@ -184,15 +206,18 @@ pub struct StartPreciseCoverageReturnObject {
     #[doc = "Monotonically increasing time (in seconds) when the coverage update was taken in the backend."]
     pub timestamp: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct StopReturnObject {
     #[doc = "Recorded profile."]
     pub profile: Profile,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disable precise code coverage. Disabling releases unnecessary execution count records and allows\n executing optimized code."]
 pub struct StopPreciseCoverageReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Collect coverage data for the current isolate, and resets execution counters. Precise code\n coverage needs to have started."]
@@ -203,42 +228,52 @@ pub struct TakePreciseCoverageReturnObject {
     #[doc = "Monotonically increasing time (in seconds) when the coverage update was taken in the backend."]
     pub timestamp: JsFloat,
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "Profiler.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "Profiler.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetBestEffortCoverage {
     const NAME: &'static str = "Profiler.getBestEffortCoverage";
     type ReturnObject = GetBestEffortCoverageReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSamplingInterval {
     const NAME: &'static str = "Profiler.setSamplingInterval";
     type ReturnObject = SetSamplingIntervalReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Start {
     const NAME: &'static str = "Profiler.start";
     type ReturnObject = StartReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StartPreciseCoverage {
     const NAME: &'static str = "Profiler.startPreciseCoverage";
     type ReturnObject = StartPreciseCoverageReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Stop {
     const NAME: &'static str = "Profiler.stop";
     type ReturnObject = StopReturnObject;
 }
+#[allow(deprecated)]
 impl Method for StopPreciseCoverage {
     const NAME: &'static str = "Profiler.stopPreciseCoverage";
     type ReturnObject = StopPreciseCoverageReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TakePreciseCoverage {
     const NAME: &'static str = "Profiler.takePreciseCoverage";
     type ReturnObject = TakePreciseCoverageReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -248,10 +283,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ConsoleProfileFinishedEvent {
         pub params: ConsoleProfileFinishedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ConsoleProfileFinishedEventParams {
@@ -266,10 +303,12 @@ pub mod events {
         #[doc = "Profile title passed as an argument to console.profile()."]
         pub title: Option<String>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct ConsoleProfileStartedEvent {
         pub params: ConsoleProfileStartedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct ConsoleProfileStartedEventParams {
@@ -283,10 +322,12 @@ pub mod events {
         #[doc = "Profile title passed as an argument to console.profile()."]
         pub title: Option<String>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct PreciseCoverageDeltaUpdateEvent {
         pub params: PreciseCoverageDeltaUpdateEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct PreciseCoverageDeltaUpdateEventParams {

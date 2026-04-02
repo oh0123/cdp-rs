@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: Storage
+#![allow(dead_code)]
 use super::browser;
 use super::network;
 use super::page;
@@ -16,6 +17,7 @@ pub type InterestGroupAuctionId = String;
 pub type UnsignedInt64AsBase10 = String;
 pub type UnsignedInt128AsBase16 = String;
 pub type SignedInt64AsBase10 = String;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum StorageType {
     #[serde(rename = "cookies")]
@@ -45,6 +47,7 @@ pub enum StorageType {
     #[serde(rename = "other")]
     Other,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InterestGroupAccessType {
     #[serde(rename = "join")]
@@ -70,6 +73,7 @@ pub enum InterestGroupAccessType {
     #[serde(rename = "clear")]
     Clear,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InterestGroupAuctionEventType {
     #[serde(rename = "started")]
@@ -77,6 +81,7 @@ pub enum InterestGroupAuctionEventType {
     #[serde(rename = "configResolved")]
     ConfigResolved,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum InterestGroupAuctionFetchType {
     #[serde(rename = "bidderJs")]
@@ -90,6 +95,7 @@ pub enum InterestGroupAuctionFetchType {
     #[serde(rename = "sellerTrustedSignals")]
     SellerTrustedSignals,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SharedStorageAccessScope {
     #[serde(rename = "window")]
@@ -101,6 +107,7 @@ pub enum SharedStorageAccessScope {
     #[serde(rename = "header")]
     Header,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum SharedStorageAccessMethod {
     #[serde(rename = "addModule")]
@@ -134,6 +141,7 @@ pub enum SharedStorageAccessMethod {
     #[serde(rename = "remainingBudget")]
     RemainingBudget,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum StorageBucketsDurability {
     #[serde(rename = "relaxed")]
@@ -141,6 +149,7 @@ pub enum StorageBucketsDurability {
     #[serde(rename = "strict")]
     Strict,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AttributionReportingSourceType {
     #[serde(rename = "navigation")]
@@ -148,6 +157,7 @@ pub enum AttributionReportingSourceType {
     #[serde(rename = "event")]
     Event,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AttributionReportingTriggerDataMatching {
     #[serde(rename = "exact")]
@@ -155,6 +165,7 @@ pub enum AttributionReportingTriggerDataMatching {
     #[serde(rename = "modulus")]
     Modulus,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AttributionReportingSourceRegistrationResult {
     #[serde(rename = "success")]
@@ -190,6 +201,7 @@ pub enum AttributionReportingSourceRegistrationResult {
     #[serde(rename = "destinationPerDayReportingLimitReached")]
     DestinationPerDayReportingLimitReached,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AttributionReportingSourceRegistrationTimeConfig {
     #[serde(rename = "include")]
@@ -197,6 +209,7 @@ pub enum AttributionReportingSourceRegistrationTimeConfig {
     #[serde(rename = "exclude")]
     Exclude,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AttributionReportingEventLevelResult {
     #[serde(rename = "success")]
@@ -238,6 +251,7 @@ pub enum AttributionReportingEventLevelResult {
     #[serde(rename = "noMatchingTriggerData")]
     NoMatchingTriggerData,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AttributionReportingAggregatableResult {
     #[serde(rename = "success")]
@@ -271,6 +285,7 @@ pub enum AttributionReportingAggregatableResult {
     #[serde(rename = "excessiveReports")]
     ExcessiveReports,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum AttributionReportingReportResult {
     #[serde(rename = "sent")]
@@ -282,6 +297,7 @@ pub enum AttributionReportingReportResult {
     #[serde(rename = "expired")]
     Expired,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -293,6 +309,7 @@ pub struct UsageForType {
     #[doc = "Storage usage (bytes)."]
     pub usage: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -303,6 +320,7 @@ pub struct TrustTokens {
     #[serde(default)]
     pub count: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -313,6 +331,7 @@ pub struct SharedStorageEntry {
     #[serde(default)]
     pub value: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -330,6 +349,7 @@ pub struct SharedStorageMetadata {
     #[doc = "Total number of bytes stored as key-value pairs in origin's shared\n storage."]
     pub bytes_used: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -354,6 +374,7 @@ pub struct SharedStoragePrivateAggregationConfig {
     #[doc = "The limit on the number of contributions in the final report."]
     pub max_contributions: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -364,6 +385,7 @@ pub struct SharedStorageReportingMetadata {
     #[serde(default)]
     pub reporting_url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -375,6 +397,7 @@ pub struct SharedStorageUrlWithMetadata {
     #[doc = "Any associated reporting metadata."]
     pub reporting_metadata: Vec<SharedStorageReportingMetadata>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -463,6 +486,7 @@ pub struct SharedStorageAccessParams {
     #[doc = "Number of modifier methods sent in batch.\n Present only for SharedStorageAccessMethod: batchUpdate."]
     pub batch_size: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -474,6 +498,7 @@ pub struct StorageBucket {
     #[doc = "If not specified, it is the default bucket of the storageKey."]
     pub name: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -489,6 +514,7 @@ pub struct StorageBucketInfo {
     pub persistent: bool,
     pub durability: StorageBucketsDurability,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -498,6 +524,7 @@ pub struct AttributionReportingFilterDataEntry {
     #[serde(default)]
     pub values: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -509,6 +536,7 @@ pub struct AttributionReportingFilterConfig {
     #[doc = "duration in seconds"]
     pub lookback_window: Option<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -516,6 +544,7 @@ pub struct AttributionReportingFilterPair {
     pub filters: Vec<AttributionReportingFilterConfig>,
     pub not_filters: Vec<AttributionReportingFilterConfig>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -524,6 +553,7 @@ pub struct AttributionReportingAggregationKeysEntry {
     pub key: String,
     pub value: UnsignedInt128AsBase16,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -535,6 +565,7 @@ pub struct AttributionReportingEventReportWindows {
     #[doc = "duration in seconds"]
     pub ends: Vec<JsUInt>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -546,6 +577,7 @@ pub struct AttributionReportingAggregatableDebugReportingData {
     #[serde(default)]
     pub types: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -562,6 +594,7 @@ pub struct AttributionReportingAggregatableDebugReportingConfig {
     #[serde(default)]
     pub aggregation_coordinator_origin: Option<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -574,6 +607,7 @@ pub struct AttributionScopesData {
     #[serde(default)]
     pub max_event_states: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -583,6 +617,7 @@ pub struct AttributionReportingNamedBudgetDef {
     #[serde(default)]
     pub budget: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -626,6 +661,7 @@ pub struct AttributionReportingSourceRegistration {
     #[serde(default)]
     pub event_level_epsilon: JsFloat,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -637,6 +673,7 @@ pub struct AttributionReportingAggregatableValueDictEntry {
     pub value: JsFloat,
     pub filtering_id: UnsignedInt64AsBase10,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -644,6 +681,7 @@ pub struct AttributionReportingAggregatableValueEntry {
     pub values: Vec<AttributionReportingAggregatableValueDictEntry>,
     pub filters: AttributionReportingFilterPair,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -655,6 +693,7 @@ pub struct AttributionReportingEventTriggerData {
     pub dedup_key: Option<UnsignedInt64AsBase10>,
     pub filters: AttributionReportingFilterPair,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -664,6 +703,7 @@ pub struct AttributionReportingAggregatableTriggerData {
     pub source_keys: Vec<String>,
     pub filters: AttributionReportingFilterPair,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -673,6 +713,7 @@ pub struct AttributionReportingAggregatableDedupKey {
     pub dedup_key: Option<UnsignedInt64AsBase10>,
     pub filters: AttributionReportingFilterPair,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -683,6 +724,7 @@ pub struct AttributionReportingNamedBudgetCandidate {
     pub name: Option<String>,
     pub filters: AttributionReportingFilterPair,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -713,6 +755,7 @@ pub struct AttributionReportingTriggerRegistration {
     pub scopes: Vec<String>,
     pub named_budgets: Vec<AttributionReportingNamedBudgetCandidate>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -728,6 +771,7 @@ pub struct RelatedWebsiteSet {
     #[doc = "The service sites of this set, along with the ccTLDs if there is any."]
     pub service_sites: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -736,6 +780,7 @@ pub struct RelatedWebsiteSet {
 pub struct GetStorageKeyForFrame {
     pub frame_id: page::FrameId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -745,6 +790,7 @@ pub struct GetStorageKey {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub frame_id: Option<page::FrameId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -757,6 +803,7 @@ pub struct ClearDataForOrigin {
     #[doc = "Comma separated list of StorageType to clear."]
     pub storage_types: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -769,6 +816,7 @@ pub struct ClearDataForStorageKey {
     #[doc = "Comma separated list of StorageType to clear."]
     pub storage_types: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -779,6 +827,7 @@ pub struct GetCookies {
     #[doc = "Browser context to use when called on the browser endpoint."]
     pub browser_context_id: Option<browser::BrowserContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -791,6 +840,7 @@ pub struct SetCookies {
     #[doc = "Browser context to use when called on the browser endpoint."]
     pub browser_context_id: Option<browser::BrowserContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -801,6 +851,7 @@ pub struct ClearCookies {
     #[doc = "Browser context to use when called on the browser endpoint."]
     pub browser_context_id: Option<browser::BrowserContextId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -810,6 +861,7 @@ pub struct GetUsageAndQuota {
     #[doc = "Security origin."]
     pub origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -824,6 +876,7 @@ pub struct OverrideQuotaForOrigin {
     #[doc = "The quota size (in bytes) to override the original quota with.\n If this is called multiple times, the overridden quota will be equal to\n the quotaSize provided in the final call. If this is called without\n specifying a quotaSize, the quota will be reset to the default value for\n the specified origin. If this is called multiple times with different\n origins, the override will be maintained for each origin until it is\n disabled (called without a quotaSize)."]
     pub quota_size: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -833,6 +886,7 @@ pub struct TrackCacheStorageForOrigin {
     #[doc = "Security origin."]
     pub origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -842,6 +896,7 @@ pub struct TrackCacheStorageForStorageKey {
     #[doc = "Storage key."]
     pub storage_key: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -851,6 +906,7 @@ pub struct TrackIndexedDBForOrigin {
     #[doc = "Security origin."]
     pub origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -860,6 +916,7 @@ pub struct TrackIndexedDBForStorageKey {
     #[doc = "Storage key."]
     pub storage_key: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -869,6 +926,7 @@ pub struct UntrackCacheStorageForOrigin {
     #[doc = "Security origin."]
     pub origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -878,6 +936,7 @@ pub struct UntrackCacheStorageForStorageKey {
     #[doc = "Storage key."]
     pub storage_key: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -887,6 +946,7 @@ pub struct UntrackIndexedDBForOrigin {
     #[doc = "Security origin."]
     pub origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -896,8 +956,10 @@ pub struct UntrackIndexedDBForStorageKey {
     #[doc = "Storage key."]
     pub storage_key: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetTrustTokens(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -906,6 +968,7 @@ pub struct ClearTrustTokens {
     #[serde(default)]
     pub issuer_origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -916,6 +979,7 @@ pub struct GetInterestGroupDetails {
     #[serde(default)]
     pub name: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -924,6 +988,7 @@ pub struct SetInterestGroupTracking {
     #[serde(default)]
     pub enable: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -932,6 +997,7 @@ pub struct SetInterestGroupAuctionTracking {
     #[serde(default)]
     pub enable: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -940,6 +1006,7 @@ pub struct GetSharedStorageMetadata {
     #[serde(default)]
     pub owner_origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -948,6 +1015,7 @@ pub struct GetSharedStorageEntries {
     #[serde(default)]
     pub owner_origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -965,6 +1033,7 @@ pub struct SetSharedStorageEntry {
     #[doc = "If `ignoreIfPresent` is included and true, then only sets the entry if\n `key` doesn't already exist."]
     pub ignore_if_present: Option<bool>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -975,6 +1044,7 @@ pub struct DeleteSharedStorageEntry {
     #[serde(default)]
     pub key: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -983,6 +1053,7 @@ pub struct ClearSharedStorageEntries {
     #[serde(default)]
     pub owner_origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -991,6 +1062,7 @@ pub struct ResetSharedStorageBudget {
     #[serde(default)]
     pub owner_origin: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -999,6 +1071,7 @@ pub struct SetSharedStorageTracking {
     #[serde(default)]
     pub enable: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1009,6 +1082,7 @@ pub struct SetStorageBucketTracking {
     #[serde(default)]
     pub enable: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1016,17 +1090,20 @@ pub struct SetStorageBucketTracking {
 pub struct DeleteStorageBucket {
     pub bucket: StorageBucket,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct RunBounceTrackingMitigations(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "https://wicg.github.io/attribution-reporting-api/"]
+#[doc = "<https://wicg.github.io/attribution-reporting-api/>"]
 pub struct SetAttributionReportingLocalTestingMode {
     #[serde(default)]
     #[doc = "If enabled, noise is suppressed and reports are sent immediately."]
     pub enabled: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1035,14 +1112,17 @@ pub struct SetAttributionReportingTracking {
     #[serde(default)]
     pub enable: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SendPendingAttributionReports(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct GetRelatedWebsiteSets(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
-#[doc = "Returns the list of URLs from a page and its embedded resources that match\n existing grace period URL pattern rules.\n https://developers.google.com/privacy-sandbox/cookies/temporary-exceptions/grace-period"]
+#[doc = "Returns the list of URLs from a page and its embedded resources that match\n existing grace period URL pattern rules.\n <https://developers.google.com/privacy-sandbox/cookies/temporary-exceptions/grace-period>"]
 pub struct GetAffectedUrlsForThirdPartyCookieMetadata {
     #[serde(default)]
     #[doc = "The URL of the page currently being visited."]
@@ -1051,6 +1131,7 @@ pub struct GetAffectedUrlsForThirdPartyCookieMetadata {
     #[doc = "The list of embedded resource URLs from the page."]
     pub third_party_urls: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -1062,6 +1143,7 @@ pub struct SetProtectedAudienceKAnonymity {
     #[serde(default)]
     pub hashes: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns a storage key given a frame id.\n Deprecated. Please use Storage.getStorageKey instead."]
@@ -1069,18 +1151,22 @@ pub struct SetProtectedAudienceKAnonymity {
 pub struct GetStorageKeyForFrameReturnObject {
     pub storage_key: SerializedStorageKey,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns storage key for the given frame. If no frame ID is provided,\n the storage key of the target executing this command is returned."]
 pub struct GetStorageKeyReturnObject {
     pub storage_key: SerializedStorageKey,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears storage for origin."]
 pub struct ClearDataForOriginReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears storage for storage key."]
 pub struct ClearDataForStorageKeyReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns all browser cookies."]
@@ -1088,12 +1174,15 @@ pub struct GetCookiesReturnObject {
     #[doc = "Array of cookie objects."]
     pub cookies: network::Cookie,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets given cookies."]
 pub struct SetCookiesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears cookies."]
 pub struct ClearCookiesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns usage and quota in bytes."]
@@ -1110,39 +1199,50 @@ pub struct GetUsageAndQuotaReturnObject {
     #[doc = "Storage usage per type (bytes)."]
     pub usage_breakdown: Vec<UsageForType>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Override quota for the specified origin"]
 pub struct OverrideQuotaForOriginReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Registers origin to be notified when an update occurs to its cache storage list."]
 pub struct TrackCacheStorageForOriginReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Registers storage key to be notified when an update occurs to its cache storage list."]
 pub struct TrackCacheStorageForStorageKeyReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Registers origin to be notified when an update occurs to its IndexedDB."]
 pub struct TrackIndexedDBForOriginReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Registers storage key to be notified when an update occurs to its IndexedDB."]
 pub struct TrackIndexedDBForStorageKeyReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Unregisters origin from receiving notifications for cache storage."]
 pub struct UntrackCacheStorageForOriginReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Unregisters storage key from receiving notifications for cache storage."]
 pub struct UntrackCacheStorageForStorageKeyReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Unregisters origin from receiving notifications for IndexedDB."]
 pub struct UntrackIndexedDBForOriginReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Unregisters storage key from receiving notifications for IndexedDB."]
 pub struct UntrackIndexedDBForStorageKeyReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the number of stored Trust Tokens per issuer for the\n current browsing context."]
 pub struct GetTrustTokensReturnObject {
     pub tokens: Vec<TrustTokens>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Removes all Trust Tokens issued by the provided issuerOrigin.\n Leaves other stored data, including the issuer's Redemption Records, intact."]
@@ -1151,65 +1251,81 @@ pub struct ClearTrustTokensReturnObject {
     #[doc = "True if any tokens were deleted, false otherwise."]
     pub did_delete_tokens: bool,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Gets details for a named interest group."]
 pub struct GetInterestGroupDetailsReturnObject {
     #[serde(default)]
-    #[doc = "This largely corresponds to:\n https://wicg.github.io/turtledove/#dictdef-generatebidinterestgroup\n but has absolute expirationTime instead of relative lifetimeMs and\n also adds joiningOrigin."]
+    #[doc = "This largely corresponds to:\n <https://wicg.github.io/turtledove/#dictdef-generatebidinterestgroup>\n but has absolute expirationTime instead of relative lifetimeMs and\n also adds joiningOrigin."]
     pub details: Json,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables/Disables issuing of interestGroupAccessed events."]
 pub struct SetInterestGroupTrackingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables/Disables issuing of interestGroupAuctionEventOccurred and\n interestGroupAuctionNetworkRequestCreated."]
 pub struct SetInterestGroupAuctionTrackingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Gets metadata for an origin's shared storage."]
 pub struct GetSharedStorageMetadataReturnObject {
     pub metadata: SharedStorageMetadata,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Gets the entries in an given origin's shared storage."]
 pub struct GetSharedStorageEntriesReturnObject {
     pub entries: Vec<SharedStorageEntry>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Sets entry with `key` and `value` for a given origin's shared storage."]
 pub struct SetSharedStorageEntryReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Deletes entry for `key` (if it exists) for a given origin's shared storage."]
 pub struct DeleteSharedStorageEntryReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Clears all entries for a given origin's shared storage."]
 pub struct ClearSharedStorageEntriesReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Resets the budget for `ownerOrigin` by clearing all budget withdrawals."]
 pub struct ResetSharedStorageBudgetReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables/disables issuing of sharedStorageAccessed events."]
 pub struct SetSharedStorageTrackingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Set tracking for a storage key's buckets."]
 pub struct SetStorageBucketTrackingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Deletes the Storage Bucket with the given storage key and bucket name."]
 pub struct DeleteStorageBucketReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Deletes state for sites identified as potential bounce trackers, immediately."]
 pub struct RunBounceTrackingMitigationsReturnObject {
     pub deleted_sites: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
-#[doc = "https://wicg.github.io/attribution-reporting-api/"]
+#[doc = "<https://wicg.github.io/attribution-reporting-api/>"]
 pub struct SetAttributionReportingLocalTestingModeReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables/disables issuing of Attribution Reporting events."]
 pub struct SetAttributionReportingTrackingReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Sends all pending Attribution Reports immediately, regardless of their\n scheduled report time."]
@@ -1218,173 +1334,215 @@ pub struct SendPendingAttributionReportsReturnObject {
     #[doc = "The number of reports that were sent."]
     pub num_sent: JsUInt,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the effective Related Website Sets in use by this profile for the browser\n session. The effective Related Website Sets will not change during a browser session."]
 pub struct GetRelatedWebsiteSetsReturnObject {
     pub sets: Vec<RelatedWebsiteSet>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
-#[doc = "Returns the list of URLs from a page and its embedded resources that match\n existing grace period URL pattern rules.\n https://developers.google.com/privacy-sandbox/cookies/temporary-exceptions/grace-period"]
+#[doc = "Returns the list of URLs from a page and its embedded resources that match\n existing grace period URL pattern rules.\n <https://developers.google.com/privacy-sandbox/cookies/temporary-exceptions/grace-period>"]
 pub struct GetAffectedUrlsForThirdPartyCookieMetadataReturnObject {
     #[doc = "Array of matching URLs. If there is a primary pattern match for the first-\n party URL, only the first-party URL is returned in the array."]
     pub matched_urls: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct SetProtectedAudienceKAnonymityReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 impl Method for GetStorageKeyForFrame {
     const NAME: &'static str = "Storage.getStorageKeyForFrame";
     type ReturnObject = GetStorageKeyForFrameReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetStorageKey {
     const NAME: &'static str = "Storage.getStorageKey";
     type ReturnObject = GetStorageKeyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearDataForOrigin {
     const NAME: &'static str = "Storage.clearDataForOrigin";
     type ReturnObject = ClearDataForOriginReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearDataForStorageKey {
     const NAME: &'static str = "Storage.clearDataForStorageKey";
     type ReturnObject = ClearDataForStorageKeyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetCookies {
     const NAME: &'static str = "Storage.getCookies";
     type ReturnObject = GetCookiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetCookies {
     const NAME: &'static str = "Storage.setCookies";
     type ReturnObject = SetCookiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearCookies {
     const NAME: &'static str = "Storage.clearCookies";
     type ReturnObject = ClearCookiesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetUsageAndQuota {
     const NAME: &'static str = "Storage.getUsageAndQuota";
     type ReturnObject = GetUsageAndQuotaReturnObject;
 }
+#[allow(deprecated)]
 impl Method for OverrideQuotaForOrigin {
     const NAME: &'static str = "Storage.overrideQuotaForOrigin";
     type ReturnObject = OverrideQuotaForOriginReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TrackCacheStorageForOrigin {
     const NAME: &'static str = "Storage.trackCacheStorageForOrigin";
     type ReturnObject = TrackCacheStorageForOriginReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TrackCacheStorageForStorageKey {
     const NAME: &'static str = "Storage.trackCacheStorageForStorageKey";
     type ReturnObject = TrackCacheStorageForStorageKeyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TrackIndexedDBForOrigin {
     const NAME: &'static str = "Storage.trackIndexedDBForOrigin";
     type ReturnObject = TrackIndexedDBForOriginReturnObject;
 }
+#[allow(deprecated)]
 impl Method for TrackIndexedDBForStorageKey {
     const NAME: &'static str = "Storage.trackIndexedDBForStorageKey";
     type ReturnObject = TrackIndexedDBForStorageKeyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for UntrackCacheStorageForOrigin {
     const NAME: &'static str = "Storage.untrackCacheStorageForOrigin";
     type ReturnObject = UntrackCacheStorageForOriginReturnObject;
 }
+#[allow(deprecated)]
 impl Method for UntrackCacheStorageForStorageKey {
     const NAME: &'static str = "Storage.untrackCacheStorageForStorageKey";
     type ReturnObject = UntrackCacheStorageForStorageKeyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for UntrackIndexedDBForOrigin {
     const NAME: &'static str = "Storage.untrackIndexedDBForOrigin";
     type ReturnObject = UntrackIndexedDBForOriginReturnObject;
 }
+#[allow(deprecated)]
 impl Method for UntrackIndexedDBForStorageKey {
     const NAME: &'static str = "Storage.untrackIndexedDBForStorageKey";
     type ReturnObject = UntrackIndexedDBForStorageKeyReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetTrustTokens {
     const NAME: &'static str = "Storage.getTrustTokens";
     type ReturnObject = GetTrustTokensReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearTrustTokens {
     const NAME: &'static str = "Storage.clearTrustTokens";
     type ReturnObject = ClearTrustTokensReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetInterestGroupDetails {
     const NAME: &'static str = "Storage.getInterestGroupDetails";
     type ReturnObject = GetInterestGroupDetailsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetInterestGroupTracking {
     const NAME: &'static str = "Storage.setInterestGroupTracking";
     type ReturnObject = SetInterestGroupTrackingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetInterestGroupAuctionTracking {
     const NAME: &'static str = "Storage.setInterestGroupAuctionTracking";
     type ReturnObject = SetInterestGroupAuctionTrackingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetSharedStorageMetadata {
     const NAME: &'static str = "Storage.getSharedStorageMetadata";
     type ReturnObject = GetSharedStorageMetadataReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetSharedStorageEntries {
     const NAME: &'static str = "Storage.getSharedStorageEntries";
     type ReturnObject = GetSharedStorageEntriesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSharedStorageEntry {
     const NAME: &'static str = "Storage.setSharedStorageEntry";
     type ReturnObject = SetSharedStorageEntryReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DeleteSharedStorageEntry {
     const NAME: &'static str = "Storage.deleteSharedStorageEntry";
     type ReturnObject = DeleteSharedStorageEntryReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ClearSharedStorageEntries {
     const NAME: &'static str = "Storage.clearSharedStorageEntries";
     type ReturnObject = ClearSharedStorageEntriesReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ResetSharedStorageBudget {
     const NAME: &'static str = "Storage.resetSharedStorageBudget";
     type ReturnObject = ResetSharedStorageBudgetReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetSharedStorageTracking {
     const NAME: &'static str = "Storage.setSharedStorageTracking";
     type ReturnObject = SetSharedStorageTrackingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetStorageBucketTracking {
     const NAME: &'static str = "Storage.setStorageBucketTracking";
     type ReturnObject = SetStorageBucketTrackingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for DeleteStorageBucket {
     const NAME: &'static str = "Storage.deleteStorageBucket";
     type ReturnObject = DeleteStorageBucketReturnObject;
 }
+#[allow(deprecated)]
 impl Method for RunBounceTrackingMitigations {
     const NAME: &'static str = "Storage.runBounceTrackingMitigations";
     type ReturnObject = RunBounceTrackingMitigationsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAttributionReportingLocalTestingMode {
     const NAME: &'static str = "Storage.setAttributionReportingLocalTestingMode";
     type ReturnObject = SetAttributionReportingLocalTestingModeReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetAttributionReportingTracking {
     const NAME: &'static str = "Storage.setAttributionReportingTracking";
     type ReturnObject = SetAttributionReportingTrackingReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SendPendingAttributionReports {
     const NAME: &'static str = "Storage.sendPendingAttributionReports";
     type ReturnObject = SendPendingAttributionReportsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetRelatedWebsiteSets {
     const NAME: &'static str = "Storage.getRelatedWebsiteSets";
     type ReturnObject = GetRelatedWebsiteSetsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for GetAffectedUrlsForThirdPartyCookieMetadata {
     const NAME: &'static str = "Storage.getAffectedUrlsForThirdPartyCookieMetadata";
     type ReturnObject = GetAffectedUrlsForThirdPartyCookieMetadataReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SetProtectedAudienceKAnonymity {
     const NAME: &'static str = "Storage.setProtectedAudienceKAnonymity";
     type ReturnObject = SetProtectedAudienceKAnonymityReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -1394,10 +1552,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CacheStorageContentUpdatedEvent {
         pub params: CacheStorageContentUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct CacheStorageContentUpdatedEventParams {
@@ -1414,10 +1574,12 @@ pub mod events {
         #[doc = "Name of cache in origin."]
         pub cache_name: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct CacheStorageListUpdatedEvent {
         pub params: CacheStorageListUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct CacheStorageListUpdatedEventParams {
@@ -1431,10 +1593,12 @@ pub mod events {
         #[doc = "Storage bucket to update."]
         pub bucket_id: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct IndexedDBContentUpdatedEvent {
         pub params: IndexedDBContentUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct IndexedDBContentUpdatedEventParams {
@@ -1454,10 +1618,12 @@ pub mod events {
         #[doc = "ObjectStore to update."]
         pub object_store_name: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct IndexedDBListUpdatedEvent {
         pub params: IndexedDBListUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct IndexedDBListUpdatedEventParams {
@@ -1471,10 +1637,12 @@ pub mod events {
         #[doc = "Storage bucket to update."]
         pub bucket_id: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InterestGroupAccessedEvent {
         pub params: InterestGroupAccessedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct InterestGroupAccessedEventParams {
@@ -1503,10 +1671,12 @@ pub mod events {
         #[doc = "For non-global events --- links to interestGroupAuctionEvent"]
         pub unique_auction_id: Option<super::InterestGroupAuctionId>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InterestGroupAuctionEventOccurredEvent {
         pub params: InterestGroupAuctionEventOccurredEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct InterestGroupAuctionEventOccurredEventParams {
@@ -1523,10 +1693,12 @@ pub mod events {
         #[doc = "Set for started and configResolved"]
         pub auction_config: Option<Json>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct InterestGroupAuctionNetworkRequestCreatedEvent {
         pub params: InterestGroupAuctionNetworkRequestCreatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct InterestGroupAuctionNetworkRequestCreatedEventParams {
@@ -1535,10 +1707,12 @@ pub mod events {
         #[doc = "This is the set of the auctions using the worklet that issued this\n request.  In the case of trusted signals, it's possible that only some of\n them actually care about the keys being queried."]
         pub auctions: Vec<super::InterestGroupAuctionId>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SharedStorageAccessedEvent {
         pub params: SharedStorageAccessedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct SharedStorageAccessedEventParams {
@@ -1559,10 +1733,12 @@ pub mod events {
         #[doc = "The sub-parameters wrapped by `params` are all optional and their\n presence/absence depends on `type`."]
         pub params: super::SharedStorageAccessParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct SharedStorageWorkletOperationExecutionFinishedEvent {
         pub params: SharedStorageWorkletOperationExecutionFinishedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct SharedStorageWorkletOperationExecutionFinishedEventParams {
@@ -1584,39 +1760,47 @@ pub mod events {
         #[doc = "Serialization of the origin owning the Shared Storage data."]
         pub owner_origin: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct StorageBucketCreatedOrUpdatedEvent {
         pub params: StorageBucketCreatedOrUpdatedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct StorageBucketCreatedOrUpdatedEventParams {
         pub bucket_info: super::StorageBucketInfo,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct StorageBucketDeletedEvent {
         pub params: StorageBucketDeletedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct StorageBucketDeletedEventParams {
         #[serde(default)]
         pub bucket_id: String,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AttributionReportingSourceRegisteredEvent {
         pub params: AttributionReportingSourceRegisteredEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AttributionReportingSourceRegisteredEventParams {
         pub registration: super::AttributionReportingSourceRegistration,
         pub result: super::AttributionReportingSourceRegistrationResult,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AttributionReportingTriggerRegisteredEvent {
         pub params: AttributionReportingTriggerRegisteredEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AttributionReportingTriggerRegisteredEventParams {
@@ -1624,10 +1808,12 @@ pub mod events {
         pub event_level: super::AttributionReportingEventLevelResult,
         pub aggregatable: super::AttributionReportingAggregatableResult,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AttributionReportingReportSentEvent {
         pub params: AttributionReportingReportSentEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AttributionReportingReportSentEventParams {
@@ -1650,10 +1836,12 @@ pub mod events {
         #[serde(default)]
         pub http_status_code: Option<JsUInt>,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct AttributionReportingVerboseDebugReportSentEvent {
         pub params: AttributionReportingVerboseDebugReportSentEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct AttributionReportingVerboseDebugReportSentEventParams {

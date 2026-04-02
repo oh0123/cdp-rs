@@ -1,4 +1,5 @@
 // Auto-generated from Chrome at version 146.0.7680.165 domain: LayerTree
+#![allow(dead_code)]
 use super::dom;
 #[allow(unused_imports)]
 use super::types::*;
@@ -11,6 +12,7 @@ use serde_json::Value as Json;
 pub type LayerId = String;
 pub type SnapshotId = String;
 pub type PaintProfile = Vec<JsFloat>;
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum ScrollRectType {
     #[serde(rename = "RepaintsOnScroll")]
@@ -20,6 +22,7 @@ pub enum ScrollRectType {
     #[serde(rename = "WheelEventHandler")]
     WheelEventHandler,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -30,6 +33,7 @@ pub struct ScrollRect {
     #[doc = "Reason for rectangle to force scrolling on the main thread"]
     pub r#type: ScrollRectType,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -48,6 +52,7 @@ pub struct StickyPositionConstraint {
     #[doc = "The nearest sticky layer that shifts the containing block"]
     pub nearest_layer_shifting_containing_block: Option<LayerId>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -62,6 +67,7 @@ pub struct PictureTile {
     #[doc = "Base64-encoded snapshot data."]
     pub picture: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -129,6 +135,7 @@ pub struct Layer {
     #[doc = "Sticky position constraint information"]
     pub sticky_position_constraint: Option<StickyPositionConstraint>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -137,10 +144,13 @@ pub struct CompositingReasons {
     #[doc = "The id of the layer for which we want to get the reasons it was composited."]
     pub layer_id: LayerId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Disable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub struct Enable(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -149,6 +159,7 @@ pub struct LoadSnapshot {
     #[doc = "An array of tiles composing the snapshot."]
     pub tiles: Vec<PictureTile>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -157,6 +168,7 @@ pub struct MakeSnapshot {
     #[doc = "The id of the layer."]
     pub layer_id: LayerId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -178,6 +190,7 @@ pub struct ProfileSnapshot {
     #[doc = "The clip rectangle to apply when replaying the snapshot."]
     pub clip_rect: Option<dom::Rect>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -186,6 +199,7 @@ pub struct ReleaseSnapshot {
     #[doc = "The id of the layer snapshot."]
     pub snapshot_id: SnapshotId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -209,6 +223,7 @@ pub struct ReplaySnapshot {
     #[doc = "The scale to apply while replaying (defaults to 1)."]
     pub scale: Option<JsFloat>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[builder(setter(into, strip_option))]
 #[serde(rename_all = "camelCase")]
@@ -217,6 +232,7 @@ pub struct SnapshotCommandLog {
     #[doc = "The id of the layer snapshot."]
     pub snapshot_id: SnapshotId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Provides the reasons why the given layer was composited."]
@@ -226,12 +242,15 @@ pub struct CompositingReasonsReturnObject {
     #[doc = "A list of strings specifying reason IDs for the given layer to become composited."]
     pub compositing_reason_ids: Vec<String>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Disables compositing tree inspection."]
 pub struct DisableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Enables compositing tree inspection."]
 pub struct EnableReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the snapshot identifier."]
@@ -239,6 +258,7 @@ pub struct LoadSnapshotReturnObject {
     #[doc = "The id of the snapshot."]
     pub snapshot_id: SnapshotId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Returns the layer snapshot identifier."]
@@ -246,15 +266,18 @@ pub struct MakeSnapshotReturnObject {
     #[doc = "The id of the layer snapshot."]
     pub snapshot_id: SnapshotId,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct ProfileSnapshotReturnObject {
     #[doc = "The array of paint profiles, one per run."]
     pub timings: Vec<PaintProfile>,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[doc = "Releases layer snapshot captured by the back-end."]
 pub struct ReleaseSnapshotReturnObject(pub Option<Json>);
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Replays the layer snapshot and returns the resulting bitmap."]
@@ -264,6 +287,7 @@ pub struct ReplaySnapshotReturnObject {
     #[serde(rename = "dataURL")]
     pub data_url: String,
 }
+#[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
 #[serde(rename_all = "camelCase")]
 #[doc = "Replays the layer snapshot and returns canvas log."]
@@ -271,42 +295,52 @@ pub struct SnapshotCommandLogReturnObject {
     #[doc = "The array of canvas function calls."]
     pub command_log: Vec<Json>,
 }
+#[allow(deprecated)]
 impl Method for CompositingReasons {
     const NAME: &'static str = "LayerTree.compositingReasons";
     type ReturnObject = CompositingReasonsReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Disable {
     const NAME: &'static str = "LayerTree.disable";
     type ReturnObject = DisableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for Enable {
     const NAME: &'static str = "LayerTree.enable";
     type ReturnObject = EnableReturnObject;
 }
+#[allow(deprecated)]
 impl Method for LoadSnapshot {
     const NAME: &'static str = "LayerTree.loadSnapshot";
     type ReturnObject = LoadSnapshotReturnObject;
 }
+#[allow(deprecated)]
 impl Method for MakeSnapshot {
     const NAME: &'static str = "LayerTree.makeSnapshot";
     type ReturnObject = MakeSnapshotReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ProfileSnapshot {
     const NAME: &'static str = "LayerTree.profileSnapshot";
     type ReturnObject = ProfileSnapshotReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReleaseSnapshot {
     const NAME: &'static str = "LayerTree.releaseSnapshot";
     type ReturnObject = ReleaseSnapshotReturnObject;
 }
+#[allow(deprecated)]
 impl Method for ReplaySnapshot {
     const NAME: &'static str = "LayerTree.replaySnapshot";
     type ReturnObject = ReplaySnapshotReturnObject;
 }
+#[allow(deprecated)]
 impl Method for SnapshotCommandLog {
     const NAME: &'static str = "LayerTree.snapshotCommandLog";
     type ReturnObject = SnapshotCommandLogReturnObject;
 }
+#[allow(dead_code)]
 pub mod events {
     #[allow(unused_imports)]
     use super::super::types::*;
@@ -316,10 +350,12 @@ pub mod events {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use serde_json::Value as Json;
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LayerPaintedEvent {
         pub params: LayerPaintedEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct LayerPaintedEventParams {
@@ -328,10 +364,12 @@ pub mod events {
         #[doc = "Clip rectangle."]
         pub clip: super::super::dom::Rect,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
     pub struct LayerTreeDidChangeEvent {
         pub params: LayerTreeDidChangeEventParams,
     }
+    #[allow(deprecated)]
     #[derive(Deserialize, Serialize, Debug, Clone, PartialEq, Builder)]
     #[serde(rename_all = "camelCase")]
     pub struct LayerTreeDidChangeEventParams {
