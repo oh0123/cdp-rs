@@ -22,9 +22,7 @@ use futures_util::StreamExt;
 use serde::Deserialize;
 use serde_json::Value;
 use std::collections::HashMap;
-use std::future::Future;
 use std::path::{Path, PathBuf};
-use std::pin::Pin;
 use std::sync::{Arc, Weak};
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc};
@@ -318,7 +316,7 @@ impl Launcher {
         self
     }
 
-    pub fn launch(self) -> Pin<Box<dyn Future<Output = Result<Arc<Browser>>> + Send + 'static>> {
+    pub async fn launch(self) -> Result<Arc<Browser>> {
         let Launcher {
             port,
             connect_addr,
@@ -327,37 +325,32 @@ impl Launcher {
         } = self;
 
         if let Some(addr) = connect_addr {
-            return Box::pin(async move {
-                let url = resolve_browser_ws_url(&addr).await?;
-                Browser::connect(url, None).await
-            });
+            let url = resolve_browser_ws_url(&addr).await?;
+            return Browser::connect(url, None).await;
         }
 
-        Box::pin(async move {
-            let (ws_url, process) = match find_running_browser_port(browser_type) {
-                Ok(found_port) => {
-                    let addr = format!("http://127.0.0.1:{}", found_port);
-                    tracing::info!("Connecting to existing browser at {}", addr);
-                    let url = resolve_browser_ws_url(&addr).await?;
-                    (url, None)
-                }
-                Err(_) => {
-                    let selected_port = if let Some(p) = port {
-                        p
-                    } else {
-                        find_available_port().await?
-                    };
-                    let launched =
-                        browser_type.launch_with_options(selected_port, launch_options)?;
-                    let addr = format!("http://127.0.0.1:{}", launched.debug_port);
-                    tracing::info!("Launched new browser at {}", addr);
-                    let url = resolve_browser_ws_url(&addr).await?;
-                    (url, Some(ChromeProcess(launched)))
-                }
-            };
+        let (ws_url, process) = match find_running_browser_port(browser_type) {
+            Ok(found_port) => {
+                let addr = format!("http://127.0.0.1:{}", found_port);
+                tracing::info!("Connecting to existing browser at {}", addr);
+                let url = resolve_browser_ws_url(&addr).await?;
+                (url, None)
+            }
+            Err(_) => {
+                let selected_port = if let Some(p) = port {
+                    p
+                } else {
+                    find_available_port().await?
+                };
+                let launched = browser_type.launch_with_options(selected_port, launch_options)?;
+                let addr = format!("http://127.0.0.1:{}", launched.debug_port);
+                tracing::info!("Launched new browser at {}", addr);
+                let url = resolve_browser_ws_url(&addr).await?;
+                (url, Some(ChromeProcess(launched)))
+            }
+        };
 
-            Browser::connect(ws_url, process).await
-        })
+        Browser::connect(ws_url, process).await
     }
 }
 

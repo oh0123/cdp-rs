@@ -263,22 +263,18 @@ impl Keyboard {
             (max_delay_ms, min_delay_ms)
         };
 
-        let chars: Vec<char> = text.chars().collect();
-        let delays: Vec<u64> = if min_delay == 0 && max_delay == 0 {
-            vec![0; chars.len()]
-        } else if min_delay == max_delay {
-            vec![max_delay; chars.len()]
-        } else {
-            let mut rng: SmallRng = make_rng();
-            (0..chars.len())
-                .map(|_| rng.random_range(min_delay..=max_delay))
-                .collect()
-        };
+        let mut rng = (min_delay < max_delay).then(|| {
+            let rng: SmallRng = make_rng();
+            rng
+        });
 
-        for (index, ch) in chars.into_iter().enumerate() {
+        for ch in text.chars() {
             self.press_character(ch).await?;
 
-            let delay = delays[index];
+            let delay = rng
+                .as_mut()
+                .map(|rng| rng.random_range(min_delay..=max_delay))
+                .unwrap_or(max_delay);
             if delay > 0 {
                 sleep(Duration::from_millis(delay)).await;
             }
