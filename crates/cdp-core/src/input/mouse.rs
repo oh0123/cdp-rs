@@ -4,7 +4,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-use rand::RngExt;
+use rand::{RngExt, make_rng, rngs::SmallRng};
 use serde_json::Value;
 
 pub use cdp_protocol::input::MouseButton;
@@ -508,31 +508,38 @@ impl Mouse {
         let delta_y = end_y - start_y;
         let step_delay = total_duration.div_f64(total_steps as f64);
         let button_mask = Self::button_bitmask(&button);
-        let mut rng = rand::rng();
+        let planned_points: Vec<(f64, f64)> = {
+            let mut rng: SmallRng = make_rng();
+            (1..=total_steps)
+                .map(|step_idx| {
+                    let progress = step_idx as f64 / total_steps as f64;
+                    let eased = easing.evaluate(progress);
 
-        for step_idx in 1..=total_steps {
-            let progress = step_idx as f64 / total_steps as f64;
-            let eased = easing.evaluate(progress);
+                    let base_x = start_x + delta_x * eased;
+                    let base_y = start_y + delta_y * eased;
 
-            let base_x = start_x + delta_x * eased;
-            let base_y = start_y + delta_y * eased;
+                    let apply_jitter = jitter_px > 0.0 && step_idx < total_steps;
+                    let jitter_x = if apply_jitter {
+                        rng.random_range(-jitter_px..=jitter_px)
+                    } else {
+                        0.0
+                    };
+                    let jitter_y = if apply_jitter {
+                        rng.random_range(-jitter_px..=jitter_px)
+                    } else {
+                        0.0
+                    };
 
-            let apply_jitter = jitter_px > 0.0 && step_idx < total_steps;
-            let jitter_x = if apply_jitter {
-                rng.random_range(-jitter_px..=jitter_px)
-            } else {
-                0.0
-            };
-            let jitter_y = if apply_jitter {
-                rng.random_range(-jitter_px..=jitter_px)
-            } else {
-                0.0
-            };
+                    (base_x + jitter_x, base_y + jitter_y)
+                })
+                .collect()
+        };
 
+        for (step_idx, (x, y)) in planned_points.into_iter().enumerate() {
             let params = DispatchMouseEvent {
                 r#type: DispatchMouseEventTypeOption::MouseMoved,
-                x: base_x + jitter_x,
-                y: base_y + jitter_y,
+                x,
+                y,
                 modifiers: None,
                 timestamp: None,
                 button: Some(button.clone()),
@@ -550,7 +557,7 @@ impl Mouse {
 
             self.dispatch(params).await?;
 
-            if step_idx < total_steps && !step_delay.is_zero() {
+            if step_idx + 1 < total_steps && !step_delay.is_zero() {
                 tokio::time::sleep(step_delay).await;
             }
         }

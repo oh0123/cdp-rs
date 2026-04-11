@@ -1,6 +1,11 @@
 # cdp-rs
 
-A robust Rust library for controlling Chrome/Chromium browsers via the Chrome DevTools Protocol (CDP).
+A Rust workspace for Chrome DevTools Protocol automation.
+
+The repository currently contains:
+
+- cdp-core: a high-level async API for launching browsers, driving pages, simulating input, intercepting network traffic, and managing storage.
+- cdp-protocol: generated Chrome DevTools Protocol types and command/event definitions.
 
 ## Features
 
@@ -18,30 +23,27 @@ A robust Rust library for controlling Chrome/Chromium browsers via the Chrome De
 ## Quick Start
 
 ```rust
-use cdp_core::{Browser, Page};
-use std::sync::Arc;
+use cdp_core::Browser;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     // Launch browser
-    let browser = Browser::launcher()
-        .launch()
-        .await?;
-    
+    let browser = Browser::launcher().launch().await?;
+
     // Create a new page
     let page = browser.new_page().await?;
-    
+
     // Navigate to a website
     page.navigate("https://example.com").await?;
-    
+
     // Find and interact with elements
     if let Some(button) = page.query_selector("#button").await? {
         button.click().await?;
     }
-    
+
     // Take a screenshot
     page.screenshot(true, Some("screenshot.png".into())).await?;
-    
+
     Ok(())
 }
 ```
@@ -52,30 +54,33 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-core = "0.1.0"
+cdp-core = "0.3.2"
 tokio = { version = "1", features = ["full"] }
 ```
 
+Use `cdp-protocol = "0.3.1"` only if you need low-level generated protocol types directly.
+
 ## Documentation
 
-- **[Getting Started Guide](docs/GETTING_STARTED.md)** - Installation and first steps
-- **[API Reference](docs/API_REFERENCE.md)** - Quick reference for all APIs
-- **[Feature Guides](docs/features/)** - Detailed documentation for each feature
-- **[How-To Guides](docs/howto/)** - Practical recipes and patterns
+- **[Getting Started Guide](crates/cdp-core/docs/GETTING_STARTED.md)** - Installation and first steps
+- **[API Reference](crates/cdp-core/docs/API_REFERENCE.md)** - Quick reference for the high-level API
+- **[Feature Guides](crates/cdp-core/docs/features/)** - Detailed documentation for each feature area
+- **[How-To Guides](crates/cdp-core/docs/howto/)** - Practical recipes and usage patterns
+- **[cdp-core examples](crates/cdp-core/examples/)** - Runnable examples covering launch, networking, storage, and concurrent contexts
 
 ## Examples
 
-Check out the [examples](examples/) directory for runnable code:
+From the workspace root, run examples from [crates/cdp-core/examples/](crates/cdp-core/examples/):
 
 ```bash
 # Run basic example
-cargo run --example basic
+cargo run -p cdp-core --example basic
 
-# Run comprehensive test
-cargo run --example comprehensive_test
+# Run comprehensive example
+cargo run -p cdp-core --example comprehensive
 
-# Run web scraping example
-cargo run --example web_scraping
+# Run network example
+cargo run -p cdp-core --example network
 ```
 
 ## Architecture
@@ -104,7 +109,7 @@ cdp-core provides a high-level, async Rust API over the Chrome DevTools Protocol
 ## Requirements
 
 - Chrome or Chromium browser
-- Rust 1.70 or later
+- Rust 1.85 or later
 - Tokio async runtime
 
 ## License

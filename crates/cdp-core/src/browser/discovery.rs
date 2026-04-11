@@ -2,7 +2,7 @@ use crate::{
     browser::launcher::BrowserType,
     error::{CdpError, Result},
 };
-use rand::RngExt;
+use rand::{RngExt, make_rng, rngs::SmallRng};
 use std::{
     env, io,
     path::{Path, PathBuf},
@@ -154,7 +154,7 @@ pub fn get_executable_version(path: &Path) -> io::Result<String> {
 }
 
 pub(crate) async fn find_available_port() -> Result<u16> {
-    let mut rng = rand::rng();
+    let mut rng: SmallRng = make_rng();
     for _ in 0..10 {
         let port = rng.random_range(20000..60000);
         if TcpListener::bind(("127.0.0.1", port)).await.is_ok() {

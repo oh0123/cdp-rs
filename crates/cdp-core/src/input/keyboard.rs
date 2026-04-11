@@ -1,7 +1,7 @@
 use std::sync::Arc;
 use std::time::Duration;
 
-use rand::RngExt;
+use rand::{RngExt, make_rng, rngs::SmallRng};
 use tokio::time::sleep;
 
 use cdp_protocol::input::{
@@ -263,21 +263,24 @@ impl Keyboard {
             (max_delay_ms, min_delay_ms)
         };
 
-        let mut rng = rand::rng();
+        let chars: Vec<char> = text.chars().collect();
+        let delays: Vec<u64> = if min_delay == 0 && max_delay == 0 {
+            vec![0; chars.len()]
+        } else if min_delay == max_delay {
+            vec![max_delay; chars.len()]
+        } else {
+            let mut rng: SmallRng = make_rng();
+            (0..chars.len())
+                .map(|_| rng.random_range(min_delay..=max_delay))
+                .collect()
+        };
 
-        for ch in text.chars() {
+        for (index, ch) in chars.into_iter().enumerate() {
             self.press_character(ch).await?;
 
-            if min_delay > 0 || max_delay > 0 {
-                let delay = if min_delay == max_delay {
-                    max_delay
-                } else {
-                    rng.random_range(min_delay..=max_delay)
-                };
-
-                if delay > 0 {
-                    sleep(Duration::from_millis(delay)).await;
-                }
+            let delay = delays[index];
+            if delay > 0 {
+                sleep(Duration::from_millis(delay)).await;
             }
         }
 
