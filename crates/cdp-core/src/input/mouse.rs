@@ -508,7 +508,8 @@ impl Mouse {
         let delta_y = end_y - start_y;
         let step_delay = total_duration.div_f64(total_steps as f64);
         let button_mask = Self::button_bitmask(&button);
-        let mut rng = (jitter_px > 0.0).then(|| {
+        let jitter_enabled = jitter_px > 0.0;
+        let mut rng = jitter_enabled.then(|| {
             let rng: SmallRng = make_rng();
             rng
         });
@@ -520,7 +521,7 @@ impl Mouse {
             let base_x = start_x + delta_x * eased;
             let base_y = start_y + delta_y * eased;
 
-            let apply_jitter = jitter_px > 0.0 && step_idx < total_steps;
+            let apply_jitter = jitter_enabled && step_idx < total_steps;
             let jitter_x = if apply_jitter {
                 rng.as_mut()
                     .expect("rng must exist when jitter is enabled")
