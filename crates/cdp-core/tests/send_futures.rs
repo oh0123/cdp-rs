@@ -10,7 +10,11 @@ where
 
 #[test]
 fn launcher_connect_existing_future_is_send() {
-    assert_send_future(Browser::launcher().connect_to_existing("http://127.0.0.1:9222").launch());
+    assert_send_future(
+        Browser::launcher()
+            .connect_to_existing("http://127.0.0.1:9222")
+            .launch(),
+    );
 }
 
 #[test]
@@ -23,7 +27,10 @@ fn keyboard_type_text_future_is_send() {
     fn assert_keyboard(page: Arc<Page>) {
         assert_send_future(async move {
             let keyboard = page.keyboard();
-            keyboard.type_text_with_delay("hello", 10, 30).await.unwrap();
+            keyboard
+                .type_text_with_delay("hello", 10, 30)
+                .await
+                .unwrap();
         });
     }
 
