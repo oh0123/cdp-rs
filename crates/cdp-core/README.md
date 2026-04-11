@@ -1,6 +1,6 @@
-# cdp-rs
+# cdp-core
 
-A robust Rust library for controlling Chrome/Chromium browsers via the Chrome DevTools Protocol (CDP).
+A high-level async Rust crate for controlling Chrome/Chromium browsers via the Chrome DevTools Protocol (CDP).
 
 ## Features
 
@@ -18,30 +18,27 @@ A robust Rust library for controlling Chrome/Chromium browsers via the Chrome De
 ## Quick Start
 
 ```rust
-use cdp_core::{Browser, Page};
-use std::sync::Arc;
+use cdp_core::Browser;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     // Launch browser
-    let browser = Browser::launcher()
-        .launch()
-        .await?;
-    
+    let browser = Browser::launcher().launch().await?;
+
     // Create a new page
     let page = browser.new_page().await?;
-    
+
     // Navigate to a website
     page.navigate("https://example.com").await?;
-    
+
     // Find and interact with elements
     if let Some(button) = page.query_selector("#button").await? {
         button.click().await?;
     }
-    
+
     // Take a screenshot
     page.screenshot(true, Some("screenshot.png".into())).await?;
-    
+
     Ok(())
 }
 ```
@@ -52,16 +49,16 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-core = "0.1.0"
+cdp-core = "0.3.2"
 tokio = { version = "1", features = ["full"] }
 ```
 
 ## Documentation
 
 - **[Getting Started Guide](docs/GETTING_STARTED.md)** - Installation and first steps
-- **[API Reference](docs/API_REFERENCE.md)** - Quick reference for all APIs
-- **[Feature Guides](docs/features/)** - Detailed documentation for each feature
-- **[How-To Guides](docs/howto/)** - Practical recipes and patterns
+- **[API Reference](docs/API_REFERENCE.md)** - Quick reference for the high-level API
+- **[Feature Guides](docs/features/)** - Detailed documentation for each feature area
+- **[How-To Guides](docs/howto/)** - Practical recipes and usage patterns
 
 ## Examples
 
@@ -71,11 +68,11 @@ Check out the [examples](examples/) directory for runnable code:
 # Run basic example
 cargo run --example basic
 
-# Run comprehensive test
-cargo run --example comprehensive_test
+# Run comprehensive example
+cargo run --example comprehensive
 
-# Run web scraping example
-cargo run --example web_scraping
+# Run network example
+cargo run --example network
 ```
 
 ## Architecture
@@ -104,7 +101,7 @@ cdp-core provides a high-level, async Rust API over the Chrome DevTools Protocol
 ## Requirements
 
 - Chrome or Chromium browser
-- Rust 1.70 or later
+- Rust 1.85 or later
 - Tokio async runtime
 
 ## License
@@ -113,4 +110,4 @@ This project is licensed under the [MIT license](LICENSE).
 
 ## Contributing
 
-Contributions welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+Contributions welcome! See [../../CONTRIBUTING.md](../../CONTRIBUTING.md) for repository-wide guidelines.

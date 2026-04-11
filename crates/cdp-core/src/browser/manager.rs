@@ -22,7 +22,9 @@ use futures_util::StreamExt;
 use serde::Deserialize;
 use serde_json::Value;
 use std::collections::HashMap;
+use std::future::Future;
 use std::path::{Path, PathBuf};
+use std::pin::Pin;
 use std::sync::{Arc, Weak};
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc};
@@ -316,7 +318,7 @@ impl Launcher {
         self
     }
 
-    pub async fn launch(self) -> Result<Arc<Browser>> {
+    pub fn launch(self) -> Pin<Box<dyn Future<Output = Result<Arc<Browser>>> + Send + 'static>> {
         let Launcher {
             port,
             connect_addr,
@@ -324,13 +326,15 @@ impl Launcher {
             launch_options,
         } = self;
 
-        let (ws_url, process) = if let Some(addr) = connect_addr {
-            // Mode 2: connect to an existing browser instance.
-            let url = resolve_browser_ws_url(&addr).await?;
-            (url, None)
-        } else {
-            // Try to find running browser first
-            match find_running_browser_port(browser_type) {
+        if let Some(addr) = connect_addr {
+            return Box::pin(async move {
+                let url = resolve_browser_ws_url(&addr).await?;
+                Browser::connect(url, None).await
+            });
+        }
+
+        Box::pin(async move {
+            let (ws_url, process) = match find_running_browser_port(browser_type) {
                 Ok(found_port) => {
                     let addr = format!("http://127.0.0.1:{}", found_port);
                     tracing::info!("Connecting to existing browser at {}", addr);
@@ -338,7 +342,6 @@ impl Launcher {
                     (url, None)
                 }
                 Err(_) => {
-                    // No running browser, launch new
                     let selected_port = if let Some(p) = port {
                         p
                     } else {
@@ -351,10 +354,10 @@ impl Launcher {
                     let url = resolve_browser_ws_url(&addr).await?;
                     (url, Some(ChromeProcess(launched)))
                 }
-            }
-        };
+            };
 
-        Browser::connect(ws_url, process).await
+            Browser::connect(ws_url, process).await
+        })
     }
 }
 
