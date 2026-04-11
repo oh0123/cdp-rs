@@ -267,8 +267,9 @@ impl Keyboard {
             let rng: SmallRng = make_rng();
             rng
         });
+        let chars: Vec<char> = text.chars().collect();
 
-        for ch in text.chars() {
+        for ch in chars {
             self.press_character(ch).await?;
 
             let delay = rng
