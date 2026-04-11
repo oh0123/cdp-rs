@@ -520,18 +520,18 @@ impl Mouse {
             let base_x = start_x + delta_x * eased;
             let base_y = start_y + delta_y * eased;
 
-            let apply_jitter = step_idx < total_steps;
+            let apply_jitter = jitter_px > 0.0 && step_idx < total_steps;
             let jitter_x = if apply_jitter {
                 rng.as_mut()
-                    .map(|rng| rng.random_range(-jitter_px..=jitter_px))
-                    .unwrap_or(0.0)
+                    .expect("rng must exist when jitter is enabled")
+                    .random_range(-jitter_px..=jitter_px)
             } else {
                 0.0
             };
             let jitter_y = if apply_jitter {
                 rng.as_mut()
-                    .map(|rng| rng.random_range(-jitter_px..=jitter_px))
-                    .unwrap_or(0.0)
+                    .expect("rng must exist when jitter is enabled")
+                    .random_range(-jitter_px..=jitter_px)
             } else {
                 0.0
             };
