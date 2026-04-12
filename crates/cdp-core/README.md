@@ -49,7 +49,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-core = "0.3.2"
+cdp-core = "0.3.3"
 tokio = { version = "1", features = ["full"] }
 ```
 
