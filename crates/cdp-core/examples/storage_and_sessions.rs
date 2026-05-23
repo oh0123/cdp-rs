@@ -20,27 +20,52 @@ async fn main() -> Result<()> {
         .init();
 
     let browser = Arc::new(Browser::launcher().launch().await?);
-    let page = browser.new_page().await?;
 
-    // Navigate to test page
-    page.navigate("https://www.github.com").await?;
-    page.wait_for_navigation(None).await?;
-    println!("✓ Navigated to github.com\n");
+    let run_result = async {
+        let page = browser.new_page().await?;
 
-    // ========== LocalStorage Tests ==========
-    test_local_storage(&page).await?;
+        // Navigate to test page
+        page.navigate("https://www.github.com").await?;
+        page.wait_for_navigation(None).await?;
+        println!("✓ Navigated to github.com\n");
 
-    // ========== SessionStorage Tests ==========
-    test_session_storage(&page).await?;
+        // ========== LocalStorage Tests ==========
+        test_local_storage(&page).await?;
 
-    // ========== Cookie Management ==========
-    test_cookies(&page).await?;
+        // ========== SessionStorage Tests ==========
+        test_session_storage(&page).await?;
 
-    // ========== Page Session Management ==========
-    test_page_sessions(&browser, &page).await?;
+        // ========== Cookie Management ==========
+        test_cookies(&page).await?;
 
-    println!("\n========== All Tests Passed! ==========");
-    Ok(())
+        // ========== Page Session Management ==========
+        test_page_sessions(&browser, &page).await?;
+
+        page.cleanup().await?;
+
+        println!("\n========== All Tests Passed! ==========");
+        Ok(())
+    }
+    .await;
+
+    println!("Disconnecting shared browser...");
+    let disconnect_result = browser.disconnect().await;
+
+    match run_result {
+        Ok(()) => {
+            disconnect_result?;
+            Ok(())
+        }
+        Err(err) => {
+            if let Err(disconnect_err) = disconnect_result {
+                eprintln!(
+                    "✗ Failed to disconnect browser during shutdown: {}",
+                    disconnect_err
+                );
+            }
+            Err(err)
+        }
+    }
 }
 
 async fn test_local_storage(page: &Arc<page::Page>) -> Result<()> {

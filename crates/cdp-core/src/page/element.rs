@@ -12,6 +12,7 @@ use std::{
     time::Duration,
 };
 use tokio::{fs, fs::File, io::AsyncWriteExt, time::timeout};
+use tracing::warn;
 
 /// Defines the bounding box strategy used when capturing element screenshots.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -1617,10 +1618,8 @@ impl ShadowRoot {
     pub async fn query_selector(&self, selector: &str) -> Result<Option<ElementHandle>> {
         // For XPath selectors emit a warning; DOM.performSearch is global and unreliable within the shadow tree.
         if Self::is_xpath(selector) {
-            eprintln!("Warning: XPath support inside shadow DOM is limited; prefer CSS selectors");
-            eprintln!(
-                "If XPath is required, use query_selector_shadow on the host element instead"
-            );
+            warn!("Warning: XPath support inside shadow DOM is limited; prefer CSS selectors");
+            warn!("If XPath is required, use query_selector_shadow on the host element instead");
             // Continue anyway so callers can attempt the lookup.
         }
 
@@ -1703,7 +1702,7 @@ impl ShadowRoot {
     pub async fn query_selector_all(&self, selector: &str) -> Result<Vec<ElementHandle>> {
         // Emit a warning for XPath selectors.
         if Self::is_xpath(selector) {
-            eprintln!("Warning: XPath support inside shadow DOM is limited; prefer CSS selectors");
+            warn!("Warning: XPath support inside shadow DOM is limited; prefer CSS selectors");
         }
 
         use cdp_protocol::dom::{

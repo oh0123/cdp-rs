@@ -12,65 +12,89 @@ async fn main() -> Result<()> {
         .with_target(false)
         .init();
 
-    // List of Amazon product URLs to visit concurrently
-    let product_urls = vec![
-        "https://www.amazon.com/dp/B08CBVGXZC",
-        "https://www.amazon.com/dp/B0BDF8CVBN",
-        "https://www.amazon.com/dp/B0D1XD1ZV3",
-        "https://www.amazon.com/dp/B0CQXM2J9H",
-    ];
-
     println!("Launching browser...");
     let browser = Browser::launcher().launch().await?;
     println!("Browser launched successfully.\n");
 
-    // Create a JoinSet to manage concurrent tasks
-    let mut tasks = JoinSet::new();
+    let run_result = async {
+        // List of Amazon product URLs to visit concurrently
+        let product_urls = vec![
+            "https://www.amazon.com/dp/B08CBVGXZC",
+            "https://www.amazon.com/dp/B0BDF8CVBN",
+            "https://www.amazon.com/dp/B0D1XD1ZV3",
+            "https://www.amazon.com/dp/B0CQXM2J9H",
+        ];
 
-    // Spawn a task for each product URL
-    for (index, url) in product_urls.iter().enumerate() {
-        let browser_clone = browser.clone();
-        let url_clone = url.to_string();
+        // Create a JoinSet to manage concurrent tasks
+        let mut tasks = JoinSet::new();
 
-        tasks.spawn(async move { visit_product_page(browser_clone, index + 1, &url_clone).await });
-    }
+        // Spawn a task for each product URL
+        for (index, url) in product_urls.iter().enumerate() {
+            let browser_clone = browser.clone();
+            let url_clone = url.to_string();
 
-    // Wait for all tasks to complete and collect results
-    println!("Starting concurrent page visits...\n");
-    let mut results = Vec::new();
+            tasks.spawn(
+                async move { visit_product_page(browser_clone, index + 1, &url_clone).await },
+            );
+        }
 
-    while let Some(result) = tasks.join_next().await {
-        match result {
-            Ok(Ok(page_info)) => {
-                println!("✓ Context {} completed successfully", page_info.context_id);
-                results.push(page_info);
-            }
-            Ok(Err(e)) => {
-                eprintln!("✗ Task failed: {}", e);
-            }
-            Err(e) => {
-                eprintln!("✗ Task panicked: {}", e);
+        // Wait for all tasks to complete and collect results
+        println!("Starting concurrent page visits...\n");
+        let mut results = Vec::new();
+
+        while let Some(result) = tasks.join_next().await {
+            match result {
+                Ok(Ok(page_info)) => {
+                    println!("✓ Context {} completed successfully", page_info.context_id);
+                    results.push(page_info);
+                }
+                Ok(Err(e)) => {
+                    eprintln!("✗ Task failed: {}", e);
+                }
+                Err(e) => {
+                    eprintln!("✗ Task panicked: {}", e);
+                }
             }
         }
+
+        // Print summary
+        println!("\n{}", "=".repeat(60));
+        println!(
+            "Summary: {}/{} pages visited successfully",
+            results.len(),
+            product_urls.len()
+        );
+        println!("{}", "=".repeat(60));
+
+        for info in results {
+            println!("Context {}: {}", info.context_id, info.title);
+            println!("  URL: {}", info.url);
+            println!("  Screenshot: {}", info.screenshot_path);
+            println!();
+        }
+
+        Ok(())
     }
+    .await;
 
-    // Print summary
-    println!("\n{}", "=".repeat(60));
-    println!(
-        "Summary: {}/{} pages visited successfully",
-        results.len(),
-        product_urls.len()
-    );
-    println!("{}", "=".repeat(60));
+    println!("Disconnecting shared browser...");
+    let disconnect_result = browser.disconnect().await;
 
-    for info in results {
-        println!("Context {}: {}", info.context_id, info.title);
-        println!("  URL: {}", info.url);
-        println!("  Screenshot: {}", info.screenshot_path);
-        println!();
+    match run_result {
+        Ok(()) => {
+            disconnect_result?;
+            Ok(())
+        }
+        Err(err) => {
+            if let Err(disconnect_err) = disconnect_result {
+                eprintln!(
+                    "✗ Failed to disconnect browser during shutdown: {}",
+                    disconnect_err
+                );
+            }
+            Err(err)
+        }
     }
-
-    Ok(())
 }
 
 /// Information about a visited page
@@ -94,35 +118,75 @@ async fn visit_product_page(
     let context = browser.new_context().await?;
 
     println!("[Context {}] Creating new page...", context_id);
-    let page = context.new_page().await?;
+    let page = match context.new_page().await {
+        Ok(page) => page,
+        Err(err) => {
+            if let Err(close_err) = context.close().await {
+                eprintln!(
+                    "[Context {}] Failed to close context after page creation error: {:?}",
+                    context_id, close_err
+                );
+            }
+            return Err(err);
+        }
+    };
 
-    println!("[Context {}] Navigating to: {}", context_id, url);
-    page.navigate(url).await?;
+    let visit_result = async {
+        println!("[Context {}] Navigating to: {}", context_id, url);
+        page.navigate(url).await?;
 
-    println!("[Context {}] Waiting for page to load...", context_id);
-    page.wait_for_loaded().await?;
+        println!("[Context {}] Waiting for page to load...", context_id);
+        page.wait_for_loaded().await?;
 
-    // Get page title
-    let title = page
-        .get_title()
-        .await
-        .unwrap_or_else(|_| "Unknown".to_string());
+        // Get page title
+        let title = page
+            .get_title()
+            .await
+            .unwrap_or_else(|_| "Unknown".to_string());
 
-    println!("[Context {}] Page loaded: {}", context_id, title);
+        println!("[Context {}] Page loaded: {}", context_id, title);
 
-    // Take a screenshot
-    println!("[Context {}] Taking screenshot...", context_id);
-    let screenshot_path = page.screenshot(false, None).await?;
+        // Take a screenshot
+        println!("[Context {}] Taking screenshot...", context_id);
+        let screenshot_path = page.screenshot(false, None).await?;
 
-    println!(
-        "[Context {}] Screenshot saved: {}",
-        context_id, screenshot_path
-    );
+        println!(
+            "[Context {}] Screenshot saved: {}",
+            context_id, screenshot_path
+        );
 
-    Ok(PageInfo {
-        context_id,
-        url: url.to_string(),
-        title,
-        screenshot_path,
-    })
+        Ok(PageInfo {
+            context_id,
+            url: url.to_string(),
+            title,
+            screenshot_path,
+        })
+    }
+    .await;
+
+    let page_cleanup_result = page.cleanup().await;
+    let context_cleanup_result = context.close().await;
+
+    match visit_result {
+        Ok(page_info) => {
+            page_cleanup_result?;
+            context_cleanup_result?;
+            Ok(page_info)
+        }
+        Err(err) => {
+            if let Err(cleanup_err) = page_cleanup_result {
+                eprintln!(
+                    "[Context {}] Failed to cleanup page after request error: {:?}",
+                    context_id, cleanup_err
+                );
+            }
+            if let Err(cleanup_err) = context_cleanup_result {
+                eprintln!(
+                    "[Context {}] Failed to close context after request error: {:?}",
+                    context_id, cleanup_err
+                );
+            }
+            Err(err)
+        }
+    }
 }

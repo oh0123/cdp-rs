@@ -44,6 +44,10 @@ async fn main() -> anyhow::Result<()> {
     // Take a screenshot
     page.screenshot(true, Some("screenshot.png".into())).await?;
 
+    // Explicitly release page and connection resources when done
+    page.cleanup().await?;
+    browser.disconnect().await?;
+
     Ok(())
 }
 ```
@@ -54,11 +58,17 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-core = "0.3.3"
+cdp-core = "0.3.4"
 tokio = { version = "1", features = ["full"] }
 ```
 
 Use `cdp-protocol = "0.3.1"` only if you need low-level generated protocol types directly.
+
+## Lifecycle Management
+
+For short-lived or exclusive browser connections, explicitly clean up the page and disconnect the browser when work is complete.
+
+When reusing a shared `Browser`, keep `page.cleanup()` and `context.close()` at request boundaries, and call `browser.disconnect()` only during process shutdown or after the shared connection is known to be unhealthy.
 
 ## Documentation
 

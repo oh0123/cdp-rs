@@ -37,6 +37,7 @@ use tokio::sync::broadcast;
 use tokio::sync::mpsc;
 use tokio_stream::wrappers::BroadcastStream;
 use tokio_tungstenite::connect_async;
+use tracing::warn;
 
 /// Frame lifecycle event type
 #[derive(Clone, Debug)]
@@ -432,7 +433,7 @@ impl Page {
             Ok(None) => {} // Not found, continue searching other frames
             Err(e) => {
                 // If execution context does not exist, continue trying other frames
-                eprintln!("Warning: Failed to query in main frame: {}", e);
+                warn!("Failed to query in main frame: {}", e);
             }
         }
 
@@ -445,7 +446,7 @@ impl Page {
                 Ok(None) => continue, // Not found, continue to next frame
                 Err(e) => {
                     // Frame query failed (possibly detached or context missing), continue trying next
-                    eprintln!("Warning: Failed to query in frame {}: {}", frame.id(), e);
+                    warn!("Failed to query in frame {}: {}", frame.id(), e);
                     continue;
                 }
             }
@@ -498,7 +499,7 @@ impl Page {
                 }
                 Err(e) => {
                     // Frame query failed (possibly detached or context missing), continue trying next
-                    eprintln!("Warning: Failed to query in frame {}: {}", frame.id(), e);
+                    warn!("Failed to query in frame {}: {}", frame.id(), e);
                     continue;
                 }
             }
@@ -1147,7 +1148,7 @@ impl Page {
             match self.create_frame_snapshot(&frame.id, include_html).await {
                 Ok(snapshot) => snapshots.push(snapshot),
                 Err(e) => {
-                    eprintln!("Failed to create snapshot for frame {}: {}", frame.id, e);
+                    warn!("Failed to create snapshot for frame {}: {}", frame.id, e);
                 }
             }
         }
