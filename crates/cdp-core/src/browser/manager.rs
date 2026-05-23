@@ -555,9 +555,8 @@ impl Browser {
                 session_id: Some(session_id.clone()),
                 target_id: None,
             };
-            let detach_result: Result<DetachFromTargetReturnObject> = self
-                .send_command(detach, None)
-                .await;
+            let detach_result: Result<DetachFromTargetReturnObject> =
+                self.send_command(detach, None).await;
 
             self.unregister_session(&session_id).await;
 
@@ -885,10 +884,10 @@ impl BrowserContext {
         let mut first_error = None;
 
         for page in &pages {
-            if let Err(err) = self.browser.cleanup_page_session(page).await {
-                if first_error.is_none() {
-                    first_error = Some(err);
-                }
+            if let Err(err) = self.browser.cleanup_page_session(page).await
+                && first_error.is_none()
+            {
+                first_error = Some(err);
             }
         }
 
@@ -902,10 +901,10 @@ impl BrowserContext {
             )
             .await;
 
-        if let Err(err) = dispose_result {
-            if first_error.is_none() {
-                first_error = Some(err);
-            }
+        if let Err(err) = dispose_result
+            && first_error.is_none()
+        {
+            first_error = Some(err);
         }
 
         {

@@ -5,6 +5,7 @@ use cdp_protocol::runtime;
 use serde_json::Value;
 use std::sync::Arc;
 use tokio::time::{Duration, sleep};
+use tracing::warn;
 
 /// Retry configuration shared by frame helpers.
 #[derive(Clone, Debug)]
@@ -497,7 +498,7 @@ impl Frame {
         let node_id = get_results.node_ids[0];
 
         if node_id == 0 {
-            eprintln!("Warning: XPath search returned an invalid node_id (0)");
+            warn!("Warning: XPath search returned an invalid node_id (0)");
             return Ok(None);
         }
 

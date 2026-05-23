@@ -87,7 +87,10 @@ async fn main() -> Result<()> {
         }
         Err(err) => {
             if let Err(disconnect_err) = disconnect_result {
-                eprintln!("✗ Failed to disconnect browser during shutdown: {}", disconnect_err);
+                eprintln!(
+                    "✗ Failed to disconnect browser during shutdown: {}",
+                    disconnect_err
+                );
             }
             Err(err)
         }
