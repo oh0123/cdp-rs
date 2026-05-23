@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.4] - 2026-05-23
+
+### Added
+
+#### cdp-core
+- Added `Browser::disconnect()` to explicitly close the browser WebSocket, clear connection-local state, and wait for the central dispatcher task to stop.
+
+### Changed
+
+#### Examples
+- Updated shared-browser examples to keep `page.cleanup()` and `context.close()` on the request/task boundary while reserving `browser.disconnect()` for shutdown.
+
+#### Documentation
+- Updated workspace and crate README installation snippets to `cdp-core = "0.3.4"` and documented the new lifecycle cleanup guidance for exclusive and shared browser connections.
+
+### Fixed
+
+#### cdp-core
+- `BrowserContext::close()` now cleans up tracked pages, detaches attached sessions, unregisters local page/session indexes, and only then disposes the browser context.
+- WebSocket shutdown now drops pending command senders so callers waiting on responses fail promptly instead of hanging after connection closure.
+- Command send failures now remove their pending response slot before returning the transport error.
+
 ## [0.3.3] - 2026-04-13
 
 ### Changed
@@ -211,7 +233,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.3.3...HEAD
+[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.3.4...HEAD
+[0.3.4]: https://github.com/oh0123/cdp-rs/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/oh0123/cdp-rs/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/oh0123/cdp-rs/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/oh0123/cdp-rs/compare/v0.3.0...v0.3.1

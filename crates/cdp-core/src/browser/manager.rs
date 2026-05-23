@@ -16,7 +16,8 @@ use cdp_protocol::browser::{
 };
 use cdp_protocol::target::{
     AttachToTargetReturnObject, CreateBrowserContext, CreateBrowserContextReturnObject,
-    CreateTarget, CreateTargetReturnObject, DisposeBrowserContext,
+    CreateTarget, CreateTargetReturnObject, DetachFromTarget, DetachFromTargetReturnObject,
+    DisposeBrowserContext,
 };
 use futures_util::StreamExt;
 use serde::Deserialize;
@@ -26,6 +27,7 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Weak};
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc};
+use tokio::task::JoinHandle;
 use tokio_tungstenite::connect_async;
 use url::Url;
 
@@ -370,6 +372,7 @@ pub struct Browser {
     session_event_senders: Arc<Mutex<HashMap<String, mpsc::Sender<CdpEvent>>>>,
     active_pages: Arc<Mutex<HashMap<String, Arc<Page>>>>, // K: sessionId, V: Arc<Page>
     browser_contexts: Arc<Mutex<HashMap<String, Weak<BrowserContext>>>>,
+    dispatcher_task: Mutex<Option<JoinHandle<()>>>,
     _chrome_process: Option<ChromeProcess>,
 }
 
@@ -397,7 +400,7 @@ impl Browser {
         let active_pages = Arc::new(Mutex::new(HashMap::new()));
         let session_event_senders = Arc::new(Mutex::new(HashMap::new()));
         let browser_contexts = Arc::new(Mutex::new(HashMap::new()));
-        tokio::spawn(central_message_dispatcher(
+        let dispatcher_task = tokio::spawn(central_message_dispatcher(
             reader,
             Arc::clone(&connection),
             Arc::clone(&active_pages),
@@ -408,10 +411,30 @@ impl Browser {
             session_event_senders,
             active_pages,
             browser_contexts,
+            dispatcher_task: Mutex::new(Some(dispatcher_task)),
             _chrome_process: process,
         };
         let browser_arc = Arc::new(browser);
         Ok(browser_arc)
+    }
+
+    /// Closes the browser connection and waits for the dispatcher task to exit.
+    pub async fn disconnect(&self) -> Result<()> {
+        let contexts = self.contexts().await;
+        for context in contexts {
+            let _ = context.close().await;
+        }
+
+        self.session_event_senders.lock().await.clear();
+        self.active_pages.lock().await.clear();
+
+        self.internals.close().await?;
+
+        if let Some(handle) = self.dispatcher_task.lock().await.take() {
+            let _ = handle.await;
+        }
+
+        Ok(())
     }
 
     /// Creates a new, isolated browser context using default options.
@@ -515,6 +538,36 @@ impl Browser {
 
     async fn unregister_context(&self, id: &str) {
         self.browser_contexts.lock().await.remove(id);
+    }
+
+    async fn unregister_session(&self, session_id: &str) {
+        self.session_event_senders.lock().await.remove(session_id);
+        self.active_pages.lock().await.remove(session_id);
+    }
+
+    async fn cleanup_page_session(&self, page: &Arc<Page>) -> Result<()> {
+        let session_id = page.session.session_id.clone();
+        let page_cleanup_result = page.cleanup().await;
+
+        if let Some(session_id) = session_id {
+            #[allow(deprecated)]
+            let detach = DetachFromTarget {
+                session_id: Some(session_id.clone()),
+                target_id: None,
+            };
+            let detach_result: Result<DetachFromTargetReturnObject> = self
+                .send_command(detach, None)
+                .await;
+
+            self.unregister_session(&session_id).await;
+
+            page_cleanup_result?;
+            detach_result?;
+        } else {
+            page_cleanup_result?;
+        }
+
+        Ok(())
     }
 
     /// Opens a new page in the default browser context.
@@ -812,23 +865,47 @@ impl BrowserContext {
 
     /// Closes this browser context and all pages within it.
     pub async fn close(&self) -> Result<()> {
-        {
+        let pages = {
             let mut state = self.state.lock().await;
             if state.closed {
                 return Ok(());
             }
             state.closed = true;
+            let mut pages = Vec::new();
+            state.pages.retain(|weak| match weak.upgrade() {
+                Some(page) => {
+                    pages.push(page);
+                    true
+                }
+                None => false,
+            });
+            pages
+        };
+
+        let mut first_error = None;
+
+        for page in &pages {
+            if let Err(err) = self.browser.cleanup_page_session(page).await {
+                if first_error.is_none() {
+                    first_error = Some(err);
+                }
+            }
         }
 
-        let method = DisposeBrowserContext {
-            browser_context_id: self.id.clone(),
-        };
-        let result: Result<Value> = self.browser.send_command(method, None).await;
+        let dispose_result: Result<Value> = self
+            .browser
+            .send_command(
+                DisposeBrowserContext {
+                    browser_context_id: self.id.clone(),
+                },
+                None,
+            )
+            .await;
 
-        if let Err(err) = result {
-            let mut state = self.state.lock().await;
-            state.closed = false;
-            return Err(err);
+        if let Err(err) = dispose_result {
+            if first_error.is_none() {
+                first_error = Some(err);
+            }
         }
 
         {
@@ -838,6 +915,11 @@ impl BrowserContext {
         }
 
         self.browser.unregister_context(&self.id).await;
+
+        if let Some(err) = first_error {
+            return Err(err);
+        }
+
         Ok(())
     }
 

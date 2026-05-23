@@ -45,6 +45,17 @@ impl ConnectionInternals {
         }
     }
 
+    pub(crate) async fn close(&self) -> Result<()> {
+        {
+            let mut writer = self.ws_writer.lock().await;
+            let _ = writer.send(Message::Close(None)).await;
+            let _ = writer.close().await;
+        }
+
+        self.pending_commands.lock().await.clear();
+        Ok(())
+    }
+
     /// Sends a CDP command and waits for the response, including timeout handling.
     ///
     /// # Parameters
@@ -88,11 +99,16 @@ impl ConnectionInternals {
         })?;
         let command_label = json_command.clone();
 
-        self.ws_writer
+        if let Err(err) = self
+            .ws_writer
             .lock()
             .await
             .send(Message::Text(json_command.into()))
-            .await?;
+            .await
+        {
+            self.pending_commands.lock().await.remove(&id);
+            return Err(err.into());
+        }
 
         let timeout_duration = timeout_duration.unwrap_or(self.command_timeout);
         let response = timeout(timeout_duration, response_receiver)
