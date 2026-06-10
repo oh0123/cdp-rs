@@ -115,7 +115,10 @@ impl DevToolsTarget {
     }
 }
 
-pub(crate) async fn resolve_active_page_ws_url(port: u16, pattern: Option<&str>) -> Result<(Url, String)> {
+pub(crate) async fn resolve_active_page_ws_url(
+    port: u16,
+    pattern: Option<&str>,
+) -> Result<(Url, String)> {
     let target = if let Some(pattern) = pattern {
         let matches = find_page_targets_by_regex(port, pattern).await?;
         let candidate = matches.first().cloned();

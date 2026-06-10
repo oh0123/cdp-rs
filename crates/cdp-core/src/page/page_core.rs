@@ -1963,10 +1963,8 @@ impl Page {
         let method = cdp_protocol::target::CloseTarget {
             target_id: self.target_id.clone(),
         };
-        let _: cdp_protocol::target::CloseTargetReturnObject = self
-            .session
-            .send_command(method, None)
-            .await?;
+        let _: cdp_protocol::target::CloseTargetReturnObject =
+            self.session.send_command(method, None).await?;
         self.cleanup().await?;
         Ok(())
     }
