@@ -138,6 +138,7 @@ pub struct ExecutionContextInfo {
 // --- PAGE (Unified Interface) ---
 pub struct Page {
     pub(crate) session: Arc<Session>,
+    pub target_id: String,
     /// Frame ID -> Execution Context Info mapping
     pub contexts: Arc<Mutex<HashMap<String, ExecutionContextInfo>>>,
     /// Domain manager (unified management of CDP Domain enabling/disabling)
@@ -166,10 +167,11 @@ pub struct Page {
 
 impl Page {
     /// Mode 1 entry: Create via Browser
-    pub(crate) fn new_from_browser(session: Arc<Session>) -> Self {
+    pub(crate) fn new_from_browser(session: Arc<Session>, target_id: String) -> Self {
         let domain_manager = Arc::new(DomainManager::new(Arc::clone(&session)));
         Self {
             session,
+            target_id,
             contexts: Arc::new(Mutex::new(HashMap::new())),
             domain_manager,
             main_frame_cache: Arc::new(Mutex::new(None)),
@@ -229,7 +231,7 @@ impl Page {
     }
 
     async fn connect_to_active_page_inner(port: u16, pattern: Option<&str>) -> Result<Arc<Self>> {
-        let page_ws_url = resolve_active_page_ws_url(port, pattern).await?;
+        let (page_ws_url, target_id) = resolve_active_page_ws_url(port, pattern).await?;
         let (ws_stream, _) = connect_async(page_ws_url.as_str()).await?;
         let (writer, reader) = ws_stream.split();
         // Only one Session, so only one event channel
@@ -242,6 +244,7 @@ impl Page {
 
         let page = Arc::new(Page {
             session,
+            target_id,
             contexts: Arc::new(Mutex::new(HashMap::new())),
             domain_manager,
             main_frame_cache: Arc::new(Mutex::new(None)),
@@ -1950,6 +1953,19 @@ impl Page {
         tracing::debug!("All CDP Domains disabled");
 
         tracing::info!("Page resource cleanup completed");
+        Ok(())
+    }
+
+    /// Closes the page (target).
+    ///
+    /// This sends a `Target.closeTarget` command to the browser using the page's session.
+    pub async fn close(&self) -> Result<()> {
+        let method = cdp_protocol::target::CloseTarget {
+            target_id: self.target_id.clone(),
+        };
+        let _: cdp_protocol::target::CloseTargetReturnObject =
+            self.session.send_command(method, None).await?;
+        self.cleanup().await?;
         Ok(())
     }
 }

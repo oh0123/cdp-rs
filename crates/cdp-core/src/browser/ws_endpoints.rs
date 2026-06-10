@@ -115,7 +115,10 @@ impl DevToolsTarget {
     }
 }
 
-pub(crate) async fn resolve_active_page_ws_url(port: u16, pattern: Option<&str>) -> Result<Url> {
+pub(crate) async fn resolve_active_page_ws_url(
+    port: u16,
+    pattern: Option<&str>,
+) -> Result<(Url, String)> {
     let target = if let Some(pattern) = pattern {
         let matches = find_page_targets_by_regex(port, pattern).await?;
         let candidate = matches.first().cloned();
@@ -130,11 +133,12 @@ pub(crate) async fn resolve_active_page_ws_url(port: u16, pattern: Option<&str>)
     };
 
     let ws_url = target.web_socket_debugger_url.as_str();
-    Url::parse(ws_url).map_err(|err| {
+    let url = Url::parse(ws_url).map_err(|err| {
         CdpError::ws(format!(
             "Failed to parse webSocketDebuggerUrl for active page: {err}"
         ))
-    })
+    })?;
+    Ok((url, target.id))
 }
 
 async fn list_page_targets(port: u16) -> Result<Vec<DevToolsTarget>> {

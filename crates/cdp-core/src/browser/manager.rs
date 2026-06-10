@@ -608,6 +608,7 @@ impl Browser {
         let obj = self
             .send_command::<_, CreateTargetReturnObject>(method, None)
             .await?;
+        let target_id = obj.target_id.clone();
         let method = cdp_protocol::target::AttachToTarget {
             target_id: obj.target_id,
             flatten: Some(true),
@@ -625,7 +626,7 @@ impl Browser {
             Arc::clone(&self.internals),
             event_receiver,
         );
-        let page = Arc::new(Page::new_from_browser(Arc::new(session)));
+        let page = Arc::new(Page::new_from_browser(Arc::new(session), target_id));
 
         // Enable all required domains through the DomainManager helper.
         page.domain_manager.enable_required_domains().await?;
