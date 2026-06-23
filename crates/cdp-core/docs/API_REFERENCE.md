@@ -48,6 +48,16 @@ page.go_forward().await?;
 page.reload().await?;
 ```
 
+### Targets
+
+```rust
+// Native Target.getTargets() wrapper
+let targets = page.get_targets().await?;
+
+// Page-level alias
+let tabs = page.get_tabs().await?;
+```
+
 ### Element Queries
 
 ```rust

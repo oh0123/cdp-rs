@@ -68,4 +68,16 @@ impl Session {
         };
         self.internals.send(method, session_id, timeout).await
     }
+
+    /// Sends a CDP command without attaching a page session id.
+    pub(crate) async fn send_root_command<
+        M: serde::Serialize + std::fmt::Debug + cdp_protocol::types::Method,
+        R: for<'de> Deserialize<'de>,
+    >(
+        &self,
+        method: M,
+        timeout: Option<Duration>,
+    ) -> Result<R> {
+        self.internals.send(method, None, timeout).await
+    }
 }
