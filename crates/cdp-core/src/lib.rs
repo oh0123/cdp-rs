@@ -25,6 +25,7 @@ pub use browser::manager::{
     Browser, BrowserContext, BrowserContextOptions, DownloadBehavior, DownloadOptions,
     PermissionGrant, PermissionOverride,
 };
+pub use cdp_protocol::target::{FilterEntry, TargetFilter, TargetId, TargetInfo};
 pub use domain_manager::{DomainConfig, DomainManager, DomainState, DomainType};
 pub use emulation::{
     EmulationConfig, EmulationController, Geolocation, MediaEmulation, MediaFeatureOverride,

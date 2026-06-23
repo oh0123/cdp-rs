@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.6] - 2026-06-23
+
+### Added
+
+#### cdp-core
+- Added `Page::get_targets()` as a native `Target.getTargets` wrapper, plus `Page::get_tabs()` as the page-level alias.
+
+### Changed
+
+#### Documentation
+- Updated current installation snippets to `cdp-core = "0.3.6"`.
+
+## [0.3.5] - 2026-06-10
+
+### Added
+
+#### cdp-core
+- Added `Page::close()` to close the underlying browser target via `Target.closeTarget` and then clean up page resources.
+- Added `Page::target_id` tracking for pages created through `Browser::new_page()` and pages connected through `Page::connect_to_active_page()`.
+- Added an integration test covering page target id population and page closing.
+
+### Changed
+
+#### cdp-core
+- Updated active page WebSocket resolution to return both the page WebSocket URL and target id, allowing directly connected pages to use target-scoped operations.
+
 ## [0.3.4] - 2026-05-23
 
 ### Added
@@ -233,7 +259,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.3.4...HEAD
+[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.3.6...HEAD
+[0.3.6]: https://github.com/oh0123/cdp-rs/compare/v0.3.5...v0.3.6
+[0.3.5]: https://github.com/oh0123/cdp-rs/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/oh0123/cdp-rs/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/oh0123/cdp-rs/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/oh0123/cdp-rs/compare/v0.3.1...v0.3.2

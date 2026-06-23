@@ -23,6 +23,7 @@ use cdp_protocol::{
         NavigateReturnObject,
     },
     runtime::{Evaluate, EvaluateReturnObject},
+    target::{GetTargets, GetTargetsReturnObject, TargetFilter, TargetInfo},
 };
 use futures_util::Stream;
 use futures_util::StreamExt;
@@ -309,6 +310,28 @@ impl Page {
         self.session
             .send_command::<_, NavigateReturnObject>(navigate, None)
             .await
+    }
+
+    /// Retrieves all available CDP targets via `Target.getTargets`.
+    ///
+    /// This is the native CDP wrapper. Use [`Page::get_tabs`] as the page-level alias.
+    pub async fn get_targets(&self) -> Result<Vec<TargetInfo>> {
+        self.get_targets_with_filter(None).await
+    }
+
+    /// Retrieves available CDP targets via `Target.getTargets` with an optional filter.
+    pub async fn get_targets_with_filter(
+        &self,
+        filter: Option<TargetFilter>,
+    ) -> Result<Vec<TargetInfo>> {
+        let method = GetTargets { filter };
+        let result: GetTargetsReturnObject = self.session.send_root_command(method, None).await?;
+        Ok(result.target_infos)
+    }
+
+    /// Page-level alias for [`Page::get_targets`].
+    pub async fn get_tabs(&self) -> Result<Vec<TargetInfo>> {
+        self.get_targets().await
     }
 
     fn events(&self) -> broadcast::Receiver<CdpEvent> {
