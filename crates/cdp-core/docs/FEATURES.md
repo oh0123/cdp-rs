@@ -763,8 +763,8 @@ Unified management of Chrome DevTools Protocol domains.
 
 ### Domain Types
 
-- **Required Domains** (auto-enabled): Page, Runtime, DOM, Network
-- **Optional Domains**: Fetch, Performance, Keyboard, Mouse, CSS, Debugger, Profiler
+- **Required Domains** (auto-enabled): Page, Runtime, DOM, Network, Inspector
+- **Optional Domains**: Fetch, Log, Performance, Keyboard, Mouse, CSS, Debugger, Profiler
 
 ### Domain Control
 

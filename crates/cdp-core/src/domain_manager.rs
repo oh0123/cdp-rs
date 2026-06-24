@@ -4,9 +4,10 @@
 //!
 //! # Design Goals
 //!
-//! 1. **Required Domains Managed Automatically:** Core domains such as Page, Runtime, DOM, and
-//!    Network can be enabled up-front and stay active for the lifetime of the page (RAII-style).
-//! 2. **Optional Domains On Demand:** Optional domains like Fetch, Performance, and CSS expose
+//! 1. **Required Domains Managed Automatically:** Core domains such as Page, Runtime, DOM,
+//!    Network, and Inspector can be enabled up-front and stay active for the lifetime of the page
+//!    (RAII-style).
+//! 2. **Optional Domains On Demand:** Optional domains like Fetch, Log, Performance, and CSS expose
 //!    explicit enable/disable helpers so they are activated only when needed.
 //! 3. **Guard Against Duplicate Operations:** Internal state tracks each domain so repeated
 //!    enable/disable calls become no-ops.
@@ -19,7 +20,7 @@
 //! # use cdp_core::Page;
 //! # use std::sync::Arc;
 //! # async fn example(page: Arc<Page>) -> anyhow::Result<()> {
-//! // Required domains (Page, Runtime, DOM, Network) are enabled when the page is created.
+//! // Required domains (Page, Runtime, DOM, Network, Inspector) are enabled when the page is created.
 //!
 //! // Enable optional domains as needed.
 //! page.domain_manager.enable_fetch_domain().await?;
@@ -35,7 +36,10 @@
 //! ```
 
 use crate::error::Result;
-use cdp_protocol::{dom, fetch, network, page as page_cdp, performance, runtime as runtime_cdp};
+use cdp_protocol::{
+    dom, fetch, inspector, log as log_cdp, network, page as page_cdp, performance,
+    runtime as runtime_cdp,
+};
 use serde::Deserialize;
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -53,8 +57,12 @@ pub enum DomainType {
     Dom,
     /// Network domain - network monitoring (required).
     Network,
+    /// Inspector domain - target crash/detach notifications (required).
+    Inspector,
     /// Fetch domain - request interception (optional).
     Fetch,
+    /// Log domain - browser log entries (optional).
+    Log,
     /// Performance domain - performance metrics (optional).
     Performance,
     /// CSS domain - stylesheet inspection (optional).
@@ -74,7 +82,11 @@ impl DomainType {
     pub fn is_required(&self) -> bool {
         matches!(
             self,
-            DomainType::Page | DomainType::Runtime | DomainType::Dom | DomainType::Network
+            DomainType::Page
+                | DomainType::Runtime
+                | DomainType::Dom
+                | DomainType::Network
+                | DomainType::Inspector
         )
     }
 
@@ -85,7 +97,9 @@ impl DomainType {
             DomainType::Runtime => "Runtime",
             DomainType::Dom => "DOM",
             DomainType::Network => "Network",
+            DomainType::Inspector => "Inspector",
             DomainType::Fetch => "Fetch",
+            DomainType::Log => "Log",
             DomainType::Performance => "Performance",
             DomainType::Css => "CSS",
             DomainType::Debugger => "Debugger",
@@ -176,7 +190,7 @@ impl DomainManager {
         }
     }
 
-    /// Enables the required domains (Page, Runtime, DOM, Network).
+    /// Enables the required domains (Page, Runtime, DOM, Network, Inspector).
     ///
     /// Call this immediately after constructing a `Page` to ensure core features work.
     pub async fn enable_required_domains(&self) -> Result<()> {
@@ -186,17 +200,18 @@ impl DomainManager {
         self.enable_runtime_domain().await?;
         self.enable_dom_domain().await?;
         self.enable_network_domain().await?;
+        self.enable_inspector_domain().await?;
 
         tracing::info!("All required CDP domains are enabled");
         Ok(())
     }
 
-    /// Disables every domain that is currently enabled.
+    /// Cleans up every domain tracked by the manager.
     ///
-    /// This is automatically invoked when the manager is dropped, but can be called manually to
-    /// free resources earlier.
+    /// Optional domains are explicitly disabled. Required domains are kept enabled during normal
+    /// page use, so cleanup marks them as released and lets the page/session shutdown reclaim them.
     pub async fn disable_all_domains(&self) -> Result<()> {
-        tracing::debug!("Disabling all enabled CDP domains...");
+        tracing::debug!("Cleaning up enabled CDP domains...");
 
         let inner = self.inner.lock().await;
         let enabled_domains: Vec<DomainType> = inner
@@ -209,12 +224,12 @@ impl DomainManager {
         drop(inner); // Release the lock before issuing disable commands.
 
         for domain in enabled_domains {
-            if let Err(e) = self.disable_domain_internal(domain).await {
-                tracing::warn!("Failed to disable {} domain: {:?}", domain.name(), e);
+            if let Err(e) = self.disable_domain_for_cleanup(domain).await {
+                tracing::warn!("Failed to clean up {} domain: {:?}", domain.name(), e);
             }
         }
 
-        tracing::info!("All CDP domains disabled");
+        tracing::info!("CDP domain cleanup completed");
         Ok(())
     }
 
@@ -284,6 +299,15 @@ impl DomainManager {
         .await
     }
 
+    /// Enables the Inspector domain for target crash/detach notifications.
+    pub async fn enable_inspector_domain(&self) -> Result<()> {
+        self.enable_domain_generic::<_, _, inspector::EnableReturnObject>(
+            DomainType::Inspector,
+            |_| inspector::Enable(None),
+        )
+        .await
+    }
+
     // ===== Optional domain helpers =====
 
     /// Enables the Fetch domain so requests can be intercepted.
@@ -308,6 +332,19 @@ impl DomainManager {
     /// Disables the Fetch domain.
     pub async fn disable_fetch_domain(&self) -> Result<()> {
         self.disable_domain_internal(DomainType::Fetch).await
+    }
+
+    /// Enables the Log domain so browser log entries can be observed.
+    pub async fn enable_log_domain(&self) -> Result<()> {
+        self.enable_domain_generic::<_, _, log_cdp::EnableReturnObject>(DomainType::Log, |_| {
+            log_cdp::Enable(None)
+        })
+        .await
+    }
+
+    /// Disables the Log domain.
+    pub async fn disable_log_domain(&self) -> Result<()> {
+        self.disable_domain_internal(DomainType::Log).await
     }
 
     /// Enables the Performance domain.
@@ -369,8 +406,39 @@ impl DomainManager {
 
     /// Generic implementation for disabling a domain.
     async fn disable_domain_internal(&self, domain: DomainType) -> Result<()> {
+        self.disable_domain_with_mode(domain, DisableMode::Active)
+            .await
+    }
+
+    /// Cleanup-oriented implementation for releasing a domain.
+    async fn disable_domain_for_cleanup(&self, domain: DomainType) -> Result<()> {
+        self.disable_domain_with_mode(domain, DisableMode::Cleanup)
+            .await
+    }
+
+    async fn disable_domain_with_mode(&self, domain: DomainType, mode: DisableMode) -> Result<()> {
         if !self.is_enabled(domain).await {
             return Ok(());
+        }
+
+        if domain.is_required() {
+            return match mode {
+                DisableMode::Active => {
+                    tracing::warn!(
+                        "{} domain is required for core page functionality; keeping it enabled",
+                        domain.name()
+                    );
+                    Ok(())
+                }
+                DisableMode::Cleanup => {
+                    tracing::debug!(
+                        "{} domain is required during active page use; releasing it with page cleanup",
+                        domain.name()
+                    );
+                    self.set_state(domain, DomainState::Disabled).await;
+                    Ok(())
+                }
+            };
         }
 
         tracing::debug!("Disabling {} domain...", domain.name());
@@ -386,6 +454,14 @@ impl DomainManager {
                     .await
                     .map(|_| ())
             }
+            DomainType::Log => {
+                let disable = log_cdp::Disable(None);
+                inner
+                    .session
+                    .send_command::<_, log_cdp::DisableReturnObject>(disable, None)
+                    .await
+                    .map(|_| ())
+            }
             DomainType::Performance => {
                 let disable = performance::Disable(None);
                 inner
@@ -395,17 +471,16 @@ impl DomainManager {
                     .map(|_| ())
             }
             DomainType::Mouse | DomainType::Keyboard => Ok(()),
-            DomainType::Page | DomainType::Runtime | DomainType::Dom | DomainType::Network => {
-                // Required domains typically remain enabled; log instead of disabling.
-                tracing::warn!(
-                    "{} domain is required and should normally stay enabled",
-                    domain.name()
-                );
-                Ok(())
-            }
             DomainType::Css | DomainType::Debugger | DomainType::Profiler => {
                 tracing::warn!("Disabling the {} domain is not supported", domain.name());
                 Ok(())
+            }
+            DomainType::Page
+            | DomainType::Runtime
+            | DomainType::Dom
+            | DomainType::Network
+            | DomainType::Inspector => {
+                unreachable!("required domains are handled before disabling")
             }
         };
         drop(inner);
@@ -420,6 +495,12 @@ impl DomainManager {
 
         result
     }
+}
+
+#[derive(Clone, Copy)]
+enum DisableMode {
+    Active,
+    Cleanup,
 }
 
 impl Drop for DomainManager {
@@ -440,7 +521,9 @@ mod tests {
         assert!(DomainType::Runtime.is_required());
         assert!(DomainType::Dom.is_required());
         assert!(DomainType::Network.is_required());
+        assert!(DomainType::Inspector.is_required());
         assert!(!DomainType::Fetch.is_required());
+        assert!(!DomainType::Log.is_required());
         assert!(!DomainType::Performance.is_required());
     }
 

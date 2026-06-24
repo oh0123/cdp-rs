@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.7] - 2026-06-24
+
+### Fixed
+
+#### cdp-core
+- Exposed high-value Page, Runtime, Network, Fetch, Log, Inspector, Target, DOM, and Tracing events through `cdp_core::events` and `Page::on`.
+- Parsed and routed `Inspector.targetCrashed` and `Target.targetCrashed` events so page event streams can observe target crashes.
+- Added helpers for `Target.setDiscoverTargets`, `Page.setLifecycleEventsEnabled`, and `Log.enable` so related events can be activated from `cdp-core`.
+- Added `Page::wait_for_event::<E>(timeout_ms)` for one-shot strongly typed event waits; it creates the subscription immediately and returns a future that can be awaited later.
+- Documented the intended scope of `Log.entryAdded` and pointed console API users to `Runtime.consoleAPICalled`.
+- Added a dedicated `runtime_console_events` example for `Runtime.consoleAPICalled`.
+
 ## [0.3.6] - 2026-06-23
 
 ### Added
@@ -259,7 +271,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.3.6...HEAD
+[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.3.7...HEAD
+[0.3.7]: https://github.com/oh0123/cdp-rs/compare/v0.3.6...v0.3.7
 [0.3.6]: https://github.com/oh0123/cdp-rs/compare/v0.3.5...v0.3.6
 [0.3.5]: https://github.com/oh0123/cdp-rs/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/oh0123/cdp-rs/compare/v0.3.3...v0.3.4
