@@ -56,6 +56,39 @@ let targets = page.get_targets().await?;
 
 // Page-level alias
 let tabs = page.get_tabs().await?;
+
+// Enable target lifecycle events
+page.set_discover_targets(true, None).await?;
+```
+
+### Events
+
+```rust
+use cdp_core::events;
+use futures_util::StreamExt;
+
+// Continuous JavaScript exception stream
+let mut exceptions = page.on::<events::runtime::ExceptionThrownEvent>();
+if let Some(event) = exceptions.next().await {
+    println!("Exception: {}", event.params.exception_details.text);
+}
+
+// One-shot event wait. The subscription is created immediately.
+let console_event = page.wait_for_event::<events::runtime::ConsoleAPICalledEvent>(Some(5000));
+page.main_frame()
+    .await?
+    .evaluate("console.log('ready')")
+    .await?;
+let event = console_event.await?;
+
+// Page lifecycle events require explicit enablement
+page.set_lifecycle_events_enabled(true).await?;
+let mut lifecycle = page.on::<events::page::LifecycleEventEvent>();
+
+// Browser diagnostic log entries require the Log domain.
+// For console.log/warn/error, prefer Runtime.consoleAPICalled.
+page.domain_manager.enable_log_domain().await?;
+let mut logs = page.on::<events::log::EntryAddedEvent>();
 ```
 
 ### Element Queries

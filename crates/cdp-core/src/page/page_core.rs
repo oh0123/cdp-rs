@@ -23,7 +23,10 @@ use cdp_protocol::{
         NavigateReturnObject,
     },
     runtime::{Evaluate, EvaluateReturnObject},
-    target::{GetTargets, GetTargetsReturnObject, TargetFilter, TargetInfo},
+    target::{
+        GetTargets, GetTargetsReturnObject, SetDiscoverTargets, SetDiscoverTargetsReturnObject,
+        TargetFilter, TargetInfo,
+    },
 };
 use futures_util::Stream;
 use futures_util::StreamExt;
@@ -334,6 +337,30 @@ impl Page {
         self.get_targets().await
     }
 
+    /// Enables or disables Target domain discovery events.
+    ///
+    /// When enabled, browser-level target events such as `Target.targetCreated`,
+    /// `Target.targetDestroyed`, and `Target.targetInfoChanged` can be observed through
+    /// the page event stream.
+    pub async fn set_discover_targets(
+        &self,
+        discover: bool,
+        filter: Option<TargetFilter>,
+    ) -> Result<()> {
+        let method = SetDiscoverTargets { discover, filter };
+        let _: SetDiscoverTargetsReturnObject =
+            self.session.send_root_command(method, None).await?;
+        Ok(())
+    }
+
+    /// Enables or disables `Page.lifecycleEvent` notifications.
+    pub async fn set_lifecycle_events_enabled(&self, enabled: bool) -> Result<()> {
+        let method = page_cdp::SetLifecycleEventsEnabled { enabled };
+        let _: page_cdp::SetLifecycleEventsEnabledReturnObject =
+            self.session.send_command(method, None).await?;
+        Ok(())
+    }
+
     fn events(&self) -> broadcast::Receiver<CdpEvent> {
         self.session.event_bus.subscribe()
     }
@@ -349,14 +376,68 @@ impl Page {
         Box::pin(stream)
     }
 
+    /// Waits for the next strongly typed CDP event.
+    ///
+    /// The event subscription is created immediately when this method is called, so callers can
+    /// create the waiter before triggering an action and then await it afterward.
+    ///
+    /// ```no_run
+    /// # use cdp_core::{events, Page};
+    /// # use std::sync::Arc;
+    /// # async fn example(page: Arc<Page>) -> cdp_core::Result<()> {
+    /// let console_event = page.wait_for_event::<events::runtime::ConsoleAPICalledEvent>(Some(5000));
+    ///
+    /// page.main_frame()
+    ///     .await?
+    ///     .evaluate("console.log('ready')")
+    ///     .await?;
+    ///
+    /// let event = console_event.await?;
+    /// println!("console type: {:?}", event.params.r#type);
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn wait_for_event<E>(
+        &self,
+        timeout_ms: Option<u64>,
+    ) -> Pin<Box<dyn std::future::Future<Output = Result<E>> + Send + 'static>>
+    where
+        E: TryFrom<CdpEvent> + Send + 'static,
+        <E as TryFrom<CdpEvent>>::Error: Send,
+    {
+        let mut events = self.on::<E>();
+        Box::pin(async move {
+            let event = match timeout_ms {
+                Some(timeout_ms) => tokio::time::timeout(
+                    std::time::Duration::from_millis(timeout_ms),
+                    events.next(),
+                )
+                .await
+                .map_err(|_| {
+                    CdpError::page(format!(
+                        "Timed out waiting for {} event ({}ms)",
+                        std::any::type_name::<E>(),
+                        timeout_ms
+                    ))
+                })?,
+                None => events.next().await,
+            };
+
+            event.ok_or_else(|| {
+                CdpError::page(format!(
+                    "{} event stream closed before an event was received.",
+                    std::any::type_name::<E>()
+                ))
+            })
+        })
+    }
+
     pub(crate) async fn wait_for<E>(&self) -> Result<E>
     where
         E: TryFrom<CdpEvent> + Send + 'static,
         <E as TryFrom<CdpEvent>>::Error: Send,
     {
-        self.on::<E>().next().await.ok_or_else(|| {
-            CdpError::page("Event stream closed before event was received.".to_string())
-        })
+        self.wait_for_event::<E>(None).await
     }
 
     pub async fn wait_for_loaded(&self) -> Result<page_cdp::events::LoadEventFiredEvent> {

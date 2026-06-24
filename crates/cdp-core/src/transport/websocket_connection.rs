@@ -153,16 +153,34 @@ pub(crate) async fn central_message_dispatcher(
 ) {
     tracing::debug!("Central event dispatcher started.");
     while let Some(Ok(Message::Text(text))) = reader.next().await {
-        if let Some((cdp_event, session_id)) = handle_incoming_text(&text, &internals).await
-            && let Some(session_id) = session_id
-        {
-            if let Some(page) = active_pages.lock().await.get(&session_id) {
-                update_page_meta(page, cdp_event.clone()).await;
-            }
-            if let Some(event_sender) = session_event_senders.lock().await.get(&session_id)
-                && event_sender.send(cdp_event).await.is_err()
-            {
-                break;
+        if let Some((cdp_event, session_id)) = handle_incoming_text(&text, &internals).await {
+            let routed_session_id = match session_id {
+                Some(session_id) => Some(session_id),
+                None => find_session_for_target_event(&cdp_event, &active_pages).await,
+            };
+
+            if let Some(session_id) = routed_session_id {
+                let page = active_pages.lock().await.get(&session_id).cloned();
+                if let Some(page) = page {
+                    update_page_meta(&page, cdp_event.clone()).await;
+                }
+
+                let event_sender = session_event_senders.lock().await.get(&session_id).cloned();
+                if let Some(event_sender) = event_sender
+                    && event_sender.send(cdp_event).await.is_err()
+                {
+                    break;
+                }
+            } else if should_broadcast_unscoped_event(&cdp_event) {
+                let event_senders = session_event_senders
+                    .lock()
+                    .await
+                    .values()
+                    .cloned()
+                    .collect::<Vec<_>>();
+                for event_sender in event_senders {
+                    let _ = event_sender.send(cdp_event.clone()).await;
+                }
             }
         }
     }
@@ -222,6 +240,73 @@ async fn handle_incoming_text(
         }
     }
     None
+}
+
+async fn find_session_for_target_event(
+    cdp_event: &CdpEvent,
+    active_pages: &Arc<Mutex<HashMap<String, Arc<Page>>>>,
+) -> Option<String> {
+    let target_id = target_id_for_event(cdp_event)?;
+    let pages = active_pages.lock().await;
+    pages
+        .iter()
+        .find_map(|(session_id, page)| (page.target_id == target_id).then(|| session_id.clone()))
+}
+
+fn target_id_for_event(cdp_event: &CdpEvent) -> Option<&str> {
+    let CdpEvent::Event(event) = cdp_event else {
+        return None;
+    };
+
+    match event.as_ref() {
+        cdp_protocol::types::Event::AttachedToTarget(event) => {
+            Some(&event.params.target_info.target_id)
+        }
+        cdp_protocol::types::Event::TargetCreated(event) => {
+            Some(&event.params.target_info.target_id)
+        }
+        cdp_protocol::types::Event::TargetCrashed(event) => Some(&event.params.target_id),
+        cdp_protocol::types::Event::TargetDestroyed(event) => Some(&event.params.target_id),
+        cdp_protocol::types::Event::TargetInfoChanged(event) => {
+            Some(&event.params.target_info.target_id)
+        }
+        _ => None,
+    }
+}
+
+fn should_broadcast_unscoped_event(cdp_event: &CdpEvent) -> bool {
+    if is_target_event(cdp_event) {
+        return true;
+    }
+
+    let CdpEvent::Event(event) = cdp_event else {
+        return false;
+    };
+
+    matches!(
+        event.as_ref(),
+        cdp_protocol::types::Event::LogEntryAdded(_)
+            | cdp_protocol::types::Event::InspectorDetached(_)
+            | cdp_protocol::types::Event::InspectorTargetCrashed(_)
+            | cdp_protocol::types::Event::InspectorTargetReloadedAfterCrash(_)
+    )
+}
+
+fn is_target_event(cdp_event: &CdpEvent) -> bool {
+    let CdpEvent::Event(event) = cdp_event else {
+        return false;
+    };
+
+    matches!(
+        event.as_ref(),
+        cdp_protocol::types::Event::AttachedToTarget(_)
+            | cdp_protocol::types::Event::DetachedFromTarget(_)
+            | cdp_protocol::types::Event::ReceivedMessageFromTarget(_)
+            | cdp_protocol::types::Event::TargetCreated(_)
+            | cdp_protocol::types::Event::TargetDestroyed(_)
+            | cdp_protocol::types::Event::TargetCrashed(_)
+            | cdp_protocol::types::Event::TargetInfoChanged(_)
+    )
 }
 
 /// Keeps [`Page`] bookkeeping in sync with incoming CDP events.

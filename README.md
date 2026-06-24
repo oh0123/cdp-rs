@@ -58,7 +58,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-core = "0.3.6"
+cdp-core = "0.3.7"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -91,6 +91,12 @@ cargo run -p cdp-core --example comprehensive
 
 # Run network example
 cargo run -p cdp-core --example network
+
+# Run event handling example
+cargo run -p cdp-core --example events
+
+# Run Runtime.consoleAPICalled example
+cargo run -p cdp-core --example runtime_console_events
 ```
 
 ## Architecture

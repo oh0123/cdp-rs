@@ -1,7 +1,7 @@
-use cdp_core::{Browser, WaitForNavigationOptions, WaitUntil};
+use cdp_core::*;
 
-#[tokio::test]
-async fn test_page_close() -> Result<(), Box<dyn std::error::Error>> {
+#[tokio::main]
+async fn main() -> Result<()> {
     // Start logging to see detail
     let _ = tracing_subscriber::fmt()
         .with_env_filter("debug")
