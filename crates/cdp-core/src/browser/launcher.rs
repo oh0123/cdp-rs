@@ -13,9 +13,6 @@ use std::{
 use tempfile::TempDir;
 use tracing::info;
 
-#[cfg(windows)]
-use std::ffi::OsStr;
-
 #[derive(Debug)]
 pub struct BrowserTypeInfo {
     pub browser: BrowserType,
