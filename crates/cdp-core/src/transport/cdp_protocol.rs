@@ -348,6 +348,16 @@ impl_try_from_cdp_event!(
 );
 
 impl_try_from_cdp_event!(
+    cdp_protocol::types::Event::PageScreencastFrame,
+    page_cdp::events::ScreencastFrameEvent
+);
+
+impl_try_from_cdp_event!(
+    cdp_protocol::types::Event::PageScreencastVisibilityChanged,
+    page_cdp::events::ScreencastVisibilityChangedEvent
+);
+
+impl_try_from_cdp_event!(
     cdp_protocol::types::Event::PageWindowOpen,
     page_cdp::events::WindowOpenEvent
 );

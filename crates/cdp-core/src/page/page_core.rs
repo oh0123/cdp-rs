@@ -127,6 +127,33 @@ pub enum WaitUntil {
     NetworkIdle2,
 }
 
+/// Screencast start options for `Page.startScreencast`.
+#[derive(Debug, Clone, Default)]
+pub struct ScreencastOptions {
+    /// Image compression format (`jpeg` or `png`).
+    pub format: Option<page_cdp::StartScreencastFormatOption>,
+    /// Compression quality from 0 to 100.
+    pub quality: Option<u32>,
+    /// Maximum screencast frame width.
+    pub max_width: Option<u32>,
+    /// Maximum screencast frame height.
+    pub max_height: Option<u32>,
+    /// Send every n-th frame.
+    pub every_nth_frame: Option<u32>,
+}
+
+impl From<ScreencastOptions> for page_cdp::StartScreencast {
+    fn from(options: ScreencastOptions) -> Self {
+        Self {
+            format: options.format,
+            quality: options.quality,
+            max_width: options.max_width,
+            max_height: options.max_height,
+            every_nth_frame: options.every_nth_frame,
+        }
+    }
+}
+
 /// DOM mutation callback
 pub type DomMutationCallback = Arc<dyn Fn(DomMutationEvent) + Send + Sync>;
 
@@ -1473,6 +1500,41 @@ impl Page {
     /// ```
     pub async fn screenshot(&self, full_page: bool, save_path: Option<PathBuf>) -> Result<String> {
         self.screenshot_with_options(full_page, save_path, true)
+            .await
+    }
+
+    /// Starts page screencast frames via `Page.screencastFrame` events.
+    ///
+    /// Listen for frames with [`Page::on`] or [`Page::wait_for_screencast_frame`], and acknowledge
+    /// each received frame with [`Page::screencast_frame_ack`].
+    pub async fn start_screencast(&self, options: Option<ScreencastOptions>) -> Result<()> {
+        let method: page_cdp::StartScreencast = options.unwrap_or_default().into();
+        let _: page_cdp::StartScreencastReturnObject =
+            self.session.send_command(method, None).await?;
+        Ok(())
+    }
+
+    /// Acknowledges that a screencast frame has been received.
+    pub async fn screencast_frame_ack(&self, session_id: u32) -> Result<()> {
+        let method = page_cdp::ScreencastFrameAck { session_id };
+        let _: page_cdp::ScreencastFrameAckReturnObject =
+            self.session.send_command(method, None).await?;
+        Ok(())
+    }
+
+    /// Stops page screencast frames.
+    pub async fn stop_screencast(&self) -> Result<()> {
+        let method = page_cdp::StopScreencast(None);
+        let _: page_cdp::StopScreencastReturnObject =
+            self.session.send_command(method, None).await?;
+        Ok(())
+    }
+
+    /// Waits for the next `Page.screencastFrame` event.
+    pub async fn wait_for_screencast_frame(
+        &self,
+    ) -> Result<page_cdp::events::ScreencastFrameEvent> {
+        self.wait_for::<page_cdp::events::ScreencastFrameEvent>()
             .await
     }
 

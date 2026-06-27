@@ -89,6 +89,34 @@ mod tests {
     }
 
     #[test]
+    fn parses_generated_page_screencast_frame_event() {
+        let event_msg = CdpEventMessage {
+            method: "Page.screencastFrame".to_string(),
+            params: json!({
+                "data": "Zm9v",
+                "metadata": {
+                    "offsetTop": 0.0,
+                    "pageScaleFactor": 1.0,
+                    "deviceWidth": 1280.0,
+                    "deviceHeight": 720.0,
+                    "scrollOffsetX": 0.0,
+                    "scrollOffsetY": 0.0
+                },
+                "sessionId": 7
+            }),
+            session_id: Some("session-1".to_string()),
+        };
+
+        let event = parse_cdp_event(&event_msg).expect("event should parse");
+        let frame =
+            page::events::ScreencastFrameEvent::try_from(event).expect("event should convert");
+
+        assert_eq!(frame.params.data, "Zm9v");
+        assert_eq!(frame.params.session_id, 7);
+        assert_eq!(frame.params.metadata.device_width, 1280.0);
+    }
+
+    #[test]
     fn parses_generated_runtime_exception_event() {
         let event_msg = CdpEventMessage {
             method: "Runtime.exceptionThrown".to_string(),

@@ -61,40 +61,34 @@ pub(crate) fn find_app_bundle_for_exec(exec: &Path) -> Option<PathBuf> {
 pub fn get_executable_version(path: &Path) -> io::Result<String> {
     // WINDOWS
     #[cfg(windows)]
-    {
+    let result = {
         // Use PowerShell to read the file version info without executing the binary.
         // (Get-Item 'C:\Program Files\Google\Chrome\Application\chrome.exe').VersionInfo.FileVersion
         use std::process::Stdio;
         let p = path.display().to_string().replace('\'', "''"); // escape single quotes in path
         let ps_cmd = format!("(Get-Item '{}').VersionInfo.FileVersion", p);
         let output = Command::new("powershell")
-            .args(&["-NoProfile", "-Command", &ps_cmd])
+            .args(["-NoProfile", "-Command", &ps_cmd])
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .output()?;
 
         if !output.status.success() {
             let err = String::from_utf8_lossy(&output.stderr).to_string();
-            return Err(io::Error::new(
-                io::ErrorKind::Other,
-                format!("powershell failed: {}", err),
-            ));
+            return Err(io::Error::other(format!("powershell failed: {}", err)));
         }
 
         let out = String::from_utf8_lossy(&output.stdout).trim().to_string();
         if out.is_empty() {
-            Err(io::Error::new(
-                io::ErrorKind::Other,
-                "empty version string from PowerShell",
-            ))
+            Err(io::Error::other("empty version string from PowerShell"))
         } else {
             Ok(out)
         }
-    }
+    };
 
     // macOS
     #[cfg(target_os = "macos")]
-    {
+    let result = {
         // If the path is inside a .app bundle, walk up to <Foo.app> and use mdls to read kMDItemVersion (doesn't launch app).
         if let Some(app_dir) = find_app_bundle_for_exec(path) {
             let app_path = app_dir.to_string_lossy().to_string();
@@ -131,11 +125,11 @@ pub fn get_executable_version(path: &Path) -> io::Result<String> {
         } else {
             Ok(s)
         }
-    }
+    };
 
     // LINUX / other UNIX
     #[cfg(all(unix, not(target_os = "macos")))]
-    {
+    let result = {
         // Try --product-version then --version
         let output = Command::new(path)
             .arg("--product-version")
@@ -150,7 +144,9 @@ pub fn get_executable_version(path: &Path) -> io::Result<String> {
         } else {
             Ok(s)
         }
-    }
+    };
+
+    result
 }
 
 pub(crate) async fn find_available_port() -> Result<u16> {
@@ -192,10 +188,10 @@ pub(crate) fn find_running_browser_port_by_process_name(process_name: &str) -> R
     #[cfg(target_os = "windows")]
     {
         let lower = trimmed.to_ascii_lowercase();
-        if let Some(stripped) = lower.strip_suffix(".exe") {
-            if let Some(port) = try_find_remote_debug_port(stripped, None)? {
-                return Ok(port);
-            }
+        if let Some(stripped) = lower.strip_suffix(".exe")
+            && let Some(port) = try_find_remote_debug_port(stripped, None)?
+        {
+            return Ok(port);
         }
     }
 
@@ -292,7 +288,7 @@ fn try_find_remote_debug_port_impl(
         condition
     );
     let output = Command::new("powershell")
-        .args(&["-Command", &ps_cmd])
+        .args(["-Command", &ps_cmd])
         .output()
         .map_err(|e| CdpError::tool(format!("Failed to run PowerShell: {}", e)))?;
     let pids = String::from_utf8_lossy(&output.stdout);
@@ -307,7 +303,7 @@ fn try_find_remote_debug_port_impl(
                 pid
             );
             let cmd_output = Command::new("powershell")
-                .args(&["-Command", &ps_cmd2])
+                .args(["-Command", &ps_cmd2])
                 .output()
                 .map_err(|e| {
                     CdpError::tool(format!("Failed to get command for pid {}: {}", pid, e))
