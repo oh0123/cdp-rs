@@ -13,7 +13,7 @@ This guide will help you get started with CDP-Core, a Rust library for browser a
 
 ```toml
 [dependencies]
-cdp-core = "0.3.7"
+cdp-core = "0.4.0"
 tokio = { version = "1", features = ["full"] }
 anyhow = "1.0"
 ```

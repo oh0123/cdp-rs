@@ -72,7 +72,8 @@ pub mod events {
             FrameRequestedNavigationEvent, FrameScheduledNavigationEvent, FrameStartedLoadingEvent,
             FrameStartedNavigatingEvent, FrameStoppedLoadingEvent, FrameSubtreeWillBeDetachedEvent,
             JavascriptDialogClosedEvent, JavascriptDialogOpeningEvent, LifecycleEventEvent,
-            LoadEventFiredEvent, NavigatedWithinDocumentEvent, WindowOpenEvent,
+            LoadEventFiredEvent, NavigatedWithinDocumentEvent, ScreencastFrameEvent,
+            ScreencastVisibilityChangedEvent, WindowOpenEvent,
         };
     }
 
@@ -109,8 +110,17 @@ pub use browser::manager::{
     Browser, BrowserContext, BrowserContextOptions, DownloadBehavior, DownloadOptions,
     PermissionGrant, PermissionOverride,
 };
+pub use cdp_protocol as protocol;
 pub use cdp_protocol::{
+    browser::{
+        Bounds as BrowserWindowBounds, GetVersionReturnObject as BrowserVersion,
+        GetWindowForTargetReturnObject, PermissionDescriptor, PermissionSetting, PermissionType,
+        WindowId as BrowserWindowId, WindowState as BrowserWindowState,
+    },
     inspector::events::TargetCrashedEvent as InspectorTargetCrashedEvent,
+    network::{
+        BlockPattern, GetRequestPostDataReturnObject, GetResponseBodyReturnObject, RequestId,
+    },
     target::{FilterEntry, TargetFilter, TargetId, TargetInfo, events::TargetCrashedEvent},
 };
 pub use domain_manager::{DomainConfig, DomainManager, DomainState, DomainType};
@@ -127,6 +137,7 @@ pub use input::{
 };
 pub use network::{
     cookies::{Cookie, CookieManager, CookiePriority, CookieSameSite, SetCookieParams},
+    network_control::NetworkControl,
     network_intercept::{
         HttpMethod, InterceptedRequest, InterceptedResponse, NetworkEvent, NetworkEventCallback,
         NetworkInterceptor, RequestInterceptorExt, RequestModification, ResponseFilterCallback,
@@ -138,7 +149,8 @@ pub use page::{
     frame::{Frame, RetryConfig},
     page_core::{
         DomMutationCallback, DomMutationEvent, FrameLifecycleCallback, FrameLifecycleEvent,
-        FrameSnapshot, Page, WaitForNavigationOptions, WaitForSelectorOptions, WaitUntil,
+        FrameSnapshot, Page, ScreencastOptions, WaitForNavigationOptions, WaitForSelectorOptions,
+        WaitUntil,
     },
     session::{PageSession, PageSessionManager, PageSessionSnapshot},
 };
@@ -146,3 +158,4 @@ pub use storage::manager::{
     LocalStorageExt, SessionStorageExt, StorageItem, StorageManager, StorageType,
 };
 pub use tracing::{TracingController, TracingStartOptions, TracingStopResult};
+pub use transport::command::CdpCommandBuilder;

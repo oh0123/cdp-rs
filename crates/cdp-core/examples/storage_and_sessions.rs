@@ -19,7 +19,7 @@ async fn main() -> Result<()> {
         .with_target(false)
         .init();
 
-    let browser = Arc::new(Browser::launcher().launch().await?);
+    let browser = Browser::launcher().launch().await?;
 
     let run_result = async {
         let page = browser.new_page().await?;
@@ -142,12 +142,9 @@ async fn test_cookies(page: &Arc<page::Page>) -> Result<()> {
     println!("========== Cookie Management ==========");
 
     // Set cookie
-    page.set_cookie(SetCookieParams {
-        name: "test_cookie".to_string(),
-        value: "cookie_value_123".to_string(),
-        url: Some("https://github.com".to_string()),
-        ..Default::default()
-    })
+    page.set_cookie(
+        SetCookieParams::new("test_cookie", "cookie_value_123").with_url("https://github.com"),
+    )
     .await?;
     println!("✓ Set cookie: test_cookie = cookie_value_123");
 
@@ -183,12 +180,9 @@ async fn test_page_sessions(browser: &Arc<Browser>, page1: &Arc<page::Page>) -> 
         .set_session_storage_item("session_id", "xyz789")
         .await?;
     page1
-        .set_cookie(SetCookieParams {
-            name: "session_cookie".to_string(),
-            value: "session_value".to_string(),
-            url: Some("https://github.com".to_string()),
-            ..Default::default()
-        })
+        .set_cookie(
+            SetCookieParams::new("session_cookie", "session_value").with_url("https://github.com"),
+        )
         .await?;
     println!("✓ Set up page state (localStorage, sessionStorage, cookies)");
 

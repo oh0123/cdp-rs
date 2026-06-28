@@ -18,7 +18,7 @@ async fn main() -> Result<()> {
 
     let run_result = async {
         // List of Amazon product URLs to visit concurrently
-        let product_urls = vec![
+        let product_urls = [
             "https://www.amazon.com/dp/B08CBVGXZC",
             "https://www.amazon.com/dp/B0BDF8CVBN",
             "https://www.amazon.com/dp/B0D1XD1ZV3",

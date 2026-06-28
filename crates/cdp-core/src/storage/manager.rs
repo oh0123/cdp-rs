@@ -32,46 +32,36 @@ impl StorageType {
 #[async_trait]
 pub trait StorageManager {
     /// Gets all items from the specified storage type
-    async fn get_storage_items(
-        self: &Arc<Self>,
-        storage_type: StorageType,
-    ) -> Result<Vec<StorageItem>>;
+    async fn get_storage_items(&self, storage_type: StorageType) -> Result<Vec<StorageItem>>;
 
     /// Gets a specific item from storage by key
     async fn get_storage_item(
-        self: &Arc<Self>,
+        &self,
         storage_type: StorageType,
         key: &str,
     ) -> Result<Option<String>>;
 
     /// Sets an item in storage
     async fn set_storage_item(
-        self: &Arc<Self>,
+        &self,
         storage_type: StorageType,
         key: &str,
         value: &str,
     ) -> Result<()>;
 
     /// Removes an item from storage by key
-    async fn remove_storage_item(
-        self: &Arc<Self>,
-        storage_type: StorageType,
-        key: &str,
-    ) -> Result<()>;
+    async fn remove_storage_item(&self, storage_type: StorageType, key: &str) -> Result<()>;
 
     /// Clears all items from the specified storage type
-    async fn clear_storage(self: &Arc<Self>, storage_type: StorageType) -> Result<()>;
+    async fn clear_storage(&self, storage_type: StorageType) -> Result<()>;
 
     /// Gets the number of items in storage
-    async fn get_storage_length(self: &Arc<Self>, storage_type: StorageType) -> Result<usize>;
+    async fn get_storage_length(&self, storage_type: StorageType) -> Result<usize>;
 }
 
 #[async_trait]
-impl StorageManager for Page {
-    async fn get_storage_items(
-        self: &Arc<Self>,
-        storage_type: StorageType,
-    ) -> Result<Vec<StorageItem>> {
+impl StorageManager for Arc<Page> {
+    async fn get_storage_items(&self, storage_type: StorageType) -> Result<Vec<StorageItem>> {
         let storage_name = storage_type.as_str();
         let script = format!(
             r#"
@@ -98,7 +88,7 @@ impl StorageManager for Page {
     }
 
     async fn get_storage_item(
-        self: &Arc<Self>,
+        &self,
         storage_type: StorageType,
         key: &str,
     ) -> Result<Option<String>> {
@@ -125,7 +115,7 @@ impl StorageManager for Page {
     }
 
     async fn set_storage_item(
-        self: &Arc<Self>,
+        &self,
         storage_type: StorageType,
         key: &str,
         value: &str,
@@ -148,11 +138,7 @@ impl StorageManager for Page {
         Ok(())
     }
 
-    async fn remove_storage_item(
-        self: &Arc<Self>,
-        storage_type: StorageType,
-        key: &str,
-    ) -> Result<()> {
+    async fn remove_storage_item(&self, storage_type: StorageType, key: &str) -> Result<()> {
         let storage_name = storage_type.as_str();
         let script = format!(
             r#"
@@ -170,7 +156,7 @@ impl StorageManager for Page {
         Ok(())
     }
 
-    async fn clear_storage(self: &Arc<Self>, storage_type: StorageType) -> Result<()> {
+    async fn clear_storage(&self, storage_type: StorageType) -> Result<()> {
         let storage_name = storage_type.as_str();
         let script = format!(
             r#"
@@ -187,7 +173,7 @@ impl StorageManager for Page {
         Ok(())
     }
 
-    async fn get_storage_length(self: &Arc<Self>, storage_type: StorageType) -> Result<usize> {
+    async fn get_storage_length(&self, storage_type: StorageType) -> Result<usize> {
         let storage_name = storage_type.as_str();
         let script = format!(
             r#"
@@ -210,16 +196,16 @@ impl StorageManager for Page {
 /// Helper methods for convenient access to localStorage
 #[async_trait]
 pub trait LocalStorageExt {
-    async fn get_local_storage(self: &Arc<Self>) -> Result<HashMap<String, String>>;
-    async fn get_local_storage_item(self: &Arc<Self>, key: &str) -> Result<Option<String>>;
-    async fn set_local_storage_item(self: &Arc<Self>, key: &str, value: &str) -> Result<()>;
-    async fn remove_local_storage_item(self: &Arc<Self>, key: &str) -> Result<()>;
-    async fn clear_local_storage(self: &Arc<Self>) -> Result<()>;
+    async fn get_local_storage(&self) -> Result<HashMap<String, String>>;
+    async fn get_local_storage_item(&self, key: &str) -> Result<Option<String>>;
+    async fn set_local_storage_item(&self, key: &str, value: &str) -> Result<()>;
+    async fn remove_local_storage_item(&self, key: &str) -> Result<()>;
+    async fn clear_local_storage(&self) -> Result<()>;
 }
 
 #[async_trait]
-impl LocalStorageExt for Page {
-    async fn get_local_storage(self: &Arc<Self>) -> Result<HashMap<String, String>> {
+impl LocalStorageExt for Arc<Page> {
+    async fn get_local_storage(&self) -> Result<HashMap<String, String>> {
         let items = self.get_storage_items(StorageType::Local).await?;
         Ok(items
             .into_iter()
@@ -227,19 +213,19 @@ impl LocalStorageExt for Page {
             .collect())
     }
 
-    async fn get_local_storage_item(self: &Arc<Self>, key: &str) -> Result<Option<String>> {
+    async fn get_local_storage_item(&self, key: &str) -> Result<Option<String>> {
         self.get_storage_item(StorageType::Local, key).await
     }
 
-    async fn set_local_storage_item(self: &Arc<Self>, key: &str, value: &str) -> Result<()> {
+    async fn set_local_storage_item(&self, key: &str, value: &str) -> Result<()> {
         self.set_storage_item(StorageType::Local, key, value).await
     }
 
-    async fn remove_local_storage_item(self: &Arc<Self>, key: &str) -> Result<()> {
+    async fn remove_local_storage_item(&self, key: &str) -> Result<()> {
         self.remove_storage_item(StorageType::Local, key).await
     }
 
-    async fn clear_local_storage(self: &Arc<Self>) -> Result<()> {
+    async fn clear_local_storage(&self) -> Result<()> {
         self.clear_storage(StorageType::Local).await
     }
 }
@@ -247,16 +233,16 @@ impl LocalStorageExt for Page {
 /// Helper methods for convenient access to sessionStorage
 #[async_trait]
 pub trait SessionStorageExt {
-    async fn get_session_storage(self: &Arc<Self>) -> Result<HashMap<String, String>>;
-    async fn get_session_storage_item(self: &Arc<Self>, key: &str) -> Result<Option<String>>;
-    async fn set_session_storage_item(self: &Arc<Self>, key: &str, value: &str) -> Result<()>;
-    async fn remove_session_storage_item(self: &Arc<Self>, key: &str) -> Result<()>;
-    async fn clear_session_storage(self: &Arc<Self>) -> Result<()>;
+    async fn get_session_storage(&self) -> Result<HashMap<String, String>>;
+    async fn get_session_storage_item(&self, key: &str) -> Result<Option<String>>;
+    async fn set_session_storage_item(&self, key: &str, value: &str) -> Result<()>;
+    async fn remove_session_storage_item(&self, key: &str) -> Result<()>;
+    async fn clear_session_storage(&self) -> Result<()>;
 }
 
 #[async_trait]
-impl SessionStorageExt for Page {
-    async fn get_session_storage(self: &Arc<Self>) -> Result<HashMap<String, String>> {
+impl SessionStorageExt for Arc<Page> {
+    async fn get_session_storage(&self) -> Result<HashMap<String, String>> {
         let items = self.get_storage_items(StorageType::Session).await?;
         Ok(items
             .into_iter()
@@ -264,20 +250,20 @@ impl SessionStorageExt for Page {
             .collect())
     }
 
-    async fn get_session_storage_item(self: &Arc<Self>, key: &str) -> Result<Option<String>> {
+    async fn get_session_storage_item(&self, key: &str) -> Result<Option<String>> {
         self.get_storage_item(StorageType::Session, key).await
     }
 
-    async fn set_session_storage_item(self: &Arc<Self>, key: &str, value: &str) -> Result<()> {
+    async fn set_session_storage_item(&self, key: &str, value: &str) -> Result<()> {
         self.set_storage_item(StorageType::Session, key, value)
             .await
     }
 
-    async fn remove_session_storage_item(self: &Arc<Self>, key: &str) -> Result<()> {
+    async fn remove_session_storage_item(&self, key: &str) -> Result<()> {
         self.remove_storage_item(StorageType::Session, key).await
     }
 
-    async fn clear_session_storage(self: &Arc<Self>) -> Result<()> {
+    async fn clear_session_storage(&self) -> Result<()> {
         self.clear_storage(StorageType::Session).await
     }
 }

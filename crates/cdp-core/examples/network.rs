@@ -9,7 +9,6 @@
 ///
 /// Run: cargo run --example network
 use cdp_core::*;
-use std::collections::HashMap;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use tokio::time::{Duration, sleep};
@@ -99,15 +98,16 @@ async fn test_request_interception(page: &Arc<page::Page>) -> Result<()> {
     println!("========== Request Interception ==========");
 
     // Enable interception
-    NetworkInterceptor::enable_request_interception(page, vec!["*".to_string()]).await?;
+    page.enable_request_interception(vec!["*".to_string()])
+        .await?;
     println!("✓ Request interception enabled");
 
     // Example: Modify headers
-    let mut headers = HashMap::new();
-    headers.insert("X-Custom-Header".to_string(), "test-value".to_string());
-    headers.insert("User-Agent".to_string(), "CDP-Test-Agent/1.0".to_string());
+    let request_update = RequestModification::default()
+        .with_header("X-Custom-Header", "test-value")
+        .with_header("User-Agent", "CDP-Test-Agent/1.0");
 
-    println!("✓ Custom headers ready: {:?}", headers);
+    println!("✓ Custom request update ready: {:?}", request_update);
     println!("  Note: Headers can be modified in request callback");
 
     // Example: Block patterns
@@ -117,7 +117,7 @@ async fn test_request_interception(page: &Arc<page::Page>) -> Result<()> {
     println!("  - Block ads: url.contains(\"ads\")");
 
     // Disable interception
-    NetworkInterceptor::disable_request_interception(page).await?;
+    page.disable_request_interception().await?;
     println!("✓ Request interception disabled\n");
 
     Ok(())
@@ -169,10 +169,11 @@ async fn test_response_monitoring(page: &Arc<page::Page>) -> Result<()> {
         "https://www.fedex.com/fedextrack/?trknbr=885215382626&trkqual=12029~885215382626~FDEG",
     )
     .await?;
-    page.wait_for_navigation(Some(WaitForNavigationOptions {
-        wait_until: Some(cdp_core::WaitUntil::NetworkIdle0),
-        timeout_ms: Some(30000),
-    }))
+    page.wait_for_navigation(Some(
+        WaitForNavigationOptions::default()
+            .with_wait_until(WaitUntil::NetworkIdle0)
+            .with_timeout_ms(30_000),
+    ))
     .await?;
     sleep(Duration::from_secs(2)).await;
 
@@ -187,10 +188,11 @@ async fn test_network_idle(page: &Arc<page::Page>) -> Result<()> {
     page.navigate("https://example.com").await?;
 
     let start = std::time::Instant::now();
-    page.wait_for_navigation(Some(WaitForNavigationOptions {
-        timeout_ms: Some(15000),
-        wait_until: Some(WaitUntil::NetworkIdle2),
-    }))
+    page.wait_for_navigation(Some(
+        WaitForNavigationOptions::default()
+            .with_timeout_ms(15_000)
+            .with_wait_until(WaitUntil::NetworkIdle2),
+    ))
     .await?;
 
     println!(

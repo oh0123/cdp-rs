@@ -15,7 +15,7 @@ use crate::network::network_intercept::{
 use crate::page::{element::ElementHandle, frame::Frame};
 use crate::session::Session;
 use crate::tracing::{TracingController, TracingSessionState};
-use crate::transport::{cdp_protocol::*, websocket_connection::*};
+use crate::transport::{cdp_protocol::*, command::CdpCommandBuilder, websocket_connection::*};
 use cdp_protocol::page::Viewport;
 use cdp_protocol::{
     page::{
@@ -95,6 +95,18 @@ pub struct WaitForNavigationOptions {
     pub wait_until: Option<WaitUntil>,
 }
 
+impl WaitForNavigationOptions {
+    pub fn with_timeout_ms(mut self, timeout_ms: u64) -> Self {
+        self.timeout_ms = Some(timeout_ms);
+        self
+    }
+
+    pub fn with_wait_until(mut self, wait_until: WaitUntil) -> Self {
+        self.wait_until = Some(wait_until);
+        self
+    }
+}
+
 /// Selector wait options
 #[derive(Debug, Clone, Default)]
 pub struct WaitForSelectorOptions {
@@ -104,6 +116,23 @@ pub struct WaitForSelectorOptions {
     pub visible: Option<bool>,
     /// Whether to wait for element to be hidden, default false
     pub hidden: Option<bool>,
+}
+
+impl WaitForSelectorOptions {
+    pub fn with_timeout_ms(mut self, timeout_ms: u64) -> Self {
+        self.timeout_ms = Some(timeout_ms);
+        self
+    }
+
+    pub fn with_visible(mut self, visible: bool) -> Self {
+        self.visible = Some(visible);
+        self
+    }
+
+    pub fn with_hidden(mut self, hidden: bool) -> Self {
+        self.hidden = Some(hidden);
+        self
+    }
 }
 
 /// Page navigation wait condition
@@ -140,6 +169,33 @@ pub struct ScreencastOptions {
     pub max_height: Option<u32>,
     /// Send every n-th frame.
     pub every_nth_frame: Option<u32>,
+}
+
+impl ScreencastOptions {
+    pub fn with_format(mut self, format: page_cdp::StartScreencastFormatOption) -> Self {
+        self.format = Some(format);
+        self
+    }
+
+    pub fn with_quality(mut self, quality: u32) -> Self {
+        self.quality = Some(quality);
+        self
+    }
+
+    pub fn with_max_width(mut self, max_width: u32) -> Self {
+        self.max_width = Some(max_width);
+        self
+    }
+
+    pub fn with_max_height(mut self, max_height: u32) -> Self {
+        self.max_height = Some(max_height);
+        self
+    }
+
+    pub fn with_every_nth_frame(mut self, every_nth_frame: u32) -> Self {
+        self.every_nth_frame = Some(every_nth_frame);
+        self
+    }
 }
 
 impl From<ScreencastOptions> for page_cdp::StartScreencast {
@@ -309,12 +365,12 @@ impl Page {
 
     /// Get mouse controller
     pub fn mouse(&self) -> Mouse {
-        Mouse::new(Arc::clone(&self.session), Arc::clone(&self.domain_manager))
+        Mouse::new(Arc::clone(&self.session))
     }
 
     /// Get keyboard controller
     pub fn keyboard(&self) -> Keyboard {
-        Keyboard::new(Arc::clone(&self.session), Arc::clone(&self.domain_manager))
+        Keyboard::new(Arc::clone(&self.session))
     }
 
     pub fn accessibility(self: &Arc<Self>) -> AccessibilityController {
@@ -330,6 +386,11 @@ impl Page {
     }
 
     pub async fn navigate(&self, url: &str) -> Result<NavigateReturnObject> {
+        // Network-idle waits are normally called immediately after `navigate`.
+        // Reset before dispatching the navigation command so requests created by this navigation
+        // are observed instead of being cleared by the later wait.
+        self.network_monitor.reset_inflight().await;
+
         let navigate = Navigate {
             url: url.to_string(),
             referrer: None,
@@ -340,6 +401,127 @@ impl Page {
         self.session
             .send_command::<_, NavigateReturnObject>(navigate, None)
             .await
+    }
+
+    /// Reloads the current page.
+    pub fn reload(&self, ignore_cache: bool) -> CdpCommandBuilder<'_, page_cdp::Reload> {
+        self.cdp(page_cdp::Reload {
+            ignore_cache: Some(ignore_cache),
+            script_to_evaluate_on_load: None,
+            loader_id: None,
+        })
+    }
+
+    /// Brings this page to the front.
+    pub fn bring_to_front(&self) -> CdpCommandBuilder<'_, page_cdp::BringToFront> {
+        self.cdp(page_cdp::BringToFront(None))
+    }
+
+    /// Navigates to an entry from [`Page::get_navigation_history`].
+    pub fn navigate_to_history_entry(
+        &self,
+        entry_id: u32,
+    ) -> CdpCommandBuilder<'_, page_cdp::NavigateToHistoryEntry> {
+        self.cdp(page_cdp::NavigateToHistoryEntry { entry_id })
+    }
+
+    /// Returns the page navigation history.
+    pub fn get_navigation_history(&self) -> CdpCommandBuilder<'_, page_cdp::GetNavigationHistory> {
+        self.cdp(page_cdp::GetNavigationHistory(None))
+    }
+
+    /// Resets the page navigation history.
+    pub fn reset_navigation_history(
+        &self,
+    ) -> CdpCommandBuilder<'_, page_cdp::ResetNavigationHistory> {
+        self.cdp(page_cdp::ResetNavigationHistory(None))
+    }
+
+    /// Captures an MHTML snapshot of the current page.
+    pub fn capture_snapshot(&self) -> CdpCommandBuilder<'_, page_cdp::CaptureSnapshot> {
+        self.cdp(page_cdp::CaptureSnapshot {
+            format: Some(page_cdp::CaptureSnapshotFormatOption::Mhtml),
+        })
+    }
+
+    /// Prints the page to PDF using Chrome's default print settings.
+    pub fn print_to_pdf(&self) -> CdpCommandBuilder<'_, page_cdp::PrintToPDF> {
+        self.cdp(Self::default_print_to_pdf_options())
+    }
+
+    /// Returns the CDP default-valued print options used by [`Page::print_to_pdf`].
+    pub fn default_print_to_pdf_options() -> page_cdp::PrintToPDF {
+        page_cdp::PrintToPDF {
+            landscape: None,
+            display_header_footer: None,
+            print_background: None,
+            scale: None,
+            paper_width: None,
+            paper_height: None,
+            margin_top: None,
+            margin_bottom: None,
+            margin_left: None,
+            margin_right: None,
+            page_ranges: None,
+            header_template: None,
+            footer_template: None,
+            prefer_css_page_size: None,
+            transfer_mode: None,
+            generate_tagged_pdf: None,
+            generate_document_outline: None,
+        }
+    }
+
+    /// Injects a script into every new frame before page scripts run.
+    pub fn add_script_to_evaluate_on_new_document(
+        &self,
+        source: impl Into<String>,
+    ) -> CdpCommandBuilder<'_, page_cdp::AddScriptToEvaluateOnNewDocument> {
+        self.cdp(page_cdp::AddScriptToEvaluateOnNewDocument {
+            source: source.into(),
+            world_name: None,
+            include_command_line_api: None,
+            run_immediately: None,
+        })
+    }
+
+    /// Removes a script previously registered with `add_script_to_evaluate_on_new_document`.
+    pub fn remove_script_to_evaluate_on_new_document(
+        &self,
+        identifier: impl Into<page_cdp::ScriptIdentifier>,
+    ) -> CdpCommandBuilder<'_, page_cdp::RemoveScriptToEvaluateOnNewDocument> {
+        self.cdp(page_cdp::RemoveScriptToEvaluateOnNewDocument {
+            identifier: identifier.into(),
+        })
+    }
+
+    /// Accepts or dismisses the current JavaScript dialog.
+    pub fn handle_javascript_dialog(
+        &self,
+        accept: bool,
+        prompt_text: Option<String>,
+    ) -> CdpCommandBuilder<'_, page_cdp::HandleJavaScriptDialog> {
+        self.cdp(page_cdp::HandleJavaScriptDialog {
+            accept,
+            prompt_text,
+        })
+    }
+
+    /// Returns the resource tree for the current page.
+    pub fn get_resource_tree(&self) -> CdpCommandBuilder<'_, page_cdp::GetResourceTree> {
+        self.cdp(page_cdp::GetResourceTree(None))
+    }
+
+    /// Returns resource content for a frame URL.
+    pub fn get_resource_content(
+        &self,
+        frame_id: impl Into<page_cdp::FrameId>,
+        url: impl Into<String>,
+    ) -> CdpCommandBuilder<'_, page_cdp::GetResourceContent> {
+        self.cdp(page_cdp::GetResourceContent {
+            frame_id: frame_id.into(),
+            url: url.into(),
+        })
     }
 
     /// Retrieves all available CDP targets via `Target.getTargets`.
@@ -386,6 +568,28 @@ impl Page {
         let _: page_cdp::SetLifecycleEventsEnabledReturnObject =
             self.session.send_command(method, None).await?;
         Ok(())
+    }
+
+    /// Builds a native CDP command scoped to this page/session.
+    ///
+    /// This is the escape hatch for protocol methods that do not have a high-level wrapper yet,
+    /// or for commands where callers need every native CDP option.
+    pub fn cdp<M>(&self, method: M) -> CdpCommandBuilder<'_, M>
+    where
+        M: serde::Serialize + std::fmt::Debug + cdp_protocol::types::Method,
+    {
+        CdpCommandBuilder::session(&self.session, method)
+    }
+
+    /// Builds a native CDP command on the root browser connection.
+    ///
+    /// Use this for browser-level domains such as `Browser` and `Target` when working from a
+    /// [`Page`] handle.
+    pub fn root_cdp<M>(&self, method: M) -> CdpCommandBuilder<'_, M>
+    where
+        M: serde::Serialize + std::fmt::Debug + cdp_protocol::types::Method,
+    {
+        CdpCommandBuilder::root(&self.session, method)
     }
 
     fn events(&self) -> broadcast::Receiver<CdpEvent> {
@@ -1064,7 +1268,7 @@ impl Page {
             .send_command::<_, dom::EnableReturnObject>(enable, None)
             .await?;
 
-        println!("DOM mutation monitoring enabled");
+        tracing::debug!("DOM mutation monitoring enabled");
         Ok(())
     }
 
@@ -1507,27 +1711,21 @@ impl Page {
     ///
     /// Listen for frames with [`Page::on`] or [`Page::wait_for_screencast_frame`], and acknowledge
     /// each received frame with [`Page::screencast_frame_ack`].
-    pub async fn start_screencast(&self, options: Option<ScreencastOptions>) -> Result<()> {
-        let method: page_cdp::StartScreencast = options.unwrap_or_default().into();
-        let _: page_cdp::StartScreencastReturnObject =
-            self.session.send_command(method, None).await?;
-        Ok(())
+    pub fn start_screencast(&self) -> CdpCommandBuilder<'_, page_cdp::StartScreencast> {
+        self.cdp(ScreencastOptions::default().into())
     }
 
     /// Acknowledges that a screencast frame has been received.
-    pub async fn screencast_frame_ack(&self, session_id: u32) -> Result<()> {
-        let method = page_cdp::ScreencastFrameAck { session_id };
-        let _: page_cdp::ScreencastFrameAckReturnObject =
-            self.session.send_command(method, None).await?;
-        Ok(())
+    pub fn screencast_frame_ack(
+        &self,
+        session_id: u32,
+    ) -> CdpCommandBuilder<'_, page_cdp::ScreencastFrameAck> {
+        self.cdp(page_cdp::ScreencastFrameAck { session_id })
     }
 
     /// Stops page screencast frames.
-    pub async fn stop_screencast(&self) -> Result<()> {
-        let method = page_cdp::StopScreencast(None);
-        let _: page_cdp::StopScreencastReturnObject =
-            self.session.send_command(method, None).await?;
-        Ok(())
+    pub fn stop_screencast(&self) -> CdpCommandBuilder<'_, page_cdp::StopScreencast> {
+        self.cdp(page_cdp::StopScreencast(None))
     }
 
     /// Waits for the next `Page.screencastFrame` event.
@@ -1702,6 +1900,12 @@ impl Page {
         let visible = opts.visible.unwrap_or(false);
         let hidden = opts.hidden.unwrap_or(false);
 
+        if visible && hidden {
+            return Err(CdpError::page(
+                "wait_for_selector cannot require both visible and hidden".to_string(),
+            ));
+        }
+
         let start = std::time::Instant::now();
         let poll_interval = std::time::Duration::from_millis(100);
 
@@ -1714,27 +1918,39 @@ impl Page {
                 )));
             }
 
-            // Try to query element
-            if let Some(element) = self.query_selector(selector).await? {
-                // If visibility check is needed
-                if visible
-                    && let Ok(is_visible) = element.is_visible().await
-                    && !is_visible
-                {
-                    tokio::time::sleep(poll_interval).await;
-                    continue;
-                }
+            // Try to query element. During navigation the DOM or execution context can be
+            // temporarily unavailable, so retry those transient failures until the deadline.
+            match self.query_selector(selector).await {
+                Ok(Some(element)) => {
+                    if visible {
+                        match element.is_visible().await {
+                            Ok(true) => return Ok(element),
+                            Ok(false) | Err(_) => {
+                                tokio::time::sleep(poll_interval).await;
+                                continue;
+                            }
+                        }
+                    }
 
-                // If hidden check is needed
-                if hidden
-                    && let Ok(is_visible) = element.is_visible().await
-                    && is_visible
-                {
-                    tokio::time::sleep(poll_interval).await;
-                    continue;
-                }
+                    if hidden {
+                        match element.is_visible().await {
+                            Ok(false) => return Ok(element),
+                            Ok(true) | Err(_) => {
+                                tokio::time::sleep(poll_interval).await;
+                                continue;
+                            }
+                        }
+                    }
 
-                return Ok(element);
+                    return Ok(element);
+                }
+                Ok(None) => {}
+                Err(err) => {
+                    warn!(
+                        "Failed to query selector '{}' while waiting: {}",
+                        selector, err
+                    );
+                }
             }
 
             tokio::time::sleep(poll_interval).await;
@@ -1933,7 +2149,7 @@ impl Page {
             WaitUntil::DOMContentLoaded => {
                 // Wait for DOMContentLoaded event
                 self.wait_for_function(
-                    "() => document.readyState === 'interactive'",
+                    "() => document.readyState === 'interactive' || document.readyState === 'complete'",
                     Some(timeout),
                     None,
                 )
@@ -2016,9 +2232,6 @@ impl Page {
             self.domain_manager.enable_network_domain().await?;
         }
 
-        // Reset count (avoid influence from previous requests)
-        self.network_monitor.reset_inflight().await;
-
         // Wait for network idle
         let start = std::time::Instant::now();
         let mut idle_start: Option<std::time::Instant> = None;
@@ -2026,7 +2239,10 @@ impl Page {
 
         loop {
             if start.elapsed().as_millis() > timeout_ms as u128 {
-                return Ok(());
+                return Err(CdpError::page(format!(
+                    "Timeout waiting for network idle ({}ms, max inflight {})",
+                    timeout_ms, max_inflight
+                )));
             }
 
             let current_inflight = self.network_monitor.get_inflight_count();

@@ -65,25 +65,22 @@ impl PageSession {
 #[async_trait]
 pub trait PageSessionManager {
     /// Export complete page session (cookies + storage)
-    async fn export_session(self: &Arc<Self>) -> Result<PageSession>;
+    async fn export_session(&self) -> Result<PageSession>;
 
     /// Import complete page session (cookies + storage)
     /// Note: This will navigate to the session URL first
-    async fn import_session(self: &Arc<Self>, session: &PageSession) -> Result<()>;
+    async fn import_session(&self, session: &PageSession) -> Result<()>;
 
     /// Export session and save to file
-    async fn export_session_to_file(
-        self: &Arc<Self>,
-        path: &std::path::Path,
-    ) -> Result<PageSession>;
+    async fn export_session_to_file(&self, path: &std::path::Path) -> Result<PageSession>;
 
     /// Load session from file and import
-    async fn import_session_from_file(self: &Arc<Self>, path: &std::path::Path) -> Result<()>;
+    async fn import_session_from_file(&self, path: &std::path::Path) -> Result<()>;
 }
 
 #[async_trait]
-impl PageSessionManager for Page {
-    async fn export_session(self: &Arc<Self>) -> Result<PageSession> {
+impl PageSessionManager for Arc<Page> {
+    async fn export_session(&self) -> Result<PageSession> {
         // Get current URL from main frame
         let main_frame = self.main_frame().await?;
         let url = main_frame.url().await?;
@@ -117,7 +114,7 @@ impl PageSessionManager for Page {
         })
     }
 
-    async fn import_session(self: &Arc<Self>, session: &PageSession) -> Result<()> {
+    async fn import_session(&self, session: &PageSession) -> Result<()> {
         // Navigate to the session URL first
         self.navigate(&session.url).await?;
 
@@ -158,16 +155,13 @@ impl PageSessionManager for Page {
         Ok(())
     }
 
-    async fn export_session_to_file(
-        self: &Arc<Self>,
-        path: &std::path::Path,
-    ) -> Result<PageSession> {
+    async fn export_session_to_file(&self, path: &std::path::Path) -> Result<PageSession> {
         let session = self.export_session().await?;
         session.save_to_file(path)?;
         Ok(session)
     }
 
-    async fn import_session_from_file(self: &Arc<Self>, path: &std::path::Path) -> Result<()> {
+    async fn import_session_from_file(&self, path: &std::path::Path) -> Result<()> {
         let session = PageSession::load_from_file(path)?;
         self.import_session(&session).await?;
         Ok(())
@@ -178,26 +172,26 @@ impl PageSessionManager for Page {
 #[async_trait]
 pub trait PageSessionSnapshot {
     /// Create a quick snapshot of current session
-    async fn snapshot(self: &Arc<Self>) -> Result<PageSession>;
+    async fn snapshot(&self) -> Result<PageSession>;
 
     /// Restore from a snapshot
-    async fn restore(self: &Arc<Self>, snapshot: &PageSession) -> Result<()>;
+    async fn restore(&self, snapshot: &PageSession) -> Result<()>;
 
     /// Clone current session to another page
-    async fn clone_session_to(self: &Arc<Self>, target: &Arc<Page>) -> Result<()>;
+    async fn clone_session_to(&self, target: &Arc<Page>) -> Result<()>;
 }
 
 #[async_trait]
-impl PageSessionSnapshot for Page {
-    async fn snapshot(self: &Arc<Self>) -> Result<PageSession> {
+impl PageSessionSnapshot for Arc<Page> {
+    async fn snapshot(&self) -> Result<PageSession> {
         self.export_session().await
     }
 
-    async fn restore(self: &Arc<Self>, snapshot: &PageSession) -> Result<()> {
+    async fn restore(&self, snapshot: &PageSession) -> Result<()> {
         self.import_session(snapshot).await
     }
 
-    async fn clone_session_to(self: &Arc<Self>, target: &Arc<Page>) -> Result<()> {
+    async fn clone_session_to(&self, target: &Arc<Page>) -> Result<()> {
         let session = self.export_session().await?;
         target.import_session(&session).await?;
         Ok(())

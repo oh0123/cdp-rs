@@ -71,10 +71,6 @@ pub enum DomainType {
     Debugger,
     /// Profiler domain - CPU profiling (optional).
     Profiler,
-    /// Input domain - keyboard control (optional).
-    Keyboard,
-    /// Input domain - mouse control (optional).
-    Mouse,
 }
 
 impl DomainType {
@@ -104,8 +100,6 @@ impl DomainType {
             DomainType::Css => "CSS",
             DomainType::Debugger => "Debugger",
             DomainType::Profiler => "Profiler",
-            DomainType::Keyboard => "Keyboard",
-            DomainType::Mouse => "Mouse",
         }
     }
 }
@@ -148,6 +142,41 @@ impl Default for DomainConfig {
             network_max_post_data_size: None,
             fetch_handle_auth_requests: false,
         }
+    }
+}
+
+impl DomainConfig {
+    pub fn with_page_file_chooser_events(mut self, enabled: bool) -> Self {
+        self.page_enable_file_chooser = enabled;
+        self
+    }
+
+    pub fn with_dom_include_whitespace(
+        mut self,
+        include_whitespace: dom::EnableIncludeWhitespaceOption,
+    ) -> Self {
+        self.dom_include_whitespace = Some(include_whitespace);
+        self
+    }
+
+    pub fn with_network_max_total_buffer_size(mut self, size: u32) -> Self {
+        self.network_max_total_buffer_size = Some(size);
+        self
+    }
+
+    pub fn with_network_max_resource_buffer_size(mut self, size: u32) -> Self {
+        self.network_max_resource_buffer_size = Some(size);
+        self
+    }
+
+    pub fn with_network_max_post_data_size(mut self, size: u32) -> Self {
+        self.network_max_post_data_size = Some(size);
+        self
+    }
+
+    pub fn with_fetch_handle_auth_requests(mut self, enabled: bool) -> Self {
+        self.fetch_handle_auth_requests = enabled;
+        self
     }
 }
 
@@ -470,7 +499,6 @@ impl DomainManager {
                     .await
                     .map(|_| ())
             }
-            DomainType::Mouse | DomainType::Keyboard => Ok(()),
             DomainType::Css | DomainType::Debugger | DomainType::Profiler => {
                 tracing::warn!("Disabling the {} domain is not supported", domain.name());
                 Ok(())

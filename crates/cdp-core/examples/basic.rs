@@ -10,23 +10,23 @@ async fn main() -> Result<()> {
     let context = browser.new_context().await?;
     let page = context.new_page().await?;
 
-    println!("Navigating to a page with a prominent button...");
-    page.navigate("https://www.amazon.com").await?; // Puppeteer's website has a nice big button
+    println!("Navigating to a page with a prominent search box...");
+    page.navigate("https://www.amazon.com").await?;
 
-    // Wait for load to ensure the page is ready
-    page.wait_for_navigation(Some(WaitForNavigationOptions {
-        timeout_ms: Some(10000),
-        wait_until: Some(WaitUntil::NetworkIdle2),
-    }))
-    .await?;
-    println!("Page loaded.");
+    print!("   Waiting for search box... ");
+    let screenshot_target = page
+        .wait_for_selector(
+            "#nav-search",
+            Some(
+                WaitForSelectorOptions::default()
+                    .with_timeout_ms(15_000)
+                    .with_visible(true),
+            ),
+        )
+        .await?;
+    println!("✓ Element found");
 
     print!("   Testing element screenshot (auto-save)... ");
-    let screenshot_target = page
-        .query_selector("#nav-search")
-        .await?
-        .ok_or_else(|| CdpError::element("#nav-search not found".to_string()))?;
-
     let element_path = screenshot_target.screenshot(None).await?;
     println!("✓ {}", element_path);
 

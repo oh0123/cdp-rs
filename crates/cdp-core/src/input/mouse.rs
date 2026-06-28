@@ -14,7 +14,6 @@ use cdp_protocol::input::{
 use cdp_protocol::runtime::{Evaluate, EvaluateReturnObject};
 
 use crate::{
-    domain_manager::DomainManager,
     error::{CdpError, Result},
     session::Session,
 };
@@ -37,6 +36,18 @@ impl Default for MouseClickOptions {
     }
 }
 
+impl MouseClickOptions {
+    pub fn with_button(mut self, button: MouseButton) -> Self {
+        self.button = button;
+        self
+    }
+
+    pub fn with_delay_after_press(mut self, delay: Duration) -> Self {
+        self.delay_after_press = Some(delay);
+        self
+    }
+}
+
 /// Configuration for a double-click action.
 #[derive(Debug, Clone)]
 pub struct DoubleClickOptions {
@@ -52,6 +63,18 @@ impl Default for DoubleClickOptions {
             button: MouseButton::Left,
             delay_between_clicks: Duration::from_millis(50),
         }
+    }
+}
+
+impl DoubleClickOptions {
+    pub fn with_button(mut self, button: MouseButton) -> Self {
+        self.button = button;
+        self
+    }
+
+    pub fn with_delay_between_clicks(mut self, delay: Duration) -> Self {
+        self.delay_between_clicks = delay;
+        self
     }
 }
 
@@ -76,6 +99,28 @@ impl Default for PressHoldOptions {
             timeout: None,
             min_duration: None,
         }
+    }
+}
+
+impl PressHoldOptions {
+    pub fn with_button(mut self, button: MouseButton) -> Self {
+        self.button = button;
+        self
+    }
+
+    pub fn with_poll_interval(mut self, interval: Duration) -> Self {
+        self.poll_interval = interval;
+        self
+    }
+
+    pub fn with_timeout(mut self, timeout: Duration) -> Self {
+        self.timeout = Some(timeout);
+        self
+    }
+
+    pub fn with_min_duration(mut self, min_duration: Duration) -> Self {
+        self.min_duration = Some(min_duration);
+        self
     }
 }
 
@@ -145,11 +190,52 @@ impl Default for DragOptions {
     }
 }
 
+impl DragOptions {
+    pub fn with_button(mut self, button: MouseButton) -> Self {
+        self.button = button;
+        self
+    }
+
+    pub fn with_total_duration(mut self, duration: Duration) -> Self {
+        self.total_duration = duration;
+        self
+    }
+
+    pub fn with_steps(mut self, steps: usize) -> Self {
+        self.steps = steps;
+        self
+    }
+
+    pub fn with_jitter_px(mut self, jitter_px: f64) -> Self {
+        self.jitter_px = jitter_px;
+        self
+    }
+
+    pub fn with_hold_before_move(mut self, delay: Duration) -> Self {
+        self.hold_before_move = Some(delay);
+        self
+    }
+
+    pub fn with_settle_after_move(mut self, delay: Duration) -> Self {
+        self.settle_after_move = Some(delay);
+        self
+    }
+
+    pub fn with_move_cursor_to_start(mut self, enabled: bool) -> Self {
+        self.move_cursor_to_start = enabled;
+        self
+    }
+
+    pub fn with_easing(mut self, easing: DragEasing) -> Self {
+        self.easing = easing;
+        self
+    }
+}
+
 /// High-level helper for dispatching mouse input via the CDP Input domain.
 #[derive(Clone)]
 pub struct Mouse {
     session: Arc<Session>,
-    domain_manager: Arc<DomainManager>,
 }
 
 /// Current mouse coordinates in both viewport and screen space.
@@ -166,11 +252,8 @@ pub struct MousePosition {
 }
 
 impl Mouse {
-    pub(crate) fn new(session: Arc<Session>, domain_manager: Arc<DomainManager>) -> Self {
-        Self {
-            session,
-            domain_manager,
-        }
+    pub(crate) fn new(session: Arc<Session>) -> Self {
+        Self { session }
     }
 
     async fn dispatch(&self, params: DispatchMouseEvent) -> Result<()> {

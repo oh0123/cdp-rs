@@ -7,12 +7,14 @@ use crate::emulation::EmulationConfig;
 use crate::error::Result;
 use crate::page::Page;
 use crate::session::Session;
-use crate::transport::{cdp_protocol::*, websocket_connection::*};
+use crate::transport::{cdp_protocol::*, command::CdpCommandBuilder, websocket_connection::*};
 
 use cdp_protocol::browser::{
+    Bounds, GetBrowserCommandLine, GetVersion, GetWindowBounds, GetWindowForTarget,
     PermissionDescriptor, PermissionSetting, PermissionType, ResetPermissions,
-    ResetPermissionsReturnObject, SetDownloadBehavior, SetDownloadBehaviorBehaviorOption,
-    SetDownloadBehaviorReturnObject, SetPermission, SetPermissionReturnObject,
+    ResetPermissionsReturnObject, SetContentsSize, SetDownloadBehavior,
+    SetDownloadBehaviorBehaviorOption, SetDownloadBehaviorReturnObject, SetPermission,
+    SetPermissionReturnObject, SetWindowBounds, WindowId,
 };
 use cdp_protocol::target::{
     AttachToTargetReturnObject, CreateBrowserContext, CreateBrowserContextReturnObject,
@@ -45,6 +47,46 @@ pub struct BrowserContextOptions {
 }
 
 impl BrowserContextOptions {
+    pub fn with_dispose_on_detach(mut self, dispose_on_detach: bool) -> Self {
+        self.dispose_on_detach = Some(dispose_on_detach);
+        self
+    }
+
+    pub fn with_proxy_server<T: Into<String>>(mut self, proxy_server: T) -> Self {
+        self.proxy_server = Some(proxy_server.into());
+        self
+    }
+
+    pub fn with_proxy_bypass_list<T: Into<String>>(mut self, proxy_bypass_list: T) -> Self {
+        self.proxy_bypass_list = Some(proxy_bypass_list.into());
+        self
+    }
+
+    pub fn with_universal_network_access_origins<I, T>(mut self, origins: I) -> Self
+    where
+        I: IntoIterator<Item = T>,
+        T: Into<String>,
+    {
+        self.origins_with_universal_network_access =
+            Some(origins.into_iter().map(Into::into).collect());
+        self
+    }
+
+    pub fn with_download(mut self, download: DownloadOptions) -> Self {
+        self.download = Some(download);
+        self
+    }
+
+    pub fn with_permission_grant(mut self, grant: PermissionGrant) -> Self {
+        self.permission_grants.push(grant);
+        self
+    }
+
+    pub fn with_permission_override(mut self, permission: PermissionOverride) -> Self {
+        self.permission_overrides.push(permission);
+        self
+    }
+
     pub fn with_emulation(mut self, emulation: EmulationConfig) -> Self {
         self.emulation = Some(emulation);
         self
@@ -145,6 +187,11 @@ impl PermissionOverride {
 
     pub fn with_origin<T: Into<String>>(mut self, origin: T) -> Self {
         self.origin = Some(origin.into());
+        self
+    }
+
+    pub fn with_embedded_origin<T: Into<String>>(mut self, embedded_origin: T) -> Self {
+        self.embedded_origin = Some(embedded_origin.into());
         self
     }
 }
@@ -489,13 +536,20 @@ impl Browser {
             .send_command::<_, CreateBrowserContextReturnObject>(method, None)
             .await?;
         let context_id = obj.browser_context_id;
-        println!("Created new BrowserContext with ID: {}", context_id);
+        tracing::debug!("Created new BrowserContext with ID: {}", context_id);
 
         let context = Arc::new(BrowserContext::new(context_id.clone(), Arc::clone(self)));
         self.register_context(&context).await;
 
         if let Err(err) = context.apply_options(&options).await {
             self.unregister_context(&context_id).await;
+            if let Err(dispose_err) = self.dispose_browser_context(&context_id).await {
+                tracing::warn!(
+                    "Failed to dispose BrowserContext {} after option application failed: {:?}",
+                    context_id,
+                    dispose_err
+                );
+            }
             return Err(err);
         }
 
@@ -528,6 +582,82 @@ impl Browser {
         None
     }
 
+    /// Returns browser version information.
+    pub fn version(&self) -> CdpCommandBuilder<'_, GetVersion> {
+        self.cdp(GetVersion(None))
+    }
+
+    /// Returns browser process command line arguments when Chrome exposes them.
+    pub fn command_line(&self) -> CdpCommandBuilder<'_, GetBrowserCommandLine> {
+        self.cdp(GetBrowserCommandLine(None))
+    }
+
+    /// Returns the browser window containing a target.
+    pub fn window_for_target(
+        &self,
+        target_id: Option<String>,
+    ) -> CdpCommandBuilder<'_, GetWindowForTarget> {
+        self.cdp(GetWindowForTarget { target_id })
+    }
+
+    /// Returns the bounds for a browser window.
+    pub fn window_bounds(&self, window_id: WindowId) -> CdpCommandBuilder<'_, GetWindowBounds> {
+        self.cdp(GetWindowBounds { window_id })
+    }
+
+    /// Sets the bounds for a browser window.
+    pub fn set_window_bounds(
+        &self,
+        window_id: WindowId,
+        bounds: Bounds,
+    ) -> CdpCommandBuilder<'_, SetWindowBounds> {
+        self.cdp(SetWindowBounds { window_id, bounds })
+    }
+
+    /// Sets the viewport contents size for a browser window.
+    pub fn set_contents_size(
+        &self,
+        window_id: WindowId,
+        width: Option<u32>,
+        height: Option<u32>,
+    ) -> CdpCommandBuilder<'_, SetContentsSize> {
+        self.cdp(SetContentsSize {
+            window_id,
+            width,
+            height,
+        })
+    }
+
+    /// Sets one permission using native CDP descriptor fields.
+    pub fn set_permission(
+        &self,
+        permission: PermissionDescriptor,
+        setting: PermissionSetting,
+        origin: Option<String>,
+        embedded_origin: Option<String>,
+    ) -> CdpCommandBuilder<'_, SetPermission> {
+        self.cdp(SetPermission {
+            permission,
+            setting,
+            origin,
+            embedded_origin,
+            browser_context_id: None,
+        })
+    }
+
+    /// Resets permissions in the default browser context.
+    pub fn reset_permissions(&self) -> CdpCommandBuilder<'_, ResetPermissions> {
+        self.reset_permissions_for_context(None)
+    }
+
+    /// Resets permissions for the given browser context id.
+    pub fn reset_permissions_for_context(
+        &self,
+        browser_context_id: Option<String>,
+    ) -> CdpCommandBuilder<'_, ResetPermissions> {
+        self.cdp(ResetPermissions { browser_context_id })
+    }
+
     async fn register_context(&self, context: &Arc<BrowserContext>) {
         let id = context.id().to_string();
         self.browser_contexts
@@ -538,6 +668,16 @@ impl Browser {
 
     async fn unregister_context(&self, id: &str) {
         self.browser_contexts.lock().await.remove(id);
+    }
+
+    async fn dispose_browser_context(&self, id: &str) -> Result<Value> {
+        self.send_command(
+            DisposeBrowserContext {
+                browser_context_id: id.to_string(),
+            },
+            None,
+        )
+        .await
     }
 
     async fn unregister_session(&self, session_id: &str) {
@@ -647,6 +787,17 @@ impl Browser {
         timeout: Option<Duration>,
     ) -> Result<R> {
         self.internals.send(method, None, timeout).await
+    }
+
+    /// Builds a native browser/root CDP command.
+    ///
+    /// This exposes the full generated protocol surface for commands that do not have a
+    /// high-level `cdp-core` wrapper yet.
+    pub fn cdp<M>(&self, method: M) -> CdpCommandBuilder<'_, M>
+    where
+        M: serde::Serialize + std::fmt::Debug + cdp_protocol::types::Method,
+    {
+        CdpCommandBuilder::browser(&self.internals, method)
     }
 }
 
@@ -892,15 +1043,7 @@ impl BrowserContext {
             }
         }
 
-        let dispose_result: Result<Value> = self
-            .browser
-            .send_command(
-                DisposeBrowserContext {
-                    browser_context_id: self.id.clone(),
-                },
-                None,
-            )
-            .await;
+        let dispose_result = self.browser.dispose_browser_context(&self.id).await;
 
         if let Err(err) = dispose_result
             && first_error.is_none()

@@ -382,13 +382,7 @@ async fn update_page_meta(page: &Arc<Page>, cdp_event: CdpEvent) {
                 .await;
             }
             cdp_protocol::types::Event::NetworkResponseReceived(event) => {
-                let page_clone = Arc::clone(page);
-                // Avoid blocking the dispatcher while fetching the response body.
-                tokio::spawn(async move {
-                    if let Err(err) = handle_network_response_received(page_clone, event).await {
-                        tracing::debug!("Failed to handle network response event: {:?}", err);
-                    }
-                });
+                store_network_response_metadata(page, event).await;
             }
             cdp_protocol::types::Event::NetworkRequestWillBeSent(event) => {
                 // Notify the network monitor about request lifecycle events.
@@ -397,15 +391,16 @@ async fn update_page_meta(page: &Arc<Page>, cdp_event: CdpEvent) {
                 page.network_monitor
                     .request_started(&event.params.request_id)
                     .await;
-                page.network_monitor
-                    .trigger_event(NetworkEvent::RequestWillBeSent {
+                spawn_network_event(
+                    page,
+                    NetworkEvent::RequestWillBeSent {
                         request_id: event.params.request_id.clone(),
                         url: event.params.request.url.clone(),
                         method: event.params.request.method.clone(),
                         headers: serde_json::to_value(&event.params.request.headers)
                             .unwrap_or_default(),
-                    })
-                    .await;
+                    },
+                );
             }
             cdp_protocol::types::Event::NetworkLoadingFinished(event) => {
                 // Notify the network monitor about the completed request.
@@ -414,21 +409,31 @@ async fn update_page_meta(page: &Arc<Page>, cdp_event: CdpEvent) {
                 page.network_monitor
                     .request_finished(&event.params.request_id)
                     .await;
-                page.network_monitor
-                    .trigger_event(NetworkEvent::LoadingFinished {
+                spawn_network_event(
+                    page,
+                    NetworkEvent::LoadingFinished {
                         request_id: event.params.request_id.clone(),
-                    })
-                    .await;
+                    },
+                );
 
                 // Fetch response body if monitored
                 let page_clone = Arc::clone(page);
                 let request_id = event.params.request_id.clone();
                 tokio::spawn(async move {
-                    if let Some(mut response) = page_clone
+                    if let Some(mut pending) = page_clone
                         .response_monitor_manager
-                        .retrieve_pending_response(&request_id)
+                        .retrieve_pending_response_with_url(&request_id)
                         .await
                     {
+                        if !page_clone.response_monitor_manager.is_enabled()
+                            || !page_clone
+                                .response_monitor_manager
+                                .filter_url(&pending.url)
+                                .await
+                        {
+                            return;
+                        }
+
                         let get_body_cmd = cdp_protocol::network::GetResponseBody {
                             request_id: request_id.clone(),
                         };
@@ -442,8 +447,8 @@ async fn update_page_meta(page: &Arc<Page>, cdp_event: CdpEvent) {
                             .await
                         {
                             Ok(body_result) => {
-                                response.body = Some(body_result.body);
-                                response.base_64_encoded = body_result.base_64_encoded;
+                                pending.response.body = Some(body_result.body);
+                                pending.response.base_64_encoded = body_result.base_64_encoded;
                             }
                             Err(e) => {
                                 tracing::debug!(
@@ -456,7 +461,7 @@ async fn update_page_meta(page: &Arc<Page>, cdp_event: CdpEvent) {
 
                         page_clone
                             .response_monitor_manager
-                            .handle_response(&response)
+                            .handle_response(&pending.response)
                             .await;
                     }
                 });
@@ -468,12 +473,13 @@ async fn update_page_meta(page: &Arc<Page>, cdp_event: CdpEvent) {
                 page.network_monitor
                     .request_finished(&event.params.request_id)
                     .await;
-                page.network_monitor
-                    .trigger_event(NetworkEvent::LoadingFailed {
+                spawn_network_event(
+                    page,
+                    NetworkEvent::LoadingFailed {
                         request_id: event.params.request_id.clone(),
                         error_text: event.params.error_text.clone(),
-                    })
-                    .await;
+                    },
+                );
 
                 // Remove pending response if any
                 page.response_monitor_manager
@@ -484,22 +490,30 @@ async fn update_page_meta(page: &Arc<Page>, cdp_event: CdpEvent) {
                 // Notify the network monitor about cached responses.
                 use network_intercept::NetworkEvent;
 
-                page.network_monitor
-                    .trigger_event(NetworkEvent::RequestServedFromCache {
+                spawn_network_event(
+                    page,
+                    NetworkEvent::RequestServedFromCache {
                         request_id: event.params.request_id.clone(),
-                    })
-                    .await;
+                    },
+                );
             }
             _ => {}
         }
     }
 }
 
-/// Fetches response metadata and body snippets for the network monitor.
-async fn handle_network_response_received(
-    page: Arc<Page>,
+fn spawn_network_event(page: &Arc<Page>, event: network_intercept::NetworkEvent) {
+    let monitor = Arc::clone(&page.network_monitor);
+    tokio::spawn(async move {
+        monitor.trigger_event(event).await;
+    });
+}
+
+/// Stores response metadata cheaply so loading-finished handlers can fetch bodies off-dispatcher.
+async fn store_network_response_metadata(
+    page: &Arc<Page>,
     event: cdp_protocol::network::events::ResponseReceivedEvent,
-) -> Result<()> {
+) {
     use network_intercept::{InterceptedResponse, NetworkEvent};
 
     let params = event.params;
@@ -507,24 +521,20 @@ async fn handle_network_response_received(
     let status = params.response.status as i64;
     let status_text = params.response.status_text.clone();
 
-    page.network_monitor
-        .trigger_event(NetworkEvent::ResponseReceived {
+    spawn_network_event(
+        page,
+        NetworkEvent::ResponseReceived {
             request_id: request_id.clone(),
             status,
             headers: serde_json::to_value(&params.response.headers).unwrap_or_default(),
-        })
-        .await;
+        },
+    );
 
     if !page.response_monitor_manager.is_enabled() {
-        return Ok(());
+        return;
     }
 
     let url = params.response.url.clone();
-    if !page.response_monitor_manager.filter_url(&url).await {
-        tracing::trace!("Skipping response body for {} (no monitors matched)", url);
-        return Ok(());
-    }
-
     let headers = if let Some(ref header_value) = params.response.headers.0 {
         if let Ok(map) =
             serde_json::from_value::<HashMap<String, serde_json::Value>>(header_value.clone())
@@ -551,8 +561,6 @@ async fn handle_network_response_received(
     };
 
     page.response_monitor_manager
-        .store_pending_response(response)
+        .store_pending_response_for_url(url, response)
         .await;
-
-    Ok(())
 }

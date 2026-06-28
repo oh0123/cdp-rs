@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-28
+
+### Added
+
+#### cdp-core
+- Added `CdpCommandBuilder` plus `Page::cdp`, `Page::root_cdp`, and `Browser::cdp` for chain-configured CDP calls with `.set_params(...)`, `.set_timeout(...)`, and `.send().await`.
+- Added builder-based wrappers for additional Page, Browser, and Network protocol commands, including Page screencast control.
+- Added chain-style `with_*` helpers across context, input, cookie, request/response interception, wait, screencast, domain, and tracing option types for consistent configuration.
+
+### Changed
+
+#### cdp-core
+- Breaking: replaced the newly added `*_with_options`, `*_with_timeout`, and `*_with_options_and_timeout` wrapper variants with chain-configured command builders. Configure advanced protocol fields with `.set_params(...)`, set per-command timeout with `.set_timeout(...)`, then execute with `.send().await`.
+- Breaking: moved the newly added network command helpers behind the `NetworkControl` trait, matching the existing `CookieManager` and `NetworkInterceptor` extension style.
+- Breaking: removed the newly added public `command` module; `CdpCommandBuilder` remains available from the crate root as `cdp_core::CdpCommandBuilder`.
+- Breaking: normalized `StorageManager`, `LocalStorageExt`, `SessionStorageExt`, `NetworkInterceptor`, `RequestInterceptorExt`, `PageSessionManager`, and `PageSessionSnapshot` to conventional `&self` trait receivers implemented for `Arc<Page>`.
+- Breaking: removed pseudo `Keyboard` and `Mouse` entries from `DomainType`; input helpers now depend directly on the page session instead of carrying an unused `DomainManager`.
+
+### Fixed
+
+#### cdp-core
+- Fixed `continue_response_with_modification` so response bodies are not incorrectly sent through `binaryResponseHeaders`; use `fulfill_request` for mocked response bodies.
+- Fixed response monitor ordering so `Network.responseReceived` metadata is stored before `Network.loadingFinished` tries to fetch and dispatch the body.
+- Fixed `Browser::new_context_with_options` to best-effort dispose the remote browser context when option application fails.
+- Kept `NetworkControl::block_urls` compatible with wildcard URL patterns while leaving ordered `BlockPattern` support on `set_blocked_url_patterns`.
+- Fixed `WaitUntil::NetworkIdle0/2` waiting so `navigate()` resets network state before navigation, network-idle waits no longer clear in-flight navigation requests, and network-idle timeouts report errors.
+
+## [0.3.8] - 2026-06-28
+
+### Added
+
+#### cdp-core
+- Added Page screencast support with `Page::start_screencast`, `Page::screencast_frame_ack`, `Page::stop_screencast`, and `Page::wait_for_screencast_frame`.
+- Added `ScreencastOptions` for configuring `Page.startScreencast` format, quality, frame size, and frame cadence.
+- Exposed typed `Page.screencastFrame` and `Page.screencastVisibilityChanged` event conversions, plus a parser regression test for screencast frames.
+
+### Fixed
+
+#### cdp-core
+- Fixed Windows browser discovery clippy warnings by using `Command::args` without needless borrows, `io::Error::other`, and collapsed `if let` control flow.
+- Removed an unused Windows-only launcher import.
+
 ## [0.3.7] - 2026-06-24
 
 ### Fixed
@@ -271,7 +313,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.3.7...HEAD
+[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/oh0123/cdp-rs/compare/v0.3.8...v0.4.0
+[0.3.8]: https://github.com/oh0123/cdp-rs/compare/v0.3.7...v0.3.8
 [0.3.7]: https://github.com/oh0123/cdp-rs/compare/v0.3.6...v0.3.7
 [0.3.6]: https://github.com/oh0123/cdp-rs/compare/v0.3.5...v0.3.6
 [0.3.5]: https://github.com/oh0123/cdp-rs/compare/v0.3.4...v0.3.5
