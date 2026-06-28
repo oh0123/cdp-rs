@@ -5,6 +5,7 @@ use crate::browser::{
     launcher::BrowserType,
     ws_endpoints::resolve_active_page_ws_url,
 };
+use crate::command::CdpCommandBuilder;
 use crate::domain_manager::DomainManager;
 use crate::emulation::EmulationController;
 use crate::error::{CdpError, Result};
@@ -342,6 +343,127 @@ impl Page {
             .await
     }
 
+    /// Reloads the current page.
+    pub fn reload(&self, ignore_cache: bool) -> CdpCommandBuilder<'_, page_cdp::Reload> {
+        self.cdp(page_cdp::Reload {
+            ignore_cache: Some(ignore_cache),
+            script_to_evaluate_on_load: None,
+            loader_id: None,
+        })
+    }
+
+    /// Brings this page to the front.
+    pub fn bring_to_front(&self) -> CdpCommandBuilder<'_, page_cdp::BringToFront> {
+        self.cdp(page_cdp::BringToFront(None))
+    }
+
+    /// Navigates to an entry from [`Page::get_navigation_history`].
+    pub fn navigate_to_history_entry(
+        &self,
+        entry_id: u32,
+    ) -> CdpCommandBuilder<'_, page_cdp::NavigateToHistoryEntry> {
+        self.cdp(page_cdp::NavigateToHistoryEntry { entry_id })
+    }
+
+    /// Returns the page navigation history.
+    pub fn get_navigation_history(&self) -> CdpCommandBuilder<'_, page_cdp::GetNavigationHistory> {
+        self.cdp(page_cdp::GetNavigationHistory(None))
+    }
+
+    /// Resets the page navigation history.
+    pub fn reset_navigation_history(
+        &self,
+    ) -> CdpCommandBuilder<'_, page_cdp::ResetNavigationHistory> {
+        self.cdp(page_cdp::ResetNavigationHistory(None))
+    }
+
+    /// Captures an MHTML snapshot of the current page.
+    pub fn capture_snapshot(&self) -> CdpCommandBuilder<'_, page_cdp::CaptureSnapshot> {
+        self.cdp(page_cdp::CaptureSnapshot {
+            format: Some(page_cdp::CaptureSnapshotFormatOption::Mhtml),
+        })
+    }
+
+    /// Prints the page to PDF using Chrome's default print settings.
+    pub fn print_to_pdf(&self) -> CdpCommandBuilder<'_, page_cdp::PrintToPDF> {
+        self.cdp(Self::default_print_to_pdf_options())
+    }
+
+    /// Returns the CDP default-valued print options used by [`Page::print_to_pdf`].
+    pub fn default_print_to_pdf_options() -> page_cdp::PrintToPDF {
+        page_cdp::PrintToPDF {
+            landscape: None,
+            display_header_footer: None,
+            print_background: None,
+            scale: None,
+            paper_width: None,
+            paper_height: None,
+            margin_top: None,
+            margin_bottom: None,
+            margin_left: None,
+            margin_right: None,
+            page_ranges: None,
+            header_template: None,
+            footer_template: None,
+            prefer_css_page_size: None,
+            transfer_mode: None,
+            generate_tagged_pdf: None,
+            generate_document_outline: None,
+        }
+    }
+
+    /// Injects a script into every new frame before page scripts run.
+    pub fn add_script_to_evaluate_on_new_document(
+        &self,
+        source: impl Into<String>,
+    ) -> CdpCommandBuilder<'_, page_cdp::AddScriptToEvaluateOnNewDocument> {
+        self.cdp(page_cdp::AddScriptToEvaluateOnNewDocument {
+            source: source.into(),
+            world_name: None,
+            include_command_line_api: None,
+            run_immediately: None,
+        })
+    }
+
+    /// Removes a script previously registered with `add_script_to_evaluate_on_new_document`.
+    pub fn remove_script_to_evaluate_on_new_document(
+        &self,
+        identifier: impl Into<page_cdp::ScriptIdentifier>,
+    ) -> CdpCommandBuilder<'_, page_cdp::RemoveScriptToEvaluateOnNewDocument> {
+        self.cdp(page_cdp::RemoveScriptToEvaluateOnNewDocument {
+            identifier: identifier.into(),
+        })
+    }
+
+    /// Accepts or dismisses the current JavaScript dialog.
+    pub fn handle_javascript_dialog(
+        &self,
+        accept: bool,
+        prompt_text: Option<String>,
+    ) -> CdpCommandBuilder<'_, page_cdp::HandleJavaScriptDialog> {
+        self.cdp(page_cdp::HandleJavaScriptDialog {
+            accept,
+            prompt_text,
+        })
+    }
+
+    /// Returns the resource tree for the current page.
+    pub fn get_resource_tree(&self) -> CdpCommandBuilder<'_, page_cdp::GetResourceTree> {
+        self.cdp(page_cdp::GetResourceTree(None))
+    }
+
+    /// Returns resource content for a frame URL.
+    pub fn get_resource_content(
+        &self,
+        frame_id: impl Into<page_cdp::FrameId>,
+        url: impl Into<String>,
+    ) -> CdpCommandBuilder<'_, page_cdp::GetResourceContent> {
+        self.cdp(page_cdp::GetResourceContent {
+            frame_id: frame_id.into(),
+            url: url.into(),
+        })
+    }
+
     /// Retrieves all available CDP targets via `Target.getTargets`.
     ///
     /// This is the native CDP wrapper. Use [`Page::get_tabs`] as the page-level alias.
@@ -386,6 +508,28 @@ impl Page {
         let _: page_cdp::SetLifecycleEventsEnabledReturnObject =
             self.session.send_command(method, None).await?;
         Ok(())
+    }
+
+    /// Builds a native CDP command scoped to this page/session.
+    ///
+    /// This is the escape hatch for protocol methods that do not have a high-level wrapper yet,
+    /// or for commands where callers need every native CDP option.
+    pub fn cdp<M>(&self, method: M) -> CdpCommandBuilder<'_, M>
+    where
+        M: serde::Serialize + std::fmt::Debug + cdp_protocol::types::Method,
+    {
+        CdpCommandBuilder::session(&self.session, method)
+    }
+
+    /// Builds a native CDP command on the root browser connection.
+    ///
+    /// Use this for browser-level domains such as `Browser` and `Target` when working from a
+    /// [`Page`] handle.
+    pub fn root_cdp<M>(&self, method: M) -> CdpCommandBuilder<'_, M>
+    where
+        M: serde::Serialize + std::fmt::Debug + cdp_protocol::types::Method,
+    {
+        CdpCommandBuilder::root(&self.session, method)
     }
 
     fn events(&self) -> broadcast::Receiver<CdpEvent> {
@@ -1507,27 +1651,21 @@ impl Page {
     ///
     /// Listen for frames with [`Page::on`] or [`Page::wait_for_screencast_frame`], and acknowledge
     /// each received frame with [`Page::screencast_frame_ack`].
-    pub async fn start_screencast(&self, options: Option<ScreencastOptions>) -> Result<()> {
-        let method: page_cdp::StartScreencast = options.unwrap_or_default().into();
-        let _: page_cdp::StartScreencastReturnObject =
-            self.session.send_command(method, None).await?;
-        Ok(())
+    pub fn start_screencast(&self) -> CdpCommandBuilder<'_, page_cdp::StartScreencast> {
+        self.cdp(ScreencastOptions::default().into())
     }
 
     /// Acknowledges that a screencast frame has been received.
-    pub async fn screencast_frame_ack(&self, session_id: u32) -> Result<()> {
-        let method = page_cdp::ScreencastFrameAck { session_id };
-        let _: page_cdp::ScreencastFrameAckReturnObject =
-            self.session.send_command(method, None).await?;
-        Ok(())
+    pub fn screencast_frame_ack(
+        &self,
+        session_id: u32,
+    ) -> CdpCommandBuilder<'_, page_cdp::ScreencastFrameAck> {
+        self.cdp(page_cdp::ScreencastFrameAck { session_id })
     }
 
     /// Stops page screencast frames.
-    pub async fn stop_screencast(&self) -> Result<()> {
-        let method = page_cdp::StopScreencast(None);
-        let _: page_cdp::StopScreencastReturnObject =
-            self.session.send_command(method, None).await?;
-        Ok(())
+    pub fn stop_screencast(&self) -> CdpCommandBuilder<'_, page_cdp::StopScreencast> {
+        self.cdp(page_cdp::StopScreencast(None))
     }
 
     /// Waits for the next `Page.screencastFrame` event.

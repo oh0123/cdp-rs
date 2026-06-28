@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+#### cdp-core
+- Added `CdpCommandBuilder` plus `Page::cdp`, `Page::root_cdp`, and `Browser::cdp` for chain-configured CDP calls with `.set_params(...)`, `.set_timeout(...)`, and `.send().await`.
+- Added builder-based wrappers for additional Page, Browser, and Network protocol commands, including Page screencast control.
+
+### Changed
+
+#### cdp-core
+- Breaking (unreleased): replaced the newly added `*_with_options`, `*_with_timeout`, and `*_with_options_and_timeout` wrapper variants with chain-configured command builders. Configure advanced protocol fields with `.set_params(...)`, set per-command timeout with `.set_timeout(...)`, then execute with `.send().await`.
+
+## [0.3.8] - 2026-06-28
+
+### Added
+
+#### cdp-core
+- Added Page screencast support with `Page::start_screencast`, `Page::screencast_frame_ack`, `Page::stop_screencast`, and `Page::wait_for_screencast_frame`.
+- Added `ScreencastOptions` for configuring `Page.startScreencast` format, quality, frame size, and frame cadence.
+- Exposed typed `Page.screencastFrame` and `Page.screencastVisibilityChanged` event conversions, plus a parser regression test for screencast frames.
+
+### Fixed
+
+#### cdp-core
+- Fixed Windows browser discovery clippy warnings by using `Command::args` without needless borrows, `io::Error::other`, and collapsed `if let` control flow.
+- Removed an unused Windows-only launcher import.
+
 ## [0.3.7] - 2026-06-24
 
 ### Fixed

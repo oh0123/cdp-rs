@@ -3,6 +3,7 @@ use super::{
     launcher::{BrowserLaunchOptions, BrowserType, LaunchedBrowser},
     ws_endpoints::resolve_browser_ws_url,
 };
+use crate::command::CdpCommandBuilder;
 use crate::emulation::EmulationConfig;
 use crate::error::Result;
 use crate::page::Page;
@@ -10,9 +11,11 @@ use crate::session::Session;
 use crate::transport::{cdp_protocol::*, websocket_connection::*};
 
 use cdp_protocol::browser::{
+    Bounds, GetBrowserCommandLine, GetVersion, GetWindowBounds, GetWindowForTarget,
     PermissionDescriptor, PermissionSetting, PermissionType, ResetPermissions,
-    ResetPermissionsReturnObject, SetDownloadBehavior, SetDownloadBehaviorBehaviorOption,
-    SetDownloadBehaviorReturnObject, SetPermission, SetPermissionReturnObject,
+    ResetPermissionsReturnObject, SetContentsSize, SetDownloadBehavior,
+    SetDownloadBehaviorBehaviorOption, SetDownloadBehaviorReturnObject, SetPermission,
+    SetPermissionReturnObject, SetWindowBounds, WindowId,
 };
 use cdp_protocol::target::{
     AttachToTargetReturnObject, CreateBrowserContext, CreateBrowserContextReturnObject,
@@ -528,6 +531,82 @@ impl Browser {
         None
     }
 
+    /// Returns browser version information.
+    pub fn version(&self) -> CdpCommandBuilder<'_, GetVersion> {
+        self.cdp(GetVersion(None))
+    }
+
+    /// Returns browser process command line arguments when Chrome exposes them.
+    pub fn command_line(&self) -> CdpCommandBuilder<'_, GetBrowserCommandLine> {
+        self.cdp(GetBrowserCommandLine(None))
+    }
+
+    /// Returns the browser window containing a target.
+    pub fn window_for_target(
+        &self,
+        target_id: Option<String>,
+    ) -> CdpCommandBuilder<'_, GetWindowForTarget> {
+        self.cdp(GetWindowForTarget { target_id })
+    }
+
+    /// Returns the bounds for a browser window.
+    pub fn window_bounds(&self, window_id: WindowId) -> CdpCommandBuilder<'_, GetWindowBounds> {
+        self.cdp(GetWindowBounds { window_id })
+    }
+
+    /// Sets the bounds for a browser window.
+    pub fn set_window_bounds(
+        &self,
+        window_id: WindowId,
+        bounds: Bounds,
+    ) -> CdpCommandBuilder<'_, SetWindowBounds> {
+        self.cdp(SetWindowBounds { window_id, bounds })
+    }
+
+    /// Sets the viewport contents size for a browser window.
+    pub fn set_contents_size(
+        &self,
+        window_id: WindowId,
+        width: Option<u32>,
+        height: Option<u32>,
+    ) -> CdpCommandBuilder<'_, SetContentsSize> {
+        self.cdp(SetContentsSize {
+            window_id,
+            width,
+            height,
+        })
+    }
+
+    /// Sets one permission using native CDP descriptor fields.
+    pub fn set_permission(
+        &self,
+        permission: PermissionDescriptor,
+        setting: PermissionSetting,
+        origin: Option<String>,
+        embedded_origin: Option<String>,
+    ) -> CdpCommandBuilder<'_, SetPermission> {
+        self.cdp(SetPermission {
+            permission,
+            setting,
+            origin,
+            embedded_origin,
+            browser_context_id: None,
+        })
+    }
+
+    /// Resets permissions in the default browser context.
+    pub fn reset_permissions(&self) -> CdpCommandBuilder<'_, ResetPermissions> {
+        self.reset_permissions_for_context(None)
+    }
+
+    /// Resets permissions for the given browser context id.
+    pub fn reset_permissions_for_context(
+        &self,
+        browser_context_id: Option<String>,
+    ) -> CdpCommandBuilder<'_, ResetPermissions> {
+        self.cdp(ResetPermissions { browser_context_id })
+    }
+
     async fn register_context(&self, context: &Arc<BrowserContext>) {
         let id = context.id().to_string();
         self.browser_contexts
@@ -647,6 +726,17 @@ impl Browser {
         timeout: Option<Duration>,
     ) -> Result<R> {
         self.internals.send(method, None, timeout).await
+    }
+
+    /// Builds a native browser/root CDP command.
+    ///
+    /// This exposes the full generated protocol surface for commands that do not have a
+    /// high-level `cdp-core` wrapper yet.
+    pub fn cdp<M>(&self, method: M) -> CdpCommandBuilder<'_, M>
+    where
+        M: serde::Serialize + std::fmt::Debug + cdp_protocol::types::Method,
+    {
+        CdpCommandBuilder::browser(&self.internals, method)
     }
 }
 
