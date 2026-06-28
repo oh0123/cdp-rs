@@ -112,6 +112,39 @@ pub struct RequestModification {
     pub post_data: Option<String>,
 }
 
+impl RequestModification {
+    pub fn with_url<T: Into<String>>(mut self, url: T) -> Self {
+        self.url = Some(url.into());
+        self
+    }
+
+    pub fn with_method(mut self, method: HttpMethod) -> Self {
+        self.method = Some(method);
+        self
+    }
+
+    pub fn with_headers(mut self, headers: HashMap<String, String>) -> Self {
+        self.headers = Some(headers);
+        self
+    }
+
+    pub fn with_header<K, V>(mut self, key: K, value: V) -> Self
+    where
+        K: Into<String>,
+        V: Into<String>,
+    {
+        self.headers
+            .get_or_insert_with(HashMap::new)
+            .insert(key.into(), value.into());
+        self
+    }
+
+    pub fn with_post_data<T: Into<String>>(mut self, post_data: T) -> Self {
+        self.post_data = Some(post_data.into());
+        self
+    }
+}
+
 /// Payload used to mock an entire response without issuing a network request.
 #[derive(Debug, Clone)]
 pub struct ResponseMock {
@@ -133,49 +166,73 @@ impl Default for ResponseMock {
     }
 }
 
+impl ResponseMock {
+    pub fn new<T: Into<String>>(body: T) -> Self {
+        Self {
+            body: body.into(),
+            ..Default::default()
+        }
+    }
+
+    pub fn with_status_code(mut self, status_code: i64) -> Self {
+        self.status_code = status_code;
+        self
+    }
+
+    pub fn with_headers(mut self, headers: HashMap<String, String>) -> Self {
+        self.headers = headers;
+        self
+    }
+
+    pub fn with_header<K, V>(mut self, key: K, value: V) -> Self
+    where
+        K: Into<String>,
+        V: Into<String>,
+    {
+        self.headers.insert(key.into(), value.into());
+        self
+    }
+}
+
 /// Trait describing the interception primitives exposed by `Page`.
 #[async_trait]
 pub trait NetworkInterceptor {
     /// Enables request interception with the provided URL patterns.
-    async fn enable_request_interception(self: &Arc<Self>, patterns: Vec<String>) -> Result<()>;
+    async fn enable_request_interception(&self, patterns: Vec<String>) -> Result<()>;
 
     /// Disables request interception.
-    async fn disable_request_interception(self: &Arc<Self>) -> Result<()>;
+    async fn disable_request_interception(&self) -> Result<()>;
 
     /// Continues a request without modification.
-    async fn continue_request(self: &Arc<Self>, request_id: &str) -> Result<()>;
+    async fn continue_request(&self, request_id: &str) -> Result<()>;
 
     /// Continues a request after applying the provided modifications.
     async fn continue_request_with_modification(
-        self: &Arc<Self>,
+        &self,
         request_id: &str,
         modification: RequestModification,
     ) -> Result<()>;
 
     /// Aborts the request with the CDP error reason provided.
-    async fn fail_request(self: &Arc<Self>, request_id: &str, error_reason: &str) -> Result<()>;
+    async fn fail_request(&self, request_id: &str, error_reason: &str) -> Result<()>;
 
     /// Fulfills the request with a mocked response payload.
-    async fn fulfill_request(
-        self: &Arc<Self>,
-        request_id: &str,
-        response: ResponseMock,
-    ) -> Result<()>;
+    async fn fulfill_request(&self, request_id: &str, response: ResponseMock) -> Result<()>;
 
     /// Continues the response without modification.
-    async fn continue_response(self: &Arc<Self>, request_id: &str) -> Result<()>;
+    async fn continue_response(&self, request_id: &str) -> Result<()>;
 
     /// Continues the response after applying modifications.
     async fn continue_response_with_modification(
-        self: &Arc<Self>,
+        &self,
         request_id: &str,
         response: ResponseMock,
     ) -> Result<()>;
 }
 
 #[async_trait]
-impl NetworkInterceptor for Page {
-    async fn enable_request_interception(self: &Arc<Self>, patterns: Vec<String>) -> Result<()> {
+impl NetworkInterceptor for Arc<Page> {
+    async fn enable_request_interception(&self, patterns: Vec<String>) -> Result<()> {
         // Convert raw URL patterns into the CDP request pattern format.
         let request_patterns = patterns
             .into_iter()
@@ -194,13 +251,13 @@ impl NetworkInterceptor for Page {
         Ok(())
     }
 
-    async fn disable_request_interception(self: &Arc<Self>) -> Result<()> {
+    async fn disable_request_interception(&self) -> Result<()> {
         // Disable the Fetch domain for the current session.
         self.domain_manager.disable_fetch_domain().await?;
         Ok(())
     }
 
-    async fn continue_request(self: &Arc<Self>, request_id: &str) -> Result<()> {
+    async fn continue_request(&self, request_id: &str) -> Result<()> {
         let cont = ContinueRequest {
             request_id: request_id.to_string(),
             url: None,
@@ -218,7 +275,7 @@ impl NetworkInterceptor for Page {
     }
 
     async fn continue_request_with_modification(
-        self: &Arc<Self>,
+        &self,
         request_id: &str,
         modification: RequestModification,
     ) -> Result<()> {
@@ -246,7 +303,7 @@ impl NetworkInterceptor for Page {
         Ok(())
     }
 
-    async fn fail_request(self: &Arc<Self>, request_id: &str, error_reason: &str) -> Result<()> {
+    async fn fail_request(&self, request_id: &str, error_reason: &str) -> Result<()> {
         // Convert the supplied string into the CDP `ErrorReason` enum.
         let error = match error_reason.to_uppercase().as_str() {
             "FAILED" => network::ErrorReason::Failed,
@@ -278,11 +335,7 @@ impl NetworkInterceptor for Page {
         Ok(())
     }
 
-    async fn fulfill_request(
-        self: &Arc<Self>,
-        request_id: &str,
-        response: ResponseMock,
-    ) -> Result<()> {
+    async fn fulfill_request(&self, request_id: &str, response: ResponseMock) -> Result<()> {
         // Convert the response body into bytes for CDP.
         let body_bytes = response.body.into_bytes();
 
@@ -308,7 +361,7 @@ impl NetworkInterceptor for Page {
         Ok(())
     }
 
-    async fn continue_response(self: &Arc<Self>, request_id: &str) -> Result<()> {
+    async fn continue_response(&self, request_id: &str) -> Result<()> {
         let cont = ContinueResponse {
             request_id: request_id.to_string(),
             response_code: None,
@@ -325,7 +378,7 @@ impl NetworkInterceptor for Page {
     }
 
     async fn continue_response_with_modification(
-        self: &Arc<Self>,
+        &self,
         request_id: &str,
         response: ResponseMock,
     ) -> Result<()> {
@@ -358,31 +411,31 @@ impl NetworkInterceptor for Page {
 #[async_trait]
 pub trait RequestInterceptorExt {
     /// Intercepts every request.
-    async fn intercept_all_requests(self: &Arc<Self>) -> Result<()>;
+    async fn intercept_all_requests(&self) -> Result<()>;
 
     /// Intercepts requests that match the provided pattern.
-    async fn intercept_requests_matching(self: &Arc<Self>, pattern: &str) -> Result<()>;
+    async fn intercept_requests_matching(&self, pattern: &str) -> Result<()>;
 
     /// Blocks common image formats.
-    async fn block_images(self: &Arc<Self>) -> Result<()>;
+    async fn block_images(&self) -> Result<()>;
 
     /// Blocks stylesheet resources.
-    async fn block_stylesheets(self: &Arc<Self>) -> Result<()>;
+    async fn block_stylesheets(&self) -> Result<()>;
 }
 
 #[async_trait]
-impl RequestInterceptorExt for Page {
-    async fn intercept_all_requests(self: &Arc<Self>) -> Result<()> {
+impl RequestInterceptorExt for Arc<Page> {
+    async fn intercept_all_requests(&self) -> Result<()> {
         self.enable_request_interception(vec!["*".to_string()])
             .await
     }
 
-    async fn intercept_requests_matching(self: &Arc<Self>, pattern: &str) -> Result<()> {
+    async fn intercept_requests_matching(&self, pattern: &str) -> Result<()> {
         self.enable_request_interception(vec![pattern.to_string()])
             .await
     }
 
-    async fn block_images(self: &Arc<Self>) -> Result<()> {
+    async fn block_images(&self) -> Result<()> {
         self.enable_request_interception(vec![
             "*.png".to_string(),
             "*.jpg".to_string(),
@@ -393,7 +446,7 @@ impl RequestInterceptorExt for Page {
         .await
     }
 
-    async fn block_stylesheets(self: &Arc<Self>) -> Result<()> {
+    async fn block_stylesheets(&self) -> Result<()> {
         self.enable_request_interception(vec!["*.css".to_string()])
             .await
     }

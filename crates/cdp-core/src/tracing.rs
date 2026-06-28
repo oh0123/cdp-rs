@@ -68,6 +68,50 @@ impl Default for TracingStartOptions {
     }
 }
 
+impl TracingStartOptions {
+    pub fn with_categories<I, T>(mut self, categories: I) -> Self
+    where
+        I: IntoIterator<Item = T>,
+        T: Into<String>,
+    {
+        self.categories = Some(categories.into_iter().map(Into::into).collect());
+        self
+    }
+
+    pub fn with_screenshots(mut self, screenshots: bool) -> Self {
+        self.screenshots = screenshots;
+        self
+    }
+
+    pub fn with_record_mode(mut self, record_mode: tracing_cdp::TraceConfigRecordMode) -> Self {
+        self.record_mode = record_mode;
+        self
+    }
+
+    pub fn with_buffer_usage_reporting_interval_ms(mut self, interval_ms: f64) -> Self {
+        self.buffer_usage_reporting_interval_ms = Some(interval_ms);
+        self
+    }
+
+    pub fn with_stream_format(mut self, stream_format: tracing_cdp::StreamFormat) -> Self {
+        self.stream_format = stream_format;
+        self
+    }
+
+    pub fn with_stream_compression(
+        mut self,
+        stream_compression: tracing_cdp::StreamCompression,
+    ) -> Self {
+        self.stream_compression = stream_compression;
+        self
+    }
+
+    pub fn with_tracing_backend(mut self, tracing_backend: tracing_cdp::TracingBackend) -> Self {
+        self.tracing_backend = Some(tracing_backend);
+        self
+    }
+}
+
 /// Result returned after stopping tracing.
 #[derive(Debug, Clone)]
 pub struct TracingStopResult {

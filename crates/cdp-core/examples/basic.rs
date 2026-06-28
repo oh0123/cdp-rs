@@ -14,10 +14,11 @@ async fn main() -> Result<()> {
     page.navigate("https://www.amazon.com").await?; // Puppeteer's website has a nice big button
 
     // Wait for load to ensure the page is ready
-    page.wait_for_navigation(Some(WaitForNavigationOptions {
-        timeout_ms: Some(10000),
-        wait_until: Some(WaitUntil::NetworkIdle2),
-    }))
+    page.wait_for_navigation(Some(
+        WaitForNavigationOptions::default()
+            .with_timeout_ms(10_000)
+            .with_wait_until(WaitUntil::NetworkIdle2),
+    ))
     .await?;
     println!("Page loaded.");
 

@@ -5,7 +5,6 @@ mod transport;
 
 pub mod accessibility;
 pub mod browser;
-pub mod command;
 pub mod domain_manager;
 pub mod emulation;
 pub mod error;
@@ -124,7 +123,6 @@ pub use cdp_protocol::{
     },
     target::{FilterEntry, TargetFilter, TargetId, TargetInfo, events::TargetCrashedEvent},
 };
-pub use command::CdpCommandBuilder;
 pub use domain_manager::{DomainConfig, DomainManager, DomainState, DomainType};
 pub use emulation::{
     EmulationConfig, EmulationController, Geolocation, MediaEmulation, MediaFeatureOverride,
@@ -139,6 +137,7 @@ pub use input::{
 };
 pub use network::{
     cookies::{Cookie, CookieManager, CookiePriority, CookieSameSite, SetCookieParams},
+    network_control::NetworkControl,
     network_intercept::{
         HttpMethod, InterceptedRequest, InterceptedResponse, NetworkEvent, NetworkEventCallback,
         NetworkInterceptor, RequestInterceptorExt, RequestModification, ResponseFilterCallback,
@@ -159,3 +158,4 @@ pub use storage::manager::{
     LocalStorageExt, SessionStorageExt, StorageItem, StorageManager, StorageType,
 };
 pub use tracing::{TracingController, TracingStartOptions, TracingStopResult};
+pub use transport::command::CdpCommandBuilder;

@@ -5,7 +5,6 @@ use crate::browser::{
     launcher::BrowserType,
     ws_endpoints::resolve_active_page_ws_url,
 };
-use crate::command::CdpCommandBuilder;
 use crate::domain_manager::DomainManager;
 use crate::emulation::EmulationController;
 use crate::error::{CdpError, Result};
@@ -16,7 +15,7 @@ use crate::network::network_intercept::{
 use crate::page::{element::ElementHandle, frame::Frame};
 use crate::session::Session;
 use crate::tracing::{TracingController, TracingSessionState};
-use crate::transport::{cdp_protocol::*, websocket_connection::*};
+use crate::transport::{cdp_protocol::*, command::CdpCommandBuilder, websocket_connection::*};
 use cdp_protocol::page::Viewport;
 use cdp_protocol::{
     page::{
@@ -96,6 +95,18 @@ pub struct WaitForNavigationOptions {
     pub wait_until: Option<WaitUntil>,
 }
 
+impl WaitForNavigationOptions {
+    pub fn with_timeout_ms(mut self, timeout_ms: u64) -> Self {
+        self.timeout_ms = Some(timeout_ms);
+        self
+    }
+
+    pub fn with_wait_until(mut self, wait_until: WaitUntil) -> Self {
+        self.wait_until = Some(wait_until);
+        self
+    }
+}
+
 /// Selector wait options
 #[derive(Debug, Clone, Default)]
 pub struct WaitForSelectorOptions {
@@ -105,6 +116,23 @@ pub struct WaitForSelectorOptions {
     pub visible: Option<bool>,
     /// Whether to wait for element to be hidden, default false
     pub hidden: Option<bool>,
+}
+
+impl WaitForSelectorOptions {
+    pub fn with_timeout_ms(mut self, timeout_ms: u64) -> Self {
+        self.timeout_ms = Some(timeout_ms);
+        self
+    }
+
+    pub fn with_visible(mut self, visible: bool) -> Self {
+        self.visible = Some(visible);
+        self
+    }
+
+    pub fn with_hidden(mut self, hidden: bool) -> Self {
+        self.hidden = Some(hidden);
+        self
+    }
 }
 
 /// Page navigation wait condition
@@ -141,6 +169,33 @@ pub struct ScreencastOptions {
     pub max_height: Option<u32>,
     /// Send every n-th frame.
     pub every_nth_frame: Option<u32>,
+}
+
+impl ScreencastOptions {
+    pub fn with_format(mut self, format: page_cdp::StartScreencastFormatOption) -> Self {
+        self.format = Some(format);
+        self
+    }
+
+    pub fn with_quality(mut self, quality: u32) -> Self {
+        self.quality = Some(quality);
+        self
+    }
+
+    pub fn with_max_width(mut self, max_width: u32) -> Self {
+        self.max_width = Some(max_width);
+        self
+    }
+
+    pub fn with_max_height(mut self, max_height: u32) -> Self {
+        self.max_height = Some(max_height);
+        self
+    }
+
+    pub fn with_every_nth_frame(mut self, every_nth_frame: u32) -> Self {
+        self.every_nth_frame = Some(every_nth_frame);
+        self
+    }
 }
 
 impl From<ScreencastOptions> for page_cdp::StartScreencast {
@@ -310,12 +365,12 @@ impl Page {
 
     /// Get mouse controller
     pub fn mouse(&self) -> Mouse {
-        Mouse::new(Arc::clone(&self.session), Arc::clone(&self.domain_manager))
+        Mouse::new(Arc::clone(&self.session))
     }
 
     /// Get keyboard controller
     pub fn keyboard(&self) -> Keyboard {
-        Keyboard::new(Arc::clone(&self.session), Arc::clone(&self.domain_manager))
+        Keyboard::new(Arc::clone(&self.session))
     }
 
     pub fn accessibility(self: &Arc<Self>) -> AccessibilityController {
@@ -1208,7 +1263,7 @@ impl Page {
             .send_command::<_, dom::EnableReturnObject>(enable, None)
             .await?;
 
-        println!("DOM mutation monitoring enabled");
+        tracing::debug!("DOM mutation monitoring enabled");
         Ok(())
     }
 

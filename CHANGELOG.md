@@ -7,16 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-28
+
 ### Added
 
 #### cdp-core
 - Added `CdpCommandBuilder` plus `Page::cdp`, `Page::root_cdp`, and `Browser::cdp` for chain-configured CDP calls with `.set_params(...)`, `.set_timeout(...)`, and `.send().await`.
 - Added builder-based wrappers for additional Page, Browser, and Network protocol commands, including Page screencast control.
+- Added chain-style `with_*` helpers across context, input, cookie, request/response interception, wait, screencast, domain, and tracing option types for consistent configuration.
 
 ### Changed
 
 #### cdp-core
-- Breaking (unreleased): replaced the newly added `*_with_options`, `*_with_timeout`, and `*_with_options_and_timeout` wrapper variants with chain-configured command builders. Configure advanced protocol fields with `.set_params(...)`, set per-command timeout with `.set_timeout(...)`, then execute with `.send().await`.
+- Breaking: replaced the newly added `*_with_options`, `*_with_timeout`, and `*_with_options_and_timeout` wrapper variants with chain-configured command builders. Configure advanced protocol fields with `.set_params(...)`, set per-command timeout with `.set_timeout(...)`, then execute with `.send().await`.
+- Breaking: moved the newly added network command helpers behind the `NetworkControl` trait, matching the existing `CookieManager` and `NetworkInterceptor` extension style.
+- Breaking: removed the newly added public `command` module; `CdpCommandBuilder` remains available from the crate root as `cdp_core::CdpCommandBuilder`.
+- Breaking: normalized `StorageManager`, `LocalStorageExt`, `SessionStorageExt`, `NetworkInterceptor`, `RequestInterceptorExt`, `PageSessionManager`, and `PageSessionSnapshot` to conventional `&self` trait receivers implemented for `Arc<Page>`.
+- Breaking: removed pseudo `Keyboard` and `Mouse` entries from `DomainType`; input helpers now depend directly on the page session instead of carrying an unused `DomainManager`.
 
 ## [0.3.8] - 2026-06-28
 

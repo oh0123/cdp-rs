@@ -3,12 +3,11 @@ use super::{
     launcher::{BrowserLaunchOptions, BrowserType, LaunchedBrowser},
     ws_endpoints::resolve_browser_ws_url,
 };
-use crate::command::CdpCommandBuilder;
 use crate::emulation::EmulationConfig;
 use crate::error::Result;
 use crate::page::Page;
 use crate::session::Session;
-use crate::transport::{cdp_protocol::*, websocket_connection::*};
+use crate::transport::{cdp_protocol::*, command::CdpCommandBuilder, websocket_connection::*};
 
 use cdp_protocol::browser::{
     Bounds, GetBrowserCommandLine, GetVersion, GetWindowBounds, GetWindowForTarget,
@@ -48,6 +47,46 @@ pub struct BrowserContextOptions {
 }
 
 impl BrowserContextOptions {
+    pub fn with_dispose_on_detach(mut self, dispose_on_detach: bool) -> Self {
+        self.dispose_on_detach = Some(dispose_on_detach);
+        self
+    }
+
+    pub fn with_proxy_server<T: Into<String>>(mut self, proxy_server: T) -> Self {
+        self.proxy_server = Some(proxy_server.into());
+        self
+    }
+
+    pub fn with_proxy_bypass_list<T: Into<String>>(mut self, proxy_bypass_list: T) -> Self {
+        self.proxy_bypass_list = Some(proxy_bypass_list.into());
+        self
+    }
+
+    pub fn with_universal_network_access_origins<I, T>(mut self, origins: I) -> Self
+    where
+        I: IntoIterator<Item = T>,
+        T: Into<String>,
+    {
+        self.origins_with_universal_network_access =
+            Some(origins.into_iter().map(Into::into).collect());
+        self
+    }
+
+    pub fn with_download(mut self, download: DownloadOptions) -> Self {
+        self.download = Some(download);
+        self
+    }
+
+    pub fn with_permission_grant(mut self, grant: PermissionGrant) -> Self {
+        self.permission_grants.push(grant);
+        self
+    }
+
+    pub fn with_permission_override(mut self, permission: PermissionOverride) -> Self {
+        self.permission_overrides.push(permission);
+        self
+    }
+
     pub fn with_emulation(mut self, emulation: EmulationConfig) -> Self {
         self.emulation = Some(emulation);
         self
@@ -148,6 +187,11 @@ impl PermissionOverride {
 
     pub fn with_origin<T: Into<String>>(mut self, origin: T) -> Self {
         self.origin = Some(origin.into());
+        self
+    }
+
+    pub fn with_embedded_origin<T: Into<String>>(mut self, embedded_origin: T) -> Self {
+        self.embedded_origin = Some(embedded_origin.into());
         self
     }
 }
@@ -492,7 +536,7 @@ impl Browser {
             .send_command::<_, CreateBrowserContextReturnObject>(method, None)
             .await?;
         let context_id = obj.browser_context_id;
-        println!("Created new BrowserContext with ID: {}", context_id);
+        tracing::debug!("Created new BrowserContext with ID: {}", context_id);
 
         let context = Arc::new(BrowserContext::new(context_id.clone(), Arc::clone(self)));
         self.register_context(&context).await;

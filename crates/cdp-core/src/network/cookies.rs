@@ -22,6 +22,56 @@ pub struct SetCookieParams {
     pub priority: Option<cdp_protocol::network::CookiePriority>,
 }
 
+impl SetCookieParams {
+    pub fn new<N: Into<String>, V: Into<String>>(name: N, value: V) -> Self {
+        Self {
+            name: name.into(),
+            value: value.into(),
+            ..Default::default()
+        }
+    }
+
+    pub fn with_url<T: Into<String>>(mut self, url: T) -> Self {
+        self.url = Some(url.into());
+        self
+    }
+
+    pub fn with_domain<T: Into<String>>(mut self, domain: T) -> Self {
+        self.domain = Some(domain.into());
+        self
+    }
+
+    pub fn with_path<T: Into<String>>(mut self, path: T) -> Self {
+        self.path = Some(path.into());
+        self
+    }
+
+    pub fn with_secure(mut self, secure: bool) -> Self {
+        self.secure = Some(secure);
+        self
+    }
+
+    pub fn with_http_only(mut self, http_only: bool) -> Self {
+        self.http_only = Some(http_only);
+        self
+    }
+
+    pub fn with_same_site(mut self, same_site: cdp_protocol::network::CookieSameSite) -> Self {
+        self.same_site = Some(same_site);
+        self
+    }
+
+    pub fn with_expires(mut self, expires: f64) -> Self {
+        self.expires = Some(expires);
+        self
+    }
+
+    pub fn with_priority(mut self, priority: cdp_protocol::network::CookiePriority) -> Self {
+        self.priority = Some(priority);
+        self
+    }
+}
+
 #[async_trait]
 pub trait CookieManager {
     /// Gets cookies for the current page context.

@@ -9,7 +9,7 @@ use cdp_protocol::input::{
     InsertTextReturnObject,
 };
 
-use crate::{domain_manager::DomainManager, error::Result, session::Session};
+use crate::{error::Result, session::Session};
 
 /// High-level helper for dispatching keyboard events through the CDP Input domain.
 ///
@@ -26,15 +26,11 @@ use crate::{domain_manager::DomainManager, error::Result, session::Session};
 #[derive(Clone)]
 pub struct Keyboard {
     session: Arc<Session>,
-    domain_manager: Arc<DomainManager>,
 }
 
 impl Keyboard {
-    pub(crate) fn new(session: Arc<Session>, domain_manager: Arc<DomainManager>) -> Self {
-        Self {
-            session,
-            domain_manager,
-        }
+    pub(crate) fn new(session: Arc<Session>) -> Self {
+        Self { session }
     }
 
     async fn dispatch_key_event(

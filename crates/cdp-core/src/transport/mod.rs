@@ -2,5 +2,6 @@
 //! WebSocket connections.
 
 pub(crate) mod cdp_protocol;
+pub(crate) mod command;
 pub(crate) mod event_parser;
 pub(crate) mod websocket_connection;

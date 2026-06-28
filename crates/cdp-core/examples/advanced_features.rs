@@ -42,7 +42,12 @@ async fn test_wait_functions(page: &Arc<page::Page>) -> Result<()> {
 
     // Wait for element
     print!("   Waiting for selector... ");
-    let _element = page.wait_for_selector("h1", None).await?;
+    let _element = page
+        .wait_for_selector(
+            "h1",
+            Some(WaitForSelectorOptions::default().with_timeout_ms(5_000)),
+        )
+        .await?;
     println!("✓ Element found");
 
     // Wait for navigation

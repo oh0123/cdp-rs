@@ -23,7 +23,7 @@ The repository currently contains:
 ## Quick Start
 
 ```rust
-use cdp_core::Browser;
+use cdp_core::{Browser, WaitForNavigationOptions, WaitUntil};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -35,6 +35,12 @@ async fn main() -> anyhow::Result<()> {
 
     // Navigate to a website
     page.navigate("https://example.com").await?;
+    page.wait_for_navigation(Some(
+        WaitForNavigationOptions::default()
+            .with_timeout_ms(10_000)
+            .with_wait_until(WaitUntil::NetworkIdle2),
+    ))
+    .await?;
 
     // Find and interact with elements
     if let Some(button) = page.query_selector("#button").await? {
@@ -58,11 +64,38 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-core = "0.3.7"
+cdp-core = "0.4.0"
 tokio = { version = "1", features = ["full"] }
 ```
 
 Use `cdp-protocol = "0.3.1"` only if you need low-level generated protocol types directly.
+
+## Current API Style
+
+`cdp-core` 0.4 uses chain-configured command builders for native CDP wrappers:
+
+```rust
+use std::time::Duration;
+
+let pdf = page
+    .print_to_pdf()
+    .set_params(|params| {
+        params.print_background = Some(true);
+        params.prefer_css_page_size = Some(true);
+    })
+    .set_timeout(Duration::from_secs(30))
+    .send()
+    .await?;
+```
+
+Extension traits expose page-scoped capabilities such as network and storage:
+
+```rust
+use cdp_core::NetworkControl;
+
+page.clear_browser_cache().send().await?;
+page.block_urls(["*.png", "*.jpg"]).send().await?;
+```
 
 ## Lifecycle Management
 
@@ -97,6 +130,9 @@ cargo run -p cdp-core --example events
 
 # Run Runtime.consoleAPICalled example
 cargo run -p cdp-core --example runtime_console_events
+
+# Run screencast example
+cargo run -p cdp-core --example screencast
 ```
 
 ## Architecture
