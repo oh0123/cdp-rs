@@ -36,7 +36,11 @@ pub trait NetworkControl {
         patterns: Vec<network_cdp::BlockPattern>,
     ) -> CdpCommandBuilder<'_, network_cdp::SetBlockedURLs>;
 
-    /// Blocks URL patterns. Patterns use the URLPattern constructor string syntax.
+    /// Blocks URL patterns using CDP's wildcard URL syntax.
+    ///
+    /// This accepts ergonomic patterns such as `"*.png"` and sends them through the legacy
+    /// `urls` field. Use [`NetworkControl::set_blocked_url_patterns`] for absolute `URLPattern`
+    /// entries that need ordered allow/block behavior.
     fn block_urls<I, S>(&self, patterns: I) -> CdpCommandBuilder<'_, network_cdp::SetBlockedURLs>
     where
         I: IntoIterator<Item = S>,
@@ -103,14 +107,11 @@ impl NetworkControl for Page {
         I: IntoIterator<Item = S>,
         S: Into<String>,
     {
-        let patterns = patterns
-            .into_iter()
-            .map(|pattern| network_cdp::BlockPattern {
-                url_pattern: pattern.into(),
-                block: true,
-            })
-            .collect();
-        self.set_blocked_url_patterns(patterns)
+        #[allow(deprecated)]
+        self.cdp(network_cdp::SetBlockedURLs {
+            url_patterns: None,
+            urls: Some(patterns.into_iter().map(Into::into).collect()),
+        })
     }
 
     fn get_response_body(

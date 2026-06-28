@@ -386,6 +386,11 @@ impl Page {
     }
 
     pub async fn navigate(&self, url: &str) -> Result<NavigateReturnObject> {
+        // Network-idle waits are normally called immediately after `navigate`.
+        // Reset before dispatching the navigation command so requests created by this navigation
+        // are observed instead of being cleared by the later wait.
+        self.network_monitor.reset_inflight().await;
+
         let navigate = Navigate {
             url: url.to_string(),
             referrer: None,
@@ -1895,6 +1900,12 @@ impl Page {
         let visible = opts.visible.unwrap_or(false);
         let hidden = opts.hidden.unwrap_or(false);
 
+        if visible && hidden {
+            return Err(CdpError::page(
+                "wait_for_selector cannot require both visible and hidden".to_string(),
+            ));
+        }
+
         let start = std::time::Instant::now();
         let poll_interval = std::time::Duration::from_millis(100);
 
@@ -1907,27 +1918,39 @@ impl Page {
                 )));
             }
 
-            // Try to query element
-            if let Some(element) = self.query_selector(selector).await? {
-                // If visibility check is needed
-                if visible
-                    && let Ok(is_visible) = element.is_visible().await
-                    && !is_visible
-                {
-                    tokio::time::sleep(poll_interval).await;
-                    continue;
-                }
+            // Try to query element. During navigation the DOM or execution context can be
+            // temporarily unavailable, so retry those transient failures until the deadline.
+            match self.query_selector(selector).await {
+                Ok(Some(element)) => {
+                    if visible {
+                        match element.is_visible().await {
+                            Ok(true) => return Ok(element),
+                            Ok(false) | Err(_) => {
+                                tokio::time::sleep(poll_interval).await;
+                                continue;
+                            }
+                        }
+                    }
 
-                // If hidden check is needed
-                if hidden
-                    && let Ok(is_visible) = element.is_visible().await
-                    && is_visible
-                {
-                    tokio::time::sleep(poll_interval).await;
-                    continue;
-                }
+                    if hidden {
+                        match element.is_visible().await {
+                            Ok(false) => return Ok(element),
+                            Ok(true) | Err(_) => {
+                                tokio::time::sleep(poll_interval).await;
+                                continue;
+                            }
+                        }
+                    }
 
-                return Ok(element);
+                    return Ok(element);
+                }
+                Ok(None) => {}
+                Err(err) => {
+                    warn!(
+                        "Failed to query selector '{}' while waiting: {}",
+                        selector, err
+                    );
+                }
             }
 
             tokio::time::sleep(poll_interval).await;
@@ -2126,7 +2149,7 @@ impl Page {
             WaitUntil::DOMContentLoaded => {
                 // Wait for DOMContentLoaded event
                 self.wait_for_function(
-                    "() => document.readyState === 'interactive'",
+                    "() => document.readyState === 'interactive' || document.readyState === 'complete'",
                     Some(timeout),
                     None,
                 )
@@ -2209,9 +2232,6 @@ impl Page {
             self.domain_manager.enable_network_domain().await?;
         }
 
-        // Reset count (avoid influence from previous requests)
-        self.network_monitor.reset_inflight().await;
-
         // Wait for network idle
         let start = std::time::Instant::now();
         let mut idle_start: Option<std::time::Instant> = None;
@@ -2219,7 +2239,10 @@ impl Page {
 
         loop {
             if start.elapsed().as_millis() > timeout_ms as u128 {
-                return Ok(());
+                return Err(CdpError::page(format!(
+                    "Timeout waiting for network idle ({}ms, max inflight {})",
+                    timeout_ms, max_inflight
+                )));
             }
 
             let current_inflight = self.network_monitor.get_inflight_count();

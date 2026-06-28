@@ -181,8 +181,7 @@ async fn test_page_sessions(browser: &Arc<Browser>, page1: &Arc<page::Page>) -> 
         .await?;
     page1
         .set_cookie(
-            SetCookieParams::new("session_cookie", "session_value")
-                .with_url("https://github.com"),
+            SetCookieParams::new("session_cookie", "session_value").with_url("https://github.com"),
         )
         .await?;
     println!("✓ Set up page state (localStorage, sessionStorage, cookies)");

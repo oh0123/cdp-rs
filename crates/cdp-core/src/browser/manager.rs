@@ -543,6 +543,13 @@ impl Browser {
 
         if let Err(err) = context.apply_options(&options).await {
             self.unregister_context(&context_id).await;
+            if let Err(dispose_err) = self.dispose_browser_context(&context_id).await {
+                tracing::warn!(
+                    "Failed to dispose BrowserContext {} after option application failed: {:?}",
+                    context_id,
+                    dispose_err
+                );
+            }
             return Err(err);
         }
 
@@ -661,6 +668,16 @@ impl Browser {
 
     async fn unregister_context(&self, id: &str) {
         self.browser_contexts.lock().await.remove(id);
+    }
+
+    async fn dispose_browser_context(&self, id: &str) -> Result<Value> {
+        self.send_command(
+            DisposeBrowserContext {
+                browser_context_id: id.to_string(),
+            },
+            None,
+        )
+        .await
     }
 
     async fn unregister_session(&self, session_id: &str) {
@@ -1026,15 +1043,7 @@ impl BrowserContext {
             }
         }
 
-        let dispose_result: Result<Value> = self
-            .browser
-            .send_command(
-                DisposeBrowserContext {
-                    browser_context_id: self.id.clone(),
-                },
-                None,
-            )
-            .await;
+        let dispose_result = self.browser.dispose_browser_context(&self.id).await;
 
         if let Err(err) = dispose_result
             && first_error.is_none()

@@ -44,9 +44,9 @@ async fn main() -> Result<()> {
 
     for index in 0..3 {
         let frame = page.wait_for_screencast_frame().await?;
-        let bytes = STANDARD.decode(frame.params.data.as_bytes()).map_err(|err| {
-            CdpError::page(format!("failed to decode screencast frame: {err}"))
-        })?;
+        let bytes = STANDARD
+            .decode(frame.params.data.as_bytes())
+            .map_err(|err| CdpError::page(format!("failed to decode screencast frame: {err}")))?;
         let path = format!("target/screencast/frame-{index}.jpg");
         tokio::fs::write(&path, bytes).await?;
         println!("Saved {path}");

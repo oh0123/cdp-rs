@@ -152,7 +152,10 @@ pub struct ResponseMock {
     pub status_code: i64,
     /// Headers returned to the client.
     pub headers: HashMap<String, String>,
-    /// Body returned to the client (converted to base64 automatically).
+    /// Body returned to the client when fulfilling a request.
+    ///
+    /// `Fetch.continueResponse` can modify status and headers, but it cannot replace the response
+    /// body. Use [`NetworkInterceptor::fulfill_request`] when a mocked body is required.
     pub body: String,
 }
 
@@ -194,6 +197,40 @@ impl ResponseMock {
     }
 }
 
+fn header_entries(headers: HashMap<String, String>) -> Vec<fetch_cdp::HeaderEntry> {
+    headers
+        .into_iter()
+        .map(|(name, value)| fetch_cdp::HeaderEntry { name, value })
+        .collect()
+}
+
+fn build_fulfill_request(request_id: &str, response: ResponseMock) -> FulfillRequest {
+    FulfillRequest {
+        request_id: request_id.to_string(),
+        response_code: response.status_code as u32,
+        response_headers: Some(header_entries(response.headers)),
+        binary_response_headers: None,
+        body: Some(response.body.into_bytes()),
+        response_phrase: None,
+    }
+}
+
+fn build_continue_response(request_id: &str, response: ResponseMock) -> ContinueResponse {
+    if !response.body.is_empty() {
+        tracing::warn!(
+            "Fetch.continueResponse cannot replace response bodies; use fulfill_request for mocked body content"
+        );
+    }
+
+    ContinueResponse {
+        request_id: request_id.to_string(),
+        response_code: Some(response.status_code as u32),
+        response_phrase: None,
+        response_headers: Some(header_entries(response.headers)),
+        binary_response_headers: None,
+    }
+}
+
 /// Trait describing the interception primitives exposed by `Page`.
 #[async_trait]
 pub trait NetworkInterceptor {
@@ -222,7 +259,10 @@ pub trait NetworkInterceptor {
     /// Continues the response without modification.
     async fn continue_response(&self, request_id: &str) -> Result<()>;
 
-    /// Continues the response after applying modifications.
+    /// Continues the response after applying status/header modifications.
+    ///
+    /// CDP's `Fetch.continueResponse` does not support replacing the response body; use
+    /// [`NetworkInterceptor::fulfill_request`] when body content must be mocked.
     async fn continue_response_with_modification(
         &self,
         request_id: &str,
@@ -336,23 +376,7 @@ impl NetworkInterceptor for Arc<Page> {
     }
 
     async fn fulfill_request(&self, request_id: &str, response: ResponseMock) -> Result<()> {
-        // Convert the response body into bytes for CDP.
-        let body_bytes = response.body.into_bytes();
-
-        let headers = response
-            .headers
-            .into_iter()
-            .map(|(k, v)| fetch_cdp::HeaderEntry { name: k, value: v })
-            .collect();
-
-        let fulfill = FulfillRequest {
-            request_id: request_id.to_string(),
-            response_code: response.status_code as u32,
-            response_headers: Some(headers),
-            binary_response_headers: None,
-            body: Some(body_bytes),
-            response_phrase: None,
-        };
+        let fulfill = build_fulfill_request(request_id, response);
 
         self.session
             .send_command::<_, fetch_cdp::FulfillRequestReturnObject>(fulfill, None)
@@ -382,28 +406,49 @@ impl NetworkInterceptor for Arc<Page> {
         request_id: &str,
         response: ResponseMock,
     ) -> Result<()> {
-        let headers = response
-            .headers
-            .into_iter()
-            .map(|(k, v)| fetch_cdp::HeaderEntry { name: k, value: v })
-            .collect();
-
-        // Convert the response body into bytes for CDP.
-        let body_bytes = response.body.into_bytes();
-
-        let cont = ContinueResponse {
-            request_id: request_id.to_string(),
-            response_code: Some(response.status_code as u32),
-            response_phrase: None,
-            response_headers: Some(headers),
-            binary_response_headers: Some(body_bytes),
-        };
+        let cont = build_continue_response(request_id, response);
 
         self.session
             .send_command::<_, fetch_cdp::ContinueResponseReturnObject>(cont, None)
             .await?;
 
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn continue_response_does_not_encode_body_as_binary_headers() {
+        let command = build_continue_response(
+            "request-1",
+            ResponseMock::new("replacement body")
+                .with_status_code(201)
+                .with_header("content-type", "text/plain"),
+        );
+
+        assert_eq!(command.request_id, "request-1");
+        assert_eq!(command.response_code, Some(201));
+        assert!(command.binary_response_headers.is_none());
+        assert_eq!(
+            command.response_headers,
+            Some(vec![fetch_cdp::HeaderEntry {
+                name: "content-type".to_string(),
+                value: "text/plain".to_string(),
+            }])
+        );
+    }
+
+    #[test]
+    fn fulfill_request_keeps_body_on_body_field() {
+        let command = build_fulfill_request("request-2", ResponseMock::new("mocked body"));
+
+        assert_eq!(command.request_id, "request-2");
+        assert_eq!(command.response_code, 200);
+        assert_eq!(command.body, Some(b"mocked body".to_vec()));
+        assert!(command.binary_response_headers.is_none());
     }
 }
 
@@ -580,6 +625,11 @@ pub type ResponseFilterCallback = Arc<dyn Fn(&str) -> bool + Send + Sync>;
 /// Callback invoked with the captured response metadata.
 pub type ResponseHandlerCallback = Arc<dyn Fn(&InterceptedResponse) + Send + Sync>;
 
+pub(crate) struct PendingResponse {
+    pub(crate) url: String,
+    pub(crate) response: InterceptedResponse,
+}
+
 /// Manages response filters and handlers.
 pub struct ResponseMonitorManager {
     /// Registered monitor pairs.
@@ -587,7 +637,7 @@ pub struct ResponseMonitorManager {
     /// Tracks whether monitoring is enabled.
     enabled: std::sync::atomic::AtomicBool,
     /// Pending responses waiting for body (requestId -> Response)
-    pending_responses: Mutex<HashMap<String, InterceptedResponse>>,
+    pending_responses: Mutex<HashMap<String, PendingResponse>>,
 }
 
 impl ResponseMonitorManager {
@@ -648,13 +698,31 @@ impl ResponseMonitorManager {
     }
 
     pub async fn store_pending_response(&self, response: InterceptedResponse) {
-        self.pending_responses
-            .lock()
-            .await
-            .insert(response.request_id.clone(), response);
+        self.store_pending_response_for_url(String::new(), response)
+            .await;
+    }
+
+    pub(crate) async fn store_pending_response_for_url(
+        &self,
+        url: String,
+        response: InterceptedResponse,
+    ) {
+        self.pending_responses.lock().await.insert(
+            response.request_id.clone(),
+            PendingResponse { url, response },
+        );
     }
 
     pub async fn retrieve_pending_response(&self, request_id: &str) -> Option<InterceptedResponse> {
+        self.retrieve_pending_response_with_url(request_id)
+            .await
+            .map(|pending| pending.response)
+    }
+
+    pub(crate) async fn retrieve_pending_response_with_url(
+        &self,
+        request_id: &str,
+    ) -> Option<PendingResponse> {
         self.pending_responses.lock().await.remove(request_id)
     }
 }

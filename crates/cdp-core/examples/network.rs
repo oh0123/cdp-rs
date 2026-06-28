@@ -98,7 +98,8 @@ async fn test_request_interception(page: &Arc<page::Page>) -> Result<()> {
     println!("========== Request Interception ==========");
 
     // Enable interception
-    page.enable_request_interception(vec!["*".to_string()]).await?;
+    page.enable_request_interception(vec!["*".to_string()])
+        .await?;
     println!("✓ Request interception enabled");
 
     // Example: Modify headers

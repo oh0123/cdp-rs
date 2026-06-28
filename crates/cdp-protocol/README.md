@@ -1,6 +1,6 @@
 # cdp-protocol
 
-`cdp-protocol` exposes the raw, type-safe Chrome DevTools Protocol (CDP) surface area for Rust. The crate is auto-generated from the Chrome 140.0.7339.186 protocol definition and is used by `cdp-core`, but it can also be consumed directly anywhere you need fine-grained CDP access.
+`cdp-protocol` exposes the raw, type-safe Chrome DevTools Protocol (CDP) surface area for Rust. The crate is auto-generated from the Chrome 146.0.7680.165 protocol definition and is used by `cdp-core`, but it can also be consumed directly anywhere you need fine-grained CDP access.
 
 ## Highlights
 
@@ -16,7 +16,7 @@ Add the crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-protocol = "0.1.0"
+cdp-protocol = "0.3.1"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 ```
