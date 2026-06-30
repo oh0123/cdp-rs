@@ -149,8 +149,8 @@ pub use page::{
     frame::{Frame, RetryConfig},
     page_core::{
         DomMutationCallback, DomMutationEvent, FrameLifecycleCallback, FrameLifecycleEvent,
-        FrameSnapshot, Page, ScreencastOptions, WaitForNavigationOptions, WaitForSelectorOptions,
-        WaitUntil,
+        FrameSnapshot, Page, ReloadOptions, ScreencastOptions, WaitForNavigationOptions,
+        WaitForSelectorOptions, WaitUntil,
     },
     session::{PageSession, PageSessionManager, PageSessionSnapshot},
 };

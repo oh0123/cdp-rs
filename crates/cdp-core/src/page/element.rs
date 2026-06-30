@@ -275,7 +275,7 @@ impl ElementHandle {
     ///
     /// # Examples
     /// ```no_run
-    /// # use cdp_core::Page;
+    /// # use cdp_core::{Page, ScreenshotBoxType};
     /// # use std::sync::Arc;
     /// # async fn example(page: Arc<Page>) -> anyhow::Result<()> {
     /// if let Some(input) = page.query_selector("input[type='text']").await? {
@@ -760,33 +760,28 @@ impl ElementHandle {
     /// The path where the screenshot was saved.
     ///
     /// # Notes
-    /// - Uses the default border box, which generally works well for rounded elements.
-    /// - Automatically adapts to the device pixel ratio (DPR) for crisp images.
-    /// - Use [`screenshot_with_options`](Self::screenshot_with_options) for
-    ///   additional control.
+    /// - `ScreenshotBoxType::default()` uses the border box, which generally works well for rounded elements.
+    /// - Pass `true` for `auto_resolve_dpr` to adapt to the device pixel ratio (DPR) for crisp images.
     ///
     /// # Examples
     /// ```no_run
-    /// # use cdp_core::Page;
+    /// # use cdp_core::{Page, ScreenshotBoxType};
     /// # use std::sync::Arc;
     /// # async fn example(page: Arc<Page>) -> anyhow::Result<()> {
     /// if let Some(element) = page.query_selector("div.example").await? {
     ///     // Save to the current directory (with DPR auto-adjust)
-    ///     let path = element.screenshot(None).await?;
+    ///     let path = element.screenshot(None, ScreenshotBoxType::default(), true).await?;
     ///     println!("Element screenshot saved to: {}", path);
     ///
     ///     // Save to a custom location
-    ///     let path = element.screenshot(Some("screenshots/element.png".into())).await?;
+    ///     let path = element
+    ///         .screenshot(Some("screenshots/element.png".into()), ScreenshotBoxType::default(), true)
+    ///         .await?;
     ///     println!("Element screenshot saved to: {}", path);
     /// }
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn screenshot(&self, save_path: Option<PathBuf>) -> Result<String> {
-        self.screenshot_with_options(save_path, ScreenshotBoxType::default(), true)
-            .await
-    }
-
     /// Takes a screenshot of the element with a custom box type.
     ///
     /// # Parameters
@@ -825,21 +820,21 @@ impl ElementHandle {
     /// # async fn example(page: Arc<Page>) -> anyhow::Result<()> {
     /// if let Some(element) = page.query_selector("button.rounded").await? {
     ///     // Rounded button with border box + DPR auto adjustment (recommended)
-    ///     let path = element.screenshot_with_options(
+    ///     let path = element.screenshot(
     ///         Some("button.png".into()),
     ///         ScreenshotBoxType::Border,
     ///         true  // enable DPR auto adjustment
     ///     ).await?;
     ///
     ///     // Content-only capture with DPR adaptation disabled
-    ///     let path = element.screenshot_with_options(
+    ///     let path = element.screenshot(
     ///         Some("content.png".into()),
     ///         ScreenshotBoxType::Content,
     ///         false  // fixed scale = 1.0
     ///     ).await?;
     ///
     ///     // Include the margin while keeping DPR auto adjustment
-    ///     let path = element.screenshot_with_options(
+    ///     let path = element.screenshot(
     ///         Some("with-margin.png".into()),
     ///         ScreenshotBoxType::Margin,
     ///         true
@@ -848,7 +843,7 @@ impl ElementHandle {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn screenshot_with_options(
+    pub async fn screenshot(
         &self,
         save_path: Option<PathBuf>,
         box_type: ScreenshotBoxType,

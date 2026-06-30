@@ -7,7 +7,9 @@ async fn main() -> Result<()> {
         .with_target(false)
         .init();
     let browser = Browser::launcher().launch().await?;
-    let context = browser.new_context().await?;
+    let context = browser
+        .new_context(BrowserContextOptions::default())
+        .await?;
     let page = context.new_page().await?;
 
     println!("Navigating to a page with a prominent search box...");
@@ -27,7 +29,9 @@ async fn main() -> Result<()> {
     println!("✓ Element found");
 
     print!("   Testing element screenshot (auto-save)... ");
-    let element_path = screenshot_target.screenshot(None).await?;
+    let element_path = screenshot_target
+        .screenshot(None, ScreenshotBoxType::default(), true)
+        .await?;
     println!("✓ {}", element_path);
 
     Ok(())

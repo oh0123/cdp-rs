@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+#### cdp-core
+- Breaking: converted high-level Page, Browser, and NetworkControl domain helpers from `CdpCommandBuilder` wrappers to direct async `Result<T>` APIs. Use `Page::cdp`, `Page::root_cdp`, or `Browser::cdp` for native CDP parameters and per-command timeout control.
+- Breaking: removed default-argument compatibility helpers in favor of a single options-bearing method name, including `Page::reload(ReloadOptions)`, `Page::start_screencast(ScreencastOptions)`, `Browser::new_context(BrowserContextOptions)`, and explicit screenshot option parameters.
+
 ## [0.4.0] - 2026-06-28
 
 ### Added

@@ -53,7 +53,8 @@ page.wait_for_navigation(None).await?;
 // Back/Forward/Reload
 page.go_back().await?;
 page.go_forward().await?;
-page.reload().await?;
+page.reload(cdp_core::ReloadOptions::default()).await?;
+page.reload(cdp_core::ReloadOptions::default().with_ignore_cache(true)).await?;
 ```
 
 ### Wait for Navigation
@@ -346,7 +347,7 @@ Capture element and full page screenshots with DPR adaptation.
 let element = page.query_selector("#logo").await?
     .ok_or(anyhow!("Logo not found"))?;
 
-let screenshot_base64 = element.screenshot().await?;
+let screenshot_base64 = element.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
 
 // Save to file
 use base64::Engine;
@@ -358,13 +359,13 @@ std::fs::write("logo.png", bytes)?;
 
 ```rust
 // Capture entire page (including scroll area)
-page.screenshot(true, Some("fullpage.png".into())).await?;
+page.screenshot(true, Some("fullpage.png".into()), true).await?;
 
 // Viewport only
-page.screenshot(false, Some("viewport.png".into())).await?;
+page.screenshot(false, Some("viewport.png".into()), true).await?;
 
 // With DPR control (recommended)
-page.screenshot_with_options(
+page.screenshot(
     true,                                // full_page
     Some("fullpage.png".into()),        // save_path
     true                                 // auto_resolve_dpr
@@ -377,10 +378,10 @@ Automatic device pixel ratio handling for consistent screenshots:
 
 ```rust
 // Auto-adapt to device DPR (prevents scaling issues)
-page.screenshot_with_options(true, Some("page.png".into()), true).await?;
+page.screenshot(true, Some("page.png".into()), true).await?;
 
 // Fixed DPR (use 1.0)
-page.screenshot_with_options(true, Some("page.png".into()), false).await?;
+page.screenshot(true, Some("page.png".into()), false).await?;
 ```
 
 ---
@@ -873,7 +874,7 @@ async fn main() -> anyhow::Result<()> {
     ).await?;
     
     // Take screenshot
-    page.screenshot(true, Some("result.png".into())).await?;
+    page.screenshot(true, Some("result.png".into()), true).await?;
     
     // Cleanup
     page.cleanup().await?;

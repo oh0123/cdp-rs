@@ -115,7 +115,9 @@ async fn visit_product_page(
     println!("[Context {}] Creating new context...", context_id);
 
     // Each context is isolated (separate cookies, storage, etc.)
-    let context = browser.new_context().await?;
+    let context = browser
+        .new_context(BrowserContextOptions::default())
+        .await?;
 
     println!("[Context {}] Creating new page...", context_id);
     let page = match context.new_page().await {
@@ -148,7 +150,7 @@ async fn visit_product_page(
 
         // Take a screenshot
         println!("[Context {}] Taking screenshot...", context_id);
-        let screenshot_path = page.screenshot(false, None).await?;
+        let screenshot_path = page.screenshot(false, None, true).await?;
 
         println!(
             "[Context {}] Screenshot saved: {}",

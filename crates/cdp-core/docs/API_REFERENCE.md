@@ -45,7 +45,10 @@ page.go_back().await?;
 page.go_forward().await?;
 
 // Reload
-page.reload().await?;
+page.reload(cdp_core::ReloadOptions::default()).await?;
+
+// Reload while ignoring browser cache
+page.reload(cdp_core::ReloadOptions::default().with_ignore_cache(true)).await?;
 ```
 
 ### Targets
@@ -108,13 +111,13 @@ let element = page.query_xpath("//button[@id='submit']").await?;
 
 ```rust
 // Full page screenshot
-page.screenshot(true, Some("page.png".into())).await?;
+page.screenshot(true, Some("page.png".into()), true).await?;
 
 // Viewport screenshot
-page.screenshot(false, Some("viewport.png".into())).await?;
+page.screenshot(false, Some("viewport.png".into()), true).await?;
 
 // With options (DPR control)
-page.screenshot_with_options(true, Some("page.png".into()), true).await?;
+page.screenshot(true, Some("page.png".into()), true).await?;
 ```
 
 ### JavaScript Evaluation
@@ -184,7 +187,7 @@ let visible = element.is_visible().await?;
 
 ```rust
 // Element screenshot
-let base64_png = element.screenshot().await?;
+let base64_png = element.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
 
 // Decode and save
 use base64::Engine;

@@ -43,7 +43,7 @@ async fn main() -> anyhow::Result<()> {
     }
 
     // Take a screenshot
-    page.screenshot(true, Some("screenshot.png".into())).await?;
+    page.screenshot(true, Some("screenshot.png".into()), true).await?;
 
     // Explicitly release page and connection resources when done
     page.cleanup().await?;
@@ -64,6 +64,14 @@ tokio = { version = "1", features = ["full"] }
 ```
 
 ## Current API Style
+
+High-level APIs that manage cdp-core state or return ergonomic results execute directly:
+
+```rust
+page.navigate("https://example.com").await?;
+page.reload(ReloadOptions::default()).await?;
+let path = page.screenshot(true, Some("page.png".into()), true).await?;
+```
 
 Native CDP wrappers return command builders so advanced parameters and per-command timeouts stay chain-configured:
 
@@ -86,8 +94,8 @@ Page-scoped extension traits provide network, storage, and session helpers:
 ```rust
 use cdp_core::NetworkControl;
 
-page.clear_browser_cache().send().await?;
-page.block_urls(["*.png", "*.jpg"]).send().await?;
+page.clear_browser_cache().await?;
+page.block_urls(["*.png", "*.jpg"]).await?;
 ```
 
 ## Lifecycle Management

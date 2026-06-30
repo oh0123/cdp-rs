@@ -111,7 +111,7 @@ async fn main() -> anyhow::Result<()> {
 ```rust
 // Element screenshot
 if let Some(element) = page.query_selector("#logo").await? {
-    let screenshot_base64 = element.screenshot().await?;
+    let screenshot_base64 = element.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
     
     // Decode and save
     use base64::Engine;
@@ -120,7 +120,7 @@ if let Some(element) = page.query_selector("#logo").await? {
 }
 
 // Full page screenshot
-page.screenshot(true, Some("fullpage.png".into())).await?;
+page.screenshot(true, Some("fullpage.png".into()), true).await?;
 ```
 
 ### 4. Handle Forms
@@ -173,7 +173,7 @@ for (i, item) in items.iter().enumerate() {
     }
     
     // Take screenshot
-    let screenshot = item.screenshot().await?;
+    let screenshot = item.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
     // ... save screenshot
 }
 ```

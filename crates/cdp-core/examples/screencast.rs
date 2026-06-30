@@ -1,7 +1,7 @@
 /// Page Screencast Example
 ///
 /// Demonstrates:
-/// - Starting `Page.startScreencast` with chain-configured command parameters
+/// - Starting `Page.startScreencast` with high-level options
 /// - Receiving `Page.screencastFrame` events
 /// - Acknowledging each frame with `Page.screencastFrameAck`
 /// - Stopping the screencast
@@ -9,7 +9,6 @@
 /// Run: cargo run --example screencast
 use base64::{Engine as _, engine::general_purpose::STANDARD};
 use cdp_core::*;
-use std::time::Duration;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -29,16 +28,14 @@ async fn main() -> Result<()> {
     ))
     .await?;
 
-    page.start_screencast()
-        .set_params(|params| {
-            params.quality = Some(80);
-            params.max_width = Some(1280);
-            params.max_height = Some(720);
-            params.every_nth_frame = Some(1);
-        })
-        .set_timeout(Duration::from_secs(10))
-        .send()
-        .await?;
+    page.start_screencast(
+        ScreencastOptions::default()
+            .with_quality(80)
+            .with_max_width(1280)
+            .with_max_height(720)
+            .with_every_nth_frame(1),
+    )
+    .await?;
 
     tokio::fs::create_dir_all("target/screencast").await?;
 
@@ -51,12 +48,10 @@ async fn main() -> Result<()> {
         tokio::fs::write(&path, bytes).await?;
         println!("Saved {path}");
 
-        page.screencast_frame_ack(frame.params.session_id)
-            .send()
-            .await?;
+        page.screencast_frame_ack(frame.params.session_id).await?;
     }
 
-    page.stop_screencast().send().await?;
+    page.stop_screencast().await?;
     page.cleanup().await?;
     browser.disconnect().await?;
 

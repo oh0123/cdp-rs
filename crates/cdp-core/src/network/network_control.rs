@@ -1,36 +1,31 @@
-use crate::CdpCommandBuilder;
 use crate::page::Page;
+use crate::{CdpCommandBuilder, Result};
+use async_trait::async_trait;
 use cdp_protocol::network as network_cdp;
 use serde_json::{Map, Value};
 use std::collections::HashMap;
 
 /// Network domain controls exposed on [`Page`].
 ///
-/// These methods return low-level CDP command builders so callers can keep the common wrapper
-/// defaults while still adjusting generated protocol parameters and per-command timeouts.
+/// These methods provide high-level page-scoped network controls. Use [`Page::cdp`] for native
+/// CDP command parameters and per-command timeout control.
+#[async_trait]
 pub trait NetworkControl {
     /// Clears the browser's HTTP cache.
-    fn clear_browser_cache(&self) -> CdpCommandBuilder<'_, network_cdp::ClearBrowserCache>;
+    async fn clear_browser_cache(&self) -> Result<()>;
 
     /// Enables or disables network cache usage for this page.
-    fn set_cache_disabled(
-        &self,
-        cache_disabled: bool,
-    ) -> CdpCommandBuilder<'_, network_cdp::SetCacheDisabled>;
+    async fn set_cache_disabled(&self, cache_disabled: bool) -> Result<()>;
 
     /// Bypasses service workers for each request when enabled.
-    fn set_bypass_service_worker(
-        &self,
-        bypass: bool,
-    ) -> CdpCommandBuilder<'_, network_cdp::SetBypassServiceWorker>;
+    async fn set_bypass_service_worker(&self, bypass: bool) -> Result<()>;
 
     /// Sets extra HTTP headers sent with requests from this page.
-    fn set_extra_http_headers(
-        &self,
-        headers: HashMap<String, String>,
-    ) -> CdpCommandBuilder<'_, network_cdp::SetExtraHTTPHeaders>;
+    async fn set_extra_http_headers(&self, headers: HashMap<String, String>) -> Result<()>;
 
     /// Sets URL block patterns using the current CDP `BlockPattern` representation.
+    ///
+    /// This is a native CDP wrapper because it exposes protocol-level `BlockPattern` entries.
     fn set_blocked_url_patterns(
         &self,
         patterns: Vec<network_cdp::BlockPattern>,
@@ -41,54 +36,66 @@ pub trait NetworkControl {
     /// This accepts ergonomic patterns such as `"*.png"` and sends them through the legacy
     /// `urls` field. Use [`NetworkControl::set_blocked_url_patterns`] for absolute `URLPattern`
     /// entries that need ordered allow/block behavior.
-    fn block_urls<I, S>(&self, patterns: I) -> CdpCommandBuilder<'_, network_cdp::SetBlockedURLs>
+    async fn block_urls<I, S>(&self, patterns: I) -> Result<()>
     where
-        I: IntoIterator<Item = S>,
-        S: Into<String>;
+        I: IntoIterator<Item = S> + Send,
+        I::IntoIter: Send,
+        S: Into<String> + Send;
 
     /// Returns the response body for a network request.
-    fn get_response_body(
+    async fn get_response_body(
         &self,
-        request_id: impl Into<network_cdp::RequestId>,
-    ) -> CdpCommandBuilder<'_, network_cdp::GetResponseBody>;
+        request_id: impl Into<network_cdp::RequestId> + Send,
+    ) -> Result<network_cdp::GetResponseBodyReturnObject>;
 
     /// Returns POST data sent with a network request.
-    fn get_request_post_data(
+    async fn get_request_post_data(
         &self,
-        request_id: impl Into<network_cdp::RequestId>,
-    ) -> CdpCommandBuilder<'_, network_cdp::GetRequestPostData>;
+        request_id: impl Into<network_cdp::RequestId> + Send,
+    ) -> Result<network_cdp::GetRequestPostDataReturnObject>;
 }
 
+#[async_trait]
 impl NetworkControl for Page {
-    fn clear_browser_cache(&self) -> CdpCommandBuilder<'_, network_cdp::ClearBrowserCache> {
-        self.cdp(network_cdp::ClearBrowserCache(None))
+    async fn clear_browser_cache(&self) -> Result<()> {
+        let _: network_cdp::ClearBrowserCacheReturnObject = self
+            .session
+            .send_command(network_cdp::ClearBrowserCache(None), None)
+            .await?;
+        Ok(())
     }
 
-    fn set_cache_disabled(
-        &self,
-        cache_disabled: bool,
-    ) -> CdpCommandBuilder<'_, network_cdp::SetCacheDisabled> {
-        self.cdp(network_cdp::SetCacheDisabled { cache_disabled })
+    async fn set_cache_disabled(&self, cache_disabled: bool) -> Result<()> {
+        let _: network_cdp::SetCacheDisabledReturnObject = self
+            .session
+            .send_command(network_cdp::SetCacheDisabled { cache_disabled }, None)
+            .await?;
+        Ok(())
     }
 
-    fn set_bypass_service_worker(
-        &self,
-        bypass: bool,
-    ) -> CdpCommandBuilder<'_, network_cdp::SetBypassServiceWorker> {
-        self.cdp(network_cdp::SetBypassServiceWorker { bypass })
+    async fn set_bypass_service_worker(&self, bypass: bool) -> Result<()> {
+        let _: network_cdp::SetBypassServiceWorkerReturnObject = self
+            .session
+            .send_command(network_cdp::SetBypassServiceWorker { bypass }, None)
+            .await?;
+        Ok(())
     }
 
-    fn set_extra_http_headers(
-        &self,
-        headers: HashMap<String, String>,
-    ) -> CdpCommandBuilder<'_, network_cdp::SetExtraHTTPHeaders> {
+    async fn set_extra_http_headers(&self, headers: HashMap<String, String>) -> Result<()> {
         let headers = headers
             .into_iter()
             .map(|(key, value)| (key, Value::String(value)))
             .collect::<Map<String, Value>>();
-        self.cdp(network_cdp::SetExtraHTTPHeaders {
-            headers: network_cdp::Headers(Some(Value::Object(headers))),
-        })
+        let _: network_cdp::SetExtraHTTPHeadersReturnObject = self
+            .session
+            .send_command(
+                network_cdp::SetExtraHTTPHeaders {
+                    headers: network_cdp::Headers(Some(Value::Object(headers))),
+                },
+                None,
+            )
+            .await?;
+        Ok(())
     }
 
     #[allow(deprecated)]
@@ -102,33 +109,47 @@ impl NetworkControl for Page {
         })
     }
 
-    fn block_urls<I, S>(&self, patterns: I) -> CdpCommandBuilder<'_, network_cdp::SetBlockedURLs>
+    async fn block_urls<I, S>(&self, patterns: I) -> Result<()>
     where
-        I: IntoIterator<Item = S>,
-        S: Into<String>,
+        I: IntoIterator<Item = S> + Send,
+        I::IntoIter: Send,
+        S: Into<String> + Send,
     {
         #[allow(deprecated)]
-        self.cdp(network_cdp::SetBlockedURLs {
+        let method = network_cdp::SetBlockedURLs {
             url_patterns: None,
             urls: Some(patterns.into_iter().map(Into::into).collect()),
-        })
+        };
+        let _: network_cdp::SetBlockedURLsReturnObject =
+            self.session.send_command(method, None).await?;
+        Ok(())
     }
 
-    fn get_response_body(
+    async fn get_response_body(
         &self,
-        request_id: impl Into<network_cdp::RequestId>,
-    ) -> CdpCommandBuilder<'_, network_cdp::GetResponseBody> {
-        self.cdp(network_cdp::GetResponseBody {
-            request_id: request_id.into(),
-        })
+        request_id: impl Into<network_cdp::RequestId> + Send,
+    ) -> Result<network_cdp::GetResponseBodyReturnObject> {
+        self.session
+            .send_command(
+                network_cdp::GetResponseBody {
+                    request_id: request_id.into(),
+                },
+                None,
+            )
+            .await
     }
 
-    fn get_request_post_data(
+    async fn get_request_post_data(
         &self,
-        request_id: impl Into<network_cdp::RequestId>,
-    ) -> CdpCommandBuilder<'_, network_cdp::GetRequestPostData> {
-        self.cdp(network_cdp::GetRequestPostData {
-            request_id: request_id.into(),
-        })
+        request_id: impl Into<network_cdp::RequestId> + Send,
+    ) -> Result<network_cdp::GetRequestPostDataReturnObject> {
+        self.session
+            .send_command(
+                network_cdp::GetRequestPostData {
+                    request_id: request_id.into(),
+                },
+                None,
+            )
+            .await
     }
 }

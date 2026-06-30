@@ -10,11 +10,13 @@ use crate::session::Session;
 use crate::transport::{cdp_protocol::*, command::CdpCommandBuilder, websocket_connection::*};
 
 use cdp_protocol::browser::{
-    Bounds, GetBrowserCommandLine, GetVersion, GetWindowBounds, GetWindowForTarget,
-    PermissionDescriptor, PermissionSetting, PermissionType, ResetPermissions,
-    ResetPermissionsReturnObject, SetContentsSize, SetDownloadBehavior,
-    SetDownloadBehaviorBehaviorOption, SetDownloadBehaviorReturnObject, SetPermission,
-    SetPermissionReturnObject, SetWindowBounds, WindowId,
+    Bounds, GetBrowserCommandLine, GetBrowserCommandLineReturnObject, GetVersion,
+    GetVersionReturnObject, GetWindowBounds, GetWindowBoundsReturnObject, GetWindowForTarget,
+    GetWindowForTargetReturnObject, PermissionDescriptor, PermissionSetting, PermissionType,
+    ResetPermissions, ResetPermissionsReturnObject, SetContentsSize, SetContentsSizeReturnObject,
+    SetDownloadBehavior, SetDownloadBehaviorBehaviorOption, SetDownloadBehaviorReturnObject,
+    SetPermission, SetPermissionReturnObject, SetWindowBounds, SetWindowBoundsReturnObject,
+    WindowId,
 };
 use cdp_protocol::target::{
     AttachToTargetReturnObject, CreateBrowserContext, CreateBrowserContextReturnObject,
@@ -391,7 +393,7 @@ impl Launcher {
                 } else {
                     find_available_port().await?
                 };
-                let launched = browser_type.launch_with_options(selected_port, launch_options)?;
+                let launched = browser_type.launch(selected_port, launch_options)?;
                 let addr = format!("http://127.0.0.1:{}", launched.debug_port);
                 tracing::info!("Launched new browser at {}", addr);
                 let url = resolve_browser_ws_url(&addr).await?;
@@ -484,26 +486,8 @@ impl Browser {
         Ok(())
     }
 
-    /// Creates a new, isolated browser context using default options.
-    /// This is equivalent to opening a new incognito window.
-    ///
-    /// # Examples
-    /// ```no_run
-    /// use cdp_core::Browser;
-    ///
-    /// # async fn example() -> cdp_core::Result<()> {
-    /// let browser = Browser::launcher().launch().await?;
-    /// let context = browser.new_context().await?;
-    /// # let _ = context;
-    /// # Ok(())
-    /// # }
-    /// ```
-    pub async fn new_context(self: &Arc<Self>) -> Result<Arc<BrowserContext>> {
-        self.new_context_with_options(BrowserContextOptions::default())
-            .await
-    }
-
     /// Creates a new browser context with the provided options.
+    /// This is equivalent to opening a new incognito window.
     ///
     /// # Examples
     /// ```no_run
@@ -515,12 +499,12 @@ impl Browser {
     ///     dispose_on_detach: Some(true),
     ///     ..Default::default()
     /// };
-    /// let context = browser.new_context_with_options(options).await?;
+    /// let context = browser.new_context(options).await?;
     /// # let _ = context;
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn new_context_with_options(
+    pub async fn new_context(
         self: &Arc<Self>,
         options: BrowserContextOptions,
     ) -> Result<Arc<BrowserContext>> {
@@ -583,49 +567,60 @@ impl Browser {
     }
 
     /// Returns browser version information.
-    pub fn version(&self) -> CdpCommandBuilder<'_, GetVersion> {
-        self.cdp(GetVersion(None))
+    pub async fn version(&self) -> Result<GetVersionReturnObject> {
+        self.send_command(GetVersion(None), None).await
     }
 
     /// Returns browser process command line arguments when Chrome exposes them.
-    pub fn command_line(&self) -> CdpCommandBuilder<'_, GetBrowserCommandLine> {
-        self.cdp(GetBrowserCommandLine(None))
+    pub async fn command_line(&self) -> Result<Vec<String>> {
+        let result: GetBrowserCommandLineReturnObject =
+            self.send_command(GetBrowserCommandLine(None), None).await?;
+        Ok(result.arguments)
     }
 
     /// Returns the browser window containing a target.
-    pub fn window_for_target(
+    pub async fn window_for_target(
         &self,
         target_id: Option<String>,
-    ) -> CdpCommandBuilder<'_, GetWindowForTarget> {
-        self.cdp(GetWindowForTarget { target_id })
+    ) -> Result<GetWindowForTargetReturnObject> {
+        self.send_command(GetWindowForTarget { target_id }, None)
+            .await
     }
 
     /// Returns the bounds for a browser window.
-    pub fn window_bounds(&self, window_id: WindowId) -> CdpCommandBuilder<'_, GetWindowBounds> {
-        self.cdp(GetWindowBounds { window_id })
+    pub async fn window_bounds(&self, window_id: WindowId) -> Result<Bounds> {
+        let result: GetWindowBoundsReturnObject = self
+            .send_command(GetWindowBounds { window_id }, None)
+            .await?;
+        Ok(result.bounds)
     }
 
     /// Sets the bounds for a browser window.
-    pub fn set_window_bounds(
-        &self,
-        window_id: WindowId,
-        bounds: Bounds,
-    ) -> CdpCommandBuilder<'_, SetWindowBounds> {
-        self.cdp(SetWindowBounds { window_id, bounds })
+    pub async fn set_window_bounds(&self, window_id: WindowId, bounds: Bounds) -> Result<()> {
+        let _: SetWindowBoundsReturnObject = self
+            .send_command(SetWindowBounds { window_id, bounds }, None)
+            .await?;
+        Ok(())
     }
 
     /// Sets the viewport contents size for a browser window.
-    pub fn set_contents_size(
+    pub async fn set_contents_size(
         &self,
         window_id: WindowId,
         width: Option<u32>,
         height: Option<u32>,
-    ) -> CdpCommandBuilder<'_, SetContentsSize> {
-        self.cdp(SetContentsSize {
-            window_id,
-            width,
-            height,
-        })
+    ) -> Result<()> {
+        let _: SetContentsSizeReturnObject = self
+            .send_command(
+                SetContentsSize {
+                    window_id,
+                    width,
+                    height,
+                },
+                None,
+            )
+            .await?;
+        Ok(())
     }
 
     /// Sets one permission using native CDP descriptor fields.
@@ -646,16 +641,19 @@ impl Browser {
     }
 
     /// Resets permissions in the default browser context.
-    pub fn reset_permissions(&self) -> CdpCommandBuilder<'_, ResetPermissions> {
-        self.reset_permissions_for_context(None)
+    pub async fn reset_permissions(&self) -> Result<()> {
+        self.reset_permissions_for_context(None).await
     }
 
     /// Resets permissions for the given browser context id.
-    pub fn reset_permissions_for_context(
+    pub async fn reset_permissions_for_context(
         &self,
         browser_context_id: Option<String>,
-    ) -> CdpCommandBuilder<'_, ResetPermissions> {
-        self.cdp(ResetPermissions { browser_context_id })
+    ) -> Result<()> {
+        let _: ResetPermissionsReturnObject = self
+            .send_command(ResetPermissions { browser_context_id }, None)
+            .await?;
+        Ok(())
     }
 
     async fn register_context(&self, context: &Arc<BrowserContext>) {
@@ -849,7 +847,7 @@ impl BrowserContext {
     ///
     /// # async fn example() -> cdp_core::Result<()> {
     /// let browser = Browser::launcher().launch().await?;
-    /// let context = browser.new_context().await?;
+    /// let context = browser.new_context(cdp_core::BrowserContextOptions::default()).await?;
     /// let page = context.new_page().await?;
     /// # let _ = page;
     /// # Ok(())
