@@ -1,20 +1,20 @@
-name: Release
+name: Release cdp-protocol
 
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'cdp-protocol-v*.*.*'
 
 permissions:
   contents: write
 
 jobs:
   create-release:
-    name: Create Release
+    name: Create GitHub Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
@@ -24,26 +24,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  publish-crates:
-    name: Publish to crates.io
+  publish-crate:
+    name: Publish cdp-protocol to crates.io
     runs-on: ubuntu-latest
     needs: create-release
     steps:
       - uses: actions/checkout@v6
-      
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
-      
+
       - name: Publish cdp-protocol
-        run: |
-          cd crates/cdp-protocol
-          cargo publish --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
-        continue-on-error: true
-      
-      - name: Wait for cdp-protocol to be available
-        run: sleep 120
-      
-      - name: Publish cdp-core
-        run: |
-          cd crates/cdp-core
-          cargo publish --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: cargo publish --manifest-path crates/cdp-protocol/Cargo.toml --token ${{ secrets.CARGO_REGISTRY_TOKEN }}

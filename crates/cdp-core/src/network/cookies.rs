@@ -22,6 +22,41 @@ pub struct SetCookieParams {
     pub priority: Option<cdp_protocol::network::CookiePriority>,
 }
 
+/// Options for deleting cookies.
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct DeleteCookieOptions {
+    pub name: String,
+    pub url: Option<String>,
+    pub domain: Option<String>,
+    pub path: Option<String>,
+}
+
+impl DeleteCookieOptions {
+    pub fn new<N: Into<String>>(name: N) -> Self {
+        Self {
+            name: name.into(),
+            url: None,
+            domain: None,
+            path: None,
+        }
+    }
+
+    pub fn with_url<T: Into<String>>(mut self, url: T) -> Self {
+        self.url = Some(url.into());
+        self
+    }
+
+    pub fn with_domain<T: Into<String>>(mut self, domain: T) -> Self {
+        self.domain = Some(domain.into());
+        self
+    }
+
+    pub fn with_path<T: Into<String>>(mut self, path: T) -> Self {
+        self.path = Some(path.into());
+        self
+    }
+}
+
 impl SetCookieParams {
     pub fn new<N: Into<String>, V: Into<String>>(name: N, value: V) -> Self {
         Self {
@@ -81,13 +116,7 @@ pub trait CookieManager {
     async fn set_cookie(&self, cookie: SetCookieParams) -> Result<bool>;
 
     /// Deletes cookies.
-    async fn delete_cookies(
-        &self,
-        name: &str,
-        url: Option<String>,
-        domain: Option<String>,
-        path: Option<String>,
-    ) -> Result<()>;
+    async fn delete_cookies(&self, options: DeleteCookieOptions) -> Result<()>;
 
     /// Clears all browser cookies for the current browser context.
     async fn clear_browser_cookies(&self) -> Result<()>;
@@ -126,20 +155,14 @@ impl CookieManager for Page {
         Ok(true)
     }
 
-    async fn delete_cookies(
-        &self,
-        name: &str,
-        url: Option<String>,
-        domain: Option<String>,
-        path: Option<String>,
-    ) -> Result<()> {
+    async fn delete_cookies(&self, options: DeleteCookieOptions) -> Result<()> {
         use cdp_protocol::network::{DeleteCookies, DeleteCookiesReturnObject};
 
         let params = DeleteCookies {
-            name: name.to_string(),
-            url,
-            domain,
-            path,
+            name: options.name,
+            url: options.url,
+            domain: options.domain,
+            path: options.path,
             partition_key: None,
         };
 

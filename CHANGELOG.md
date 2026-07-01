@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-01
+
 ### Changed
 
 #### cdp-core
 - Breaking: converted high-level Page, Browser, and NetworkControl domain helpers from `CdpCommandBuilder` wrappers to direct async `Result<T>` APIs. Use `Page::cdp`, `Page::root_cdp`, or `Browser::cdp` for native CDP parameters and per-command timeout control.
 - Breaking: removed default-argument compatibility helpers in favor of a single options-bearing method name, including `Page::reload(ReloadOptions)`, `Page::start_screencast(ScreencastOptions)`, `Browser::new_context(BrowserContextOptions)`, and explicit screenshot option parameters.
+- Breaking: changed page and element screenshots to chain-configured options: `Page::screenshot(PageScreenshotOptions)` and `ElementHandle::screenshot(ElementScreenshotOptions)`.
+- Breaking: changed `CookieManager::delete_cookies` to accept chain-configured `DeleteCookieOptions`.
+- Added convenience APIs that were previously only documented as planned: `Browser::pages`, `Page::go_back`, `Page::go_forward`, `Page::evaluate`, `Page::call_function`, `Page::query_xpath`, `Page::query_xpath_all`, `Page::enable_network_monitoring`, `Page::intercept_requests`, page-level emulation shortcuts, `ElementHandle::focus`, and `ElementHandle::bounding_box`.
 
 ## [0.4.0] - 2026-06-28
 
@@ -319,7 +324,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-[Unreleased]: https://github.com/oh0123/cdp-rs/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/oh0123/cdp-rs/compare/cdp-core-v0.5.0...HEAD
+[0.5.0]: https://github.com/oh0123/cdp-rs/compare/v0.4.0...cdp-core-v0.5.0
 [0.4.0]: https://github.com/oh0123/cdp-rs/compare/v0.3.8...v0.4.0
 [0.3.8]: https://github.com/oh0123/cdp-rs/compare/v0.3.7...v0.3.8
 [0.3.7]: https://github.com/oh0123/cdp-rs/compare/v0.3.6...v0.3.7

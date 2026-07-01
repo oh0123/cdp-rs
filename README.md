@@ -23,7 +23,7 @@ The repository currently contains:
 ## Quick Start
 
 ```rust
-use cdp_core::{Browser, WaitForNavigationOptions, WaitUntil};
+use cdp_core::{Browser, PageScreenshotOptions, WaitForNavigationOptions, WaitUntil};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -48,7 +48,13 @@ async fn main() -> anyhow::Result<()> {
     }
 
     // Take a screenshot
-    page.screenshot(true, Some("screenshot.png".into())).await?;
+    page
+        .screenshot(
+            PageScreenshotOptions::default()
+                .full_page()
+                .save_to("screenshot.png"),
+        )
+        .await?;
 
     // Explicitly release page and connection resources when done
     page.cleanup().await?;
@@ -64,7 +70,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-core = "0.4.0"
+cdp-core = "0.5.0"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -72,7 +78,26 @@ Use `cdp-protocol = "0.3.1"` only if you need low-level generated protocol types
 
 ## Current API Style
 
-`cdp-core` 0.4 uses chain-configured command builders for native CDP wrappers:
+High-level APIs that manage `cdp-core` state or return ergonomic results execute directly:
+
+```rust
+use cdp_core::{NetworkControl, PageScreenshotOptions, ReloadOptions};
+
+page.navigate("https://example.com").await?;
+page.reload(ReloadOptions::default()).await?;
+page.clear_browser_cache().await?;
+page.block_urls(["*.png", "*.jpg"]).await?;
+
+let path = page
+    .screenshot(
+        PageScreenshotOptions::default()
+            .full_page()
+            .save_to("page.png"),
+    )
+    .await?;
+```
+
+Native CDP wrappers use chain-configured command builders when advanced protocol parameters or per-command timeouts are useful:
 
 ```rust
 use std::time::Duration;
@@ -88,13 +113,15 @@ let pdf = page
     .await?;
 ```
 
-Extension traits expose page-scoped capabilities such as network and storage:
+For lower-level commands, use the CDP escape hatches directly:
 
 ```rust
-use cdp_core::NetworkControl;
+use cdp_protocol::page;
 
-page.clear_browser_cache().send().await?;
-page.block_urls(["*.png", "*.jpg"]).send().await?;
+let history = page
+    .cdp(page::GetNavigationHistory(None))
+    .send()
+    .await?;
 ```
 
 ## Lifecycle Management

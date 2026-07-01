@@ -28,6 +28,80 @@ pub enum ScreenshotBoxType {
     Margin,
 }
 
+/// Element screenshot options.
+#[derive(Debug, Clone)]
+pub struct ElementScreenshotOptions {
+    /// Optional save path. When `None`, a timestamped file is created.
+    pub save_path: Option<PathBuf>,
+    /// Bounding box strategy that determines the capture region.
+    pub box_type: ScreenshotBoxType,
+    /// Whether to adapt to the detected device pixel ratio.
+    pub auto_resolve_dpr: bool,
+}
+
+/// Element rectangle in viewport coordinates.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct ElementBoundingBox {
+    pub x: f64,
+    pub y: f64,
+    pub width: f64,
+    pub height: f64,
+}
+
+impl Default for ElementScreenshotOptions {
+    fn default() -> Self {
+        Self {
+            save_path: None,
+            box_type: ScreenshotBoxType::default(),
+            auto_resolve_dpr: true,
+        }
+    }
+}
+
+impl ElementScreenshotOptions {
+    /// Saves the screenshot to the provided path.
+    pub fn save_to(mut self, path: impl Into<PathBuf>) -> Self {
+        self.save_path = Some(path.into());
+        self
+    }
+
+    /// Uses the provided bounding box strategy.
+    pub fn box_type(mut self, box_type: ScreenshotBoxType) -> Self {
+        self.box_type = box_type;
+        self
+    }
+
+    /// Captures only the content box.
+    pub fn content_box(mut self) -> Self {
+        self.box_type = ScreenshotBoxType::Content;
+        self
+    }
+
+    /// Captures the content and padding boxes.
+    pub fn padding_box(mut self) -> Self {
+        self.box_type = ScreenshotBoxType::Padding;
+        self
+    }
+
+    /// Captures the border box.
+    pub fn border_box(mut self) -> Self {
+        self.box_type = ScreenshotBoxType::Border;
+        self
+    }
+
+    /// Captures the margin box.
+    pub fn margin_box(mut self) -> Self {
+        self.box_type = ScreenshotBoxType::Margin;
+        self
+    }
+
+    /// Enables or disables automatic DPR adaptation.
+    pub fn auto_resolve_dpr(mut self, enabled: bool) -> Self {
+        self.auto_resolve_dpr = enabled;
+        self
+    }
+}
+
 const FILE_CHOOSER_WAIT_TIMEOUT: Duration = Duration::from_secs(10);
 
 #[derive(Clone)] // So we can easily pass it around
@@ -142,6 +216,26 @@ impl ElementHandle {
     /// Clicks the element (left button).
     pub async fn click(&self) -> Result<()> {
         self.left_click().await
+    }
+
+    /// Focuses the element.
+    pub async fn focus(&self) -> Result<()> {
+        let script = r#"
+        function() {
+            if (!this || typeof this.focus !== 'function') {
+                return false;
+            }
+            this.focus();
+            return document.activeElement === this || this.contains(document.activeElement);
+        }
+        "#;
+
+        let result = self.call_js_function(script).await?;
+        if result.as_bool().unwrap_or(false) {
+            Ok(())
+        } else {
+            Err(CdpError::element("Failed to focus element".to_string()))
+        }
     }
 
     /// Left-clicks the element.
@@ -275,7 +369,7 @@ impl ElementHandle {
     ///
     /// # Examples
     /// ```no_run
-    /// # use cdp_core::{Page, ScreenshotBoxType};
+    /// # use cdp_core::Page;
     /// # use std::sync::Arc;
     /// # async fn example(page: Arc<Page>) -> anyhow::Result<()> {
     /// if let Some(input) = page.query_selector("input[type='text']").await? {
@@ -751,45 +845,6 @@ impl ElementHandle {
 
     /// Takes a screenshot of the element.
     ///
-    /// # Parameters
-    /// * `save_path` - Optional file path (including file name). When `None`, a
-    ///   timestamped file such as `element_screenshot_<ts>.png` is created in
-    ///   the current working directory.
-    ///
-    /// # Returns
-    /// The path where the screenshot was saved.
-    ///
-    /// # Notes
-    /// - `ScreenshotBoxType::default()` uses the border box, which generally works well for rounded elements.
-    /// - Pass `true` for `auto_resolve_dpr` to adapt to the device pixel ratio (DPR) for crisp images.
-    ///
-    /// # Examples
-    /// ```no_run
-    /// # use cdp_core::{Page, ScreenshotBoxType};
-    /// # use std::sync::Arc;
-    /// # async fn example(page: Arc<Page>) -> anyhow::Result<()> {
-    /// if let Some(element) = page.query_selector("div.example").await? {
-    ///     // Save to the current directory (with DPR auto-adjust)
-    ///     let path = element.screenshot(None, ScreenshotBoxType::default(), true).await?;
-    ///     println!("Element screenshot saved to: {}", path);
-    ///
-    ///     // Save to a custom location
-    ///     let path = element
-    ///         .screenshot(Some("screenshots/element.png".into()), ScreenshotBoxType::default(), true)
-    ///         .await?;
-    ///     println!("Element screenshot saved to: {}", path);
-    /// }
-    /// # Ok(())
-    /// # }
-    /// ```
-    /// Takes a screenshot of the element with a custom box type.
-    ///
-    /// # Parameters
-    /// * `save_path` - Optional file path (including file name).
-    /// * `box_type` - Bounding box strategy that determines the capture region.
-    /// * `auto_resolve_dpr` - Whether to adapt the screenshot to the device
-    ///   pixel ratio (`true` is recommended for high-DPI displays).
-    ///
     /// # Bounding Box Types
     ///
     /// - `Content`: Captures only the content area, excluding padding.
@@ -814,47 +869,40 @@ impl ElementHandle {
     ///
     /// # Examples
     /// ```no_run
-    /// # use cdp_core::Page;
-    /// # use cdp_core::page::element::ScreenshotBoxType;
+    /// # use cdp_core::{ElementScreenshotOptions, Page};
     /// # use std::sync::Arc;
     /// # async fn example(page: Arc<Page>) -> anyhow::Result<()> {
     /// if let Some(element) = page.query_selector("button.rounded").await? {
-    ///     // Rounded button with border box + DPR auto adjustment (recommended)
-    ///     let path = element.screenshot(
-    ///         Some("button.png".into()),
-    ///         ScreenshotBoxType::Border,
-    ///         true  // enable DPR auto adjustment
-    ///     ).await?;
+    ///     // Border box + DPR auto adjustment (recommended defaults).
+    ///     let path = element
+    ///         .screenshot(ElementScreenshotOptions::default().save_to("button.png"))
+    ///         .await?;
     ///
-    ///     // Content-only capture with DPR adaptation disabled
-    ///     let path = element.screenshot(
-    ///         Some("content.png".into()),
-    ///         ScreenshotBoxType::Content,
-    ///         false  // fixed scale = 1.0
-    ///     ).await?;
+    ///     // Content-only capture with DPR adaptation disabled.
+    ///     let path = element
+    ///         .screenshot(
+    ///             ElementScreenshotOptions::default()
+    ///                 .content_box()
+    ///                 .save_to("content.png")
+    ///                 .auto_resolve_dpr(false),
+    ///         )
+    ///         .await?;
     ///
-    ///     // Include the margin while keeping DPR auto adjustment
-    ///     let path = element.screenshot(
-    ///         Some("with-margin.png".into()),
-    ///         ScreenshotBoxType::Margin,
-    ///         true
-    ///     ).await?;
+    ///     // Include the margin while keeping DPR auto adjustment.
+    ///     let path = element
+    ///         .screenshot(ElementScreenshotOptions::default().margin_box().save_to("with-margin.png"))
+    ///         .await?;
     /// }
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn screenshot(
-        &self,
-        save_path: Option<PathBuf>,
-        box_type: ScreenshotBoxType,
-        auto_resolve_dpr: bool,
-    ) -> Result<String> {
+    pub async fn screenshot(&self, options: ElementScreenshotOptions) -> Result<String> {
         use base64::Engine;
         use cdp_protocol::page as page_cdp;
 
         // Capture the target region using Page.captureScreenshot.
         // Determine the device pixel ratio so the output looks sharp on high-DPI screens.
-        let device_scale = if auto_resolve_dpr {
+        let device_scale = if options.auto_resolve_dpr {
             // Query DPR via the page evaluate helper.
             use cdp_protocol::runtime::{Evaluate, EvaluateReturnObject};
 
@@ -935,7 +983,7 @@ impl ElementHandle {
         // accurate than GetBoxModel because it comes directly from the render
         // engine. Remember the values are viewport-relative, so scroll offsets
         // must be reintroduced to get absolute coordinates.
-        let js_function = match box_type {
+        let js_function = match options.box_type {
             ScreenshotBoxType::Content => {
                 // Content box excludes padding.
                 r#"function() {
@@ -1090,7 +1138,7 @@ impl ElementHandle {
             .await?;
 
         // Derive the output path.
-        let out_path_buf: std::path::PathBuf = match save_path {
+        let out_path_buf: std::path::PathBuf = match options.save_path {
             Some(pv) => {
                 if pv.parent().is_none() || pv.parent().unwrap().as_os_str().is_empty() {
                     std::env::current_dir()?.join(pv)
@@ -1242,6 +1290,48 @@ impl ElementHandle {
 
         let result = self.call_js_function(script).await?;
         Ok(result.as_bool().unwrap_or(false))
+    }
+
+    /// Returns the element's viewport-relative bounding box.
+    pub async fn bounding_box(&self) -> Result<ElementBoundingBox> {
+        let script = r#"
+        function() {
+            if (!this) return null;
+            const rect = this.getBoundingClientRect();
+            return {
+                x: rect.x,
+                y: rect.y,
+                width: rect.width,
+                height: rect.height
+            };
+        }
+        "#;
+
+        let result = self.call_js_function(script).await?;
+        if result.is_null() {
+            return Err(CdpError::element(
+                "No bounding box returned for element".to_string(),
+            ));
+        }
+
+        Ok(ElementBoundingBox {
+            x: result
+                .get("x")
+                .and_then(Value::as_f64)
+                .ok_or_else(|| CdpError::element("Invalid bounding box x".to_string()))?,
+            y: result
+                .get("y")
+                .and_then(Value::as_f64)
+                .ok_or_else(|| CdpError::element("Invalid bounding box y".to_string()))?,
+            width: result
+                .get("width")
+                .and_then(Value::as_f64)
+                .ok_or_else(|| CdpError::element("Invalid bounding box width".to_string()))?,
+            height: result
+                .get("height")
+                .and_then(Value::as_f64)
+                .ok_or_else(|| CdpError::element("Invalid bounding box height".to_string()))?,
+        })
     }
 
     /// Checks whether the element is enabled (not `disabled`).

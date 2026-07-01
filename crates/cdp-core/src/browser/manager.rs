@@ -566,6 +566,11 @@ impl Browser {
         None
     }
 
+    /// Returns pages currently tracked by this browser connection.
+    pub async fn pages(&self) -> Vec<Arc<Page>> {
+        self.active_pages.lock().await.values().cloned().collect()
+    }
+
     /// Returns browser version information.
     pub async fn version(&self) -> Result<GetVersionReturnObject> {
         self.send_command(GetVersion(None), None).await

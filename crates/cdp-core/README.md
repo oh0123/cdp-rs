@@ -43,7 +43,7 @@ async fn main() -> anyhow::Result<()> {
     }
 
     // Take a screenshot
-    page.screenshot(true, Some("screenshot.png".into()), true).await?;
+    page.screenshot(PageScreenshotOptions::default().full_page().save_to("screenshot.png")).await?;
 
     // Explicitly release page and connection resources when done
     page.cleanup().await?;
@@ -59,7 +59,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-core = "0.4.0"
+cdp-core = "0.5.0"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -70,7 +70,9 @@ High-level APIs that manage cdp-core state or return ergonomic results execute d
 ```rust
 page.navigate("https://example.com").await?;
 page.reload(ReloadOptions::default()).await?;
-let path = page.screenshot(true, Some("page.png".into()), true).await?;
+let path = page
+    .screenshot(PageScreenshotOptions::default().full_page().save_to("page.png"))
+    .await?;
 ```
 
 Native CDP wrappers return command builders so advanced parameters and per-command timeouts stay chain-configured:

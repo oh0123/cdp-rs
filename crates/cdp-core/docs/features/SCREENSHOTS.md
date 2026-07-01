@@ -1,13 +1,14 @@
 # Screenshots
 
-CDP-Core provides powerful screenshot capabilities for both elements and full pages.
+CDP-Core can capture full-page, viewport, and element screenshots. Screenshot APIs save the image to disk and return the saved file path.
 
 ## Features
 
-- **Element Screenshots** - Capture specific elements
-- **Full Page Screenshots** - Capture entire page including scroll area
-- **DPR Adaptation** - Automatic device pixel ratio handling
-- **Custom Viewports** - Control what gets captured
+- **Element screenshots** - Capture a specific element
+- **Full-page screenshots** - Capture the entire page including the scroll area
+- **Viewport screenshots** - Capture only the visible viewport
+- **DPR adaptation** - Automatically adjust for device pixel ratio
+- **Chainable options** - Configure screenshots without boolean-heavy call sites
 
 ## Element Screenshots
 
@@ -17,12 +18,55 @@ CDP-Core provides powerful screenshot capabilities for both elements and full pa
 let element = page.query_selector("#logo").await?
     .ok_or(anyhow!("Logo not found"))?;
 
-let screenshot_base64 = element.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
+let path = element
+    .screenshot(cdp_core::ElementScreenshotOptions::default())
+    .await?;
 
-// Decode and save
-use base64::Engine;
-let bytes = base64::engine::general_purpose::STANDARD.decode(&screenshot_base64)?;
-std::fs::write("logo.png", bytes)?;
+println!("Saved element screenshot: {}", path);
+```
+
+### Custom Path
+
+```rust
+let path = element
+    .screenshot(
+        cdp_core::ElementScreenshotOptions::default()
+            .save_to("screenshots/logo.png"),
+    )
+    .await?;
+```
+
+### Bounding Box
+
+```rust
+// Default: border box, usually best for rounded elements.
+let button = page.wait_for_selector("button.rounded", None).await?;
+
+button
+    .screenshot(
+        cdp_core::ElementScreenshotOptions::default()
+            .border_box()
+            .save_to("button.png"),
+    )
+    .await?;
+
+// Capture only the content area.
+button
+    .screenshot(
+        cdp_core::ElementScreenshotOptions::default()
+            .content_box()
+            .save_to("button-content.png"),
+    )
+    .await?;
+
+// Include surrounding margin.
+button
+    .screenshot(
+        cdp_core::ElementScreenshotOptions::default()
+            .margin_box()
+            .save_to("button-margin.png"),
+    )
+    .await?;
 ```
 
 ### Batch Screenshots
@@ -31,41 +75,62 @@ std::fs::write("logo.png", bytes)?;
 let products = page.query_selector_all(".product").await?;
 
 for (i, product) in products.iter().enumerate() {
-    let screenshot = product.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
-    use base64::Engine;
-    let bytes = base64::engine::general_purpose::STANDARD.decode(&screenshot)?;
-    std::fs::write(format!("product_{}.png", i), bytes)?;
+    let path = product
+        .screenshot(
+            cdp_core::ElementScreenshotOptions::default()
+                .save_to(format!("product_{}.png", i)),
+        )
+        .await?;
+
+    println!("Saved product screenshot: {}", path);
 }
 ```
 
-## Full Page Screenshots
+## Page Screenshots
 
 ### Basic Usage
 
 ```rust
-// Capture entire page (including scroll area)
-page.screenshot(true, Some("fullpage.png".into()), true).await?;
+// Capture entire page including scroll area.
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("fullpage.png"),
+    )
+    .await?;
 
-// Capture viewport only
-page.screenshot(false, Some("viewport.png".into()), true).await?;
+// Capture viewport only.
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .viewport()
+            .save_to("viewport.png"),
+    )
+    .await?;
 ```
 
-### With DPR Control
+### DPR Control
 
 ```rust
-// Auto-adapt to device pixel ratio (recommended)
-page.screenshot(
-    true,                                // full_page
-    Some("fullpage.png".into()),        // save_path
-    true                                 // auto_resolve_dpr
-).await?;
+// Auto-adapt to device pixel ratio. This is the default and recommended behavior.
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("fullpage.png"),
+    )
+    .await?;
 
-// Fixed DPR (use 1.0)
-page.screenshot(
-    true,
-    Some("fullpage.png".into()),
-    false  // No DPR adaptation
-).await?;
+// Fixed scale = 1.0.
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("fullpage-fixed-dpr.png")
+            .auto_resolve_dpr(false),
+    )
+    .await?;
 ```
 
 ## Advanced Usage
@@ -73,30 +138,33 @@ page.screenshot(
 ### Wait Before Screenshot
 
 ```rust
-// Navigate and wait for content
 page.navigate("https://example.com").await?;
 page.wait_for_selector(".main-content", None).await?;
 
-// Small delay for animations
 tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
 
-// Take screenshot
-page.screenshot(true, Some("page.png".into()), true).await?;
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("page.png"),
+    )
+    .await?;
 ```
 
 ### Screenshot Comparison
 
 ```rust
-// Baseline screenshot
-let before = page.screenshot(true, None, true).await?;
+let before = page
+    .screenshot(cdp_core::PageScreenshotOptions::default().full_page())
+    .await?;
 
-// Make changes
 page.evaluate("document.body.style.backgroundColor = 'red'").await?;
 
-// Updated screenshot
-let after = page.screenshot(true, None, true).await?;
+let after = page
+    .screenshot(cdp_core::PageScreenshotOptions::default().full_page())
+    .await?;
 
-// Compare (you'll need an image diff library)
 if before != after {
     println!("Page changed!");
 }
@@ -107,7 +175,6 @@ if before != after {
 ```rust
 use cdp_core::EmulationConfig;
 
-// Mobile viewport
 let mobile_config = EmulationConfig {
     viewport_width: Some(375),
     viewport_height: Some(667),
@@ -117,9 +184,14 @@ let mobile_config = EmulationConfig {
 };
 
 page.emulate_device(mobile_config).await?;
-page.screenshot(true, Some("mobile.png".into()), true).await?;
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("mobile.png"),
+    )
+    .await?;
 
-// Desktop viewport
 let desktop_config = EmulationConfig {
     viewport_width: Some(1920),
     viewport_height: Some(1080),
@@ -129,72 +201,64 @@ let desktop_config = EmulationConfig {
 };
 
 page.emulate_device(desktop_config).await?;
-page.screenshot(true, Some("desktop.png".into()), true).await?;
-```
-
-## Helper Function
-
-```rust
-use base64::Engine;
-
-async fn save_screenshot(
-    screenshot_base64: String,
-    path: impl AsRef<std::path::Path>
-) -> anyhow::Result<()> {
-    let bytes = base64::engine::general_purpose::STANDARD
-        .decode(&screenshot_base64)?;
-    std::fs::write(path, bytes)?;
-    Ok(())
-}
-
-// Usage
-let screenshot = element.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
-save_screenshot(screenshot, "output.png").await?;
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("desktop.png"),
+    )
+    .await?;
 ```
 
 ## Complete Example
 
 ```rust
-use cdp_core::Browser;
-use base64::Engine;
+use cdp_core::{Browser, ElementScreenshotOptions, PageScreenshotOptions};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let browser = Browser::launcher().launch().await?;
     let page = browser.new_page().await?;
-    
-    // Navigate
+
     page.navigate("https://example.com").await?;
     page.wait_for_selector("h1", None).await?;
-    
-    // Element screenshots
+
     if let Some(header) = page.query_selector("header").await? {
-        let screenshot = header.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
-        let bytes = base64::engine::general_purpose::STANDARD.decode(&screenshot)?;
-        std::fs::write("header.png", bytes)?;
+        header
+            .screenshot(
+                ElementScreenshotOptions::default()
+                    .save_to("header.png"),
+            )
+            .await?;
     }
-    
+
     let products = page.query_selector_all(".product").await?;
     for (i, product) in products.iter().enumerate() {
-        let screenshot = product.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
-        let bytes = base64::engine::general_purpose::STANDARD.decode(&screenshot)?;
-        std::fs::write(format!("product_{}.png", i), bytes)?;
+        product
+            .screenshot(
+                ElementScreenshotOptions::default()
+                    .save_to(format!("product_{}.png", i)),
+            )
+            .await?;
     }
-    
-    // Full page screenshot
-    page.screenshot(true, Some("fullpage.png".into()), true).await?;
-    
-    println!("✓ Screenshots saved!");
-    
+
+    page
+        .screenshot(
+            PageScreenshotOptions::default()
+                .full_page()
+                .save_to("fullpage.png"),
+        )
+        .await?;
+
+    println!("Screenshots saved");
+
     Ok(())
 }
 ```
 
-## Tips & Best Practices
+## Tips
 
-### 1. Wait for Content
-
-Always wait for dynamic content to load:
+### Wait for Content
 
 ```rust
 page.navigate(url).await?;
@@ -202,37 +266,39 @@ page.wait_for_selector(".content", None).await?;
 tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
 ```
 
-### 2. Handle Large Pages
-
-For very long pages, be aware of memory usage:
+### Handle Large Pages
 
 ```rust
-// Full page might be large
-let screenshot = page.screenshot(true, None, true).await?;
-let bytes = base64::engine::general_purpose::STANDARD.decode(&screenshot)?;
-println!("Screenshot size: {} KB", bytes.len() / 1024);
+let path = page
+    .screenshot(cdp_core::PageScreenshotOptions::default().full_page())
+    .await?;
+
+let size = std::fs::metadata(&path)?.len();
+println!("Screenshot size: {} KB", size / 1024);
 ```
 
-### 3. Element Visibility
-
-Ensure elements are visible before screenshot:
+### Element Visibility
 
 ```rust
 if let Some(element) = page.query_selector("#logo").await? {
     if element.is_visible().await? {
-        element.screenshot(None, cdp_core::ScreenshotBoxType::default(), true).await?;
-    } else {
-        println!("Element not visible");
+        element
+            .screenshot(cdp_core::ElementScreenshotOptions::default())
+            .await?;
     }
 }
 ```
 
-### 4. Use DPR Adaptation
-
-Always use DPR adaptation for consistent results:
+### Use DPR Adaptation
 
 ```rust
-page.screenshot(true, Some("page.png".into()), true).await?;
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("page.png"),
+    )
+    .await?;
 ```
 
 ## Troubleshooting
@@ -240,22 +306,22 @@ page.screenshot(true, Some("page.png".into()), true).await?;
 ### Screenshot is blank
 
 - Wait longer after navigation
-- Check if element is actually visible
-- Verify page has loaded
+- Check if the element is visible
+- Verify that the page has loaded
 
-### Screenshot is too large/small
+### Screenshot is too large or small
 
-- Use `screenshot` with `auto_resolve_dpr = true`
-- Check viewport settings
+- Keep `auto_resolve_dpr` enabled unless fixed DPR is required
+- Check viewport and emulation settings
 
 ### Element not found
 
 - Use `wait_for_selector` instead of `query_selector`
-- Check if element is in iframe
-- Verify CSS selector is correct
+- Check if the element is in an iframe
+- Verify that the CSS selector is correct
 
 ## See Also
 
 - [API Reference](../API_REFERENCE.md#screenshots)
 - [Element Interaction](ELEMENT_INTERACTION.md)
-- [Examples](../../examples/comprehensive_test.rs)
+- [Examples](../../examples/comprehensive.rs)

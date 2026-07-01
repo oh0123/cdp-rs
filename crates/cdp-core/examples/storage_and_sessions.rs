@@ -157,10 +157,9 @@ async fn test_cookies(page: &Arc<page::Page>) -> Result<()> {
 
     // Delete cookie
     page.delete_cookies(
-        "test_cookie",
-        Some("https://github.com".to_string()),
-        Some("github.com".to_string()),
-        None,
+        DeleteCookieOptions::new("test_cookie")
+            .with_url("https://github.com")
+            .with_domain("github.com"),
     )
     .await?;
     println!("✓ Deleted test_cookie\n");

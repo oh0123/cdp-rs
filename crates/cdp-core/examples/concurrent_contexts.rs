@@ -150,7 +150,7 @@ async fn visit_product_page(
 
         // Take a screenshot
         println!("[Context {}] Taking screenshot...", context_id);
-        let screenshot_path = page.screenshot(false, None, true).await?;
+        let screenshot_path = page.screenshot(PageScreenshotOptions::default()).await?;
 
         println!(
             "[Context {}] Screenshot saved: {}",

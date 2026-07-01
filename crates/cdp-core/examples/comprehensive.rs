@@ -144,13 +144,15 @@ async fn test_screenshots(page: &Arc<Page>) -> Result<()> {
         .ok_or_else(|| CdpError::element("Element not found".to_string()))?;
 
     let path = element
-        .screenshot(None, ScreenshotBoxType::default(), true)
+        .screenshot(ElementScreenshotOptions::default())
         .await?;
     println!("✓ {}", path);
 
     // Full page screenshot
     print!("   Full page screenshot... ");
-    let fullpage_path = page.screenshot(true, None, true).await?;
+    let fullpage_path = page
+        .screenshot(PageScreenshotOptions::default().full_page())
+        .await?;
     println!("✓ {}\n", fullpage_path);
 
     Ok(())

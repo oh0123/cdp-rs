@@ -30,7 +30,7 @@ async fn main() -> Result<()> {
 
     print!("   Testing element screenshot (auto-save)... ");
     let element_path = screenshot_target
-        .screenshot(None, ScreenshotBoxType::default(), true)
+        .screenshot(ElementScreenshotOptions::default())
         .await?;
     println!("✓ {}", element_path);
 

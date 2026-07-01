@@ -7,7 +7,9 @@ use cdp_protocol::fetch::{
     RequestPattern, RequestStage,
 };
 use cdp_protocol::network;
+use futures_util::StreamExt;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use std::collections::{HashMap, HashSet};
 use std::str::FromStr;
 use std::sync::Arc;
@@ -159,6 +161,20 @@ pub struct ResponseMock {
     pub body: String,
 }
 
+/// Action returned from [`Page::intercept_requests`] handlers.
+#[derive(Debug, Clone, Default)]
+pub enum InterceptRequestAction {
+    /// Continue the request without changes.
+    #[default]
+    Continue,
+    /// Continue the request after applying modifications.
+    Modify(RequestModification),
+    /// Abort the request with a CDP network error reason string such as `"Failed"`.
+    Abort(String),
+    /// Fulfill the request with a mocked response.
+    Fulfill(ResponseMock),
+}
+
 impl Default for ResponseMock {
     fn default() -> Self {
         Self {
@@ -228,6 +244,37 @@ fn build_continue_response(request_id: &str, response: ResponseMock) -> Continue
         response_phrase: None,
         response_headers: Some(header_entries(response.headers)),
         binary_response_headers: None,
+    }
+}
+
+fn headers_to_map(headers: network::Headers) -> HashMap<String, String> {
+    let Some(Value::Object(values)) = headers.0 else {
+        return HashMap::new();
+    };
+
+    values
+        .into_iter()
+        .map(|(key, value)| {
+            let value = value
+                .as_str()
+                .map(ToString::to_string)
+                .unwrap_or_else(|| value.to_string());
+            (key, value)
+        })
+        .collect()
+}
+
+fn request_from_paused_event(event: fetch_cdp::events::RequestPausedEvent) -> InterceptedRequest {
+    let request = event.params.request;
+    #[allow(deprecated)]
+    let post_data = request.post_data;
+    InterceptedRequest {
+        request_id: event.params.request_id,
+        url: request.url,
+        method: HttpMethod::from_str(&request.method).unwrap_or(HttpMethod::GET),
+        headers: headers_to_map(request.headers),
+        post_data,
+        resource_type: Some(format!("{:?}", event.params.resource_type)),
     }
 }
 
@@ -735,6 +782,50 @@ impl Default for ResponseMonitorManager {
 
 /// Response monitoring convenience methods
 impl Page {
+    /// Enables request interception and dispatches each paused request to a handler.
+    ///
+    /// The handler runs on the page event task and should return quickly. Use the lower-level
+    /// [`NetworkInterceptor`] methods when you need full async orchestration.
+    pub async fn intercept_requests<H>(self: &Arc<Self>, handler: H) -> Result<()>
+    where
+        H: Fn(InterceptedRequest) -> InterceptRequestAction + Send + Sync + 'static,
+    {
+        self.enable_request_interception(vec!["*".to_string()])
+            .await?;
+
+        let page = Arc::clone(self);
+        let handler = Arc::new(handler);
+        let mut requests = self.on::<fetch_cdp::events::RequestPausedEvent>();
+
+        tokio::spawn(async move {
+            while let Some(event) = requests.next().await {
+                let request_id = event.params.request_id.clone();
+                let intercepted = request_from_paused_event(event);
+                let action = handler(intercepted);
+
+                let result = match action {
+                    InterceptRequestAction::Continue => page.continue_request(&request_id).await,
+                    InterceptRequestAction::Modify(modification) => {
+                        page.continue_request_with_modification(&request_id, modification)
+                            .await
+                    }
+                    InterceptRequestAction::Abort(reason) => {
+                        page.fail_request(&request_id, &reason).await
+                    }
+                    InterceptRequestAction::Fulfill(response) => {
+                        page.fulfill_request(&request_id, response).await
+                    }
+                };
+
+                if let Err(err) = result {
+                    tracing::warn!("request interception handler failed: {:?}", err);
+                }
+            }
+        });
+
+        Ok(())
+    }
+
     /// Registers a non-blocking handler for all responses that pass the filter.
     ///
     /// # Parameters
