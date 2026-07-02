@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 #[allow(unused_imports)]
 use serde_json::Value as Json;
 pub type BrowserContextId = String;
-pub type WindowId = JsUInt;
+pub type WindowId = i32;
 #[allow(deprecated)]
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 pub enum WindowState {

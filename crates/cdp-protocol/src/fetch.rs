@@ -158,7 +158,7 @@ pub struct FulfillRequest {
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[doc = "A response body. If absent, original response body will be used if\n the request is intercepted at the response stage and empty body\n will be used if the request is intercepted at the request stage."]
-    pub body: Option<Vec<u8>>,
+    pub body: Option<String>,
     #[builder(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
