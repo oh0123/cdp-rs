@@ -26,11 +26,18 @@ jobs:
           echo "cdp-protocol 0.3.2 not visible in crates.io index"
           exit 1
 
+      - name: Check crates.io token
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: test -n "$CARGO_REGISTRY_TOKEN"
+
       - name: Dry run
         run: cargo publish --manifest-path crates/cdp-core/Cargo.toml --dry-run
 
       - name: Publish cdp-core
-        run: cargo publish --manifest-path crates/cdp-core/Cargo.toml --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: cargo publish --manifest-path crates/cdp-core/Cargo.toml
 
   create-release:
     name: Create GitHub Release
