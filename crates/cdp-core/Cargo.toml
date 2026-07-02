@@ -22,7 +22,7 @@ name = "cdp_core"
 path = "src/lib.rs"
 
 [dependencies]
-cdp-protocol = { version = "0.3.1", path = "../cdp-protocol" }
+cdp-protocol = { version = "0.3.2", path = "../cdp-protocol" }
 tokio = { workspace = true }
 tokio-tungstenite = { workspace = true }
 tokio-stream = { workspace = true }
