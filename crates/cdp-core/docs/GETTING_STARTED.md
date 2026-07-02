@@ -13,7 +13,7 @@ This guide will help you get started with CDP-Core, a Rust library for browser a
 
 ```toml
 [dependencies]
-cdp-core = "0.4.0"
+cdp-core = "0.5.0"
 tokio = { version = "1", features = ["full"] }
 anyhow = "1.0"
 ```
@@ -111,7 +111,9 @@ async fn main() -> anyhow::Result<()> {
 ```rust
 // Element screenshot
 if let Some(element) = page.query_selector("#logo").await? {
-    let screenshot_base64 = element.screenshot().await?;
+    let screenshot_base64 = element
+        .screenshot(cdp_core::ElementScreenshotOptions::default())
+        .await?;
     
     // Decode and save
     use base64::Engine;
@@ -120,7 +122,13 @@ if let Some(element) = page.query_selector("#logo").await? {
 }
 
 // Full page screenshot
-page.screenshot(true, Some("fullpage.png".into())).await?;
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("fullpage.png"),
+    )
+    .await?;
 ```
 
 ### 4. Handle Forms
@@ -173,7 +181,9 @@ for (i, item) in items.iter().enumerate() {
     }
     
     // Take screenshot
-    let screenshot = item.screenshot().await?;
+    let screenshot = item
+        .screenshot(cdp_core::ElementScreenshotOptions::default())
+        .await?;
     // ... save screenshot
 }
 ```

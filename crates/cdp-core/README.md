@@ -43,7 +43,7 @@ async fn main() -> anyhow::Result<()> {
     }
 
     // Take a screenshot
-    page.screenshot(true, Some("screenshot.png".into())).await?;
+    page.screenshot(PageScreenshotOptions::default().full_page().save_to("screenshot.png")).await?;
 
     // Explicitly release page and connection resources when done
     page.cleanup().await?;
@@ -59,11 +59,21 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cdp-core = "0.4.0"
+cdp-core = "0.5.0"
 tokio = { version = "1", features = ["full"] }
 ```
 
 ## Current API Style
+
+High-level APIs that manage cdp-core state or return ergonomic results execute directly:
+
+```rust
+page.navigate("https://example.com").await?;
+page.reload(ReloadOptions::default()).await?;
+let path = page
+    .screenshot(PageScreenshotOptions::default().full_page().save_to("page.png"))
+    .await?;
+```
 
 Native CDP wrappers return command builders so advanced parameters and per-command timeouts stay chain-configured:
 
@@ -86,8 +96,8 @@ Page-scoped extension traits provide network, storage, and session helpers:
 ```rust
 use cdp_core::NetworkControl;
 
-page.clear_browser_cache().send().await?;
-page.block_urls(["*.png", "*.jpg"]).send().await?;
+page.clear_browser_cache().await?;
+page.block_urls(["*.png", "*.jpg"]).await?;
 ```
 
 ## Lifecycle Management
@@ -105,26 +115,26 @@ When reusing a shared `Browser`, keep `page.cleanup()` and `context.close()` at 
 
 ## Examples
 
-Check out the [examples](examples/) directory for runnable code:
+Check out the [examples](examples/) directory for browser-backed manual
+examples. The canonical suite keeps deterministic local fixtures separate from
+explicit live-site smoke cases:
 
 ```bash
-# Run basic example
-cargo run --example basic
+# Compile every manual example, including live examples
+cargo check --examples
 
-# Run comprehensive example
-cargo run --example comprehensive
+# Deterministic local examples
+cargo run --example api_browser_page
+cargo run --example api_element_frame_input
+cargo run --example api_network_local
+cargo run --example api_storage_session
+cargo run --example api_emulation_accessibility_tracing
+cargo run --example api_output_capture
+cargo run --example api_events_local
 
-# Run network example
-cargo run --example network
-
-# Run event handling example
-cargo run --example events
-
-# Run Runtime.consoleAPICalled example
-cargo run --example runtime_console_events
-
-# Run screencast example
-cargo run --example screencast
+# Explicit external-network examples
+CDP_RS_LIVE=1 cargo run --example api_live_amazon
+CDP_RS_LIVE=1 cargo run --example api_live_fedex
 ```
 
 ## Architecture

@@ -1,6 +1,6 @@
 # CDP-Core API Quick Reference
 
-Quick reference for all major APIs in CDP-Core.
+Quick reference for the current `cdp-core` public API.
 
 ## Table of Contents
 
@@ -16,20 +16,39 @@ Quick reference for all major APIs in CDP-Core.
 
 ## Browser
 
-###Launch & Connect
+### Launch & Connect
 
 ```rust
-// Launch new browser
+// Launch a new browser.
 let browser = Browser::launcher().launch().await?;
 
-// Connect to existing browser
-let browser = Browser::connect("http://localhost:9222").await?;
+// Connect to an existing browser endpoint.
+let browser = Browser::launcher()
+    .connect_to_existing("http://localhost:9222")
+    .launch()
+    .await?;
 
-// Create new page
+// Create a new page in the default context.
 let page = browser.new_page().await?;
 
-// List all pages
-let pages = browser.pages().await?;
+// List pages tracked by this browser connection.
+let pages = browser.pages().await;
+
+// Create an isolated browser context.
+let context = browser
+    .new_context(BrowserContextOptions::default())
+    .await?;
+let page = context.new_page().await?;
+
+// List tracked contexts.
+let contexts = browser.contexts().await;
+```
+
+### Browser Info
+
+```rust
+let version = browser.version().await?;
+let args = browser.command_line().await?;
 ```
 
 ## Page
@@ -37,27 +56,38 @@ let pages = browser.pages().await?;
 ### Navigation
 
 ```rust
-// Navigate to URL
+// Navigate to URL.
 page.navigate("https://example.com").await?;
 
-// Go back/forward
+// Go back / forward through navigation history.
 page.go_back().await?;
 page.go_forward().await?;
 
-// Reload
-page.reload().await?;
+// Reload with default options.
+page.reload(cdp_core::ReloadOptions::default()).await?;
+
+// Reload while ignoring browser cache.
+page
+    .reload(cdp_core::ReloadOptions::default().with_ignore_cache(true))
+    .await?;
+
+// Use browser navigation history directly.
+let history = page.get_navigation_history().await?;
+if let Some(entry) = history.entries.last() {
+    page.navigate_to_history_entry(entry.id).await?;
+}
 ```
 
 ### Targets
 
 ```rust
-// Native Target.getTargets() wrapper
+// Native Target.getTargets() wrapper.
 let targets = page.get_targets().await?;
 
-// Page-level alias
+// Page-level alias for page-like targets.
 let tabs = page.get_tabs().await?;
 
-// Enable target lifecycle events
+// Enable target lifecycle events.
 page.set_discover_targets(true, None).await?;
 ```
 
@@ -67,7 +97,7 @@ page.set_discover_targets(true, None).await?;
 use cdp_core::events;
 use futures_util::StreamExt;
 
-// Continuous JavaScript exception stream
+// Continuous JavaScript exception stream.
 let mut exceptions = page.on::<events::runtime::ExceptionThrownEvent>();
 if let Some(event) = exceptions.next().await {
     println!("Exception: {}", event.params.exception_details.text);
@@ -81,7 +111,7 @@ page.main_frame()
     .await?;
 let event = console_event.await?;
 
-// Page lifecycle events require explicit enablement
+// Page lifecycle events require explicit enablement.
 page.set_lifecycle_events_enabled(true).await?;
 let mut lifecycle = page.on::<events::page::LifecycleEventEvent>();
 
@@ -94,54 +124,76 @@ let mut logs = page.on::<events::log::EntryAddedEvent>();
 ### Element Queries
 
 ```rust
-// Query single element
+// Query single element.
 let element = page.query_selector("#id").await?;
 
-// Query all elements
+// Query all elements.
 let elements = page.query_selector_all(".class").await?;
 
-// XPath
+// XPath.
 let element = page.query_xpath("//button[@id='submit']").await?;
+let elements = page.query_xpath_all("//a").await?;
 ```
 
 ### Screenshots
 
 ```rust
-// Full page screenshot
-page.screenshot(true, Some("page.png".into())).await?;
+use cdp_core::PageScreenshotOptions;
 
-// Viewport screenshot
-page.screenshot(false, Some("viewport.png".into())).await?;
+// Full page screenshot.
+let path = page
+    .screenshot(PageScreenshotOptions::default().full_page().save_to("page.png"))
+    .await?;
 
-// With options (DPR control)
-page.screenshot_with_options(true, Some("page.png".into()), true).await?;
+// Viewport screenshot.
+let path = page
+    .screenshot(PageScreenshotOptions::default().viewport().save_to("viewport.png"))
+    .await?;
+
+// With DPR control.
+let path = page
+    .screenshot(
+        PageScreenshotOptions::default()
+            .full_page()
+            .save_to("page.png")
+            .auto_resolve_dpr(false),
+    )
+    .await?;
 ```
 
 ### JavaScript Evaluation
 
 ```rust
-// Evaluate expression
+// Evaluate in the main frame.
 let result = page.evaluate("document.title").await?;
 
-// Call function with arguments
-let result = page.call_function(
-    "function(a, b) { return a + b; }",
-    vec![json!(1), json!(2)]
-).await?;
+// Call a function in the main frame.
+let result = page
+    .call_function(
+        "function(a, b) { return a + b; }",
+        vec![serde_json::json!(1), serde_json::json!(2)],
+    )
+    .await?;
+
+// Evaluate in a specific frame.
+let frame = page.main_frame().await?;
+let result = frame.evaluate("document.body.innerText").await?;
 ```
 
-### Network
+### Network Events
 
 ```rust
-// Enable network monitoring
+use std::sync::Arc;
+
+// Explicitly enable the Network domain for monitoring.
 page.enable_network_monitoring().await?;
 
-// Register network callback
+// Register network callbacks for cdp-core's network monitor.
 page.on_network(Arc::new(|event| {
-    // Handle network events
+    println!("Network event: {:?}", event);
 })).await;
 
-// Get active request count
+// Get active request count tracked by the network monitor.
 let count = page.get_inflight_requests_count();
 ```
 
@@ -150,54 +202,73 @@ let count = page.get_inflight_requests_count();
 ### Interaction
 
 ```rust
-// Click
+// Click.
 element.click().await?;
 
-// Double click
+// Focus.
+element.focus().await?;
+
+// Double click.
 element.double_click().await?;
 
-// Type text
+// Type text into the focused element.
 element.type_text("Hello").await?;
 element.type_text_with_delay("Hello", 50, 150).await?;
 
-// Focus
-element.focus().await?;
+// Hover / move mouse to element center.
+let position = element.hover().await?;
 ```
 
 ### Properties
 
 ```rust
-// Get text content
+// Get text content.
 let text = element.text_content().await?;
 
-// Get attribute
+// Get attribute.
 let value = element.get_attribute("href").await?;
 
-// Get HTML
+// Get HTML.
 let html = element.get_html().await?;
 
-// Check visibility
+// Check state.
 let visible = element.is_visible().await?;
+let enabled = element.is_enabled().await?;
+let clickable = element.is_clickable().await?;
+
+// Get viewport-relative bounds.
+let bbox = element.bounding_box().await?;
+println!("x:{} y:{} width:{} height:{}", bbox.x, bbox.y, bbox.width, bbox.height);
 ```
 
 ### Screenshot
 
 ```rust
-// Element screenshot
-let base64_png = element.screenshot().await?;
+use cdp_core::ElementScreenshotOptions;
 
-// Decode and save
-use base64::Engine;
-let bytes = base64::engine::general_purpose::STANDARD.decode(&base64_png)?;
-std::fs::write("element.png", bytes)?;
+// Element screenshot. The API saves the image and returns the saved path.
+let path = element
+    .screenshot(ElementScreenshotOptions::default().save_to("element.png"))
+    .await?;
+
+// Capture a content-only box.
+let path = element
+    .screenshot(
+        ElementScreenshotOptions::default()
+            .content_box()
+            .save_to("element-content.png"),
+    )
+    .await?;
 ```
 
-### Bounding Box
+### Shadow DOM
 
 ```rust
-// Get element position and size
-let bbox = element.bounding_box().await?;
-println!("x:{} y:{} width:{} height:{}", bbox.x, bbox.y, bbox.width, bbox.height);
+if let Some(shadow_root) = element.shadow_root().await? {
+    let inner = shadow_root.query_selector(".inner").await?;
+}
+
+let inner = element.query_selector_shadow(".inner").await?;
 ```
 
 ## Frame
@@ -205,77 +276,113 @@ println!("x:{} y:{} width:{} height:{}", bbox.x, bbox.y, bbox.width, bbox.height
 ### Frame Access
 
 ```rust
-// Get main frame
+// Get main frame.
 let main_frame = page.main_frame().await?;
 
-// Get all frames
+// Get all frames.
 let frames = page.all_frames().await?;
 
-// Get specific frame
+// Get specific frame.
 let frame = page.get_frame("frame-id").await;
 ```
 
 ### Frame Operations
 
 ```rust
-// Evaluate in frame
+// Evaluate in frame.
 let result = frame.evaluate("document.title").await?;
 
-// Query in frame
+// Query in frame.
 let element = frame.query_selector(".button").await?;
 
-// Check if detached
+// Check if detached.
 let detached = frame.is_detached().await;
 ```
 
 ## Network
 
-### Interception
+### Request Interception
 
 ```rust
-use cdp_core::{NetworkInterceptor, RequestModification};
+use cdp_core::{InterceptRequestAction, NetworkInterceptor, RequestModification};
 
-// Enable interception
-page.enable_network_interception().await?;
+// Callback-driven interception helper.
+page.intercept_requests(|request| {
+    if request.url.contains("/api/") {
+        InterceptRequestAction::Modify(
+            RequestModification::default().with_header("x-cdp-core", "true"),
+        )
+    } else {
+        InterceptRequestAction::Continue
+    }
+}).await?;
 
-// Modify requests
-page.intercept_requests(Arc::new(|mut request| {
-    request.headers.insert("Custom-Header".to_string(), "value".to_string());
-    Ok(RequestModification::Continue(request))
-})).await;
+// Lower-level request interception is still available.
+page.enable_request_interception(vec!["*".to_string()]).await?;
+page.disable_request_interception().await?;
+```
+
+### Request Helpers
+
+```rust
+use cdp_core::RequestInterceptorExt;
+
+page.intercept_all_requests().await?;
+page.intercept_requests_matching("*://example.com/*").await?;
+page.block_images().await?;
+page.block_stylesheets().await?;
+```
+
+### Network Control
+
+```rust
+use cdp_core::NetworkControl;
+
+page.clear_browser_cache().await?;
+page.set_cache_disabled(true).await?;
+page.set_bypass_service_worker(true).await?;
+page.block_urls(["*.png", "*.jpg"]).await?;
 ```
 
 ### Cookies
 
 ```rust
-use cdp_core::{Cookie, SetCookieParams, CookieSameSite};
+use cdp_core::{CookieManager, CookieSameSite, DeleteCookieOptions, SetCookieParams};
 
-// Get cookies
-let cookies = page.cookies().await?;
+// Get cookies.
+let cookies = page.get_cookies(None).await?;
 
-// Set cookie
+// Set cookie.
 page.set_cookie(SetCookieParams {
     name: "session".to_string(),
     value: "token123".to_string(),
     domain: Some("example.com".to_string()),
+    same_site: Some(CookieSameSite::Lax),
     ..Default::default()
 }).await?;
 
-// Delete cookie
-page.delete_cookie("session", Some("example.com")).await?;
+// Delete cookie.
+page
+    .delete_cookies(DeleteCookieOptions::new("session").with_domain("example.com"))
+    .await?;
 ```
 
 ### Response Monitoring
 
 ```rust
-// Monitor specific responses
+// Monitor responses using a URL filter.
 page.monitor_responses(
-    vec!["https://api.example.com/data"],
-    Arc::new(|response| {
-        println!("Status: {}", response.status);
+    |url| url.contains("https://api.example.com/data"),
+    |response| {
+        println!("Status: {}", response.status_code);
         println!("Headers: {:?}", response.headers);
-    })
+    },
 ).await?;
+
+// Or use a substring helper.
+page.monitor_responses_matching("api.example.com", |response| {
+    println!("Status: {}", response.status_code);
+}).await?;
 ```
 
 ## Input
@@ -283,32 +390,38 @@ page.monitor_responses(
 ### Keyboard
 
 ```rust
-// Type text
-page.keyboard().type_text("Hello World").await?;
+// Insert text quickly.
+page.keyboard().insert_text("Hello World").await?;
 
-// Press key
+// Type text with randomized delay.
+page.keyboard().type_text_with_delay("Hello", 50, 150).await?;
+
+// Press key.
 page.keyboard().press_key("Enter").await?;
 
-// Key combination
-page.keyboard().down("Control").await?;
+// Key combination.
+page.keyboard().key_down("Control").await?;
 page.keyboard().press_key("a").await?;
-page.keyboard().up("Control").await?;
+page.keyboard().key_up("Control").await?;
 ```
 
 ### Mouse
 
 ```rust
-// Move mouse
+use cdp_core::MouseClickOptions;
+use cdp_core::input::mouse::DragOptions;
+
+// Move mouse.
 page.mouse().move_to(100.0, 200.0).await?;
 
-// Click at position
-page.mouse().click(100.0, 200.0, None).await?;
+// Click at position.
+page.mouse().click(100.0, 200.0, MouseClickOptions::default()).await?;
 
-// Drag and drop
-page.mouse().move_to(start_x, start_y).await?;
-page.mouse().down(None).await?;
-page.mouse().move_to(end_x, end_y).await?;
-page.mouse().up(None).await?;
+// Drag and drop.
+page
+    .mouse()
+    .drag_to(start_x, start_y, end_x, end_y, DragOptions::default())
+    .await?;
 ```
 
 ## Storage
@@ -318,17 +431,17 @@ page.mouse().up(None).await?;
 ```rust
 use cdp_core::LocalStorageExt;
 
-// Set item
-page.local_storage_set("key", "value").await?;
+// Set item.
+page.set_local_storage_item("key", "value").await?;
 
-// Get item
-let value = page.local_storage_get("key").await?;
+// Get item.
+let value = page.get_local_storage_item("key").await?;
 
-// Remove item
-page.local_storage_remove("key").await?;
+// Remove item.
+page.remove_local_storage_item("key").await?;
 
-// Clear all
-page.local_storage_clear().await?;
+// Clear all.
+page.clear_local_storage().await?;
 ```
 
 ### SessionStorage
@@ -336,47 +449,50 @@ page.local_storage_clear().await?;
 ```rust
 use cdp_core::SessionStorageExt;
 
-// Set item
-page.session_storage_set("key", "value").await?;
+// Set item.
+page.set_session_storage_item("key", "value").await?;
 
-// Get item
-let value = page.session_storage_get("key").await?;
+// Get item.
+let value = page.get_session_storage_item("key").await?;
+
+// Remove item.
+page.remove_session_storage_item("key").await?;
+
+// Clear all.
+page.clear_session_storage().await?;
 ```
 
 ## Emulation
 
-### Device Emulation
+### Apply Emulation Config
 
 ```rust
-use cdp_core::EmulationConfig;
+use cdp_core::{EmulationConfig, Geolocation, UserAgentOverride};
 
-let config = EmulationConfig {
-    viewport_width: Some(375),
-    viewport_height: Some(667),
-    device_scale_factor: Some(2.0),
-    mobile: Some(true),
-    ..Default::default()
-};
+let config = EmulationConfig::default()
+    .with_geolocation(Geolocation::new(37.7749, -122.4194).with_accuracy(100.0))
+    .with_user_agent(UserAgentOverride::new("Mozilla/5.0 ..."));
 
+page.emulation().apply_config(&config).await?;
+
+// Or use the page-level shortcut.
 page.emulate_device(config).await?;
 ```
 
-### Geolocation
+### Individual Overrides
 
 ```rust
-use cdp_core::Geolocation;
+use cdp_core::{Geolocation, UserAgentOverride};
 
-page.set_geolocation(Geolocation {
-    latitude: 37.7749,
-    longitude: -122.4194,
-    accuracy: Some(100.0),
-}).await?;
-```
+page
+    .set_geolocation(Geolocation::new(37.7749, -122.4194).with_accuracy(100.0))
+    .await?;
 
-### User Agent
+page
+    .set_user_agent(UserAgentOverride::new("Mozilla/5.0 ..."))
+    .await?;
 
-```rust
-page.set_user_agent("Mozilla/5.0 ...").await?;
+page.emulation().clear_geolocation().await?;
 ```
 
 ## Wait Functions
@@ -386,17 +502,17 @@ page.set_user_agent("Mozilla/5.0 ...").await?;
 ```rust
 use cdp_core::WaitForSelectorOptions;
 
-// Simple wait
+// Simple wait.
 let element = page.wait_for_selector("#button", None).await?;
 
-// With options
+// With options.
 let element = page.wait_for_selector(
     ".dynamic-content",
-    Some(WaitForSelectorOptions {
-        timeout_ms: Some(5000),
-        visible: Some(true),
-        hidden: Some(false),
-    })
+    Some(
+        WaitForSelectorOptions::default()
+            .with_timeout_ms(5000)
+            .with_visible(true),
+    ),
 ).await?;
 ```
 
@@ -405,37 +521,40 @@ let element = page.wait_for_selector(
 ```rust
 use cdp_core::{WaitForNavigationOptions, WaitUntil};
 
-// Wait for load
+// Wait for default network-idle condition.
 page.wait_for_navigation(None).await?;
 
-// Wait for network idle
-page.wait_for_navigation(Some(WaitForNavigationOptions {
-    timeout_ms: Some(30000),
-    wait_until: Some(WaitUntil::NetworkIdle2),
-})).await?;
+// Wait for network idle.
+page
+    .wait_for_navigation(Some(
+        WaitForNavigationOptions::default()
+            .with_timeout_ms(30000)
+            .with_wait_until(WaitUntil::NetworkIdle2),
+    ))
+    .await?;
 ```
 
 ### Wait for Function
 
 ```rust
-// Wait for custom condition
+// Wait for custom condition.
 page.wait_for_function(
     "() => document.readyState === 'complete'",
     Some(5000),
-    None
+    None,
 ).await?;
 ```
 
 ### Wait for Timeout
 
 ```rust
-// Simple delay
+// Simple delay.
 page.wait_for_timeout(2000).await;
 ```
 
 ## Common Patterns
 
-### Pattern: Safe Element Handling
+### Safe Element Handling
 
 ```rust
 if let Some(element) = page.query_selector("#button").await? {
@@ -445,7 +564,7 @@ if let Some(element) = page.query_selector("#button").await? {
 }
 ```
 
-### Pattern: Batch Operations
+### Batch Operations
 
 ```rust
 let items = page.query_selector_all(".item").await?;
@@ -455,7 +574,7 @@ for item in items {
 }
 ```
 
-### Pattern: Error Recovery
+### Error Recovery
 
 ```rust
 match page.query_selector("#button").await {
@@ -469,4 +588,6 @@ match page.query_selector("#button").await {
 
 - [Getting Started Guide](GETTING_STARTED.md)
 - [Feature Guides](features/)
+- [Manual Browser Example Suite](MANUAL_EXAMPLES.md)
+- [Manual Example Coverage Gap List](EXAMPLE_COVERAGE_GAPS.md)
 - [Examples](../examples/)

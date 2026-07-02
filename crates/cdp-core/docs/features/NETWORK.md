@@ -1,107 +1,113 @@
 # Network Features
 
-CDP-Core provides comprehensive network control including request interception, response monitoring, and cookie management.
-
-## Features
-
-- **Request Interception** - Modify or block requests
-- **Response Monitoring** - Capture response bodies
-- **Cookie Management** - Get, set, delete cookies
-- **Network Events** - Monitor all network activity
+CDP-Core provides request interception, response monitoring, cookie management, and network control helpers.
 
 ## Request Interception
 
-### Enable Interception
+### Callback Helper
 
 ```rust
-use cdp_core::{NetworkInterceptor, RequestModification, HttpMethod};
-use std::sync::Arc;
+use cdp_core::{InterceptRequestAction, RequestModification};
 
-// Enable interception
-page.enable_network_interception().await?;
-
-// Intercept and modify requests
-page.intercept_requests(Arc::new(|mut request| {
-    // Modify headers
-    request.headers.insert(
-        "Authorization".to_string(),
-        "Bearer token123".to_string()
-    );
-    
-    // Continue with modifications
-    Ok(RequestModification::Continue(request))
-})).await;
-```
-
-### Block Requests
-
-```rust
-page.intercept_requests(Arc::new(|request| {
-    // Block analytics
+page.intercept_requests(|request| {
     if request.url.contains("analytics") {
-        return Ok(RequestModification::Abort);
+        return InterceptRequestAction::Abort("BlockedByClient".to_string());
     }
-    
-    // Block specific methods
-    if request.method == HttpMethod::Post {
-        return Ok(RequestModification::Abort);
+
+    if request.url.contains("/api/") {
+        return InterceptRequestAction::Modify(
+            RequestModification::default().with_header("Authorization", "Bearer token123"),
+        );
     }
-    
-    Ok(RequestModification::Continue(request))
-})).await;
+
+    InterceptRequestAction::Continue
+}).await?;
 ```
 
 ### Mock Responses
 
 ```rust
-use cdp_core::ResponseMock;
+use cdp_core::{InterceptRequestAction, ResponseMock};
 
-page.intercept_requests(Arc::new(|request| {
+page.intercept_requests(|request| {
     if request.url.contains("/api/data") {
-        return Ok(RequestModification::Mock(ResponseMock {
-            status: 200,
-            headers: vec![
-                ("Content-Type".to_string(), "application/json".to_string())
-            ],
-            body: br#"{"mock": "data"}"#.to_vec(),
-        }));
+        return InterceptRequestAction::Fulfill(
+            ResponseMock::new(r#"{"mock":"data"}"#)
+                .with_status_code(200)
+                .with_header("Content-Type", "application/json"),
+        );
     }
-    
-    Ok(RequestModification::Continue(request))
-})).await;
+
+    InterceptRequestAction::Continue
+}).await?;
+```
+
+### Lower-Level Control
+
+```rust
+use cdp_core::NetworkInterceptor;
+
+page.enable_request_interception(vec!["*".to_string()]).await?;
+page.continue_request("request-id").await?;
+page.disable_request_interception().await?;
 ```
 
 ## Response Monitoring
 
-### Monitor Specific URLs
-
 ```rust
-// Monitor API responses
 page.monitor_responses(
-    vec!["https://api.example.com/data"],
-    Arc::new(|response| {
-        println!("Status: {}", response.status);
-        println!("Body: {}", String::from_utf8_lossy(&response.body));
-    })
+    |url| url.contains("https://api.example.com/data"),
+    |response| {
+        println!("Status: {}", response.status_code);
+        println!("Headers: {:?}", response.headers);
+        println!("Body: {:?}", response.body);
+    },
 ).await?;
+
+page.monitor_responses_matching("api.example.com", |response| {
+    println!("API Response: {}", response.status_code);
+}).await?;
 ```
 
-### Monitor All Responses
+## Network Events
 
 ```rust
+use cdp_core::NetworkEvent;
+use std::sync::Arc;
+
 page.enable_network_monitoring().await?;
 
 page.on_network(Arc::new(|event| {
     match event {
-        NetworkEvent::ResponseReceived { request_id, url, status, .. } => {
-            println!("[{}] {} - {}", status, request_id, url);
+        NetworkEvent::RequestWillBeSent { url, method, .. } => {
+            println!("[{}] {}", method, url);
         }
-        NetworkEvent::LoadingFailed { request_id, error_text, .. } => {
+        NetworkEvent::ResponseReceived { request_id, status, .. } => {
+            println!("[{}] status {}", request_id, status);
+        }
+        NetworkEvent::LoadingFailed { request_id, error_text } => {
             eprintln!("Failed [{}]: {}", request_id, error_text);
         }
         _ => {}
     }
 })).await;
+
+let count = page.get_inflight_requests_count();
+println!("Active requests: {}", count);
+```
+
+## Network Control
+
+```rust
+use cdp_core::NetworkControl;
+
+page.clear_browser_cache().await?;
+page.set_cache_disabled(true).await?;
+page.set_bypass_service_worker(true).await?;
+page.block_urls(["*.png", "*.jpg"]).await?;
+
+let body = page.get_response_body("request-id").await?;
+let post_data = page.get_request_post_data("request-id").await?;
 ```
 
 ## Cookie Management
@@ -109,140 +115,84 @@ page.on_network(Arc::new(|event| {
 ### Get Cookies
 
 ```rust
-// Get all cookies
-let cookies = page.cookies().await?;
-for cookie in cookies {
-    println!("{} = {}", cookie.name, cookie.value);
-}
+use cdp_core::CookieManager;
 
-// Get cookies for specific URL
-let cookies = page.cookies_for_url("https://example.com").await?;
+let cookies = page.get_cookies(None).await?;
+let scoped = page
+    .get_cookies(Some(vec!["https://example.com".to_string()]))
+    .await?;
 ```
 
 ### Set Cookies
 
 ```rust
-use cdp_core::{SetCookieParams, CookieSameSite};
+use cdp_core::{CookieManager, CookieSameSite, SetCookieParams};
 
-page.set_cookie(SetCookieParams {
-    name: "session".to_string(),
-    value: "abc123".to_string(),
-    domain: Some("example.com".to_string()),
-    path: Some("/".to_string()),
-    secure: Some(true),
-    http_only: Some(true),
-    same_site: Some(CookieSameSite::Lax),
-    expires: None,  // Session cookie
-    ..Default::default()
-}).await?;
+page.set_cookie(
+    SetCookieParams::new("session", "abc123")
+        .with_domain("example.com")
+        .with_path("/")
+        .with_secure(true)
+        .with_http_only(true)
+        .with_same_site(CookieSameSite::Lax),
+).await?;
 ```
 
 ### Delete Cookies
 
 ```rust
-// Delete specific cookie
-page.delete_cookie("session", Some("example.com")).await?;
+use cdp_core::{CookieManager, DeleteCookieOptions};
 
-// Clear all cookies
-page.clear_cookies().await?;
-```
+page
+    .delete_cookies(DeleteCookieOptions::new("session").with_domain("example.com"))
+    .await?;
 
-## Network Monitoring
-
-### Track Active Requests
-
-```rust
-page.enable_network_monitoring().await?;
-
-// Get count of active requests
-let count = page.get_inflight_requests_count();
-println!("Active requests: {}", count);
-
-// Wait for network idle
-page.wait_for_network_idle(30000, 0).await?;  // 0 = fully idle
-page.wait_for_network_idle(30000, 2).await?;  // <= 2 requests
+page.clear_browser_cookies().await?;
 ```
 
 ## Complete Example
 
 ```rust
-use cdp_core::{Browser, NetworkEvent, RequestModification};
+use cdp_core::{
+    Browser, InterceptRequestAction, NetworkEvent, RequestModification,
+};
 use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let browser = Browser::launcher().launch().await?;
     let page = browser.new_page().await?;
-    
-    // 1. Enable monitoring
+
     page.enable_network_monitoring().await?;
-    
-    // 2. Log all requests
+
     page.on_network(Arc::new(|event| {
         if let NetworkEvent::RequestWillBeSent { url, method, .. } = event {
             println!("[{}] {}", method, url);
         }
     })).await;
-    
-    // 3. Intercept and modify
-    page.enable_network_interception().await?;
-    page.intercept_requests(Arc::new(|mut request| {
-        // Add custom header to all requests
-        request.headers.insert(
-            "X-Custom-Header".to_string(),
-            "my-value".to_string()
-        );
-        Ok(RequestModification::Continue(request))
-    })).await;
-    
-    // 4. Monitor specific responses
-    page.monitor_responses(
-        vec!["https://api.example.com/"],
-        Arc::new(|response| {
-            println!("API Response: {}", response.status);
-        })
-    ).await?;
-    
-    // 5. Navigate
+
+    page.intercept_requests(|request| {
+        if request.url.contains("/api/") {
+            InterceptRequestAction::Modify(
+                RequestModification::default().with_header("X-Custom-Header", "my-value"),
+            )
+        } else {
+            InterceptRequestAction::Continue
+        }
+    }).await?;
+
+    page.monitor_responses_matching("api.example.com", |response| {
+        println!("API Response: {}", response.status_code);
+    }).await?;
+
     page.navigate("https://example.com").await?;
-    
-    // 6. Wait for network idle
-    page.wait_for_network_idle(10000, 2).await?;
-    
+    page.wait_for_navigation(None).await?;
+
     Ok(())
 }
-```
-
-## Tips & Best Practices
-
-### Performance
-
-- Only enable monitoring when needed
-- Use specific URL patterns for response monitoring
-- Clear monitors when done
-
-### Error Handling
-
-```rust
-match page.intercept_requests(Arc::new(|req| {
-    // Your logic
-    Ok(RequestModification::Continue(req))
-})).await {
-    Ok(_) => println!("Interception enabled"),
-    Err(e) => eprintln!("Failed to enable interception: {}", e),
-}
-```
-
-### Debugging
-
-```rust
-// Log all network activity
-page.on_network(Arc::new(|event| {
-    println!("{:?}", event);
-})).await;
 ```
 
 ## See Also
 
 - [API Reference](../API_REFERENCE.md#network)
-- [Examples](../../examples/network_monitoring_test.rs)
+- [Examples](../../examples/)

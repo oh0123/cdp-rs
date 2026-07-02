@@ -6,7 +6,7 @@ use crate::browser::{
     ws_endpoints::resolve_active_page_ws_url,
 };
 use crate::domain_manager::DomainManager;
-use crate::emulation::EmulationController;
+use crate::emulation::{EmulationConfig, EmulationController, Geolocation, UserAgentOverride};
 use crate::error::{CdpError, Result};
 use crate::input::{keyboard::Keyboard, mouse::Mouse};
 use crate::network::network_intercept::{
@@ -30,6 +30,7 @@ use cdp_protocol::{
 };
 use futures_util::Stream;
 use futures_util::StreamExt;
+use serde_json::Value;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::pin::Pin;
@@ -103,6 +104,91 @@ impl WaitForNavigationOptions {
 
     pub fn with_wait_until(mut self, wait_until: WaitUntil) -> Self {
         self.wait_until = Some(wait_until);
+        self
+    }
+}
+
+/// Page reload options.
+#[derive(Debug, Clone, Default)]
+pub struct ReloadOptions {
+    /// If true, browser cache is ignored as if the user pressed Shift+Refresh.
+    pub ignore_cache: Option<bool>,
+    /// Script injected into all frames after reload.
+    pub script_to_evaluate_on_load: Option<String>,
+    /// Ensures reload only applies to the expected main-frame loader.
+    pub loader_id: Option<cdp_protocol::network::LoaderId>,
+}
+
+impl ReloadOptions {
+    pub fn with_ignore_cache(mut self, ignore_cache: bool) -> Self {
+        self.ignore_cache = Some(ignore_cache);
+        self
+    }
+
+    pub fn with_script_to_evaluate_on_load(mut self, script: impl Into<String>) -> Self {
+        self.script_to_evaluate_on_load = Some(script.into());
+        self
+    }
+
+    pub fn with_loader_id(mut self, loader_id: impl Into<cdp_protocol::network::LoaderId>) -> Self {
+        self.loader_id = Some(loader_id.into());
+        self
+    }
+}
+
+impl From<ReloadOptions> for page_cdp::Reload {
+    fn from(options: ReloadOptions) -> Self {
+        Self {
+            ignore_cache: options.ignore_cache,
+            script_to_evaluate_on_load: options.script_to_evaluate_on_load,
+            loader_id: options.loader_id,
+        }
+    }
+}
+
+/// Page screenshot options.
+#[derive(Debug, Clone)]
+pub struct PageScreenshotOptions {
+    /// Whether to capture the full page including the scroll area.
+    pub full_page: bool,
+    /// Optional save path. When `None`, a timestamped file is created.
+    pub save_path: Option<PathBuf>,
+    /// Whether to adapt to the detected device pixel ratio.
+    pub auto_resolve_dpr: bool,
+}
+
+impl Default for PageScreenshotOptions {
+    fn default() -> Self {
+        Self {
+            full_page: false,
+            save_path: None,
+            auto_resolve_dpr: true,
+        }
+    }
+}
+
+impl PageScreenshotOptions {
+    /// Captures the full page including the scroll area.
+    pub fn full_page(mut self) -> Self {
+        self.full_page = true;
+        self
+    }
+
+    /// Captures only the current viewport.
+    pub fn viewport(mut self) -> Self {
+        self.full_page = false;
+        self
+    }
+
+    /// Saves the screenshot to the provided path.
+    pub fn save_to(mut self, path: impl Into<PathBuf>) -> Self {
+        self.save_path = Some(path.into());
+        self
+    }
+
+    /// Enables or disables automatic DPR adaptation.
+    pub fn auto_resolve_dpr(mut self, enabled: bool) -> Self {
+        self.auto_resolve_dpr = enabled;
         self
     }
 }
@@ -381,6 +467,21 @@ impl Page {
         EmulationController::new(Arc::clone(self))
     }
 
+    /// Applies emulation settings to this page.
+    pub async fn emulate_device(self: &Arc<Self>, config: EmulationConfig) -> Result<()> {
+        self.emulation().apply_config(&config).await
+    }
+
+    /// Sets geolocation emulation for this page.
+    pub async fn set_geolocation(self: &Arc<Self>, geolocation: Geolocation) -> Result<()> {
+        self.emulation().set_geolocation(geolocation).await
+    }
+
+    /// Sets user agent emulation for this page.
+    pub async fn set_user_agent(self: &Arc<Self>, override_data: UserAgentOverride) -> Result<()> {
+        self.emulation().set_user_agent(override_data).await
+    }
+
     pub fn tracing(self: &Arc<Self>) -> TracingController {
         TracingController::new(Arc::clone(self), Arc::clone(&self.tracing_state))
     }
@@ -403,45 +504,93 @@ impl Page {
             .await
     }
 
-    /// Reloads the current page.
-    pub fn reload(&self, ignore_cache: bool) -> CdpCommandBuilder<'_, page_cdp::Reload> {
-        self.cdp(page_cdp::Reload {
-            ignore_cache: Some(ignore_cache),
-            script_to_evaluate_on_load: None,
-            loader_id: None,
-        })
+    /// Reloads the current page with high-level reload options.
+    pub async fn reload(&self, options: ReloadOptions) -> Result<page_cdp::ReloadReturnObject> {
+        self.network_monitor.reset_inflight().await;
+
+        let method: page_cdp::Reload = options.into();
+        self.session
+            .send_command::<_, page_cdp::ReloadReturnObject>(method, None)
+            .await
     }
 
     /// Brings this page to the front.
-    pub fn bring_to_front(&self) -> CdpCommandBuilder<'_, page_cdp::BringToFront> {
-        self.cdp(page_cdp::BringToFront(None))
+    pub async fn bring_to_front(&self) -> Result<()> {
+        let _: page_cdp::BringToFrontReturnObject = self
+            .session
+            .send_command(page_cdp::BringToFront(None), None)
+            .await?;
+        Ok(())
     }
 
     /// Navigates to an entry from [`Page::get_navigation_history`].
-    pub fn navigate_to_history_entry(
-        &self,
-        entry_id: u32,
-    ) -> CdpCommandBuilder<'_, page_cdp::NavigateToHistoryEntry> {
-        self.cdp(page_cdp::NavigateToHistoryEntry { entry_id })
+    pub async fn navigate_to_history_entry(&self, entry_id: u32) -> Result<()> {
+        self.network_monitor.reset_inflight().await;
+
+        let _: page_cdp::NavigateToHistoryEntryReturnObject = self
+            .session
+            .send_command(page_cdp::NavigateToHistoryEntry { entry_id }, None)
+            .await?;
+        Ok(())
+    }
+
+    /// Navigates to the previous entry in page history.
+    pub async fn go_back(&self) -> Result<()> {
+        let history = self.get_navigation_history().await?;
+        if history.current_index == 0 {
+            return Err(CdpError::page("No previous navigation entry".to_string()));
+        }
+
+        let target_index = history.current_index - 1;
+        let entry = history.entries.get(target_index as usize).ok_or_else(|| {
+            CdpError::page("Previous navigation entry is unavailable".to_string())
+        })?;
+
+        self.navigate_to_history_entry(entry.id).await
+    }
+
+    /// Navigates to the next entry in page history.
+    pub async fn go_forward(&self) -> Result<()> {
+        let history = self.get_navigation_history().await?;
+        let target_index = history.current_index + 1;
+        let entry = history
+            .entries
+            .get(target_index as usize)
+            .ok_or_else(|| CdpError::page("Next navigation entry is unavailable".to_string()))?;
+
+        self.navigate_to_history_entry(entry.id).await
     }
 
     /// Returns the page navigation history.
-    pub fn get_navigation_history(&self) -> CdpCommandBuilder<'_, page_cdp::GetNavigationHistory> {
-        self.cdp(page_cdp::GetNavigationHistory(None))
+    pub async fn get_navigation_history(
+        &self,
+    ) -> Result<page_cdp::GetNavigationHistoryReturnObject> {
+        self.session
+            .send_command(page_cdp::GetNavigationHistory(None), None)
+            .await
     }
 
     /// Resets the page navigation history.
-    pub fn reset_navigation_history(
-        &self,
-    ) -> CdpCommandBuilder<'_, page_cdp::ResetNavigationHistory> {
-        self.cdp(page_cdp::ResetNavigationHistory(None))
+    pub async fn reset_navigation_history(&self) -> Result<()> {
+        let _: page_cdp::ResetNavigationHistoryReturnObject = self
+            .session
+            .send_command(page_cdp::ResetNavigationHistory(None), None)
+            .await?;
+        Ok(())
     }
 
     /// Captures an MHTML snapshot of the current page.
-    pub fn capture_snapshot(&self) -> CdpCommandBuilder<'_, page_cdp::CaptureSnapshot> {
-        self.cdp(page_cdp::CaptureSnapshot {
-            format: Some(page_cdp::CaptureSnapshotFormatOption::Mhtml),
-        })
+    pub async fn capture_snapshot(&self) -> Result<String> {
+        let result: page_cdp::CaptureSnapshotReturnObject = self
+            .session
+            .send_command(
+                page_cdp::CaptureSnapshot {
+                    format: Some(page_cdp::CaptureSnapshotFormatOption::Mhtml),
+                },
+                None,
+            )
+            .await?;
+        Ok(result.data)
     }
 
     /// Prints the page to PDF using Chrome's default print settings.
@@ -473,55 +622,85 @@ impl Page {
     }
 
     /// Injects a script into every new frame before page scripts run.
-    pub fn add_script_to_evaluate_on_new_document(
+    pub async fn add_script_to_evaluate_on_new_document(
         &self,
         source: impl Into<String>,
-    ) -> CdpCommandBuilder<'_, page_cdp::AddScriptToEvaluateOnNewDocument> {
-        self.cdp(page_cdp::AddScriptToEvaluateOnNewDocument {
-            source: source.into(),
-            world_name: None,
-            include_command_line_api: None,
-            run_immediately: None,
-        })
+    ) -> Result<page_cdp::ScriptIdentifier> {
+        let result: page_cdp::AddScriptToEvaluateOnNewDocumentReturnObject = self
+            .session
+            .send_command(
+                page_cdp::AddScriptToEvaluateOnNewDocument {
+                    source: source.into(),
+                    world_name: None,
+                    include_command_line_api: None,
+                    run_immediately: None,
+                },
+                None,
+            )
+            .await?;
+        Ok(result.identifier)
     }
 
     /// Removes a script previously registered with `add_script_to_evaluate_on_new_document`.
-    pub fn remove_script_to_evaluate_on_new_document(
+    pub async fn remove_script_to_evaluate_on_new_document(
         &self,
         identifier: impl Into<page_cdp::ScriptIdentifier>,
-    ) -> CdpCommandBuilder<'_, page_cdp::RemoveScriptToEvaluateOnNewDocument> {
-        self.cdp(page_cdp::RemoveScriptToEvaluateOnNewDocument {
-            identifier: identifier.into(),
-        })
+    ) -> Result<()> {
+        let _: page_cdp::RemoveScriptToEvaluateOnNewDocumentReturnObject = self
+            .session
+            .send_command(
+                page_cdp::RemoveScriptToEvaluateOnNewDocument {
+                    identifier: identifier.into(),
+                },
+                None,
+            )
+            .await?;
+        Ok(())
     }
 
     /// Accepts or dismisses the current JavaScript dialog.
-    pub fn handle_javascript_dialog(
+    pub async fn handle_javascript_dialog(
         &self,
         accept: bool,
         prompt_text: Option<String>,
-    ) -> CdpCommandBuilder<'_, page_cdp::HandleJavaScriptDialog> {
-        self.cdp(page_cdp::HandleJavaScriptDialog {
-            accept,
-            prompt_text,
-        })
+    ) -> Result<()> {
+        let _: page_cdp::HandleJavaScriptDialogReturnObject = self
+            .session
+            .send_command(
+                page_cdp::HandleJavaScriptDialog {
+                    accept,
+                    prompt_text,
+                },
+                None,
+            )
+            .await?;
+        Ok(())
     }
 
     /// Returns the resource tree for the current page.
-    pub fn get_resource_tree(&self) -> CdpCommandBuilder<'_, page_cdp::GetResourceTree> {
-        self.cdp(page_cdp::GetResourceTree(None))
+    pub async fn get_resource_tree(&self) -> Result<page_cdp::FrameResourceTree> {
+        let result: page_cdp::GetResourceTreeReturnObject = self
+            .session
+            .send_command(page_cdp::GetResourceTree(None), None)
+            .await?;
+        Ok(result.frame_tree)
     }
 
     /// Returns resource content for a frame URL.
-    pub fn get_resource_content(
+    pub async fn get_resource_content(
         &self,
         frame_id: impl Into<page_cdp::FrameId>,
         url: impl Into<String>,
-    ) -> CdpCommandBuilder<'_, page_cdp::GetResourceContent> {
-        self.cdp(page_cdp::GetResourceContent {
-            frame_id: frame_id.into(),
-            url: url.into(),
-        })
+    ) -> Result<page_cdp::GetResourceContentReturnObject> {
+        self.session
+            .send_command(
+                page_cdp::GetResourceContent {
+                    frame_id: frame_id.into(),
+                    url: url.into(),
+                },
+                None,
+            )
+            .await
     }
 
     /// Retrieves all available CDP targets via `Target.getTargets`.
@@ -739,6 +918,23 @@ impl Page {
         Ok(main_frame)
     }
 
+    /// Evaluates JavaScript in the main frame.
+    pub async fn evaluate(self: &Arc<Self>, script: &str) -> Result<Value> {
+        self.main_frame().await?.evaluate(script).await
+    }
+
+    /// Calls a JavaScript function in the main frame.
+    pub async fn call_function(
+        self: &Arc<Self>,
+        function_declaration: &str,
+        args: Vec<Value>,
+    ) -> Result<Value> {
+        self.main_frame()
+            .await?
+            .call_function_on(function_declaration, args)
+            .await
+    }
+
     /// Queries the first element matching the CSS selector.
     ///
     /// This method automatically searches across all frames (including iframes):
@@ -793,6 +989,16 @@ impl Page {
         Ok(None)
     }
 
+    /// Queries the first element matching the XPath expression across all frames.
+    pub async fn query_xpath(self: &Arc<Self>, xpath: &str) -> Result<Option<ElementHandle>> {
+        let selector = if xpath.starts_with("xpath:") {
+            xpath.to_string()
+        } else {
+            format!("xpath:{xpath}")
+        };
+        self.query_selector(&selector).await
+    }
+
     /// Queries all elements matching the CSS selector.
     ///
     /// This method automatically searches across all frames (including iframes):
@@ -844,6 +1050,16 @@ impl Page {
         }
 
         Ok(all_elements)
+    }
+
+    /// Queries all elements matching the XPath expression across all frames.
+    pub async fn query_xpath_all(self: &Arc<Self>, xpath: &str) -> Result<Vec<ElementHandle>> {
+        let selector = if xpath.starts_with("xpath:") {
+            xpath.to_string()
+        } else {
+            format!("xpath:{xpath}")
+        };
+        self.query_selector_all(&selector).await
     }
 
     /// Returns a flat list of all frames attached to this page.
@@ -1676,56 +1892,33 @@ impl Page {
         Ok(dpr)
     }
 
-    /// Takes a screenshot of the page.
-    ///
-    /// Takes a screenshot of the page.
-    ///
-    /// # Parameters
-    /// * `full_page` - Whether to capture full page (including scroll area). If false, only capture current viewport
-    /// * `save_path` - Optional save path (including filename). If None, save to current directory with name `screenshot_timestamp.png`
-    ///
-    /// # Returns
-    /// Saved file path
-    ///
-    /// # Examples
-    /// ```no_run
-    /// # use cdp_core::Page;
-    /// # use std::sync::Arc;
-    /// # async fn example(page: Arc<Page>) -> anyhow::Result<()> {
-    /// // Capture current viewport and save automatically
-    /// let path = page.screenshot(false, None).await?;
-    /// println!("Screenshot saved to: {}", path);
-    ///
-    /// // Capture full page and save to specified path
-    /// let path = page.screenshot(true, Some("screenshots/fullpage.png".into())).await?;
-    /// println!("Full page screenshot saved to: {}", path);
-    /// # Ok(())
-    /// # }
-    /// ```
-    pub async fn screenshot(&self, full_page: bool, save_path: Option<PathBuf>) -> Result<String> {
-        self.screenshot_with_options(full_page, save_path, true)
-            .await
-    }
-
     /// Starts page screencast frames via `Page.screencastFrame` events.
     ///
     /// Listen for frames with [`Page::on`] or [`Page::wait_for_screencast_frame`], and acknowledge
     /// each received frame with [`Page::screencast_frame_ack`].
-    pub fn start_screencast(&self) -> CdpCommandBuilder<'_, page_cdp::StartScreencast> {
-        self.cdp(ScreencastOptions::default().into())
+    pub async fn start_screencast(&self, options: ScreencastOptions) -> Result<()> {
+        let method: page_cdp::StartScreencast = options.into();
+        let _: page_cdp::StartScreencastReturnObject =
+            self.session.send_command(method, None).await?;
+        Ok(())
     }
 
     /// Acknowledges that a screencast frame has been received.
-    pub fn screencast_frame_ack(
-        &self,
-        session_id: u32,
-    ) -> CdpCommandBuilder<'_, page_cdp::ScreencastFrameAck> {
-        self.cdp(page_cdp::ScreencastFrameAck { session_id })
+    pub async fn screencast_frame_ack(&self, session_id: u32) -> Result<()> {
+        let _: page_cdp::ScreencastFrameAckReturnObject = self
+            .session
+            .send_command(page_cdp::ScreencastFrameAck { session_id }, None)
+            .await?;
+        Ok(())
     }
 
     /// Stops page screencast frames.
-    pub fn stop_screencast(&self) -> CdpCommandBuilder<'_, page_cdp::StopScreencast> {
-        self.cdp(page_cdp::StopScreencast(None))
+    pub async fn stop_screencast(&self) -> Result<()> {
+        let _: page_cdp::StopScreencastReturnObject = self
+            .session
+            .send_command(page_cdp::StopScreencast(None), None)
+            .await?;
+        Ok(())
     }
 
     /// Waits for the next `Page.screencastFrame` event.
@@ -1736,42 +1929,36 @@ impl Page {
             .await
     }
 
-    /// Takes a screenshot of the page with custom options.
-    ///
-    /// Takes a screenshot of the page with custom options.
-    ///
-    /// # Parameters
-    /// * `full_page` - Whether to capture full page (including scroll area). If false, only capture current viewport
-    /// * `save_path` - Optional save path (including filename). If None, save to current directory with name `screenshot_timestamp.png`
-    /// * `auto_resolve_dpr` - Whether to automatically adapt to device pixel ratio. If true, automatically detect and use actual DPR to avoid screenshot being too large or distorted
+    /// Takes a screenshot of the page.
     ///
     /// # Returns
     /// Saved file path
     ///
     /// # Examples
     /// ```no_run
-    /// # use cdp_core::Page;
+    /// # use cdp_core::{Page, PageScreenshotOptions};
     /// # use std::sync::Arc;
     /// # async fn example(page: Arc<Page>) -> anyhow::Result<()> {
-    /// // Capture full page, do not adapt DPR (use fixed 1.0, compatible with old behavior)
-    /// let path = page.screenshot_with_options(true, None, false).await?;
+    /// // Capture current viewport and save automatically.
+    /// let path = page.screenshot(PageScreenshotOptions::default()).await?;
     ///
-    /// // Capture full page, adapt DPR (recommended, avoid screenshot being too large)
-    /// let path = page.screenshot_with_options(true, None, true).await?;
+    /// // Capture full page and save to a specified path.
+    /// let path = page
+    ///     .screenshot(
+    ///         PageScreenshotOptions::default()
+    ///             .full_page()
+    ///             .save_to("screenshots/fullpage.png"),
+    ///     )
+    ///     .await?;
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn screenshot_with_options(
-        &self,
-        full_page: bool,
-        save_path: Option<PathBuf>,
-        auto_resolve_dpr: bool,
-    ) -> Result<String> {
+    pub async fn screenshot(&self, options: PageScreenshotOptions) -> Result<String> {
         use base64::Engine;
         use cdp_protocol::page as page_cdp;
 
         // 1. Get device pixel ratio
-        let device_scale = if auto_resolve_dpr {
+        let device_scale = if options.auto_resolve_dpr {
             let dpr = self.get_device_pixel_ratio().await?;
             // Ensure DPR is within reasonable range (0.5 to 3.0)
             dpr.clamp(0.5, 3.0)
@@ -1814,7 +2001,7 @@ impl Page {
             quality: None,
             clip,
             from_surface: Some(true),
-            capture_beyond_viewport: Some(full_page),
+            capture_beyond_viewport: Some(options.full_page),
             optimize_for_speed: None,
         };
 
@@ -1822,7 +2009,7 @@ impl Page {
             self.session.send_command(screenshot_params, None).await?;
 
         // 4. Generate save path
-        let out_path_buf: std::path::PathBuf = match save_path {
+        let out_path_buf: std::path::PathBuf = match options.save_path {
             Some(pv) => {
                 if pv.parent().is_none_or(|p| p.as_os_str().is_empty()) {
                     std::env::current_dir()?.join(pv)
@@ -2192,6 +2379,10 @@ impl Page {
     /// # Ok(())
     /// # }
     /// ```
+    pub async fn enable_network_monitoring(&self) -> Result<()> {
+        self.domain_manager.enable_network_domain().await
+    }
+
     pub async fn on_network(&self, callback: NetworkEventCallback) {
         self.network_monitor.add_callback(callback).await;
     }

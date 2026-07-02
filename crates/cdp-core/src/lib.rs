@@ -136,21 +136,25 @@ pub use input::{
     },
 };
 pub use network::{
-    cookies::{Cookie, CookieManager, CookiePriority, CookieSameSite, SetCookieParams},
+    cookies::{
+        Cookie, CookieManager, CookiePriority, CookieSameSite, DeleteCookieOptions, SetCookieParams,
+    },
     network_control::NetworkControl,
     network_intercept::{
-        HttpMethod, InterceptedRequest, InterceptedResponse, NetworkEvent, NetworkEventCallback,
-        NetworkInterceptor, RequestInterceptorExt, RequestModification, ResponseFilterCallback,
-        ResponseHandlerCallback, ResponseMock,
+        HttpMethod, InterceptRequestAction, InterceptedRequest, InterceptedResponse, NetworkEvent,
+        NetworkEventCallback, NetworkInterceptor, RequestInterceptorExt, RequestModification,
+        ResponseFilterCallback, ResponseHandlerCallback, ResponseMock,
     },
 };
 pub use page::{
-    element::{ElementHandle, ScreenshotBoxType, ShadowRoot},
+    element::{
+        ElementBoundingBox, ElementHandle, ElementScreenshotOptions, ScreenshotBoxType, ShadowRoot,
+    },
     frame::{Frame, RetryConfig},
     page_core::{
         DomMutationCallback, DomMutationEvent, FrameLifecycleCallback, FrameLifecycleEvent,
-        FrameSnapshot, Page, ScreencastOptions, WaitForNavigationOptions, WaitForSelectorOptions,
-        WaitUntil,
+        FrameSnapshot, Page, PageScreenshotOptions, ReloadOptions, ScreencastOptions,
+        WaitForNavigationOptions, WaitForSelectorOptions, WaitUntil,
     },
     session::{PageSession, PageSessionManager, PageSessionSnapshot},
 };

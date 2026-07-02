@@ -53,7 +53,8 @@ page.wait_for_navigation(None).await?;
 // Back/Forward/Reload
 page.go_back().await?;
 page.go_forward().await?;
-page.reload().await?;
+page.reload(cdp_core::ReloadOptions::default()).await?;
+page.reload(cdp_core::ReloadOptions::default().with_ignore_cache(true)).await?;
 ```
 
 ### Wait for Navigation
@@ -235,42 +236,37 @@ Comprehensive network control including request interception, response monitorin
 ### Request Interception
 
 ```rust
-use cdp_core::{NetworkInterceptor, RequestModification, HttpMethod};
-use std::sync::Arc;
-
-// Enable interception
-page.enable_network_interception().await?;
+use cdp_core::{InterceptRequestAction, RequestModification, ResponseMock};
 
 // Intercept and modify requests
-page.intercept_requests(Arc::new(|mut request| {
-    // Modify headers
-    request.headers.insert("Authorization".to_string(), "Bearer token123".to_string());
-    
-    // Continue with modifications
-    Ok(RequestModification::Continue(request))
-})).await;
+page.intercept_requests(|request| {
+    if request.url.contains("/api/") {
+        return InterceptRequestAction::Modify(
+            RequestModification::default().with_header("Authorization", "Bearer token123"),
+        );
+    }
+    InterceptRequestAction::Continue
+}).await?;
 
 // Block requests
-page.intercept_requests(Arc::new(|request| {
+page.intercept_requests(|request| {
     if request.url.contains("analytics") {
-        return Ok(RequestModification::Abort);
+        return InterceptRequestAction::Abort("BlockedByClient".to_string());
     }
-    Ok(RequestModification::Continue(request))
-})).await;
+    InterceptRequestAction::Continue
+}).await?;
 
 // Mock responses
-use cdp_core::ResponseMock;
-
-page.intercept_requests(Arc::new(|request| {
+page.intercept_requests(|request| {
     if request.url.contains("/api/data") {
-        return Ok(RequestModification::Mock(ResponseMock {
-            status: 200,
-            headers: vec![("Content-Type".to_string(), "application/json".to_string())],
-            body: br#"{"mock": "data"}"#.to_vec(),
-        }));
+        return InterceptRequestAction::Fulfill(
+            ResponseMock::new(r#"{"mock":"data"}"#)
+                .with_status_code(200)
+                .with_header("Content-Type", "application/json"),
+        );
     }
-    Ok(RequestModification::Continue(request))
-})).await;
+    InterceptRequestAction::Continue
+}).await?;
 ```
 
 ### Response Monitoring
@@ -346,7 +342,9 @@ Capture element and full page screenshots with DPR adaptation.
 let element = page.query_selector("#logo").await?
     .ok_or(anyhow!("Logo not found"))?;
 
-let screenshot_base64 = element.screenshot().await?;
+let screenshot_base64 = element
+    .screenshot(cdp_core::ElementScreenshotOptions::default())
+    .await?;
 
 // Save to file
 use base64::Engine;
@@ -358,17 +356,27 @@ std::fs::write("logo.png", bytes)?;
 
 ```rust
 // Capture entire page (including scroll area)
-page.screenshot(true, Some("fullpage.png".into())).await?;
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("fullpage.png"),
+    )
+    .await?;
 
 // Viewport only
-page.screenshot(false, Some("viewport.png".into())).await?;
+page
+    .screenshot(cdp_core::PageScreenshotOptions::default().save_to("viewport.png"))
+    .await?;
 
 // With DPR control (recommended)
-page.screenshot_with_options(
-    true,                                // full_page
-    Some("fullpage.png".into()),        // save_path
-    true                                 // auto_resolve_dpr
-).await?;
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("fullpage.png"),
+    )
+    .await?;
 ```
 
 ### DPR Adaptation
@@ -377,10 +385,19 @@ Automatic device pixel ratio handling for consistent screenshots:
 
 ```rust
 // Auto-adapt to device DPR (prevents scaling issues)
-page.screenshot_with_options(true, Some("page.png".into()), true).await?;
+page
+    .screenshot(cdp_core::PageScreenshotOptions::default().full_page().save_to("page.png"))
+    .await?;
 
 // Fixed DPR (use 1.0)
-page.screenshot_with_options(true, Some("page.png".into()), false).await?;
+page
+    .screenshot(
+        cdp_core::PageScreenshotOptions::default()
+            .full_page()
+            .save_to("page.png")
+            .auto_resolve_dpr(false),
+    )
+    .await?;
 ```
 
 ---
@@ -659,11 +676,9 @@ page.emulate_device(desktop_config).await?;
 ```rust
 use cdp_core::Geolocation;
 
-page.set_geolocation(Geolocation {
-    latitude: 37.7749,
-    longitude: -122.4194,
-    accuracy: Some(100.0),
-}).await?;
+page
+    .set_geolocation(Geolocation::new(37.7749, -122.4194).with_accuracy(100.0))
+    .await?;
 
 // Clear geolocation
 page.emulation().clear_geolocation().await?;
@@ -673,17 +688,20 @@ page.emulation().clear_geolocation().await?;
 
 ```rust
 // Simple user agent
-page.set_user_agent("Mozilla/5.0 ...").await?;
+page
+    .set_user_agent(cdp_core::UserAgentOverride::new("Mozilla/5.0 ..."))
+    .await?;
 
 // User agent with metadata
 use cdp_core::UserAgentOverride;
 
-page.set_user_agent_override(UserAgentOverride {
-    user_agent: "Mozilla/5.0 ...".to_string(),
-    accept_language: Some("en-US,en;q=0.9".to_string()),
-    platform: Some("Win32".to_string()),
-    ..Default::default()
-}).await?;
+page
+    .set_user_agent(
+        UserAgentOverride::new("Mozilla/5.0 ...")
+            .with_accept_language("en-US,en;q=0.9")
+            .with_platform("Win32"),
+    )
+    .await?;
 ```
 
 ### Timezone & Locale
@@ -873,7 +891,9 @@ async fn main() -> anyhow::Result<()> {
     ).await?;
     
     // Take screenshot
-    page.screenshot(true, Some("result.png".into())).await?;
+    page
+        .screenshot(cdp_core::PageScreenshotOptions::default().full_page().save_to("result.png"))
+        .await?;
     
     // Cleanup
     page.cleanup().await?;

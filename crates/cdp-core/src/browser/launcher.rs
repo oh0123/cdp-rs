@@ -277,13 +277,8 @@ impl BrowserType {
             .collect()
     }
 
-    /// Launch a browser with a fresh user-data-dir and remote debugging enabled.
-    pub fn launch(&self, debug_port: u16) -> Result<LaunchedBrowser> {
-        self.launch_with_options(debug_port, BrowserLaunchOptions::default())
-    }
-
     /// Launch a browser with custom launch options applied.
-    pub fn launch_with_options(
+    pub fn launch(
         &self,
         debug_port: u16,
         options: BrowserLaunchOptions,
