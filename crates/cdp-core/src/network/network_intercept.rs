@@ -2,6 +2,7 @@ use crate::DomainType;
 use crate::error::Result;
 use crate::page::Page;
 use async_trait::async_trait;
+use base64::{Engine as _, engine::general_purpose::STANDARD};
 use cdp_protocol::fetch::{
     self as fetch_cdp, ContinueRequest, ContinueResponse, FailRequest, FulfillRequest,
     RequestPattern, RequestStage,
@@ -226,7 +227,7 @@ fn build_fulfill_request(request_id: &str, response: ResponseMock) -> FulfillReq
         response_code: response.status_code as u32,
         response_headers: Some(header_entries(response.headers)),
         binary_response_headers: None,
-        body: Some(response.body.into_bytes()),
+        body: Some(STANDARD.encode(response.body.as_bytes())),
         response_phrase: None,
     }
 }
@@ -494,7 +495,7 @@ mod tests {
 
         assert_eq!(command.request_id, "request-2");
         assert_eq!(command.response_code, 200);
-        assert_eq!(command.body, Some(b"mocked body".to_vec()));
+        assert_eq!(command.body, Some(STANDARD.encode("mocked body")));
         assert!(command.binary_response_headers.is_none());
     }
 }

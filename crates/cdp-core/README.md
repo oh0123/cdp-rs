@@ -115,26 +115,26 @@ When reusing a shared `Browser`, keep `page.cleanup()` and `context.close()` at 
 
 ## Examples
 
-Check out the [examples](examples/) directory for runnable code:
+Check out the [examples](examples/) directory for browser-backed manual
+examples. The canonical suite keeps deterministic local fixtures separate from
+explicit live-site smoke cases:
 
 ```bash
-# Run basic example
-cargo run --example basic
+# Compile every manual example, including live examples
+cargo check --examples
 
-# Run comprehensive example
-cargo run --example comprehensive
+# Deterministic local examples
+cargo run --example api_browser_page
+cargo run --example api_element_frame_input
+cargo run --example api_network_local
+cargo run --example api_storage_session
+cargo run --example api_emulation_accessibility_tracing
+cargo run --example api_output_capture
+cargo run --example api_events_local
 
-# Run network example
-cargo run --example network
-
-# Run event handling example
-cargo run --example events
-
-# Run Runtime.consoleAPICalled example
-cargo run --example runtime_console_events
-
-# Run screencast example
-cargo run --example screencast
+# Explicit external-network examples
+CDP_RS_LIVE=1 cargo run --example api_live_amazon
+CDP_RS_LIVE=1 cargo run --example api_live_fedex
 ```
 
 ## Architecture

@@ -588,4 +588,6 @@ match page.query_selector("#button").await {
 
 - [Getting Started Guide](GETTING_STARTED.md)
 - [Feature Guides](features/)
+- [Manual Browser Example Suite](MANUAL_EXAMPLES.md)
+- [Manual Example Coverage Gap List](EXAMPLE_COVERAGE_GAPS.md)
 - [Examples](../examples/)

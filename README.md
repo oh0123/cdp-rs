@@ -136,30 +136,29 @@ When reusing a shared `Browser`, keep `page.cleanup()` and `context.close()` at 
 - **[API Reference](crates/cdp-core/docs/API_REFERENCE.md)** - Quick reference for the high-level API
 - **[Feature Guides](crates/cdp-core/docs/features/)** - Detailed documentation for each feature area
 - **[How-To Guides](crates/cdp-core/docs/howto/)** - Practical recipes and usage patterns
-- **[cdp-core examples](crates/cdp-core/examples/)** - Runnable examples covering launch, networking, storage, and concurrent contexts
+- **[cdp-core examples](crates/cdp-core/examples/)** - Manual browser examples split into deterministic local examples and explicit live-site examples
+- **[Manual Example Suite](crates/cdp-core/docs/MANUAL_EXAMPLES.md)** - Canonical local/live example ownership and run commands
 
 ## Examples
 
 From the workspace root, run examples from [crates/cdp-core/examples/](crates/cdp-core/examples/):
 
 ```bash
-# Run basic example
-cargo run -p cdp-core --example basic
+# Compile every manual example, including live examples
+cargo check -p cdp-core --examples
 
-# Run comprehensive example
-cargo run -p cdp-core --example comprehensive
+# Deterministic local examples
+cargo run -p cdp-core --example api_browser_page
+cargo run -p cdp-core --example api_element_frame_input
+cargo run -p cdp-core --example api_network_local
+cargo run -p cdp-core --example api_storage_session
+cargo run -p cdp-core --example api_emulation_accessibility_tracing
+cargo run -p cdp-core --example api_output_capture
+cargo run -p cdp-core --example api_events_local
 
-# Run network example
-cargo run -p cdp-core --example network
-
-# Run event handling example
-cargo run -p cdp-core --example events
-
-# Run Runtime.consoleAPICalled example
-cargo run -p cdp-core --example runtime_console_events
-
-# Run screencast example
-cargo run -p cdp-core --example screencast
+# Explicit external-network examples
+CDP_RS_LIVE=1 cargo run -p cdp-core --example api_live_amazon
+CDP_RS_LIVE=1 cargo run -p cdp-core --example api_live_fedex
 ```
 
 ## Architecture

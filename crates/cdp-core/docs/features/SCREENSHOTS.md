@@ -324,4 +324,4 @@ page
 
 - [API Reference](../API_REFERENCE.md#screenshots)
 - [Element Interaction](ELEMENT_INTERACTION.md)
-- [Examples](../../examples/comprehensive.rs)
+- [Output capture example](../../examples/api_output_capture.rs)
